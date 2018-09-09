@@ -1,0 +1,82 @@
+<!--pages/meeting/meeting.wxml-->
+<import src="/components/meeting-time.wxml" />
+
+<view class="meeting layout">
+  <!-- banner start -->
+  <view class="meeting-banner">
+    <swiper
+      indicator-dots="true"
+      autoplay="true"
+      indicator-color="rgba(255, 255, 255, .6)"
+      indicator-active-color="rgb(255, 255, 255)"
+      circular="true"
+    >
+      <block wx:for="{{detail.basic.images}}" wx:key="{{index}}">
+        <swiper-item>
+          <image src="{{item.url}}" class="slide-image"/>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- banner end -->
+
+  <!-- 会议简介 start -->
+  <view class="meeting-summary mg-b-20">
+    <view class="meeting-summary-title">
+      {{detail.title}}
+    </view>
+    <view class="meeting-summary-content">
+      {{detail.basic.text}}
+    </view>
+  </view>
+  <!-- 会议简介 end -->
+
+  <view class="mg-b-20">
+    <template is="meetingTime" data="{{...detail}}"></template>
+  </view>
+
+  <!-- 会议详情 start -->
+  <view class="meeting-detail border-b">
+    <!-- <view class="meeting-detail-header height-100 border-b">
+      <view class="meeting-detail-type border-r">
+        <image src="/images/icon-meeting.png"></image>
+        <view>行业会议</view>
+      </view>
+      <view class="meeting-detail-member">
+        <image src="/images/icon-member.png"></image>
+        <view>{{detail.basic.count}}人报名</view>
+      </view>
+    </view> -->
+    <view class="meeting-detail-list height-100 border-b">
+      <image src="/images/icon-place.png"></image>
+      <view>会议地点：{{detail.basic.place}}</view>
+    </view>
+    <view class="meeting-detail-list height-100 border-b">
+      <image src="/images/icon-address.png"></image>
+      <view>会议地址：{{detail.basic.address}}</view>
+    </view>
+    <view class="meeting-detail-list height-100 border-b">
+      <image src="/images/icon-contact.png"></image>
+      <view>经理联系方式： <text style="padding-right: 8rpx;">{{detail.basic.contactName}}</text>
+        {{detail.basic.contactTel}}
+      </view>
+      <image style="margin-right: 0;" data-phone="{{detail.basic.contactTel}}" bindtap="call" class="meeting-detail-phone" src="/images/icon-phone.png"></image>
+    </view>
+    <view class="meeting-detail-list height-100 border-b">
+      <image src="/images/icon-activities.png"></image>
+      <view>会议活动方：{{detail.basic.sponsor}}</view>
+    </view>
+    <view class="meeting-detail-list height-100">
+      <image src="/images/icon-pay-style.png"></image>
+      <view>支付方式：在线支付</view>
+    </view>
+  </view>
+  <!-- 会议详情 end -->
+  <view class="meeting-add-check">
+    <view bindtap="navToRooms" class="add-check-btn {{isEnd?'add-check-end':''}}">{{isEnd?'已过期':'预定客房'}}</view>
+  </view>
+  <!-- 技术支持 -->
+  <view class="system-set">
+    小订房提供技术支持
+  </view>
+</view>

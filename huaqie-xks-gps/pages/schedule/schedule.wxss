@@ -1,0 +1,111 @@
+.placeholder{
+    /* margin: 0.5px; */
+    padding: 0 1px;
+    text-align: center;
+    font-size: 24rpx;
+    height: 76rpx;
+    color: #cfcfcf;
+    line-height: 76rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.page{
+  margin: 0 8rpx;
+}
+.page__hd{
+  height: 76rpx;
+  line-height: 76rpx;
+  font-size: 30rpx;
+  color: rgb(33, 33, 33);
+  background: white;
+  text-align: center;
+
+}
+.placeholder.num{
+  font-size: 22rpx;
+  width: 54rpx;
+
+}
+.placeholder.stop{
+  width: 310rpx;
+}
+
+.placeholder.info1{
+    font-size: 24rpx;
+    color:white;
+    background: #ff3232;
+    height: 66rpx;
+    line-height: 1.2;
+    flex-direction: column;
+    /* justify-content: space-around; */
+}
+.placeholder.info2{
+    font-size: 24rpx;
+    color:#ff3232;
+    background: white;
+    height: 66rpx;
+    line-height: 66rpx;
+
+}
+.placeholder.info2 .text{
+  margin-right: 15rpx;
+}
+.placeholder.info2 image{
+  width: 27rpx;
+  height: 26rpx;
+  vertical-align: middle;
+
+  margin-right: 10rpx;
+  line-height: 1.5;
+  display: inline-block
+}
+.placeholder.info3{
+    font-size: 22rpx;
+    color:white;
+    background: #00a0e8;
+    height: 66rpx;
+    line-height: 1.3;
+    flex-direction: column;
+}
+.placeholder.info3 .text{
+  margin-right: 26rpx;
+}
+
+.weui-flex.timelist:nth-child(2n-1) .placeholder{
+  background: #00a0e8;
+  color: white;
+  line-height: 1.5;
+  text-align: left;
+
+}
+.weui-flex.timelist:nth-child(2n) .placeholder{
+  background: white;
+  color: black;
+  line-height: 1.5;
+  text-align: left;
+
+}
+.info4 .placeholder.infoL{
+
+  display: inline-block;
+  text-align: left;
+  /* margin-left: -100rpx; */
+  color: white;
+  width: 100rpx;
+}
+.placeholder.infoM{
+  width: 120rpx;
+  display: inline-block;
+  text-align: center;
+  color: white;
+  margin-left: 100rpx;
+}
+.placeholder.infoR{
+  color: white;
+}
+
+/* .weui-flex .placeholder{
+  background: #00a0e8;
+  color: white;
+} */

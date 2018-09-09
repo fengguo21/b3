@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+
+    <link rel="stylesheet" type="text/css" href="../../css/yuyue-time.css?v=0"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script>
+    <script type="text/javascript">
+        if ('addEventListener' in document) {
+            document.addEventListener('DOMContentLoaded', function() {
+                FastClick.attach(document.body);
+            }, false);
+        }
+    </script>
+    <title>title</title>
+    <style type="text/css">
+        .data-count{
+            display: flex;
+        }
+        .data-count__item{
+            flex:1;
+            text-align: center;
+
+
+        }
+
+        #tabs{
+            display: flex;
+            height: 60px;
+           /*border-top: 1px solid #e6e6e6;*/
+            background: white;
+        }
+        .count-tabs-item{
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            text-align: center;
+            margin-top: 13px;
+            color:#808080;
+            font-size:11px;
+            position: relative;
+        }
+        .count-tabs-item .number{
+            font-size: 17px;
+            color: #ff3e39;
+            margin-top: 10px;
+            position: relative;
+        }
+        .count-tabs-item .number.pay{
+            color: #13b859;
+        }
+        .count-tabs-item.left::after{
+                content: '';
+                border-right: 1px solid #ccc;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                -webkit-transform: translateY(-50%);
+                height: 15px;
+        }
+        #filter-box {
+            display: flex;
+            font-size: 14px;
+            background: white;
+            height: 50px;
+        }
+        #filter-box .active{
+            color:#ff55b5;
+            position: relative;
+        }
+
+        #filter-box .active::after {
+            content: '';
+            display: block;
+            width: 55px;
+            border-bottom: 2px solid #ff55b5;
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+        }
+
+        .filter-box.show {
+            display: block;
+        }
+        .filter-box li {
+            /* padding: 15px 0; */
+            flex: 1;
+            /*margin:0 35px;*/
+           /*width:55px;*/
+            height: 50px;
+            line-height: 50px;
+            color: #999999;
+            text-align: center;
+            font-size: 13px;
+
+        }
+        #not-empty .top{
+            padding-top: 14px;
+        }
+
+
+        .flex-header {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+        }
+        #count {
+            background: #f4f4f4;
+        }
+        .flex-wrap {
+            /* flex: 1;
+            overflow: auto; */
+            padding-top: 86px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="flex-header">
+        <ul class='filter-box' id='filter-box'>
+            <li data-name='consume' class="active" data-index='1'>今日预约</li>
+            <li data-name='consumeTime' data-index='2'>明日预约</li>
+            <li data-name='consumeCount' data-index='3'>后日预约</li>
+        </ul>
+
+    </div>
+    <!-- <div style="position: fixed;width:100%;z-index: 100;top:0px;">
+            <div class="count-tabs border-b" id='tabs'>
+            <div data-index='1' class="count-tabs-item left" >
+                <span class=''>今日预约</span>
+                <p class="number diet" id="today">0</p>
+            </div>
+            <div data-index='2' class="count-tabs-item left">
+                <span class=''>明日预约</span>
+                <span class="number diet" id="tomm">0</span>
+            </div>
+            <div data-index='3' class="count-tabs-item ">
+                <span class=''>后日预约</span>
+                <span class="number diet" id="last">0</span>
+            </div>
+        </div>
+        </div> -->
+    <div id='not-empty' style="margin-top: 60px">
+        <p id='count' style="margin-top: -10px"><span><img src="../../image/team-team.png"></span><span>共<span id="total">0</span>位顾客</span></p>
+        <ul class="top border-t border-b" id='top-list' >
+            <script type="text/html" id='tpl-top-list'>
+                <p class='title'>上午</p>
+                {{each list val index}}
+                <li class='card-item' onclick='telPhone({{val.basic?val.basic.phone:""}})'>
+                    <div class="item-box {{val.basic?'avaliable':''}}">
+                        <div class="item-box-wrap"></div>
+                        <div class="item-box-top">
+                            <div class="top-avatar">
+                                <img src="{{val.basic?val.people.avatar:'../../image/avatar-auto.png'}}">
+                            </div>
+                            <p class="top-name">
+                                {{if val.basic}}
+                                    {{val.basic.name}}
+                                {{else}}
+
+                                {{/if}}
+                            </p>
+                        </div>
+                        <div class="item-box-bottom">
+                            <p class="bottom-pro">
+                                {{if val.basic}}
+                                    {{val.basic.service}}
+                                {{else}}
+                                    空闲
+                                {{/if}}
+                            </p>
+                            <p class="bottom-time">
+                                {{val.pre}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                {{/each}}
+            </script>
+        </ul>
+        <ul class="middle border-t border-b" id='middle-list'>
+            <script type="text/html" id='tpl-middle-list'>
+                <p class='title'>下午</p>
+                {{each list val index}}
+                <li class='card-item' onclick='telPhone({{val.basic?val.basic.phone:""}})'>
+                    <div class="item-box {{val.basic?'avaliable':''}}">
+                        <div class="item-box-wrap"></div>
+                        <div class="item-box-top">
+                            <div class="top-avatar">
+                                <img src="{{val.basic?val.people.avatar:'../../image/avatar-auto.png'}}">
+                            </div>
+                            <p class="top-name">
+                                {{if val.basic}}
+                                    {{val.basic.name}}
+                                {{/if}}
+                            </p>
+                        </div>
+                        <div class="item-box-bottom">
+                            <p class="bottom-pro">
+                                {{if val.basic}}
+                                    {{val.basic.service}}
+                                {{else}}
+                                    空闲
+                                {{/if}}
+                            </p>
+                            <p class="bottom-time">
+                                {{val.pre}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                {{/each}}
+            </script>
+        </ul>
+        <ul class="bottom border-t border-b" id='bottom-list'>
+            <script type="text/html" id='tpl-bottom-list'>
+                <p class='title'>晚上</p>
+                {{each list val index}}
+                <li class='card-item' onclick='telPhone({{val.basic?val.basic.phone:""}})'>
+                    <div class="item-box {{val.basic?'avaliable':''}}">
+                        <div class="item-box-wrap"></div>
+                        <div class="item-box-top">
+                            <div class="top-avatar">
+                                <img src="{{val.basic?val.people.avatar:'../../image/avatar-auto.png'}}">
+                            </div>
+                            <p class="top-name">
+                                {{if val.basic}}
+                                    {{val.basic.name}}
+                                {{/if}}
+                            </p>
+                        </div>
+                        <div class="item-box-bottom">
+                            <p class="bottom-pro">
+                                {{if val.basic}}
+                                    {{val.basic.service}}
+                                {{else}}
+                                    空闲
+                                {{/if}}
+                            </p>
+                            <p class="bottom-time">
+                                {{val.pre}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+                {{/each}}
+            </script>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/axios.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../script/moment.min.js"></script>
+<script type="text/javascript" src="../../script/template-web.js"></script>
+<script type="text/javascript" src="../../fetch/api.js?v=2"></script>
+<script type="text/javascript">
+    var allList = [
+        {pre:'09:00-10:00'},
+        {pre:'10:00-11:00'},
+        {pre:'11:00-12:00'},
+        {pre:'12:00-13:00'},
+        {pre:'13:00-14:00'},
+        {pre:'14:00-15:00'},
+        {pre:'15:00-16:00'},
+        {pre:'16:00-17:00'},
+        {pre:'17:00-18:00'},
+        {pre:'18:00-19:00'},
+        {pre:'19:00-20:00'},
+        {pre:'20:00-21:00'},
+        {pre:'21:00-22:00'}
+    ];
+    var allList2 = [
+        {pre:'09:00-10:00'},
+        {pre:'10:00-11:00'},
+        {pre:'11:00-12:00'},
+        {pre:'12:00-13:00'},
+        {pre:'13:00-14:00'},
+        {pre:'14:00-15:00'},
+        {pre:'15:00-16:00'},
+        {pre:'16:00-17:00'},
+        {pre:'17:00-18:00'},
+        {pre:'18:00-19:00'},
+        {pre:'19:00-20:00'},
+        {pre:'20:00-21:00'},
+        {pre:'21:00-22:00'}
+    ];
+
+    var topList = [];
+    var middleList = [];
+    var bottomList = [];
+    var page = 1;
+    var total = 0;
+    var param = store.get('yuyueList');
+    var init = function() {
+        initData();
+        initObj();
+        getDiff();
+        // getPrebookCount();
+    }
+    var initObj = function() {
+        allList = [
+            {pre:'09:00-10:00'},
+            {pre:'10:00-11:00'},
+            {pre:'11:00-12:00'},
+            {pre:'12:00-13:00'},
+            {pre:'13:00-14:00'},
+            {pre:'14:00-15:00'},
+            {pre:'15:00-16:00'},
+            {pre:'16:00-17:00'},
+            {pre:'17:00-18:00'},
+            {pre:'18:00-19:00'},
+            {pre:'19:00-20:00'},
+            {pre:'20:00-21:00'},
+            {pre:'21:00-22:00'}
+        ];
+    }
+    $('#filter-box').on('click', 'li', function(e) {
+        // history.go(0)
+        initObj();
+        $('li').removeClass('active')
+        e.target.className='active'
+        var index = this.dataset.index;
+        store.set('yuyueList', index);
+        param = index;
+        getDiff();
+    })
+    var initData = function() {
+        var topList = [];
+        var middleList = [];
+        var bottomList = [];
+        page = 1;
+        total = 0;
+    }
+    var telPhone = function(phone) {
+        // console.log(phone);
+        if(!phone) {
+            return;
+        }
+        api.call({
+            type: 'tel_prompt',
+            number: phone
+        });
+    }
+    var showData = function(list) {
+        topList = list.slice(0, 3);
+        middleList = list.slice(3, 9);
+        bottomList = list.slice(9, 13);
+        $('#total').html(total);
+        // console.log(topList, middleList, bottomList);
+        $('#top-list').html(template('tpl-top-list', {list: topList}))
+        $('#middle-list').html(template('tpl-middle-list', {list: middleList}))
+        $('#bottom-list').html(template('tpl-bottom-list', {list: bottomList}))
+    }
+    var getDiff = function() {
+        if(param == 1) {
+            getToday();
+        } else if(param == 2) {
+            getTom();
+        } else {
+            getLast();
+        }
+    }
+    var getPrebookList = function(day) {
+        // console.log(day,2)
+        ajax.getPrebookList({
+            page: page,
+            size: 14,
+            date: day,
+            peopleId: store.get('me').peopleId
+        }, function(res) {
+            // console.log(res.data.list)
+            // orderList = res.data.list;
+            var dat = res.data.list;
+            var len = dat.length;
+            for(var i = 0; i < len; i++) {
+                for(var index=0 ; index < allList.length; index++) {
+                    // console.log(dat[i].basic.periods.indexOf(allList[index].pre));
+                    if(dat[i].basic.periods.indexOf(allList[index].pre) >= 0) {
+                        dat[i].pre = allList[index].pre;
+                        allList[index] = dat[i];
+                    }
+                }
+            }
+            // console.log(allList);
+            total = res.data.total;
+            showData(allList);
+        })
+        .catch(function() {
+            showData(allList);
+        })
+    }
+    var getToday = function() {
+        var date = new Date();
+        var today = moment(date.getTime()).format('YYYY-MM-DD');
+        getPrebookList(today);
+    }
+    var getTom = function() {
+        var date = new Date();
+        var tomm = moment(date.setDate(date.getDate() + 1)).format('YYYY-MM-DD');
+        getPrebookList(tomm)
+    }
+    var getLast = function() {
+        var date = new Date();
+        var last = moment(date.setDate(date.getDate() + 2)).format('YYYY-MM-DD');
+        getPrebookList(last)
+    }
+    var getPrebookCount = function() {
+      var today = moment().format('YYYY-MM-DD');
+      var tomm = moment().add(1, 'days').format('YYYY-MM-DD');
+      var last = moment().add(2, 'days').format('YYYY-MM-DD');
+      // console.log(today, tomm, last);
+      // var todayDate = moment(today.split('-'))
+      if(!store.get('me')) return;
+      ajax.getPrebookCount({
+        peopleId: store.get('me').peopleId
+      }, function(res) {
+        $('#today').html(res.data[today]);
+        $('#tomm').html(res.data[tomm]);
+        $('#last').html(res.data[last]);
+      })
+    }
+    init();
+</script>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/system.css?v=4"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mrUI.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script>
+    <script type="text/javascript" src='../../script/rem.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style>
+        #add-member .form-item-cell-icon {
+            width: 19px;
+        }
+        #add-member .form-item-cell-label {
+            left: 29px;
+            font-size: 14px;
+        }
+        #post:disabled {
+            background-color: #fff;
+        }
+        .choiceItem{
+            width:1.18rem;
+            display: inline-block;
+            position: relative;
+        }
+        .choiceItem input{
+            position: absolute;
+            width:1.18rem;
+            height: 0.8rem;
+            opacity: 0;
+
+        }
+        .choiceItem input:checked+span{
+            background: #fee1f1;
+            color:#ff55b5;
+            border:1px solid #ff55b5;
+        }
+        .choiceItem span{
+            display: block;
+            width: 1.18rem;
+            height: 0.6rem;
+            border:1px solid #d9d9d9;
+            border-radius: 0.5rem;
+            font-size: 11px;
+            color:#333;
+            line-height: 0.56rem;
+            text-align: center;
+            margin-top: -1px;
+            margin:0.06rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="set-layout" id='add-member'>
+        <ul class="form-content">
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/user-name.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>员工姓名</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='name' type="text" placeholder="请输入员工姓名">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/phone.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>手机号码</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='phone' type="text" placeholder="请输入手机号码">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/sys-psd.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>初始密码</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='password' type="text" placeholder="请输入初始密码" value='123456'>
+                    </span>
+                </div>
+            </li>  
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/detail-ser.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>员工职称</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='pro' type="text" placeholder="请输入成员职称">
+                    </span>
+                </div>
+            </li>  
+            <li class="form-item border-b" id='post-wrap'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/detail-pro.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>服务项目</span>
+                    <span style='right: 18px' class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='post' type="text" placeholder="请选择服务项目" readonly>
+                    </span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <img class='more' src="../../image/sys-more.png">
+                    </span> 
+                    <!-- <span class='form-item-cell-other position-y-center'>
+
+                        <input class='other-input' id='post' type="text" placeholder="请选择服务项目" disabled>
+                    </span> -->
+                </div>
+            </li>  
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/card-desc.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>设置店长</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='switch' id='set-master' type="checkbox" onclick='changeSet(this)'>
+                    </span>
+                </div>
+            </li> 
+
+            <li class="form-item ">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/authorities.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>设置权限</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        
+                    </span>
+                </div>
+            </li>
+            <li class="form-item ">
+                <div class="form-item-cell">
+                    <div class="choiceItem">
+                        <input name="health" type="checkbox" value="report" /><span>报表</span>
+                    </div>
+                    <div class="choiceItem">
+                        <input name="health" type="checkbox" value="vip" /><span>会员</span>
+                    </div>
+                    <div class="choiceItem">
+                        <input name="health" type="checkbox" value="team" /><span>团队</span>
+                    </div>
+                    <div class="choiceItem">
+                        <input name="health" type="checkbox" value="card" /><span>会员卡</span>
+                    </div>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <div class="choiceItem">
+                        <input name="health" type="checkbox" value="markaccount" /><span>记账</span>
+                    </div>
+                    <div class="choiceItem">
+                        <input name="health" type="checkbox" value="orders" /><span>收款记录</span>
+                    </div>
+                    <div class="choiceItem">
+                        <input name="health" type="checkbox" value="shop" /><span>商城</span>
+                    </div>
+                </div>
+            </li>    
+
+            <li class="form-item" style='height: 128px'>
+                <div class="form-item-cell">
+                    <div class='form-item-cell-btn' onclick='addMember()'>
+                        <span>确认添加</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/axios.min.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script src="../../script/store.min.js"></script>
+<script src="../../fetch/api.js"></script>
+<script type="text/javascript">
+    var isMasterSet = false;
+    var me = store.get('me');
+    var total = null;
+    $('#post-wrap').on('click', function() {
+        api.openWin({
+            name: 'setproject',
+            url: '../setproject/setproject.html'
+        })
+    })
+    var selectPro = function() {
+        var pro = store.get('selectPro');
+        $('#post').val(pro)
+    }
+    var changeSet = function(e) {
+        if(me.role.level == 1.5) {
+            e.checked = isMasterSet;
+            api.alert({
+                title: '警告',
+                msg: '您没有操作权限！'
+            })
+            return;
+        }
+        if(total == 1) {
+            e.checked = isMasterSet;
+            api.alert({
+                title: '警告',
+                msg: '已经存在店长，请取消店长后再次尝试'
+            })
+            return;
+        }
+        isMasterSet = e.checked;
+    }
+    var getMaster = function() {
+        ajax.getMemberList({
+            level: 1.5,
+            page: 1,
+            size: 10
+        }, function(res) {
+            total = res.data.total;
+        })
+    }
+    var addMember = function() {
+        //判断是否存在店长，并且查看是否取得数据
+        if(total == null) {
+            api.toast({msg: '网络出错，请稍后重试'})
+            return;
+        }
+        //正常判断过滤
+        if($('#name').val() == '') {
+            api.toast({msg: '成员姓名不能为空'})
+            return;
+        }
+        if($('#phone').val() == '') {
+            api.toast({msg: '手机号码不能为空'})
+            return;
+        } 
+        if (!validPhone($('#phone').val())) {
+            api.toast({msg: '手机号码格式错误'})
+            return;
+        }
+        if($('#password').val() == '') {
+            api.toast({msg: '成员密码不能为空'})
+            return;
+        }
+        if($('#pro').val() == '') {
+            api.toast({msg: '成员职务不能为空'})
+            return;
+        }
+        if($('#post').val() == '') {
+            api.toast({msg: '服务项目不能为空'})
+            return;
+        }
+        var services = $('#post').val().split(' ');
+        var authorities = {};  
+        $('input[name="health"]:checked').each(function(){  
+            authorities[$(this).val()] = 1;
+        }); 
+        console.log(authorities) 
+        authorities = JSON.stringify(authorities)
+        var formData = {
+            avatar: 'https://dn-huaqie.qbox.me/%E9%BB%98%E8%AE%A4%E5%A4%B4%E5%83%8F.png',
+            name: $('#name').val(),
+            phone: $('#phone').val(),
+            password: $('#password').val(),
+            sex: 1,
+            profession: $('#pro').val(),
+            title: isMasterSet ? '店长' : '员工',
+            services: services,
+            authorities:authorities,
+            level: isMasterSet ? 1.5 : 2
+        }
+        ajax.addMember(formData, function(ret) {
+            api.toast({
+                msg:'新增成功'
+            })
+            api.closeWin();
+            api.execScript({
+                name: 'team',
+                frameName: 'team_frame',
+                script: 'reload()'
+            })
+        });
+    }
+    var validPhone = function(data) {
+        var reg = /^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[678])[0-9]{8}$/;
+        if(reg.test(data)) {
+            return true;
+        } else {
+            return false
+        }
+    }
+    getMaster();
+    apiready = function(){
+        // const avatar = $('#avatar').src;
+        // const name = $('#name').val();
+        // const phone = $('#phone').val();
+        // const password = $('#password').val();
+    };
+</script>
+</html>

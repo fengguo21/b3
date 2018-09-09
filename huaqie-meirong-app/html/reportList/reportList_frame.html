@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css?v=1"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        * {
+            line-height: 1;
+        }
+        .aui-user-view::after {
+            border: 0;
+        }
+        .aui-user-view-cell {
+            height: 60px;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: 0 15px;
+            position: relative;
+        }
+        .aui-user-view.aui-in .aui-user-view-cell::after {
+        	left: 15px!important;
+        }
+        .aui-user-view-cell::after {
+            border-color: #e6e6e6!important
+        }
+        
+        #pro-list .list-wrap:last-child li::after {
+            border-color: #fff!important;
+        }
+        .aui-user-view-cell p {
+            color: #999;
+        }
+        .msg-body {
+            width: calc(100% - 93px);
+            height: 48px;
+            position: absolute;
+            top: 50%;
+            left: 78px;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%)
+        }
+        .msg-body > span {
+            display: block;
+            height: 20px;
+            color: #333;
+            margin: 6px 0 5px;
+            font-size: 13px;
+            overflow: hidden;
+        }
+        .msg-body > span em {
+            float: right;
+        }
+        .msg-body > p {
+            padding: 0;
+            margin: 0;
+            height: 20px;
+            font-size: 12px;
+            color: #666;
+            overflow: hidden;
+        }
+        .msg-body > p em {
+            float: right;
+            color: #999;
+            font-size: 10px;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="not-empty" style='display: none'>
+        <div class="aui-content">
+            <ul class="aui-user-view aui-in" id="pro-list" style="padding-bottom: 100px">
+            <script id="tpl-pro" type="text/html">
+                {{each list value i}}
+                    <div class='list-wrap' style='position: relative;'>
+                        <li class="aui-user-view-cell aui-img not-move" data-title='{{value.basic.name}}'>
+                            <div class="position-y-center aui-pull-left" style='overflow: hidden; border-radius: 50%; height: 35px'>
+                                <img src="{{value.basic.avatar|formatAvatar}}" data-title='{{value.basic.name}}'  style='width: 35px !important; max-height: 35px !important; max-width: inherit !important; height: inherit !important;'>
+                            </div>
+                            <div class='position-y-center' style='float:left; height: 60px; line-height: 60px; left: 72px; font-size: 14px; color: #333'>
+                                <span data-title='{{value.basic.name}}'>{{value.extra.name||value.basic.name}}</span>
+                            </div>
+                            <div class='position-y-center' style='height: 60px; line-height: 60px; right: 15px; font-size: 12px; color: #666'>
+                                <span data-title='{{value.basic.name}}'>{{value.created|formatDate}}</span>
+                            </div>
+                        </li>
+                    </div>
+                {{/each}}
+            </script>
+            </ul>
+        </div>  
+    </div> 
+    <div id="empty" style='display: none; overflow: hidden; text-align: center'>
+         <div style='width: 165px; height:165px; margin: 178px auto 20px'>
+             <img src="../../image/data-empty.png" style='display: block; width: 186px;'>
+         </div>
+         <span style='font-size: 14px; color: #999'>暂时没有内容</span>
+    </div> 
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script src="../../script/axios.min.js"></script>
+<script type="text/javascript" src="../../script/template-web.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../script/moment.min.js"></script>
+<script type="text/javascript" src="../../fetch/api.js"></script>
+<script type="text/javascript">
+	template.defaults.imports.formatDate = function(data){
+        return moment(data).format('YYYY-MM-DD')
+    };
+    template.defaults.imports.formatAvatar = function(data){
+        return data||'../../image/user-avatar-info.png'
+    };
+    var proList = []
+    var page = 1;
+    var total = 0;
+    var getMemberList = function(param) {
+        if(param.styl == 1) {
+            getPeople(param);
+        } else {
+            getRole(param)
+        }   
+    }
+    var getPeople = function(param) {
+        ajax.getPeopleReport(param, function(res) {
+            total = res.data.total;
+            if(res.data.page > 1) {
+                proList = proList.concat(res.data.list);
+            } else {
+                proList = res.data.list;
+            }
+            render();
+        })
+    }   
+    var getRole = function(param) {
+        ajax.getRoleReport(param, function(res) {
+            total = res.data.total;
+            if(res.data.page > 1) {
+                proList = proList.concat(res.data.list);
+            } else {
+                proList = res.data.list;
+            }
+            render();
+        })
+    }  
+    var render = function() {
+        if(total > 0) {
+            $('#not-empty').show();
+            $('#empty').hide()
+            $('#pro-list').html(template('tpl-pro', {list: proList}))
+        } else {
+            $('#not-empty').hide();
+            $('#empty').show()
+        }
+    }
+    var loadMore = function() {
+        
+    }
+    // mc.on('press', function(e) {
+    //     console.log(e);
+    // })
+    apiready = function(){
+        var param = api.pageParam.val;
+        getMemberList(param)
+        // 滑动事件
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if(page * 10 < total){
+                page += 1
+                getMemberList(param);
+            } else {
+                api.toast({
+                    msg: '没有更多啦'
+                })
+            }
+        });
+    };
+</script>
+</html>

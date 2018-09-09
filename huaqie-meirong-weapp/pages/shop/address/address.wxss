@@ -1,0 +1,108 @@
+@import '../../common/common.wxss';
+
+.form-box {
+  /*padding-left: 30rpx;*/
+}
+
+.form-box input {
+  height: 94rpx;
+  border-bottom: 1rpx solid #ededed;
+  font-size: 28rpx;
+  color: #999;
+}
+
+.form-box .input-placeholder {
+  color: #aaa;
+}
+
+.form-box .btn {
+  position: fixed;
+  bottom: 59rpx;
+  width:100%;
+  margin: 0 auto;
+}
+
+.form-box button {
+  width: 680rpx;
+  background-color: #ffaf0e;
+  height: 89rpx;
+  line-height: 89rpx;
+  text-align: center;
+  border-radius: 59rpx;
+  color:#fff;
+}
+
+.form-item {
+  height: 94rpx;
+  width: 100%;
+  border-bottom: 1rpx solid #ededed;
+  float: left;
+}
+
+.form-item .desc {
+  height: 94rpx;
+  line-height: 94rpx;
+  margin-left: 28rpx;
+  font-size: 28rpx;
+  float: left;
+  color: #999;
+}
+
+.form-item .form-input {
+  height: 94rpx;
+  line-height: 94rpx;
+  margin-right: 28rpx;
+  text-align: right;
+  color: #000;
+}
+
+.form-item image {
+  width: 32rpx;
+  height: 32rpx;
+  float: right;
+  padding: 32rpx 0;
+  margin-right: 28rpx;
+}
+
+
+
+.form-item .switch {
+  float: right;
+  margin-right: 18rpx;
+  padding: 16rpx 0;
+}
+.form-show {
+  height: 94rpx;
+  line-height: 94rpx;
+  font-size: 28rpx;
+  text-align: right;
+  color: #000;
+  float: right;
+  margin-right: 21rpx;
+}
+
+
+
+
+
+
+.picker-view {
+ width: 100%;
+ display: flex;
+ z-index:12;
+ background-color: #fff;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ position: fixed;
+ bottom: 0rpx;
+ left: 0rpx;
+ height: 40vh;
+}
+ 
+.picker-item {
+ line-height: 70rpx;
+ margin-left: 5rpx;
+ margin-right: 5rpx;
+ text-align: center;
+}

@@ -1,0 +1,17 @@
+<view class="banner pr tc">
+	<image class="pic" src="https://syy.freep.cn/590050/productbc.png" mode='widthFix'></image>
+	<text class="title pa"></text>
+	<text class="tag pa"></text>
+</view>
+
+<view class="content w">
+	
+	<navigator wx:for="{{products}}" url="../product/product?productId={{item.productId}}" wx:key="item.productId">
+	<title class="tc mt40">{{item.basic.title}}</title>
+	<subtitle class="tc">¥{{item.basic.price}}</subtitle>
+	<image class="mt15" src="{{item.basic.avatar}}" mode="widthFixed"></image>
+	</navigator>
+</view>
+
+<view class="tips">{{tips}}</view>
+<include src="../../template/footer.wxml"/>

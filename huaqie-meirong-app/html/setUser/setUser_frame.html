@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        .btn-primary {
+            background: #ff7c95;
+            color: #fff;
+            border-color: #ff7c95; 
+        } 
+        .aui-btn:active {
+            background-color: #ff9bae;
+            border-color: #ff9bae;
+        }
+    </style>
+</head>
+<body>
+    <div class="aui-content aui-card" style='margin-top: 15px;'>
+        <ul class="aui-list-view">
+            <li class="aui-list-view-cell aui-switch-body form">
+                <div class="aui-form">
+                    <div class="aui-input-row">
+                        <label class="aui-input-addon">护理项目</label>
+                        <input type="text" class="aui-input" placeholder="请输入护理项目"/>
+                    </div>
+                    <div class="aui-input-row">
+                        <label class="aui-input-addon">总次数&nbsp;&nbsp;&nbsp;</label>
+                        <input type="text" class="aui-input" placeholder="请输入总次数"/>
+                    </div>
+                    <div class="aui-input-row">
+                        <span class="aui-input-addon">已消费&nbsp;&nbsp;&nbsp;</span>
+                        <input type="password" class="aui-input" placeholder="请输入已消费"/>
+                    </div>
+                    <div class="aui-input-row">
+                        <span class="aui-input-addon">余次&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <input type="text" class="aui-input" placeholder="请输入余次"/>
+                    </div>
+                    <div class="aui-btn-row">
+                        <div class="aui-btn btn-primary" onclick="return false;">保 存</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        
+    };
+</script>
+</html>

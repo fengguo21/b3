@@ -1,0 +1,93 @@
+@charset "utf-8";
+/* CSS Document */
+*{box-sizing: border-box;font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;}
+body,
+html {width: 100%;height: 100%;overflow: hidden;}
+body,h1,h2,h3,h4,h5,h6,hr,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0;}
+body,input,textarea,select,button,table{border-collapse:collapse;border-spacing:0;}
+body{-webkit-text-size-adjust:none;}
+h1,h2,h3,h4,h5,h6{font-size:100%;}
+ul,ol,li{list-style:none;}
+em,address{font-style:normal;}
+table{border-collapse:collapse;}
+em,i{font-style:normal;}
+strong,b{font-weight:normal;}
+img{border:none; display: block;}
+input,img{vertical-align:middle;}
+input, button{outline:none; border:none;}
+textarea{resize:none; border:0;}
+textarea:focus{outline:0;}
+a{text-decoration:none;}
+.clearfix:after{display:block;clear:both;visibility:hidden;height:0;content:" ";font-size:0;}
+.clearfix{*zoom:1;}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  text-align:center;
+
+  .col {
+    flex: 1;
+    justify-content: flex-start;
+  }
+}
+
+.layout {
+  background: #efefef;
+  min-height: 100%;
+  overflow: hidden;
+}
+.mg-r-15 {
+  margin-right: 15px;
+}
+.mg-r-30 {
+  margin-right: $mg-30;
+}
+.mg-r-50 {
+  margin-right: $mg-50;
+}
+
+@media screen and (max-width: 1510px) {
+  .mg-r-15 {
+    margin-right: 10px;
+  }
+  .mg-r-30 {
+    margin-right: 20px;
+  }
+  .mg-r-50 {
+    margin-right: 40px;
+  }
+}
+
+.width-280 {
+  width: 280px!important;
+}
+
+.top-picker {
+  /*height: 46px;*/
+}
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
+::-webkit-scrollbar  
+{  
+    width: 8px;  
+    height: 8px;  
+    background-color: #F5F5F5;  
+}  
+  
+/*定义滚动条轨道 内阴影+圆角*/  
+::-webkit-scrollbar-track  
+{  
+    box-shadow: inset 0 0 2px rgba(0,0,0,0.3);  
+    border-radius: 8px;  
+    background-color: #F5F5F5;  
+}  
+  
+/*定义滑块 内阴影+圆角*/  
+::-webkit-scrollbar-thumb  
+{  
+    border-radius: 8px;  
+    box-shadow: inset 0 0 0px rgba(0,0,0,.3);  
+    background-color: rgba(204, 204, 204, .8);  
+}  

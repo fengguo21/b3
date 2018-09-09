@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>detail</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css">
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        * {
+            line-height: 1;
+        }
+        body{
+           
+        }
+        .aui-user-view:after {
+            border: 0;
+        }
+        .aui-user-view-cell {
+            height: 74px;
+            overflow: hidden;
+            padding: 14px 15px;
+            position: relative;
+        }
+        
+        .aui-user-view-cell:after {
+            border-color: #e6e6e6
+        }
+        .aui-user-view-cell:last-child:after {
+            /* border-color: #fff; */
+            border: 0;
+        }
+        .aui-user-view-cell p {
+            color: #999;
+        }
+        .msg-body {
+            width: calc(100% - 93px);
+            height: 48px;
+            position: absolute;
+            top: 50%;
+            left: 78px;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%)
+        }
+        .msg-body > span {
+            display: block;
+            height: 20px;
+            margin: 6px 0 5px;
+            font-size: 12px;
+            color:#333;
+        }
+        .msg-body > span em {
+            float: right;
+            font-size: 12px;
+            color: #999;
+        }
+        .msg-body > p {
+            padding: 0;
+            margin: 0;
+            height: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        .msg-body > p em {
+            display: inline-block;
+            min-width: 50px;
+            text-align: center;
+            float: right;
+            color: #ff3e39;
+            font-size: 15px;
+            margin-top: 3px;
+        }
+        #order-list .new {
+            color: #ff55b5;
+        }
+        #order-list .cancel {
+            color: #00a5e7;
+        }
+        #order-list .complate {
+            color: #fb5660;
+        }
+        #order-list .ordering {
+            color: #2ecc71;
+        }
+        #count {
+            vertical-align: middle;
+            padding: 10px 15px;
+        }
+
+        #count img{
+            width: 19px;
+            height: 17px;
+            vertical-align: middle;
+            margin-right: 10px;
+            margin-left: 5px;
+        }
+        #count > span {
+            vertical-align: middle;
+            font-size: 13px;
+            color: #666;
+        }
+        #filter-box {
+            /*display: none;*/
+           display: flex;
+            z-index: 99999;
+            top: 0px;
+            right: 0;
+            font-size: 14px;
+            background: white;
+            position: fixed;
+            left: 0;
+        }
+        #filter-box .active{
+            color:#ff55b5;
+            position: relative;
+        }
+
+        #filter-box .active::after {
+            content: '';
+            display: block;
+            width: 55px;
+            border-bottom: 2px solid #ff55b5;
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+        }
+        
+        .filter-box.show {
+            display: block;
+        }
+        .filter-box li {
+            /* padding: 15px 0; */
+            flex: 1;
+            /*margin:0 35px;*/
+           /*width:55px;*/
+            height: 50px;
+            line-height: 50px;
+            color: #999999;
+            text-align: center;
+            font-size: 13px;
+           
+        }
+        #not-empty .top{
+               padding-top: 14px;
+        }
+        #tabs{
+            display: flex;
+            height: 60px;
+           /*border-top: 1px solid #e6e6e6;*/
+            background: white;
+        }
+        .count-tabs-item{
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            text-align: center;
+            margin-top: 13px;
+            color:#808080;
+            font-size:11px;
+            position: relative;
+        }
+        .count-tabs-item .number{
+            font-size: 17px;
+            color: #ff3e39;
+            margin-top: 10px;
+            position: relative;
+        }
+        .count-tabs-item .number.pay{
+            color: #13b859;
+        }
+        .count-tabs-item.left::after{
+                content: '';
+                border-right: 1px solid #ccc;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                -webkit-transform: translateY(-50%);
+                height: 15px;
+        }
+    </style>
+</head>
+<body style='position: relative;'>  
+    
+    <div id='not-empty' style='display: block;'>
+        <div style="position: fixed;width:100%;z-index: 100;top:0;">
+            <div class="count-tabs border-b" id='tabs'>
+            <div data-index='1' class="count-tabs-item left" >
+                <span class=''>未还款</span>
+                <p class="number" id="diet">0</p>
+            </div>
+            <div data-index='2' class="count-tabs-item ">
+                <span class=''>已还款</span>
+                <span class="number pay" id="pay">0</span>
+            </div>
+        </div>
+        </div>
+        
+        <div class="aui-content">
+            <ul class="aui-user-view aui-in" id='order-list' style="margin-top: 60px">
+                <script type="text/html" id='tpl-order'>
+                    {{each list val index}}
+                        <li class="aui-user-view-cell aui-img" data-name='{{val.basic.name}}' data-peopleId='{{val.peopleId}}'  onclick='goDetail({{val}})'>
+                            <div class="aui-img-object aui-pull-left" style='overflow: hidden; border-radius: 50%'>
+                                <img src="{{val.people.basic.avatar|formatAvatar}}"  style='width: 100%;'>
+                            </div>
+                            <div class="msg-body">
+                                <span class="msg-name">
+                                    {{val.people.basic.name}}
+                                    <em class="msg-value">
+                                        待还金额      
+                                    </em>
+                                </span>
+                                <p class='aui-ellipsis-1'>
+                                    {{val.people.extra.phone}}
+                                    <em>
+                                       <span style="font-size: 12px">￥</span> {{val.people.extra|formatBill}}
+                                    </em>
+                                </p>
+                            </div>
+                        </li>    
+                    {{/each}}
+                </script>
+            </ul>
+        </div>
+    </div>
+    <div id="empty" style='display: none; overflow: hidden; text-align: center'>
+         <div style='width: 165px; height:165px; margin: 178px auto 20px'>
+             <img src="../../image/data-empty.png" style='display: block; width: 186px;'>
+         </div>
+         <span style='font-size: 14px; color: #999'>暂时没有会员</span>
+    </div>
+    <script src="../../script/api.js"></script>
+    <script src="../../script/axios.min.js"></script>
+    <script src="../../script/moment.min.js"></script>
+    <script src="../../script/timeago.min.js"></script>
+    <script src="../../script/template-web.js"></script>
+    <script src="../../script/zepto.min.js"></script>
+    <script src="../../script/store.min.js"></script>
+    <script src="../../fetch/api.js?v=1"></script>
+    <script type="text/javascript">
+        template.defaults.imports.formatAvatar = function(data) {
+            return data||'../../image/mine-avatar.png'
+        }
+        template.defaults.imports.formatBill = function(data) {
+            if(data.billIn && data.billOut)
+                return (data.billIn - data.billOut).toFixed(2);
+            else if(data.billIn)
+                return (data.billIn).toFixed(2);
+        }
+        var orderList = [];
+        
+        var page = 1;
+        var flag=false;
+        var startDate = moment(new Date()).format('YYYY-MM')+'-01'
+        var endDate = moment(new Date()).format('YYYY-MM-DD')
+
+        var goDetail=function(val){
+            api.openWin({
+                name: 'accitem',
+                url: 'accitem/accitem.html',
+                pageParam: {
+                    avatar: val.people.basic.avatar,
+                    peopleId: val.basic.peopleId,
+                    name: val.people.extra.name,
+                    phone: val.people.extra.phone,
+                    number: (val.people.extra.billOut)?val.people.extra.billIn-val.people.extra.billOut:val.people.extra.billIn
+
+                }
+            })
+        }
+        
+        var getDietList = function(p, _startDate, _endDate){
+            if(p)
+                page = p
+            var paramesTest = {
+                page: page,
+                size: 10,
+                startDate: (_startDate)?_startDate:startDate,
+                endDate: (_endDate)?_endDate:endDate
+            }
+            ajax.getDietList( paramesTest , function(res) {
+                if(page == 1) {
+                    orderList = res.data.list;
+                } else {
+                    orderList = orderList.concat(res.data.list);
+                }
+                $('#diet').text('￥'+(res.data.billIn).toFixed(2))
+                $('#pay').text('￥'+(res.data.billOut).toFixed(2))
+                console.log(orderList)
+                $('#order-list').html(template('tpl-order', {list: orderList}));
+                flag=true;
+            })
+        }
+        
+         
+        // total = orderList.length;
+        apiready = function(){
+            getDietList()
+            // 滑动事件
+
+            api.addEventListener({
+                name: 'scrolltobottom',
+                extra: {
+                    threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+                }
+            }, function(ret, err) {
+                flag=false;
+                if(page * 10 < total&&flag==true){
+                    page += 1
+                    getDietList(paramesTest);
+                } else {
+                    api.toast({
+                        msg: '没有更多啦'
+                    })
+                }
+            });
+        };
+
+    </script>
+   
+</script>
+    
+</body>
+</html>

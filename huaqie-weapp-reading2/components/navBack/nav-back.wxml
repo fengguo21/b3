@@ -1,0 +1,14 @@
+<template name="nav-back">
+  <view class="nav-to-index">
+    <view catchtap="reBack" class="navbar-left">
+      <image src="/images/back-home.png" />
+      <view>首页</view>
+    </view>
+    <view class="navbar-right">
+      <view catchtap="reNavVip">成为会员</view>
+      <view class="fix-line"></view>
+      <view catchtap="reNavMine">我的</view>
+    </view>
+  </view>
+  <view style="height: 80rpx;"></view>
+</template>

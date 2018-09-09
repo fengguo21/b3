@@ -1,0 +1,13 @@
+<!--pages/map/map.wxml-->
+<view class="map-wrap layout">
+  <map id="myMap"
+    scale="{{map.scale}}"
+    longitude="{{map.center.longitude}}"
+    latitude="{{map.center.latitude}}"
+    markers="{{map.markers}}"
+    polyline="{{map.polyline}}"
+    controls="{{map.controls}}"
+    show-location="true"
+    bindcontroltap="controlTap"
+  ></map>
+</view>

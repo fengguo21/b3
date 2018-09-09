@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <title>title</title>
+
+    <style>
+        * {
+            line-height: 1;
+        }
+        .aui-user-view:after {
+            border: 0;
+        }
+        .aui-user-view-cell {
+            height: 74px;
+            padding: 14px 15px;
+            position: relative;
+        }
+        
+        .aui-user-view-cell:after {
+            border-color: #e6e6e6
+        }
+        .aui-user-view-cell:last-child:after {
+            /* border-color: #fff; */
+            border: 0;
+        }
+        .aui-user-view-cell p {
+            color: #999;
+        }
+        .msg-body {
+            width: calc(100% - 93px);
+            height: 48px;
+            position: absolute;
+            top: 50%;
+            left: 78px;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%)
+        }
+        .msg-body > span {
+            display: block;
+            height: 20px;
+            color: #333;
+            margin: 6px 0 5px;
+            font-size: 13px;
+        }
+        .msg-body > span em {
+            float: right;
+            color: #666;
+            font-size: 11px;
+        }
+        .msg-body > p {
+            padding: 0;
+            margin: 0;
+            height: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        .msg-body > p em {
+            float: right;
+            color: #999;
+            font-size: 10px;
+            margin-top: 3px;
+        }
+        #order-list .new {
+            color: #ff55b5;
+        }
+        #order-list .cancel {
+            color: #00a5e7;
+        }
+        #order-list .complate {
+            color: #fb5660;
+        }
+        #order-list .ordering {
+            color: #2ecc71;
+        }
+        #count {
+            vertical-align: middle;
+            padding: 10px 15px;
+        }
+
+        #count img{
+            width: 19px;
+            height: 17px;
+            vertical-align: middle;
+            margin-right: 10px;
+            margin-left: 5px;
+        }
+        #count > span {
+            vertical-align: middle;
+            font-size: 13px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id='not-empty' style='display: none'>
+        <p class="aui-padded-10" id='count'><img src="../../image/team-team.png"><span>共<span id="total">0</span>位顾客</span></p>
+
+
+        <div class="aui-content">
+            <ul class="aui-user-view aui-in" id='order-list'>
+                <script type="text/html" id='tpl-order'>
+                    {{each list val index}}
+                        <li class="aui-user-view-cell aui-img" onclick='telPhone({{val.basic.phone}})'>
+                            <div class="aui-img-object aui-pull-left" style='overflow: hidden; border-radius: 50%'>
+                                <img src="{{val.people.avatar}}"  style='width: 100%;'>
+                            </div>
+                            <div class="msg-body">
+                                <span>{{val|formatName}}<em>{{val.basic.service}}</em></span>
+                                <p class='aui-ellipsis-1'>
+                                {{val.basic.phone}}
+                                <em>
+                                {{val.basic.periods[0].split('-')[0]}}-{{val.basic.periods[val.basic.periods.length-1].split('-')[1]}}
+                                </em>
+                                </p>
+                            </div>
+                        </li>
+                    {{/each}}
+                </script>
+            </ul>
+        </div>
+    </div>
+    <div id="empty" style='display: none; overflow: hidden; text-align: center'>
+         <div style='width: 165px; height:165px; margin: 178px auto 20px'>
+             <img src="../../image/data-empty.png" style='display: block; width: 186px;'>
+         </div>
+         <span style='font-size: 14px; color: #999'>暂时没有预约</span>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/axios.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../script/moment.min.js"></script>
+<script type="text/javascript" src="../../script/template-web.js"></script>
+<script src="../../script/moment.min.js"></script>
+<script type="text/javascript" src="../../fetch/api.js"></script>
+<script type="text/javascript">
+    /**
+    *   过滤器
+    */  template.defaults.imports.formatDate = function(data){
+            return moment(data).format('YYYY-MM-DD')
+        };
+        template.defaults.imports.formatName = function(data){
+            return data.basic.name||data.people.name;
+        };
+    var orderList = []
+    var page = 1;
+    var total = 0;
+    var param = store.get('yuyueList');
+    var init = function() {
+        initData();
+        getDiff();
+    }
+    var initData = function() {
+        orderList = []
+        page = 1;
+        total = 0;
+    }
+    var telPhone = function(phone) {
+        // console.log(phone);
+        if(!phone) {
+            api.toast({
+                msg: '该用户暂时没有绑定手机'
+            });
+            return;
+        }
+        api.call({
+            type: 'tel_prompt',
+            number: phone
+        });
+    }
+    var showData = function() {
+        if(total > 0) {
+            $('#not-empty').show();
+            $('#empty').hide();
+            $('#total').html(total);
+            $('#order-list').html(template('tpl-order', {list: orderList}))
+        } else {
+            $('#not-empty').hide();
+            $('#empty').show();
+        }
+    }
+    var getDiff = function() {
+        if(param == 1) {
+            getToday();
+        } else if(param == 2) {
+            getTom();
+        } else {
+            getLast();
+        }
+    }
+    var getPrebookList = function(day) {
+        ajax.getPrebookList({
+            page: page,
+            size: 10,
+            date: day,
+            peopleId: store.get('me').peopleId
+        }, function(res) {
+            if(res.data.page == 1) {
+                orderList = res.data.list;
+            } else {
+                orderList = orderList.concat(res.data.list);
+            }
+            total = res.data.total;
+            showData();
+        })
+    }
+    var getToday = function() {
+        var date = new Date();
+        var today = moment(date.getTime()).format('YYYY-MM-DD')
+        getPrebookList(today)
+    }
+    var getTom = function() {
+        var date = new Date();
+        var tomm = moment(date.setDate(date.getDate() + 1)).format('YYYY-MM-DD');
+        getPrebookList(tomm)
+    }
+    var getLast = function() {
+        var date = new Date();
+        var last = moment(date.setDate(date.getDate() + 2)).format('YYYY-MM-DD');
+        getPrebookList(last)
+    }
+    init();
+    apiready = function(){
+        // 滑动事件
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if(page * 10 < total){
+                page += 1
+                getDiff();
+            } else {
+                api.toast({
+                    msg: '没有更多啦'
+                })
+            }
+        });
+    };
+</script>
+</html>

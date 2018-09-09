@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>detail</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/aui-win.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/header.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/header.css?v=1"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/report-header.css?v=1"/>
+    <script type='application/javascript' src='../../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        body{
+            
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-primary" id="aui-header">
+        <a class="aui-pull-left" onclick="reBack()"> <span class="aui-iconfont aui-icon-left"></span> </a>
+        <div class="aui-title">
+            账单明细
+        </div>
+    </header> 
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript">
+    var reBack = function() {
+        api.closeWin();
+    }
+    apiready = function(){
+        $api.fixStatusBar($api.dom('header'));
+        api.openFrame({
+        name: 'accitem_frame',
+        url: './accitem_frame.html',
+        rect: {
+            x: 0,
+            y: $api.dom('header').offsetHeight,
+            w: 'auto',
+            h: 'auto'
+        },
+        pageParam: api.pageParam
+        });
+    };
+</script>
+</html>

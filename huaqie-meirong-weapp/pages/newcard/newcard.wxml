@@ -1,0 +1,44 @@
+<!--newcard.wxml-->
+
+
+<view class='header'>
+<image src='/images/cardbc.png'></image>
+
+</view>
+
+
+  <view class='formcard'>
+    <view  class='namecontainer1'><text class='personalinfo'>个人信息</text></view>
+    <view class='namecontainer'>
+      <text class='name'>姓名</text>
+      <input placeholder="请输入您的姓名"  placeholder-class='inputname'  bindinput="nameinput" value='{{name}}'/>
+      </view>
+      <view class='namecontainer'>
+      <text class='phone'>手机号</text>
+      <input placeholder="请输入您的电话"   placeholder-class='inputphone'   bindinput="phone"   type="number"  value="{{phone}}"/>
+      </view>
+      <view class="book">
+      <button class="ar_book"   bindtap='submit'  >立即申请</button>
+      </view>
+  </view>
+
+
+<view   class='dialog'   wx:if="{{sure}}">
+  <view class='success'>
+    <image src='/images/iconsuccess.png'></image>
+  </view>
+  <view class='textbox'>
+  <text class='suctext' >申请成功！</text>
+  </view>
+  <view class="info">
+  <text>恭喜您，已成功申请会员卡，稍后可在我的-我的卡中查看会员卡。</text>
+  </view>
+  <view class="surebtn">
+   <view  bindtap="touser">知道了</view>
+  </view>
+
+</view>
+
+
+<view class="bcgrey" wx:if="{{sure}}"></view>
+

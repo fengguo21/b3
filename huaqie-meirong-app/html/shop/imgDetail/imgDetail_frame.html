@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/system.css?v=4"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/mrUI.css"/>
+    <script type='application/javascript' src='../../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style>
+       body{
+        padding: 10px;
+       }
+       ul img{
+        margin-bottom: 10px;
+       }
+       img{
+        width:100%;
+        height: 260px;
+       }
+       .top{
+        margin: 10px;
+       }
+       .top p{
+        margin-bottom: 8px;
+       }
+    </style>
+</head>
+<body>
+    <div class="top">
+       <p>商品名称：<span id="title"></span></p>
+       <p>价格：<span id="price"></span></p>
+       <p>规格：<span id="specs"></span></p> 
+    </div>
+    
+    
+    <ul class="aui-user-view aui-in" id='order-list'>
+                    <script type="text/html" id='tpl-order'>
+                        {{each list val index}}
+                            <li >
+                               <img src='{{val.url}}'/> 
+                            </li>
+                        {{/each}}
+                    </script>
+                </ul>
+
+</body>
+<script src="../../../script/api.js"></script>
+<script src="../../../script/axios.min.js"></script>
+<script src="../../../script/zepto.min.js"></script>
+<script src="../../../script/store.min.js"></script>
+<script src="../../../fetch/api.js"></script>
+<script src="../../../script/template-web.js"></script>
+<script type="text/javascript">
+    var productId="5a17cce3dbb81767f1e7d2ce";
+    
+    var init = function(){
+        ajax.getProduct({productId: productId},function(res){
+            var productInfo = res.data
+            $('#title').text(productInfo.basic.title)
+           // $('#stock').val(productInfo.basic.stock)
+            $('#price').text(productInfo.basic.price)
+            $('#specs').text(productInfo.basic.specs)
+            console.log(productInfo)
+            $('#order-list').html(template('tpl-order', {list: productInfo.basic.images}))
+        })
+    }
+
+     //init()
+    apiready = function(){
+        productId = api.pageParam.id;
+        init()
+        
+
+        
+    };
+</script>
+</html>

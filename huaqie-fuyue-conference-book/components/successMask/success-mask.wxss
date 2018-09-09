@@ -1,0 +1,78 @@
+.success-mask {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: rgba(0, 0, 0, .6);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: all .5s ease;
+}
+.success-mask-show {
+  z-index: 1024;
+  opacity: 1;
+}
+.success-mask-box {
+  width: 542rpx;
+  height: 438rpx;
+  background: #fff;
+  border-radius: 10rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.success-mask-icon {
+  width: 104rpx;
+  height: 86rpx;
+  display: block;
+  margin: 34rpx auto 30rpx;
+}
+
+.success-mask-title,
+.success-mask-tip {
+  line-height: 1;
+  text-align: center;
+}
+.success-mask-title {
+  font-size: 36rpx;
+  color: #000;
+  margin-bottom: 34rpx;
+}
+.success-mask-tip {
+  font-size: 28rpx;
+  margin-bottom: 38rpx;
+}
+
+.success-mask-checked {
+  box-sizing: border-box;
+  margin: 0 auto 23rpx;
+  width: 224rpx;
+  height: 78rpx;
+  border: 3rpx solid #b3342a;
+  line-height: 72rpx;
+  text-align: center;
+  border-radius: 50rpx;
+}
+
+.success-mask-warn {
+  line-height: 1.2;
+  display: flex;
+  font-size: 24rpx;
+  align-items: top;
+  justify-content: center;
+  padding: 3rpx 0;
+}
+.success-mask-warn image {
+  display: block;
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.success-mask-warn .icon-wran {
+  margin-right: 12rpx;
+}
+.success-mask-warn .icon-next {
+  margin-left: 12rpx;
+}

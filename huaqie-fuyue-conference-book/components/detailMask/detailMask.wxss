@@ -1,0 +1,244 @@
+@import '/common/css/room-choose-box.wxss';
+
+.detail-mask {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: rgba(0, 0, 0, .6);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: all .5s ease;
+}
+.detail-mask-show {
+  z-index: 1024;
+  opacity: 1;
+}
+
+.detail-mask-box {
+  width: 100%;
+  height: 0;
+  background: #fff;
+  position: absolute;
+  bottom: 0;
+  overflow: hidden;
+  transition: all .3s ease;
+}
+.detail-mask-show .detail-mask-box {
+  height: 93.2%;
+}
+
+.detail-mask-wrap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* display: flex;
+  flex-direction: column; */
+}
+
+/* 弹窗头部 start */
+.detail-mask-header {
+  height: 90rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.detail-mask-header .detail-room-name {
+  font-size: 32rpx;
+  color: #000;
+  line-height: 1;
+}
+.detail-mask-header image {
+  width: 40rpx;
+  height: 40rpx;
+}
+/* 弹窗主体 end */
+
+/* 弹窗主体 start */
+.detail-mask-body {
+  /* flex: 1; */
+  height: calc(100% - 208rpx);
+  overflow: auto;
+}
+
+.detail-mask-body .mask-body-wrap {
+  height: 100%;
+  overflow: auto;
+  background: #f5f5f5;
+}
+.detail-mask-body .mask-body-wrap > view {
+  background: #fff;
+}
+
+.detail-mask-body swiper {
+  height: 340rpx;
+}
+.detail-mask-body swiper image {
+  width: 100%;
+  height: 100%;
+}
+
+.dmask-body-tip {
+  height: 76rpx;
+  line-height: 76rpx;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  font-size: 28rpx;
+}
+.dmask-body-tip.border-b::after {
+  margin-left: 30rpx;
+}
+.dmask-body-tip image {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+
+.dmask-body-detail {
+  overflow: hidden;
+  padding-top: 36rpx;
+  padding-bottom: 24rpx;
+  margin-bottom: 12rpx;
+}
+.dmask-choose-title {
+  line-height: 1;
+  font-size: 28rpx;
+  color: #000;
+  padding-bottom: 8rpx;
+}
+
+.body-detail-first {
+  margin-top: 22rpx;
+}
+.body-detail-row {
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 24rpx;
+}
+.body-detail-col {
+  width: 50%;
+  float: left;
+  color: #000;
+  overflow: hidden;
+  display: flex;
+  font-size: 28rpx;
+  line-height: 1.2;
+  word-break: break-all;
+}
+.body-detail-col.sp {
+  width: 100%;
+}
+.body-detail-col.sp .detail-col-label {
+  width: 113rpx;
+}
+.body-detail-col .detail-col-label {
+  margin-right: 22rpx;
+}
+.body-detail-col .detail-col-value {
+  flex: 1;
+  word-break: break-all;
+}
+
+.body-detail-col .detail-col-value text {
+  color: rgb(48, 176, 3);
+}
+
+.body-detail-option {
+  overflow: hidden;
+}
+.body-detail-more {
+  width: 226rpx;
+}
+.body-detail-less {
+  width: 130rpx;
+}
+.body-detail-more,
+.body-detail-less {
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 1rpx solid #4289ff;
+  margin: 42rpx auto 0;
+  height: 52rpx;
+  border-radius: 50rpx;
+  line-height: 1;
+  text-align: center;
+  font-size: 24rpx;
+  color: rgb(66, 137, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.body-detail-less image,
+.body-detail-more image {
+  width: 18rpx;
+  height: 10rpx;
+  margin-left: 12rpx;
+}
+
+.special-tip {
+  padding-top: 32rpx;
+  padding-bottom: 26rpx;
+  overflow: hidden;
+}
+.special-tip-header {
+  font-size: 24rpx;
+  color: #000;
+  line-height: 1;
+  margin-bottom: 10rpx;
+}
+.special-tip-item {
+  font-size: 26rpx;
+  line-height: 1.2;
+  margin-top: 24rpx;
+}
+.tip-item-label {
+  margin-bottom: 8rpx;
+  line-height: 1.2;
+}
+.tip-item-value {
+  line-height: 1.3;
+}
+.special-tip-item.sp {
+  margin-top: 0;
+  display: flex;
+  margin-bottom: 4rpx;
+}
+.special-tip-item.sp > .tip-item-label {
+  margin-right: 36rpx;
+  margin-bottom: 0;
+}
+
+/* 弹窗主体 end */
+
+/* 弹窗底部 start */
+.detail-mask-footer {
+  height: 118rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.detail-mask-footer > view {
+  line-height: 1;
+}
+.dmask-footer-left {
+  font-size: 24rpx;
+  color: #000;
+}
+.dmask-footer-price {
+  font-size: 44rpx;
+}
+
+.detail-mask-footer > .dmask-footer-right {
+  width: 170rpx;
+  height: 78rpx;
+  color: #fff;
+  line-height: 78rpx;
+  text-align: center;
+  background: #be342a;
+  border-radius: 50rpx;
+  font-size: 36rpx;
+}
+/* 弹窗底部 end */

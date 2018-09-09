@@ -1,0 +1,33 @@
+<!--pages/mine/mine.wxml-->
+<view class="mine-wrap">
+
+  <view class="mine-msg" bindtap="reLog">
+    <view class="mine-avatar">
+      <image class="position-center avatar" src="{{avatar?avatar:'/images/play.png'}}" />
+      <image wx:if="{{vipEnd}}" class="vip" mode="widthFix" src="/images/mine-vip.png" />
+    </view>
+    <view class="mine-detail">
+      <text class='mine-name'>{{username?username:'未登录'}}</text>
+      <text wx:if="{{vipEnd}}" class='mine-card-time'>有效期至：{{vipEnd}}</text>
+    </view>
+  </view>
+
+  <view class="mine-menus">
+    <view class="menu-item border-b" bindtap="goBuys">
+      <image class='menu-icon' mode="widthFix" src="/images/mine-buy.png"></image>
+      <text>我的已购</text>
+      <image class="menu-more position-y-center" mode="widthFix" src='/images/more.png'></image>
+    </view>
+    <view class="menu-item border-b" bindtap="goRecords">
+      <image class='menu-icon' mode="widthFix" src="/images/mine-record.png"></image>
+      <text>我的评论</text>
+      <image class="menu-more position-y-center" mode="widthFix" src='/images/more.png'></image>
+    </view>
+    <view class="menu-item" bindtap="goCoupon">
+      <image class='menu-icon' mode="widthFix" src="/images/mine-coupon.png"></image>
+      <text>优惠券</text>
+      <image class="menu-more position-y-center" mode="widthFix" src='/images/more.png'></image>
+    </view>
+  </view>
+
+</view>

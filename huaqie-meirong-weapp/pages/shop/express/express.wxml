@@ -1,0 +1,27 @@
+<import src="_track_result.wxml" />
+<view class="container">
+  <block wx:if="{{tracking}}">
+    <view class="spinner"></view>
+    <view class="tips">正在为您查询，请稍候...</view>
+  </block>
+  <view wx:else class="track-detail">
+    <view class="track-title track-success">
+      <icon type="success" size="40" />
+      <view class="track-title-right">
+        <text class="track-number">{{logisticCode}}</text>
+        <view  class="track-state">
+         {{shipperName}}
+          <label class="text-muted"></label>
+        </view>
+      </view>
+    </view>
+    <view class="track-history-empty" wx:if="{{traces.length==0}}">
+      <icon type="info_circle" size="45" color="orange" />
+      <text>
+        查询不到物流信息，请核实单号。
+      </text>
+    </view>
+    <template is="trackResult" wx:if="{{traces.length>0}}" data="{{name:'目的地',traces:traces}}" />
+    <template is="trackResult" wx:if="{{result.Original.Carrire.Code}}" data="{{name:'发件地',...result.Original}}" />
+  </view>
+</view>

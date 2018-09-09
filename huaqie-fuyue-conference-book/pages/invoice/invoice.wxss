@@ -1,0 +1,6 @@
+/* pages/invoice/invoice.wxss */
+@import '/common/css/form.wxss';
+
+.form-item-last {
+  height: calc(100% - 800rpx);
+}

@@ -1,0 +1,99 @@
+#add-member .form-item-cell-icon {
+    width: 19px;
+}
+#add-member .form-item-cell-label {
+    left: 29px;
+    font-size: 14px;
+}
+#post:disabled {
+    background-color: #fff;
+}
+.multi-picker-btn-box {
+    background: #FF8EC6;
+}
+.multi-picker-content .multi-picker-line {
+    border-color: #FF8EC6;
+}
+.radio-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(75, 75, 75, 0);
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    z-index: -1;
+}
+.radio-bg-on {
+    z-index: 999 !important;
+    background: rgba(75, 75, 75, 0.65) !important;
+}
+.radio-bg .dialog {
+    width: 90%;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    background: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.radio-bg .dialog .check-box {
+    overflow: hidden;
+}
+#dialog-form label {
+    float: left;
+    display: block;
+    position: relative;
+    padding: 5px 20px;
+    margin: 10px 5px;
+}
+#dialog-form label span {
+    line-height: 1.5;
+}
+
+.dialog-btns {
+    margin-top: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+}
+.dialog-btns > span {
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #fff;
+}
+#dialog-checked {
+    background: #FF8EC6;
+}
+#dialog-cancel {
+    background: #ccc;
+}
+.first-write {
+    overflow: hidden;
+    height: 0;
+    transition: height .5s ease-in-out;
+    -webkit-transition: height .5s ease-in-out;
+}
+.first-write.first-write-up {
+    height: 384px;
+}
+#more img {
+    transform: rotateZ(90deg);
+    -webkit-transform: rotateZ(90deg);
+    transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+}
+#more.img-up img {
+    transform: rotateZ(-90deg);
+    -webkit-transform: rotateZ(-90deg);
+}
+
+.server-pic {
+    width: 100%;
+    padding-bottom: 20px;
+}
+.server-pic img {
+    margin: 0 auto;
+    width: 30%;
+}

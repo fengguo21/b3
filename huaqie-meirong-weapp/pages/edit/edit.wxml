@@ -1,0 +1,47 @@
+<!--edit.wxml-->
+<view class="page">
+<view class="ar_cont">
+<form  bindsubmit="formSubmit" bindreset="formReset" report-submit>
+  <view>
+	<text class="ar_cont_h1">预约日期：</text>
+</view>
+<view class="classname">
+  <radio-group class="radio-group" bindchange="radioChange" name="date">
+  <label class="radio" wx:for="{{items}}" class="timeitem">
+    <radio value="{{item.name}}" checked="{{item.checked}}" color="#9470dc"/>{{item.value}}
+  </label>
+</radio-group>
+</view>
+
+
+<view class="section">
+  <view class=".ar_cont_h1">到店时间：</view>
+
+  <picker mode="multiSelector" bindchange="bindMultiPickerChange"  name="time"    value="{{multiIndex}}" range="{{multiArray}}">
+    <view class="picker">
+      当前选择：{{multiArray[0][multiIndex[0]]}}：{{multiArray[1][multiIndex[1]]}}
+    </view>
+  </picker>
+
+</view>
+
+
+	
+
+
+<button class="ar_book" bindtap="bindToastTap"  formType="submit">确认修改</button>
+<toast hidden="{{bookToastHidden}}"  bindchange="hideToast">
+        预约成功
+</toast>
+
+
+</form>
+</view>
+
+
+
+
+</view>
+
+
+

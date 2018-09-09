@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>detail</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/header.css?v=1"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/report-header.css?v=1"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        body{
+            
+        }
+        #special-search{
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10000;
+            background: white;
+            text-align: center;
+            display: none;
+        }
+        #special-search span{
+            display: inline-block;
+            margin-right: 10px;
+        }
+        #sort{
+            border-bottom: 1px solid #e3e3e3;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-primary" id="aui-header">
+        <a class="aui-pull-left" onclick="reBack()"> <span class="aui-iconfont aui-icon-left"></span> </a>
+        <div class="aui-title">
+            账单
+        </div>
+        <a class="aui-pull-right" onclick="create()">新增</a>
+    </header> 
+    <div id="sort" class='sort-box border-b'>
+        <div id='normal-search'>
+            <ul>
+                <li data-index='1' class='border-r ' id="beforeLast"></li>
+                <li data-index='2' id='lastMonth' class='border-r'></li>
+                <li data-index='3' id='thisMonth' class='border-r active'></li>
+            </ul>
+            <div id='sort-date' class="sort-date position-y-center" onclick="chooseDate()">
+                <img src="../../image/report-sort-date.png" alt="">
+            </div>
+        </div>  
+        <div id="special-search"></div> 
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../script/moment.min.js"></script>
+<script type="text/javascript">
+    var reBack = function() {
+        api.closeWin();
+    }
+    var create = function () {
+        api.openWin({
+            name: 'addacc',
+            url: './addacc/addacc.html'
+        });
+    }
+
+    var changeActive = function (v) {
+        var lis = $('#sort li');
+        if($(lis[2-v]).is('.active')) return;
+        for(var i = 0; i < lis.length; i++) {
+            $(lis[i]).removeClass('active')
+        }
+        $(lis[2-v]).addClass('active')
+    }
+
+    
+    $('#beforeLast').on('click', function() {
+    	var startDate = moment(new Date()).subtract(2, "months").format("YYYY-MM")+'-01'
+    	var endDate = moment(moment().subtract(2, "months").format("YYYY-MM")+'-01').endOf('month').format("YYYY-MM-DD")
+
+        api.execScript({
+            name: 'markaccount',
+            frameName: 'markaccount_frame',
+            script: 'getDietList(1, "'+startDate+'", "'+endDate+'")'
+        })
+
+        changeActive(2)
+    })
+    $('#lastMonth').on('click', function() {
+    	var startDate = moment(new Date()).subtract(1, "months").format("YYYY-MM")+'-01'
+    	var endDate = moment(moment().subtract(1, "months").format("YYYY-MM")+'-01').endOf('month').format("YYYY-MM-DD")
+
+        api.execScript({
+            name: 'markaccount',
+            frameName: 'markaccount_frame',
+            script: 'getDietList(1, "'+startDate+'", "'+endDate+'")'
+        })
+
+        changeActive(1)
+    })
+    $('#thisMonth').on('click', function() {
+    	var startDate = moment(new Date()).format('YYYY-MM')+'-01'
+    	var endDate = moment(new Date()).format('YYYY-MM-DD')
+
+        api.execScript({
+            name: 'markaccount',
+            frameName: 'markaccount_frame',
+            script: 'getDietList(1, "'+startDate+'", "'+endDate+'")'
+        })
+        changeActive(0)
+    })
+
+    var chooseDate = function() {
+        api.openWin({
+            name: 'dateQuery',
+            url: '../dateQuery/dateQuery.html',
+            pageParam: {
+                from: 'billReport'
+            }
+        })
+    }
+
+    var closeDate = function() {
+        $('#special-search').hide()
+        var startDate = moment(new Date()).format('YYYY-MM')+'-01'
+        var endDate = moment(new Date()).format('YYYY-MM-DD')
+
+        api.execScript({
+            name: 'markaccount',
+            frameName: 'markaccount_frame',
+            script: 'getDietList(1, "'+startDate+'", "'+endDate+'")'
+        })
+    }
+    var getDietList = function(page, startDate, endDate) {
+        $('#special-search').html("<span>"+ startDate +" ~ "+ endDate +"</span>"+
+                                    "<img src='../../image/close.png' onclick='closeDate()'>")
+        $('#special-search').show()
+        api.execScript({
+            name: 'markaccount',
+            frameName: 'markaccount_frame',
+            script: 'getDietList('+page+', "'+startDate+'", "'+endDate+'")'
+        })
+    }
+
+    apiready = function(){
+         var param = api.pageParam;
+         $api.fixStatusBar($api.dom('header'));
+         api.openFrame({
+		    name: 'markaccount_frame',
+		    url: './markaccount_frame.html',
+		    rect: {
+		        x: 0,
+		        y: $api.dom('header').offsetHeight+29,
+		        w: 'auto',
+		        h: 'auto'
+		    },
+		    pageParam: param
+		});
+
+         $('#thisMonth').html(moment(new Date()).format('MM月'));
+
+    
+
+    $('#lastMonth').html(moment().subtract(1, "months").format("MM月"));
+    $('#beforeLast').html(moment().subtract(2, "months").format("MM月"));
+    };
+</script>
+</html>

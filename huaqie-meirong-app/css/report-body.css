@@ -1,0 +1,125 @@
+#sortiy .count-tabs .border-r::after {
+    border-right:1px solid #ccc;
+    height: 28px;
+    margin: calc(33px / 2) 0;
+}
+.count-tabs {
+    height: 47px;
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+}
+.count-tabs-item {
+    width: 50%;
+    height: 100%;
+    float: left;
+    font-size: 13px;
+    color: #999;
+    text-align: center;
+    
+}
+.count-tabs-item span::before {
+    content: '';
+    display: block;
+    width: 68px;
+    height: 4px;
+    position: absolute;
+    bottom: 0;
+    transition: left ease-out .2s;
+    left: 0;
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+}
+.count-tabs-item span {
+    width: 100%;
+    height: 100%;
+    line-height: 47px;
+    display: block;
+}
+.count-tabs-item.active {
+    color: #ff55b5;
+}
+.active.count-tabs-item span::before {
+    content: '';
+    display: block;
+    width: 68px;
+    height: 4px;
+    background: #ff55b5;
+    position: absolute;
+    bottom: 0;
+    transition: left ease-out .2s;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}
+.charts-wrap {
+    height: 300px;
+    width: 100%;
+    position: relative;
+    background: #fff;
+}
+.charts {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+#result.border-t::after {
+    border-top: 1px solid #eaeaea!important;
+}
+#result.border-b::after {
+    border-bottom: 1px solid #eaeaea!important;
+}
+.result-list {
+    box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    padding-left: 15px;
+    position: relative;
+}
+.total-count {
+    position: absolute;
+    right: 15px;
+    top: -36px;
+}
+.result-list li {
+    height: 49px;
+    width: 100%;
+}
+.result-list li.border-b::after {
+    border-bottom: 1px solid #eaeaea!important;
+}
+.result-list li:last-child.border-b::after {
+    border-bottom: 1px solid #fff!important;
+}
+.result-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.result-img img {
+    width: 100%;
+}
+.result-title {
+    font-size: 14px;
+    color: #333;
+    left: 47px;
+}
+.result-count {
+    right: 33px;
+}
+.result-count span {
+    height: 21px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #666;
+    margin-left: 10px;
+}
+.result-count-more {
+    right: 15px;
+    width: 8px;
+    height: 19px;
+}
+.result-count-more img {
+    width: 100%;
+}

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/system.css?v=4"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/mrUI.css"/>
+    <script type='application/javascript' src='../../../script/fastclick.js'></script>
+    <script type="text/javascript" src='../../../script/rem.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style>
+        #add-member .form-item-cell-icon {
+            width: 19px;
+        }
+        #add-member .form-item-cell-label {
+            left: 29px;
+            font-size: 14px;
+        }
+        #post:disabled {
+            background-color: #fff;
+        }
+        .choiceItem{
+            width:1.18rem;
+            display: inline-block;
+            position: relative;
+        }
+        .choiceItem input{
+            position: absolute;
+            width:1.18rem;
+            height: 0.8rem;
+            opacity: 0;
+
+        }
+        .choiceItem input:checked+span{
+            background: #fee1f1;
+            color:#ff55b5;
+            border:1px solid #ff55b5;
+        }
+        .choiceItem span{
+            display: block;
+            width: 1.18rem;
+            height: 0.6rem;
+            border:1px solid #d9d9d9;
+            border-radius: 0.5rem;
+            font-size: 11px;
+            color:#333;
+            line-height: 0.56rem;
+            text-align: center;
+            margin-top: -1px;
+            margin:0.06rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="set-layout" id='add-member'>
+        <ul class="form-content">
+            
+           <li class="form-item " >
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../../image/detail-retime.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>预约日期</span>
+                    <span class='form-item-cell-other position-y-center'>
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b" style="height: auto;padding-bottom: 20px">
+                <div class="form-item-cell">
+                    <ul class="aui-user-view aui-in" id="bookDate-list">
+                    
+                            <div class="choiceItem" style="width: 1.5rem">
+                                <input name="bookdate" type="radio" value=""  id="today"/><span  >今天</span>
+                            </div>
+                            <div class="choiceItem" style="width: 1.5rem">
+                                 <input name="bookdate" type="radio" value="" id="tomorrow"/><span id="tomorrow" >明天</span>
+                            </div>
+                            <div class="choiceItem" style="width: 1.5rem">
+                                <input name="bookdate" type="radio" value="" id="afterTom"/><span id="afterTom" >后天</span>
+                            </div>
+
+                           
+                                
+                       
+                    </ul>
+                </div>
+            </li>
+
+
+            <li class="form-item " >
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../../image/card-count.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>预约时间</span>
+                    <span class='form-item-cell-other position-y-center'>
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b" style="height: auto;padding-bottom: 20px;">
+                <div class="form-item-cell">
+                    <ul class="aui-user-view aui-in" id="periods-list">
+                    <script id="tpl-periods" type="text/html">
+                        {{each list value i}}
+                            <div class="choiceItem" style="width:1.5rem">
+                                <input name="periods" type="checkbox" value="{{value}}"  style="width: 1.4rem;height: 1.4rem" /><span style="width: 1.5rem">{{value}}</span>
+                            </div>
+                        {{/each}}
+                    </script> 
+                    </ul>
+                </div>
+            </li>
+
+            
+            
+
+            <li class="form-item " >
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../../image/card-service.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>预约项目</span>
+                    <span class='form-item-cell-other position-y-center'>
+                    </span>
+                </div>
+            </li>
+            <li class="form-item " style="height: auto;">
+                <div class="form-item-cell">
+                    <ul class="aui-user-view aui-in" id="pro-list">
+                    <script id="tpl-pro" type="text/html">
+                        {{each list value i}}
+                            <div class="choiceItem">
+                                <input name="service" type="radio" value="{{value.basic.title}}" /><span>{{value.basic.title}}</span>
+                            </div>
+                        {{/each}}
+                    </script> 
+                    </ul>
+                </div>
+            </li>
+            
+
+            <li class="form-item" style='height: 128px'>
+                <div class="form-item-cell">
+                    <div class='form-item-cell-btn' onclick='onpust()'>
+                        <span>确认预约</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</body>
+
+<script src="../../../script/api.js"></script>
+<script src="../../../script/axios.min.js"></script>
+<script src="../../../script/moment.min.js"></script>
+<script src="../../../script/timeago.min.js"></script>
+<script src="../../../script/template-web.js"></script>
+<script src="../../../script/zepto.min.js"></script>
+<script src="../../../script/store.min.js"></script>
+<script src="../../../fetch/api.js?v=3"></script>
+<script type="text/javascript">
+    var proList = []
+    var page = 1;
+    var total = 0;
+    var peopleId;
+    var bookdate;
+    var getProList = function() {
+        ajax.getServiceList({
+            page: page,
+            size: 100
+        }, function(res) {
+             console.log(res);
+            total = res.data.total;
+            proList = res.data.list;
+            if(total > 0) {
+                
+                $('#pro-list').html(template('tpl-pro', {list: proList}));
+                
+            } else {
+                
+            }
+        })
+    }
+    getProList()
+    var fullperiods = ['09:00-10:00', '10:00-11:00', '11:00-12:00', '12:00-13:00', '13:00-14:00', '14:00-15:00', '15:00-16:00', '16:00-17:00', '17:00-18:00', '18:00-19:00', '19:00-20:00', '20:00-21:00', '21:00-22:00'];
+    var init = function(){
+        $('#periods-list').html(template('tpl-periods', {list: fullperiods}));
+    }
+    var initprebook = function(){
+        var date = new Date()
+        var today = moment(date.getTime()).format('YYYY-MM-DD')
+        var tomorrow = moment().add('days',1).format('YYYY-MM-DD')
+        var afterTom = moment().add('days',2).format('YYYY-MM-DD')
+        console.log(today,tomorrow,afterTom)
+            $('#today').val(today)
+            $('#tomorrow').val(tomorrow)
+
+            $('#afterTom').val(afterTom)
+
+
+    }
+    initprebook()
+    init()
+	var doing = false
+
+	var closePrebook = function() {
+		api.closeFrame({
+			name: 'prebook'
+		})
+	}
+    var me = store.get('me')
+   
+    var onpust=function(){
+        var service=$('input[name="service"]:checked').val();
+        var periods=new Array();  
+        $('input[name="periods"]:checked').each(function(){  
+           
+            periods.push($(this).val());
+        });  
+        var date = $('input[name="bookdate"]:checked').val();
+        console.log(service,periods,date)
+        ajax.prebook({
+            service: service,
+            periods: periods,
+            salesPeopleId: me.peopleId,
+            date: date,
+            peopleId:peopleId
+            },function(res){
+                api.toast({
+                    msg: '预约成功！',
+                });
+                console.log(res)
+            })
+        }
+    
+    
+	//onpust()
+    apiready = function(){
+         peopleId = api.pageParam.msg;
+    }
+</script>
+
+</html>

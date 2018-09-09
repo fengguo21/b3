@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/cardface.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        body{
+            
+        } 
+    </style>
+</head>
+<body>
+    <div class="card-layout">
+    	<h4>选择一张您喜欢的卡封面</h4>
+    	<ul class='card-wrap' id='card-list'>
+    		<script type="text/html" id='tpl-card'>
+    			{{each list val i}}
+    			<label data-avatar='{{val}}'>
+		    		<li data-avatar='{{val}}'>
+		    			<div data-avatar='{{val}}' class='card-img'>
+		    				<img data-avatar='{{val}}' src="{{val}}" alt='网络出错'>
+		    			</div>
+		    			<span data-avatar='{{val}}' class='radio-box'>
+		    				<input data-avatar='{{val}}' class='radio' type="radio" name="cardFace"></input>
+		    			</span>
+		    		</li>
+	    		</label>
+    			{{/each}}
+    		</script>
+    	</ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../script/template-web.js"></script>
+<script type="text/javascript">
+	var cardList = [
+		'https://dn-huaqie.qbox.me/card-face-1.png',
+		'https://dn-huaqie.qbox.me/card-face-2.png',
+		'https://dn-huaqie.qbox.me/card-face-3.png',
+		'https://dn-huaqie.qbox.me/card-face-4.png',
+		'https://dn-huaqie.qbox.me/card-face-5.png',
+		'https://dn-huaqie.qbox.me/card-face-6.png',
+		'https://dn-huaqie.qbox.me/card-face-7.png',
+		'https://dn-huaqie.qbox.me/card-face-8.png'
+	]
+	$('#card-list').html(template('tpl-card', {list: cardList}))
+	$('#card-list').on('click', 'li', function(e) {
+		// console.log($(this));
+		$(this).parent().siblings().find('li').removeClass('active');
+		$(this).toggleClass('active');
+		store.set('cardface', this.dataset.avatar);
+		api.closeWin();
+		api.execScript({
+			name: 'addCard',
+			frameName: 'addCard_frame',
+			script: 'selectCardFace()'
+		})
+		api.execScript({
+			name: 'editCard',
+			frameName: 'editCard_frame',
+			script: 'selectCardFace()'
+		})
+	})
+    apiready = function(){
+        
+    };
+</script>
+</html>

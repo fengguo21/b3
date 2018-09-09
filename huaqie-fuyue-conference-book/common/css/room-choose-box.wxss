@@ -1,0 +1,60 @@
+/* 复选框 start */
+.choose-box-title {
+  line-height: 1;
+  font-size: 28rpx;
+  color: #000;
+  padding-bottom: 8rpx;
+}
+.choose-box-wrap {
+  padding-bottom: 6rpx;
+  overflow: hidden;
+}
+.choose-box-hidden {
+  display: none;
+}
+.choose-box-item {
+  float: left;
+  width: 156rpx;
+  height: 130rpx;
+  overflow: hidden;
+  margin-top: 22rpx;
+  margin-right: 22rpx;
+  box-sizing: border-box;
+  border: 1rpx solid rgb(240, 240, 240);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.choose-box-item:nth-child(4n + 4) {
+  margin-right: 0;
+}
+.choose-box-item > view {
+  line-height: 1;
+}
+.choose-box-item .choose-box-date {
+  color: #000;
+  font-size: 30rpx;
+  margin-bottom: 20rpx;
+}
+.choose-box-item .choose-room-num {
+  color: rgb(190, 52, 42);
+  font-size: 26rpx;
+}
+.choose-box-item.checked {
+  border-color: rgb(255, 163, 156);
+  background: rgb(255, 234, 233);
+}
+.choose-box-item.disabled > view {
+  color: rgb(153, 153, 153);
+}
+.choose-box-item.checked .choose-box-date {
+  color: #000;
+}
+.choose-box-item.checked .choose-room-num {
+  color: rgb(190, 52, 42);
+}
+.choose-box-item.buyed .choose-room-num {
+  color: rgb(48, 176, 3);
+}
+/* 复选框 end */

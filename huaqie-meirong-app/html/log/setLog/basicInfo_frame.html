@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>setlog_frame</title>
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/system.css?v=4"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/mrUI.css?v=1"/> 
+    <link rel="stylesheet" type="text/css" href="../../../css/MultiPicker.css?rev=@@hash" /> 
+    <link rel="stylesheet" type="text/css" href="../../../css/setLog.css?rev=1"/>
+    <script type='application/javascript' src='../../../script/fastclick.js'></script> 
+    <script type="text/javascript" src='../../../script/rem.js'></script>
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style type="text/css">
+    	.choicewrap{
+    		 
+    	}
+    	.title{
+    		margin-bottom: 15px;
+    		font-size: 13px;
+    		color: #999;
+    		text-align: center;
+    		margin-top: 15px;
+    	}
+    	.choice{
+    		margin-left: -3px;
+    	}
+    	.choiceItem{
+    		width:1.18rem;
+    		display: inline-block;
+    		position: relative;
+    	}
+    	.choiceItem input{
+    		position: absolute;
+    		width:1.18rem;
+    		height: 0.8rem;
+    		opacity: 0;
+
+    	}
+    	.choiceItem input:checked+span{
+    		background: #fee1f1;
+    		color:#ff55b5;
+    		border:1px solid #ff55b5;
+    	}
+    	.choiceItem span{
+    		display: block;
+    		width: 1.18rem;
+    		height: 0.6rem;
+    		border:1px solid #d9d9d9;
+    		border-radius: 0.5rem;
+    		font-size: 11px;
+    		color:#333;
+    		line-height: 0.52rem;
+    		text-align: center;
+    		margin-top: -1px;
+    		margin:0.06rem;
+    	}
+    	.topTitle{
+    		height: 37px;
+    		font-size: 13px;
+    		padding: 0 15px;
+    	}
+    	
+    	.topTitle img{
+    		width:19px;
+    		height: 19px;
+    		display: inline-block;
+    		margin-bottom: -5px;
+    	}
+    	.topTitle span{
+    		display: inline-block;
+    		margin-right: 10px;
+    	}
+    	.topTitle .info{
+    		color: #666;
+    		line-height: 37px;
+    	}
+    	#box{
+            display: none;
+        }
+        .box-background{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: -100px;
+            opacity: 0.5;
+            background: black;
+        }
+        .box-container{
+           position: absolute;
+            padding: 40px;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%);
+            margin-top: -28px;
+        }
+        .box-header {
+            text-align: right;
+        }
+        .box-header img{
+        	display: inline-block;
+            margin-right: 5px;
+            width: 28px;
+            height: 28px;
+            margin-bottom: 25px;
+            right: 0
+        }
+        .box-header::after{
+            position: absolute;
+            border:1px solid white;
+            height: 25px;
+            top:68px;
+            right:57px;
+            content: '';
+        }
+
+        .box-body{
+            background: white;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .box-body-title {
+            text-align: center;
+            font-size: 17px;
+            color: black !important;
+            margin: 20px 0 20px 0;
+        }
+
+        .box-body-button {
+            background: #ec75b9;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 30px;
+            margin: 0 auto;
+            width: 100px;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        .line{
+        }
+        #personinfo{
+            position: relative;
+        }
+        #box-body-input{
+        	border:1px solid #eee;
+        	border-radius: 5px;
+        	height: 35px;
+        	width:100%;
+        	padding-left: 8px;
+        }
+    </style>
+</head>
+<body>
+	<div class="topTitle">
+		<span><img src="../../../image/write.png?v=1"></span><span class="info">基本信息完成度：</span><em id="progress">0%</em>
+	</div>
+	<div class="set-layout" id='add-member' style="padding:0 15px;">
+        <ul class="form-content">
+			<div class="add-log">
+				<li class="form-item border-b">
+				    <div class="form-item-cell">
+				        <span class='form-item-cell-icon position-y-center'>
+				            <img src="../../../image/birthday.png?v=1">
+				        </span>
+				        <span class='form-item-cell-label position-y-center'>生日</span>
+				        <span style='right: 18px' class='form-item-cell-other position-y-center'>
+				            <input class='other-input' id="birth" type="text" placeholder="请选择生日" readonly>
+				        </span>
+				        <span class='form-item-cell-other position-y-center'>
+				            <img class='more' src="../../../image/sys-more.png">
+				        </span>  
+				    </div>
+				</li>
+				<li class="form-item border-b">
+				    <div class="form-item-cell">
+				        <span class='form-item-cell-icon position-y-center'>
+				            <img src="../../../image/weight.png">
+				        </span>
+				        <span class='form-item-cell-label position-y-center'>体重</span>
+				        <span style='right: 18px;' class='form-item-cell-other position-y-center'>
+				            <input data-id='weight' class='other-input' id='weight' type="text" placeholder="请选择体重" readonly style="font-size: 15px;color:#ff3e39">
+				            <span>kg</span>
+				        </span>
+				        <span class='form-item-cell-other position-y-center'>
+				            <img class='more' src="../../../image/sys-more.png">
+				        </span>  
+				    </div>
+				</li>
+			</div>
+
+			<li class="form-item" style='height: auto'>
+			<div class="choicewrap">
+				<div class="choice">
+					<h3 class="title">皮肤问题(可多选)</h3>
+					<div class="choiceItem">
+						<input name="skin" type="checkbox" value="中性" /><span>中性</span>
+					</div>
+					<div class="choiceItem">
+						<input name="skin" type="checkbox" value="干性" /><span>干性</span>
+					</div>
+					<div class="choiceItem">
+						<input name="skin" type="checkbox" value="油性" /><span>油性</span>
+					</div>
+					<div class="choiceItem">
+						<input name="skin" type="checkbox" value="混合性" /><span>混合性</span>
+					</div>
+					<div class="choiceItem">
+						<input name="skin" type="checkbox" value="敏感性" /><span>敏感性</span>
+					</div>
+					<div class="choiceItem">
+						<input name="skin" type="checkbox" value="雀斑" /><span>雀斑</span>
+					</div>
+					<div class="choiceItem">
+						<input name="skin" type="checkbox" value="黄褐斑" /><span>黄褐斑</span>
+					</div>
+					<div class="choiceItem">
+						<input name="skin" type="checkbox" value="红血丝" /><span>红血丝</span>
+					</div>
+					<div class="choiceItem">
+						<input name="skin" type="checkbox" value="暗疮" /><span>暗疮</span>
+					</div>
+				</div>
+
+				<div class="choice">
+					<h3 class="title">消费水平(单选)</h3>
+					<div class="choiceItem">
+						<input name="consume" type="radio" value="2千以下" /><span>2千以下</span>
+					</div>
+					<div class="choiceItem">
+						<input name="consume" type="radio" value="2-5千" /><span>2-5千</span>
+					</div>
+					<div class="choiceItem">
+						<input name="consume" type="radio" value="5千-1万" /><span>5千-1万</span>
+					</div>
+					<div class="choiceItem">
+						<input name="consume" type="radio" value="1-2万" /><span>1-2万</span>
+					</div>
+					<div class="choiceItem">
+						<input name="consume" type="radio" value="2万以上" /><span>2万以上</span>
+					</div>
+				</div>
+
+				<div class="choice">
+					<h3 class="title">性格(单选)</h3>
+					<div class="choiceItem">
+						<input name="temper" type="radio" value="大方豪爽" /><span>大方豪爽</span>
+					</div>
+					<div class="choiceItem">
+						<input name="temper" type="radio" value="外向开朗" /><span>外向开朗</span>
+					</div>
+					<div class="choiceItem">
+						<input name="temper" type="radio" value="情绪多变" /><span>情绪多变</span>
+					</div>
+					<div class="choiceItem">
+						<input name="temper" type="radio" value="沉默寡言" /><span>沉默寡言</span>
+					</div>
+					<div class="choiceItem">
+						<input name="temper" type="radio" value="小心谨慎" /><span>小心谨慎</span>
+					</div>
+				</div>
+
+				<div class="choice">
+					<h3 class="title">职业(单选)</h3>
+					<div class="choiceItem">
+						<input name="profession" type="radio" value="教师" /><span>教师</span>
+					</div>
+					<div class="choiceItem">
+						<input name="profession" type="radio" value="医生" /><span>医生</span>
+					</div>
+					<div class="choiceItem">
+						<input name="profession" type="radio" value="公务员" /><span>公务员</span>
+					</div>
+					<div class="choiceItem">
+						<input name="profession" type="radio" value="老板" /><span>老板</span>
+					</div>
+					<div class="choiceItem">
+						<input name="profession" type="radio" value="职员" /><span>职员</span>
+					</div>
+					<div class="choiceItem">
+						<input name="profession" type="radio" value="自由职业" /><span>自由职业</span>
+					</div>
+				</div>
+
+				<div class="choice">
+					<h3 class="title">健康状况(可多选)</h3>
+					<div class="choiceItem">
+						<input name="health" type="checkbox" value="失眠" /><span>失眠</span>
+					</div>
+					<div class="choiceItem">
+						<input name="health" type="checkbox" value="偏头痛" /><span>偏头痛</span>
+					</div>
+					<div class="choiceItem">
+						<input name="health" type="checkbox" value="消化不良" /><span>消化不良</span>
+					</div>
+					<div class="choiceItem">
+						<input name="health" type="checkbox" value="慢性胃病" /><span>慢性胃病</span>
+					</div>
+					<div class="choiceItem">
+						<input name="health" type="checkbox" value="月经不调" /><span>月经不调</span>
+					</div>
+					<div class="choiceItem">
+						<input name="health" type="checkbox" value="肩颈酸胀" /><span>肩颈酸胀</span>
+					</div>
+					<div class="choiceItem">
+						<input name="health" type="checkbox" value="乳腺疼痛" /><span>乳腺疼痛</span>
+					</div>
+				</div>
+
+				<div class="choice">
+					<h3 class="title" >自定义标签</h3>
+					<div class="choiceItem" id="extrachoice">
+						<span style="color:#999" onclick="add()">添加标签</span>
+					</div>
+					<script id="extra" type="text/html">
+                         {{each list value  i}}  
+                           <div class="choiceItem" >
+                                <input name="other" type="checkbox" checked  disabled="true"><span style="width: auto;">{{value}}</span>
+                            </div>
+                        {{/each}}
+                    </script> 
+                    <script id="addextra" type="text/html">
+                        
+                           <div class="choiceItem" >
+                                <input name="other" type="checkbox" checked  disabled="true"><span style="width: auto;">{{extrachoice}}</span>
+                            </div>
+                        
+                    </script>  
+				</div>
+			</div>
+
+			</li>
+            
+            <li class="form-item" style='height: 128px'>
+                <div class="form-item-cell">
+                    <div class='form-item-cell-btn' onclick='addLog()'>
+                        <span>确认</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="targetContainer"></div>
+
+    <div id="radio-box">
+    	<div class="radio-bg">
+    		<div class="dialog position-center">
+    			<form id='dialog-form'>
+    				<div class="check-box" id='check-wrap'></div>
+    			</form>
+    			<div class='dialog-btns'>
+					<span id='dialog-cancel'>取消</span>
+					<span id='dialog-checked'>确认</span>
+				</div>
+    		</div>
+    	</div>
+    </div>
+
+
+    <div id="box">
+        <div class="box-background"></div>
+        
+        <div class="box-container">
+            <div class="box-header">
+                <img src="../../../image/dialog-close.png?v=2" onclick="closeDialog()" />
+            </div>
+            <div class="line"></div>
+            <div class="box-body">
+                <h3 class="box-body-title" id="box-body-title">请输入自拟标签</h3>
+                <input type="text" id="box-body-input" placeholder="请输入自拟标签" maxlength="4" style="border:1px solid gray">
+                <div class="box-body-button" onclick="save()">确认</div>
+            </div>  
+        </div>
+        </div>
+
+
+
+
+</body>
+<script src="../../../script/axios.min.js"></script>
+<script src="../../../script/template-web.js"></script>
+<script src="../../../script/zepto.min.js"></script>
+<script src="../../../script/store.min.js"></script>
+<script src="../../../script/moment.min.js"></script>
+<script src="../../../script/store.min.js"></script>
+<script src="../../../script/phone.js"></script>
+<script src="../../../script/weight.js"></script>
+<script src="../../../script/MultiPicker.js"></script>
+<script src="../../../fetch/api.js?rev=@@hash"></script>
+<script src="../../../script/setLog.js?v=2"></script>
+<script type="text/javascript">
+
+var init = function() {
+   
+    peopleId = params.basic.peopleId;
+     //peopleId = "59c9bf4c94a2cb151b9157e2";
+    ajax.getServerPeople({
+        peopleId: peopleId,
+    }, function(res) {
+         console.log(res);
+        var profile = res.data.extra.profile;
+        var count = 0;
+        if(profile) {
+            for(key in profile) {
+                if(baseList.indexOf(key) >= 0 && profile[key]) {
+                    count += 1;
+                    var domId = key.replace(/[A-Z]/g, function(val) {
+                        return '-' + val.toLowerCase();
+                    })
+                    $('#' + domId).val(profile[key]);
+                }
+            }
+            $('#progress').text(count ? (count / baseList.length * 100).toFixed(2) + '%' : '0%');
+            isFirst = false;
+            $('#more').show();
+            $('#more').removeClass('img-up');
+            $('.first-write').removeClass('first-write-up');
+
+				 //便利渲染
+                //skin
+
+                var skin=profile.skin
+                if(skin){
+                	skin=skin.split(',')
+                	 var skindom=$('[name="skin"]')
+                console.log(skindom)
+                for (var i = skin.length - 1; i >= 0; i--) {
+                    for (var j = skindom.length - 1; j >= 0; j--) {
+                        if(skindom[j].value==skin[i]){
+                            skindom[j].checked=true 
+                        }
+                       
+                    }
+                }
+                }
+                
+               
+                //consume
+                var consume=profile.consume
+                var consumedom=$('[name="consume"]')
+                for (var i = consumedom.length - 1; i >= 0; i--) {
+                    if(consumedom[i].value==consume){
+                        consumedom.eq(i).attr('checked',true)
+                    }
+                }
+                //性格
+                var temper=profile.temper;
+                var temperdom=$('[name="temper"]');
+                console.log(temper,temperdom)
+                for (var i = temperdom.length - 1; i >= 0; i--) {
+                    if (temperdom[i].value==temper) {
+                        console.log(0)
+                        temperdom.eq(i).attr('checked',true)
+                    }
+                        
+                }
+                //profession
+                var profession=profile.profession;
+                var professiondom=$('[name="profession"]');
+                console.log(profession,professiondom);
+                for (var i = professiondom.length - 1; i >= 0; i--) {
+                    if (professiondom[i].value==profession) {
+                        professiondom.eq(i).attr('checked',true)
+                    }
+                    
+                }
+
+                //health
+                var health=profile.health
+                if(health){
+                	health=health.split(',')
+
+                var healthdom=$('[name="health"]')
+                console.log(health)
+                for (var i = health.length - 1; i >= 0; i--) {
+                    for (var j = healthdom.length - 1; j >= 0; j--) {
+                        if(healthdom[j].value==health[i]){
+                           healthdom[j].checked=true 
+                        }
+                       
+                    }
+                }
+                }
+                
+                //other
+                
+                var other=profile.other;
+                if(other){
+                	other=other.split(',');
+                    
+                	
+                   
+                 $('#extrachoice').before(template('extra', {list: other}))
+                
+                }
+                
+
+
+
+
+        } else {
+            isFirst = true;
+            $('#more').hide();
+            $('#more').addClass('img-up');
+            $('.first-write').addClass('first-write-up');
+        }  
+    })
+}
+//init()
+     var other=new Array()
+    var otherstr=''  ;
+    var add=function(){
+     console.log(444444444)
+    	$('#box').show()
+    }
+    var closeDialog=function(){
+    	$('#box').hide();
+    }
+    var save=function(){
+        if($('#box-body-input').val()){
+            var extra={
+            		extrachoice:$('#box-body-input').val()
+            	}
+        	other.push(($('#box-body-input').val()))
+        	otherstr=other.join(',')||'';
+        	
+        	var dom=template('addextra',extra);
+        	$('#extrachoice').before(dom);
+        	
+        	document.getElementById('box-body-input').value = ''
+
+        }
+        	
+        	$('#box').hide();
+        	
+        }
+    var addLog = function() {
+    	
+        var skin=new Array();  
+    	$('input[name="skin"]:checked').each(function(){  
+    	    skin.push($(this).val());
+    	});  
+    	var skin=skin.join(',');
+    	
+	
+	var consume=$('input[name="consume"]:checked').val();
+	console.log(consume)
+	var temper=$('input[name="temper"]:checked').val();
+    var profession=$('input[name="profession"]:checked').val();
+    var health=new Array();  
+	$('input[name="health"]:checked').each(function(){  
+	    health.push($(this).val());
+	});  
+	var health=health.join(',');
+    var postData = {
+    	channel:1,
+        peopleId: peopleId,
+        feedId: params.feedId,
+        birth: $('#birth').val(),
+        skin: skin,
+        consume: consume,
+        temper:  temper,
+        profession: profession,
+        health: health,
+        other:otherstr,
+        weight: $('#weight').val(),
+        
+    };
+    // if(isFirst) {
+    // 	 postData =Object.assign(postData, {
+    // 	 	channel:1,
+	   //      peopleId: peopleId,
+	   //      feedId: params.feedId,
+    //         birth: $('#birth').val(),
+	   //      skin: skin,
+	   //      consume: consume,
+	   //      temper:  temper,
+	   //      profession: profession,
+	   //      health: health,
+	   //      other:otherstr,
+	   //      weight: $('#weight').val(),
+    //     })
+    // }
+    ajax.updateProfile(postData, function(res) {
+        api.toast({
+            msg: '填写成功！',
+        });
+        setTimeout(function() {
+            api.closeWin();
+            api.execScript({
+                name: 'log',
+                frameName: 'log_frame',
+                script: 'getPreBook()',
+            });
+        }, 1000)
+    })
+}
+
+
+    
+	 
+    </script>
+</html>

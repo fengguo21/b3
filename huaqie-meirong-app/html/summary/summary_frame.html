@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/system.css?v=4"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mrUI.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script>
+    <script type="text/javascript" src='../../script/rem.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style>
+        #add-member .form-item-cell-icon {
+            width: 19px;
+        }
+        #add-member .form-item-cell-label {
+            left: 29px;
+            font-size: 14px;
+        }
+        #post:disabled {
+            background-color: #fff;
+        }
+        .choiceItem{
+            width:1.18rem;
+            display: inline-block;
+            position: relative;
+        }
+        .choiceItem input{
+            position: absolute;
+            width:1.18rem;
+            height: 0.8rem;
+            opacity: 0;
+
+        }
+        .choiceItem input:checked+span{
+            background: #fee1f1;
+            color:#ff55b5;
+            border:1px solid #ff55b5;
+        }
+        .choiceItem span{
+            display: block;
+            width: 1.18rem;
+            height: 0.6rem;
+            border:1px solid #d9d9d9;
+            border-radius: 0.5rem;
+            font-size: 11px;
+            color:#333;
+            line-height: 0.56rem;
+            text-align: center;
+            margin-top: -1px;
+            margin:0.06rem;
+        }
+        textarea{
+        	padding: 10px;
+        	font-size: 14px;
+        	width: 91%;
+        	border: 1px solid #e5e5e5;
+        	margin: 0 15px;
+        	border-radius: 8px;
+        }
+        .border-c:after{
+        	border-bottom: 0 !important;
+        }
+        .form-item-cell-btnx{
+        	text-align: center;
+            margin-bottom: 15px;
+        }
+        .form-item-cell-btnx span{
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="set-layout" id='add-member'>
+
+               
+                    <div class='form-item-cell-btnx' id="month-box">
+                        <span onclick='go()'>查看报告</span>
+                    </div>
+               
+          
+        <ul class="form-content">
+        <h3 style="margin:20px 0 5px 15px;padding-top:20px" id="zongjie-title">本月总结</h3>
+        <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/yeji@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center' id="biaotiTitle">本月月份</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='biaoti' type="text" placeholder="请输入本月月份">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/yeji@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>目标业绩</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='mubiaoyeji' type="number" placeholder="请输入目标业绩">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/yeji@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>冲刺业绩</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='chongciyeji' type="number" placeholder="请输入冲刺业绩">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/yeji@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>完成业绩</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='wanchengyeji' type="number" placeholder="请输入完成业绩">
+                    </span>
+                </div>
+            </li>  
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/zongkeshu.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>总客数</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='zongkeshu' type="number" placeholder="请输入总客数">
+                    </span>
+                </div>
+            </li>  
+            <li class="form-item border-b" id='post-wrap'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/keshu@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>老客到店人数</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='laokedaodianrenshu' type="number" placeholder="请输入老客到店人数">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/keshu@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>老客消费人数</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='laokexiaofeirenshu' type="number" placeholder="请输入老客消费人数">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/jine.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>老客消费金额</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='laokexiaofeijine' type="number" placeholder="请输入老客消费金额">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/jine.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>老客消费人均</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='laokexiaofeirenjun' type="number" placeholder="请输入老客消费人均">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/xinke@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>新客到店人数</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='xinkedaodianrenshu' type="number" placeholder="请输入新客到店人数">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/xinke@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>新客消费人数</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='xinkexiaofeirenshu' type="number" placeholder="请输入新客消费人数">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/jine.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>新客消费金额</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='xinkexiaofeijine' type="number" placeholder="请输入新客消费金额">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/jine.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>新客消费人均</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='xinkexiaofeirenjun' type="number" placeholder="请输入新客消费人均">
+                    </span>
+                </div>
+            </li>  
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/liuke@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>新客留客人数</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='xinkeliukerenshu' type="number" placeholder="请输入新客留客人数">
+                    </span>
+                </div>
+            </li>  
+            <li class="form-item border-b border-c" >
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/yuezongjie@2x.png" id="zongjieIcon">
+                    </span>
+                    <span class='form-item-cell-label position-y-center' id="zongjieTitle">月总结</span>
+                </div>
+            </li> 
+            <textarea data-id='promotion' type="text" rows='15'  placeholder="请输入月总结" class='other-input' id='zongjie' ></textarea>
+            <h3 style="margin:20px 0 5px 15px;" id="jihua-title">下月计划</h3>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/yeji@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>目标业绩</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='mubiaoyeji2' type="number" placeholder="请输入目标业绩">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/yeji@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>冲刺业绩</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='chongciyeji2' type="number" placeholder="请输入冲刺业绩">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b" id='post-wrap'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/keshu@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>老客到店人数</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='laokedaodianrenshu2' type="number" placeholder="请输入老客到店人数">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/keshu@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>老客消费人数</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='laokexiaofeirenshu2' type="number" placeholder="请输入老客消费人数">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/jine.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>老客消费金额</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='laokexiaofeijine2' type="number" placeholder="请输入老客消费金额">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/jine.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>老客消费人均</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='laokexiaofeirenjun2' type="number" placeholder="请输入老客消费人均">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/xinke@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>新客到店人数</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='xinkedaodianrenshu2' type="number" placeholder="请输入新客到店人数">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/xinke@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>新客消费人数</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='xinkexiaofeirenshu2' type="number" placeholder="请输入新客消费人数">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/jine.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>新客消费金额</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='xinkexiaofeijine2' type="number" placeholder="请输入新客消费金额">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/jine.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>新客消费人均</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='xinkexiaofeirenjun2' type="number" placeholder="请输入新客消费人均">
+                    </span>
+                </div>
+            </li>  
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/liuke@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>新客留客人数</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='xinkeliukerenshu2' type="number" placeholder="请输入新客留客人数">
+                    </span>
+                </div>
+            </li>  
+            <li class="form-item border-b border-c">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/jihua@2x.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center' id="jihuaTitle">月计划</span>
+                </div>
+            </li> 
+            	<textarea data-id='promotion' type="text" rows='15'  placeholder="请输入月计划" class='other-input' id='jihua' ></textarea>
+
+
+            <li class="form-item" style='height: 128px'>
+                <div class="form-item-cell">
+                    <div class='form-item-cell-btn' onclick='save()'>
+                        <span>确认保存</span>
+                    </div>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/axios.min.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script src="../../script/store.min.js"></script>
+<script src="../../fetch/api.js"></script>
+<script type="text/javascript">
+    var me = store.get('me');
+    var mode = 'month'
+
+    var changeMode = function(mode) {
+        this.mode = mode
+        if(mode == 'month'){
+            //$('#year-box').hide()
+            //$('#month-box').show()
+            $('#biaotiTitle').text('本月月份')
+            $('#zongjie-title').text('本月总结')
+            $('#jihua-title').text('下月计划')
+            $("#biaoti").attr('placeholder', '请输入本月月份')
+            $('#zongjieTitle').text('月总结')
+            $('#zongjieIcon')[0].src = '../../image/yuezongjie@2x.png'
+            $('#jihuaTitle').text('月计划')
+            $('#zongjie').attr('placeholder', '请输入月总结')
+            $('#jihua').attr('placeholder', '请输入月计划')
+            var db = store.get('summary_db')
+            if(!db)
+                return
+            if(db.month){
+                $('#biaoti').val(db.month.biaoti || '')
+                $('#mubiaoyeji').val(db.month.mubiaoyeji)
+                $('#chongciyeji').val(db.month.chongciyeji)
+                $('#wanchengyeji').val(db.month.wanchengyeji)
+                $('#zongkeshu').val(db.month.zongkeshu)
+
+                $('#laokedaodianrenshu').val(db.month.laokedaodianrenshu)
+                $('#laokexiaofeirenshu').val(db.month.laokexiaofeirenshu)
+                $('#laokexiaofeijine').val(db.month.laokexiaofeijine)
+                $('#laokexiaofeirenjun').val(db.month.laokexiaofeirenjun)
+                $('#xinkedaodianrenshu').val(db.month.xinkedaodianrenshu)
+                $('#xinkeliukerenshu').val(db.month.xinkeliukerenshu)
+                $('#xinkexiaofeijine').val(db.month.xinkexiaofeijine)
+                $('#xinkexiaofeirenshu').val(db.month.xinkexiaofeirenshu)
+                $('#xinkexiaofeirenjun').val(db.month.xinkexiaofeirenjun)
+
+                $('#mubiaoyeji2').val(db.month.mubiaoyeji2)
+                $('#chongciyeji2').val(db.month.chongciyeji2)
+                $('#laokedaodianrenshu2').val(db.month.laokedaodianrenshu2)
+                $('#laokexiaofeirenshu2').val(db.month.laokexiaofeirenshu2)
+                $('#laokexiaofeijine2').val(db.month.laokexiaofeijine2)
+                $('#laokexiaofeirenjun2').val(db.month.laokexiaofeirenjun2)
+                $('#xinkedaodianrenshu2').val(db.month.xinkedaodianrenshu2)
+                $('#xinkeliukerenshu2').val(db.month.xinkeliukerenshu2)
+                $('#xinkexiaofeijine2').val(db.month.xinkexiaofeijine2)
+                $('#xinkexiaofeirenshu2').val(db.month.xinkexiaofeirenshu2)
+                $('#xinkexiaofeirenjun2').val(db.month.xinkexiaofeirenjun2)
+
+                $('#jihua').val(db.month.jihua || '')
+                $('#zongjie').val(db.month.zongjie || '')
+            }
+        }else{
+            //$('#month-box').hide()
+            //$('#year-box').show()
+            $('#biaotiTitle').text('本年年度')
+            $('#zongjie-title').text('本年总结')
+            $('#jihua-title').text('下年计划')
+            $("#biaoti").attr('placeholder', '请输入本年年度')
+            $('#zongjieTitle').text('年总结')
+            $('#zongjieIcon')[0].src = '../../image/nianzongjie@2x.png'
+            $('#jihuaTitle').text('年计划')
+            $('#zongjie').attr('placeholder', '请输入年总结')
+            $('#jihua').attr('placeholder', '请输入年计划')
+            var db = store.get('summary_db')
+            if(!db)
+                return
+            if(db.year){
+                $('#biaoti').val(db.year.biaoti || '')
+                $('#mubiaoyeji').val(db.year.mubiaoyeji)
+                $('#chongciyeji').val(db.year.chongciyeji)
+                $('#wanchengyeji').val(db.year.wanchengyeji)
+                $('#zongkeshu').val(db.year.zongkeshu)
+                $('#laokedaodianrenshu').val(db.year.laokedaodianrenshu)
+                $('#laokexiaofeirenshu').val(db.year.laokexiaofeirenshu)
+                $('#laokexiaofeijine').val(db.year.laokexiaofeijine)
+                $('#laokexiaofeirenjun').val(db.year.laokexiaofeirenjun)
+                $('#xinkedaodianrenshu').val(db.year.xinkedaodianrenshu)
+                $('#xinkeliukerenshu').val(db.year.xinkeliukerenshu)
+                $('#xinkexiaofeijine').val(db.year.xinkexiaofeijine)
+                $('#xinkexiaofeirenshu').val(db.year.xinkexiaofeirenshu)
+                $('#xinkexiaofeirenjun').val(db.year.xinkexiaofeirenjun)
+
+                $('#mubiaoyeji2').val(db.year.mubiaoyeji2)
+                $('#chongciyeji2').val(db.year.chongciyeji2)
+                $('#laokedaodianrenshu2').val(db.year.laokedaodianrenshu2)
+                $('#laokexiaofeirenshu2').val(db.year.laokexiaofeirenshu2)
+                $('#laokexiaofeijine2').val(db.year.laokexiaofeijine2)
+                $('#laokexiaofeirenjun2').val(db.year.laokexiaofeirenjun2)
+                $('#xinkedaodianrenshu2').val(db.year.xinkedaodianrenshu2)
+                $('#xinkeliukerenshu2').val(db.year.xinkeliukerenshu2)
+                $('#xinkexiaofeijine2').val(db.year.xinkexiaofeijine2)
+                $('#xinkexiaofeirenshu2').val(db.year.xinkexiaofeirenshu2)
+                $('#xinkexiaofeirenjun2').val(db.year.xinkexiaofeirenjun2)
+
+                $('#jihua').val(db.year.jihua || '')
+                $('#zongjie').val(db.year.zongjie || '')
+            }
+        }
+    } 
+    var go = function() {
+        var db = store.get('summary_db') || {
+            month: {},
+            year: {}
+        }
+
+            if(db.month.mubiaoyeji > 10000)
+                db.month.mubiaoyeji = (db.month.mubiaoyeji/10000).toFixed(0)+'万'
+            else if(db.month.mubiaoyeji > 1000)
+                db.month.mubiaoyeji = (db.month.mubiaoyeji/1000).toFixed(0)+'千'
+            if(db.month.chongciyeji > 10000)
+                db.month.chongciyeji = (db.month.chongciyeji/10000).toFixed(0)+'万'
+            else if(db.month.chongciyeji > 1000)
+                db.month.chongciyeji = (db.month.chongciyeji/1000).toFixed(0)+'千'
+            if(db.month.wanchengyeji > 10000)
+                db.month.wanchengyeji = (db.month.wanchengyeji/10000).toFixed(0)+'万'
+            else if(db.month.wanchengyeji > 1000)
+                db.month.wanchengyeji = (db.month.wanchengyeji/1000).toFixed(0)+'千'
+
+            if(db.month.mubiaoyeji2 > 10000)
+                db.month.mubiaoyeji2 = (db.month.mubiaoyeji2/10000).toFixed(0)+'万'
+            else if(db.month.mubiaoyeji > 1000)
+                db.month.mubiaoyeji2 = (db.month.mubiaoyeji2/1000).toFixed(0)+'千'
+            if(db.month.chongciyeji2 > 10000)
+                db.month.chongciyeji2 = (db.month.chongciyeji2/10000).toFixed(0)+'万'
+            else if(db.month.chongciyeji2 > 1000)
+                db.month.chongciyeji2 = (db.month.chongciyeji2/1000).toFixed(0)+'千'
+        
+
+            if(db.year.mubiaoyeji > 10000)
+                db.year.mubiaoyeji = (db.year.mubiaoyeji/10000).toFixed(0)+'万'
+            else if(db.year.mubiaoyeji > 1000)
+                db.year.mubiaoyeji = (db.year.mubiaoyeji/1000).toFixed(0)+'千'
+            if(db.year.chongciyeji > 10000)
+                db.year.chongciyeji = (db.year.chongciyeji/10000).toFixed(0)+'万'
+            else if(db.year.chongciyeji > 1000)
+                db.year.chongciyeji = (db.year.chongciyeji/1000).toFixed(0)+'千'
+            if(db.year.wanchengyeji > 10000)
+                db.year.wanchengyeji = (db.year.wanchengyeji/10000).toFixed(0)+'万'
+            else if(db.year.wanchengyeji > 1000)
+                db.year.wanchengyeji = (db.year.wanchengyeji/1000).toFixed(0)+'千'
+
+            if(db.year.mubiaoyeji2 > 10000)
+                db.year.mubiaoyeji2 = (db.year.mubiaoyeji2/10000).toFixed(0)+'万'
+            else if(db.year.mubiaoyeji2 > 1000)
+                db.year.mubiaoyeji2 = (db.year.mubiaoyeji2/1000).toFixed(0)+'千'
+            if(db.year.chongciyeji2 > 10000)
+                db.year.chongciyeji2 = (db.year.chongciyeji2/10000).toFixed(0)+'万'
+            else if(db.year.chongciyeji2 > 1000)
+                db.year.chongciyeji2 = (db.year.chongciyeji2/1000).toFixed(0)+'千'
+            
+
+            api.openWin({
+                name: 'summary_go',
+                url: './summary_go.html',
+                pageParam: {
+                    month:{
+                        biaoti: db.month.biaoti || '',
+                        mubiaoyeji: (db.month.mubiaoyeji || 0),
+                        chongciyeji: (db.month.chongciyeji || 0),
+                        wanchengyeji: (db.month.wanchengyeji || 0),
+                        zongkeshu: (db.month.zongkeshu || 0)+'人',
+                        laokedaodianrenshu: (db.month.laokedaodianrenshu || 0)+'人',
+                        laokexiaofeirenshu: (db.month.laokexiaofeirenshu || 0)+'人',
+                        laokexiaofeijine: (db.month.laokexiaofeijine || 0)+'元',
+                        laokexiaofeirenjun: (db.month.laokexiaofeirenjun || 0)+'元',
+                        xinkedaodianrenshu: (db.month.xinkedaodianrenshu || 0)+'人',
+                        xinkeliukerenshu: (db.month.xinkeliukerenshu || 0)+'人',
+                        xinkexiaofeijine: (db.month.xinkexiaofeijine || 0)+'元',
+                        xinkexiaofeirenshu: (db.month.xinkexiaofeirenshu || 0)+'人',
+                        xinkexiaofeirenjun: (db.month.xinkexiaofeirenjun || 0)+'元',
+
+                        mubiaoyeji2: (db.month.mubiaoyeji2 || 0),
+                        chongciyeji2: (db.month.chongciyeji2 || 0),
+                        laokedaodianrenshu2: (db.month.laokedaodianrenshu2 || 0)+'人',
+                        laokexiaofeirenshu2: (db.month.laokexiaofeirenshu2 || 0)+'人',
+                        laokexiaofeijine2: (db.month.laokexiaofeijine2 || 0)+'元',
+                        laokexiaofeirenjun2: (db.month.laokexiaofeirenjun2 || 0)+'元',
+                        xinkedaodianrenshu2: (db.month.xinkedaodianrenshu2 || 0)+'人',
+                        xinkeliukerenshu2: (db.month.xinkeliukerenshu2 || 0)+'人',
+                        xinkexiaofeijine2: (db.month.xinkexiaofeijine2 || 0)+'元',
+                        xinkexiaofeirenshu2: (db.month.xinkexiaofeirenshu2 || 0)+'人',
+                        xinkexiaofeirenjun2: (db.month.xinkexiaofeirenjun2 || 0)+'元',
+
+                        zongjie: db.month.zongjie || '暂未填写年总结',
+                        jihua: db.month.jihua || '暂未填写年计划'
+                    },
+                    year:{
+                        biaoti: db.year.biaoti || '',
+                        mubiaoyeji: (db.year.mubiaoyeji || 0),
+                        chongciyeji: (db.year.chongciyeji || 0),
+                        wanchengyeji: (db.year.wanchengyeji || 0),
+                        zongkeshu: (db.year.zongkeshu || 0)+'人',
+                        laokedaodianrenshu: (db.year.laokedaodianrenshu || 0)+'人',
+                        laokexiaofeirenshu: (db.year.laokexiaofeirenshu || 0)+'人',
+                        laokexiaofeijine: (db.year.laokexiaofeijine || 0)+'元',
+                        laokexiaofeirenjun: (db.year.laokexiaofeirenjun || 0)+'元',
+                        xinkedaodianrenshu: (db.year.xinkedaodianrenshu || 0)+'人',
+                        xinkeliukerenshu: (db.year.xinkeliukerenshu || 0)+'人',
+                        xinkexiaofeijine: (db.year.xinkexiaofeijine || 0)+'元',
+                        xinkexiaofeirenshu: (db.year.xinkexiaofeirenshu || 0)+'人',
+                        xinkexiaofeirenjun: (db.year.xinkexiaofeirenjun || 0)+'元',
+
+                        mubiaoyeji2: (db.year.mubiaoyeji2 || 0),
+                        chongciyeji2: (db.year.chongciyeji2 || 0),
+                        laokedaodianrenshu2: (db.year.laokedaodianrenshu2 || 0)+'人',
+                        laokexiaofeirenshu2: (db.year.laokexiaofeirenshu2 || 0)+'人',
+                        laokexiaofeijine2: (db.year.laokexiaofeijine2 || 0)+'元',
+                        laokexiaofeirenjun2: (db.year.laokexiaofeirenjun2 || 0)+'元',
+                        xinkedaodianrenshu2: (db.year.xinkedaodianrenshu2 || 0)+'人',
+                        xinkeliukerenshu2: (db.year.xinkeliukerenshu2 || 0)+'人',
+                        xinkexiaofeijine2: (db.year.xinkexiaofeijine2 || 0)+'元',
+                        xinkexiaofeirenshu2: (db.year.xinkexiaofeirenshu2 || 0)+'人',
+                        xinkexiaofeirenjun2: (db.year.xinkexiaofeirenjun2 || 0)+'元',
+
+                        zongjie: db.year.zongjie || '暂未填写年总结',
+                        jihua: db.year.jihua || '暂未填写年计划'
+                    }
+                }
+            })
+
+        /*
+        return
+
+        if(w == 'report'){
+            if(db[mode].mubiaoyeji > 10000)
+                db[mode].mubiaoyeji = (db[mode].mubiaoyeji/10000).toFixed(0)+'万'
+            else if(db[mode].mubiaoyeji > 1000)
+                db[mode].mubiaoyeji = (db[mode].mubiaoyeji/1000).toFixed(0)+'千'
+            if(db[mode].chongciyeji > 10000)
+                db[mode].chongciyeji = (db[mode].chongciyeji/10000).toFixed(0)+'万'
+            else if(db[mode].chongciyeji > 1000)
+                db[mode].chongciyeji = (db[mode].chongciyeji/1000).toFixed(0)+'千'
+            if(db[mode].wanchengyeji > 10000)
+                db[mode].wanchengyeji = (db[mode].wanchengyeji/10000).toFixed(0)+'万'
+            else if(db[mode].wanchengyeji > 1000)
+                db[mode].wanchengyeji = (db[mode].wanchengyeji/1000).toFixed(0)+'千'
+            api.openWin({
+                name: 'summary_report',
+                url: './summary_report.html',
+                pageParam: {
+                    mode: mode,
+                    biaoti: db[mode].biaoti || '',
+                    mubiaoyeji: (db[mode].mubiaoyeji || 0),
+                    chongciyeji: (db[mode].chongciyeji || 0),
+                    wanchengyeji: (db[mode].wanchengyeji || 0),
+                    zongkeshu: (db[mode].zongkeshu || 0)+'人',
+                    laokedaodianrenshu: (db[mode].laokedaodianrenshu || 0)+'人',
+                    laokexiaofeirenshu: (db[mode].laokexiaofeirenshu || 0)+'人',
+                    laokexiaofeijine: (db[mode].laokexiaofeijine || 0)+'元',
+                    laokexiaofeirenjun: (db[mode].laokexiaofeirenjun || 0)+'元',
+                    xinkedaodianrenshu: (db[mode].xinkedaodianrenshu || 0)+'人',
+                    xinkeliukerenshu: (db[mode].xinkeliukerenshu || 0)+'人',
+                    xinkexiaofeijine: (db[mode].xinkexiaofeijine || 0)+'元',
+                    xinkexiaofeirenshu: (db[mode].xinkexiaofeirenshu || 0)+'人',
+                    xinkexiaofeirenjun: (db[mode].xinkexiaofeirenjun || 0)+'元',
+                    text: db[mode].zongjie || '暂未填写总结'
+                }
+            })
+        }else if(w == 'plan'){
+            if(db[mode].mubiaoyeji > 10000)
+                db[mode].mubiaoyeji = (db[mode].mubiaoyeji/10000).toFixed(0)+'万'
+            else if(db[mode].mubiaoyeji > 1000)
+                db[mode].mubiaoyeji = (db[mode].mubiaoyeji/1000).toFixed(0)+'千'
+            if(db[mode].chongciyeji > 10000)
+                db[mode].chongciyeji = (db[mode].chongciyeji/10000).toFixed(0)+'万'
+            else if(db[mode].chongciyeji > 1000)
+                db[mode].chongciyeji = (db[mode].chongciyeji/1000).toFixed(0)+'千'
+            api.openWin({
+                name: 'summary_plan',
+                url: './summary_plan.html',
+                pageParam: {
+                    mode: mode,
+                    biaoti: db[mode].biaoti || '',
+                    mubiaoyeji: (db[mode].mubiaoyeji || 0),
+                    chongciyeji: (db[mode].chongciyeji || 0),
+                    laokedaodianrenshu: (db[mode].laokedaodianrenshu || 0)+'人',
+                    laokexiaofeirenshu: (db[mode].laokexiaofeirenshu || 0)+'人',
+                    laokexiaofeijine: (db[mode].laokexiaofeijine || 0)+'元',
+                    laokexiaofeirenjun: (db[mode].laokexiaofeirenjun || 0)+'元',
+                    xinkedaodianrenshu: (db[mode].xinkedaodianrenshu || 0)+'人',
+                    xinkeliukerenshu: (db[mode].xinkeliukerenshu || 0)+'人',
+                    xinkexiaofeijine: (db[mode].xinkexiaofeijine || 0)+'元',
+                    xinkexiaofeirenshu: (db[mode].xinkexiaofeirenshu || 0)+'人',
+                    xinkexiaofeirenjun: (db[mode].xinkexiaofeirenjun || 0)+'元',
+                    text: db[mode].jihua || '暂未填写计划'
+                }
+            })
+        }
+        */
+    }
+    var save = function() {
+       var db = store.get('summary_db') || {
+            month: {},
+            year: {}
+       }
+       db[mode].biaoti = $('#biaoti').val()
+       db[mode].mubiaoyeji = $('#mubiaoyeji').val()
+       db[mode].chongciyeji = $('#chongciyeji').val()
+       db[mode].wanchengyeji = $('#wanchengyeji').val()
+       db[mode].zongkeshu = $('#zongkeshu').val()
+       db[mode].laokedaodianrenshu = $('#laokedaodianrenshu').val()
+       db[mode].laokexiaofeirenshu = $('#laokexiaofeirenshu').val()
+       db[mode].laokexiaofeijine = $('#laokexiaofeijine').val()
+       db[mode].laokexiaofeirenjun = $('#laokexiaofeirenjun').val()
+       db[mode].xinkedaodianrenshu = $('#xinkedaodianrenshu').val()
+       db[mode].xinkeliukerenshu = $('#xinkeliukerenshu').val()
+       db[mode].xinkexiaofeijine = $('#xinkexiaofeijine').val()
+       db[mode].xinkexiaofeirenshu = $('#xinkexiaofeirenshu').val()
+       db[mode].xinkexiaofeirenjun = $('#xinkexiaofeirenjun').val()
+
+       db[mode].mubiaoyeji2 = $('#mubiaoyeji2').val()
+       db[mode].chongciyeji2 = $('#chongciyeji2').val()
+       db[mode].laokedaodianrenshu2 = $('#laokedaodianrenshu2').val()
+       db[mode].laokexiaofeirenshu2 = $('#laokexiaofeirenshu2').val()
+       db[mode].laokexiaofeijine2 = $('#laokexiaofeijine2').val()
+       db[mode].laokexiaofeirenjun2 = $('#laokexiaofeirenjun2').val()
+       db[mode].xinkedaodianrenshu2 = $('#xinkedaodianrenshu2').val()
+       db[mode].xinkeliukerenshu2 = $('#xinkeliukerenshu2').val()
+       db[mode].xinkexiaofeijine2 = $('#xinkexiaofeijine2').val()
+       db[mode].xinkexiaofeirenshu2 = $('#xinkexiaofeirenshu2').val()
+       db[mode].xinkexiaofeirenjun2 = $('#xinkexiaofeirenjun2').val()
+
+       db[mode].jihua = $('#jihua').val()
+       db[mode].zongjie = $('#zongjie').val()
+       store.set('summary_db', db)
+       api.alert({msg:'保存成功'})
+    }
+    var init = function() {
+        var db = store.get('summary_db')
+        if(!db)
+            return
+        if(db.month){
+            $('#biaoti').val(db.month.biaoti)
+            $('#mubiaoyeji').val(db.month.mubiaoyeji)
+            $('#chongciyeji').val(db.month.chongciyeji)
+            $('#wanchengyeji').val(db.month.wanchengyeji)
+            $('#zongkeshu').val(db.month.zongkeshu)
+            $('#laokedaodianrenshu').val(db.month.laokedaodianrenshu)
+            $('#laokexiaofeirenshu').val(db.month.laokexiaofeirenshu)
+            $('#laokexiaofeijine').val(db.month.laokexiaofeijine)
+            $('#laokexiaofeirenjun').val(db.month.laokexiaofeirenjun)
+            $('#xinkedaodianrenshu').val(db.month.xinkedaodianrenshu)
+            $('#xinkeliukerenshu').val(db.month.xinkeliukerenshu)
+            $('#xinkexiaofeijine').val(db.month.xinkexiaofeijine)
+            $('#xinkexiaofeirenshu').val(db.month.xinkexiaofeirenshu)
+            $('#xinkexiaofeirenjun').val(db.month.xinkexiaofeirenjun)
+
+            $('#mubiaoyeji2').val(db.month.mubiaoyeji2)
+            $('#chongciyeji2').val(db.month.chongciyeji2)
+            $('#laokedaodianrenshu2').val(db.month.laokedaodianrenshu2)
+            $('#laokexiaofeirenshu2').val(db.month.laokexiaofeirenshu2)
+            $('#laokexiaofeijine2').val(db.month.laokexiaofeijine2)
+            $('#laokexiaofeirenjun2').val(db.month.laokexiaofeirenjun2)
+            $('#xinkedaodianrenshu2').val(db.month.xinkedaodianrenshu2)
+            $('#xinkeliukerenshu2').val(db.month.xinkeliukerenshu2)
+            $('#xinkexiaofeijine2').val(db.month.xinkexiaofeijine2)
+            $('#xinkexiaofeirenshu2').val(db.month.xinkexiaofeirenshu2)
+            $('#xinkexiaofeirenjun2').val(db.month.xinkexiaofeirenjun2)
+
+            $('#jihua').val(db.month.jihua || '')
+            $('#zongjie').val(db.month.zongjie || '')
+        }
+    }
+    apiready = function(){
+        init()
+    };
+</script>
+</html>

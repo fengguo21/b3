@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/system.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style>
+        #pro .form-item.choose-icon {
+            height: auto;
+        }
+        #pro .form-item-cell-icon {
+            width: 19px;
+        }
+        .icon-camera {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 23px auto;
+        }
+        .icon-camera img {
+            width: 100%;
+        }
+        .icon-camera-wrap > p {
+            font-size: 14px;
+            color: #999;
+            text-align: center;
+            margin-bottom: 45px;
+        }
+    </style>
+</head>
+<body>
+    <div class="set-layout" id='pro'>
+        <ul class="form-content">
+            <li class="form-item border-b choose-icon">
+                    <div style='position: relative; height: 19px; margin-top: 15px;'>
+                        <span class='form-item-cell-icon position-y-center'>
+                            <img src="../../image/user-avatar.png">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>项目图标</span>
+                    </div>
+                    <div class='icon-camera-wrap' onclick="openPic()">
+                        <div class='icon-camera'>
+                            <img id='avatar' src="../../image/camera.png">
+                        </div>
+                        <p>请选择您的项目图标</p>
+                    </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/detail-pro.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>项目名称</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='name' type="text" placeholder="请输入项目名称">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item" style='height: 128px'>
+                <div class="form-item-cell">
+                    <div class='form-item-cell-btn' onclick='addMember()'>
+                        <span>确认修改</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script src="../../script/axios.min.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script src="../../script/store.min.js"></script>
+<script src="../../fetch/api.js"></script>
+<script type="text/javascript">
+    var param = store.get('editPro');
+    var options = {
+        type: 'picture',
+        column: 4,
+        classify: true,
+        max: 1,
+        sort: {
+            key: 'time',
+            order: 'desc'
+        },
+        texts: {
+            stateText: '已选择*项',
+            cancelText: '取消',
+            finishText: '完成'
+        },
+        styles: {
+            bg: '#fff',
+            mark: {
+                icon: '',
+                position: 'bottom_left',
+                size: 20
+            },
+            nav: {
+                bg: '#eee',
+                stateColor: '#000',
+                stateSize: 18,
+                cancelBg: 'rgba(0,0,0,0)',
+                cancelColor: '#000',
+                cancelSize: 18,
+                finishBg: 'rgba(0,0,0,0)',
+                finishColor: '#000',
+                finishSize: 18
+            }
+        },
+        exchange: true,
+    }
+    var Oavatar = $('#avatar');
+    var openPic = function() {
+        var UIMediaScanner = api.require('UIMediaScanner');
+        UIMediaScanner.open(options, function(ret) {
+           if (ret) {
+                if(ret.eventType == 'confirm') {
+                    if(ret.list.length <= 0) {
+                        api.toast({
+                            msg: '至少选择一张图片'
+                        });
+                    } else {
+                        var size = ret.list[0].size / 1024 / 1024;
+                        if(size >= 2) {
+                            api.toast({
+                                msg: '请上传小于2M的图片',
+                            });
+                        } else {
+                            UIMediaScanner.transPath({
+                                path: ret.list[0].path,
+                            }, function(ret, err) {
+                                if (ret) {
+                                    uploadAvatar(ret);
+                                } else {
+                                    api.toast({
+                                        msg: JSON.stringify(err)
+                                    });
+                                }
+                            });
+                        } 
+                    }
+                } else {
+                    api.toast({
+                        msg: '已取消选择'
+                    });
+                }
+           }
+        }); 
+    }
+    var uploadAvatar = function(ret) {
+        api.ajax({
+            url: "https://g2.huaqie.com/cloud/app/upload",
+            method: 'post',
+            data: {
+                values: {
+                    file: 'file'
+                },
+                files: {
+                   file: ret.path
+                }
+           }
+        }, function(ret, err) {
+            if (ret) {
+                if( ret.code > 0) {
+                    api.toast({ msg: ret.message });
+                    return;
+                }
+                Oavatar.attr('src', ret.data.url)
+                // api.alert({ msg: JSON.stringify(ret) });
+            } else {
+                api.toast({ msg: '网络出错' });
+            }
+        });
+    }
+    var addMember = function() {
+        if($('#name').val() == '') {
+            api.toast('服务名称不能为空')
+            return;
+        }
+        var formData = {
+            feedId: param.feedId,
+            avatar: $('#avatar').attr('src'),
+            title: $('#name').val()
+        }
+        ajax.updateService(formData , function(ret) {
+            api.toast({ msg: '修改成功' })
+            api.closeWin();
+            api.execScript({
+                name: 'setproject',
+                frameName: 'setproject_frame',
+                script: 'reload();'
+            });         
+        });
+    }
+    var init =function() {
+        $('#avatar').attr({src: param.basic.avatar})
+        $('#name').val(param.basic.title)
+    }
+    init();
+    apiready = function(){
+        // const avatar = $('#avatar').src;
+        // const name = $('#name').val();
+        // const phone = $('#phone').val();
+        // const password = $('#password').val();
+    };
+</script>
+</html>

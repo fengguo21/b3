@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/system.css?v=1"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        body{
+            
+        }
+        #add-card .form-item-cell-icon {
+            width: 19px;
+        }
+        #add-card .form-item-cell-label {
+            left: 29px;
+            font-size: 14px;
+        }
+        #card-face-wrap {
+            height: 75px;
+        }
+        .face-wrap {
+            display: block;
+            width: 65px;
+            height: 47px;
+            border-radius: 10px;
+            background: #fff;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            -webkit-transform-origin: 0 0;
+            -webkit-transform: scale(1);
+            pointer-events: none;
+        }
+        .face-wrap img {
+            height: 100%;
+        }
+        .other-input{
+            width:152px;
+        }
+        .percent{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="set-layout" id='add-card'>
+        <ul class="form-content">
+            <li class="form-item border-b" id='card-face-wrap'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/card-face.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>卡封面</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <span class='face-wrap'>
+                            <img id='avatar' src="../../image/card-face-info.png">
+                        </span>
+                    </span> 
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/card-name.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>卡名称</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='name' type="text" placeholder="请输入名称">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b textarea-item" id='post-wrap'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/detail-pro.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>项目</span>
+                    <span style='right: 18px;' class='form-item-cell-other position-y-center'>
+                        <textarea class='other-input' id='pro1' type="text" placeholder="请选择" readonly></textarea>
+                    </span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <img class='more' src="../../image/sys-more.png">
+                    </span>         
+                </div>
+            </li>
+            
+            <li class="form-item border-b" id='choose-type'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/vip-card.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>类型</span>
+                    <span style='right: 18px' class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='type' type="text" placeholder="请选择" readonly>
+                    </span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <img class='more' src="../../image/sys-more.png">
+                    </span>          
+                </div>
+            </li>
+            <li id='balance-count-wrap' class="form-item border-b" style='display: none'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/card-count.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>可消费次数</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='count' type="number" placeholder="请输入可消费次数">
+                    </span>
+                </div>
+            </li>
+            
+            <li id='amount-wrap' class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/card-cost.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>金额</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='amount' type="number" placeholder="请输入金额">
+                    </span>
+                </div>
+            </li>
+            <li id='amount-wrap1' class="form-item border-b"  style="display: none">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/card-cost.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>折扣</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='discount' type="number" placeholder="请输入折扣">(折)
+                    </span>
+                </div>
+            </li>
+            <!--
+            <li id='balance-amount-wrap' class="form-item border-b" style='display: block;'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/card-amount.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>可消费金额</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='bamount' type="number" placeholder="可消费金额" readonly>
+                    </span>
+                </div>
+            </li>
+            -->
+            <li id='balance-amount-wrap' class="form-item border-b" style='display: block;'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/feeRatio.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>开卡提成</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='feeRatio' type="number" placeholder="请输入开卡提成"> <span class="percent">%</span>
+                    </span>
+                </div>
+            </li>
+            <li id='balance-amount-wrap' class="form-item border-b" style='display: block;'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/serviceFee.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>服务手工费</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='serviceFee' type="number" placeholder="输入服务手工费" >
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b textarea-item">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/card-desc.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>说明</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <textarea rows='3' class='other-input' id='desc' placeholder="选填"></textarea>
+                    </span>
+                </div>
+            </li>
+            <li class="form-item" style='height: 128px'>
+                <div class="form-item-cell">
+                    <div class='form-item-cell-btn' onclick='addCard()'>
+                        <span>确认</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/axios.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../fetch/api.js"></script>
+<script type="text/javascript">
+    $('#post-wrap').on('click', function() {
+        api.openWin({
+            name: 'setproject',
+            url: '../setproject/setproject.html'
+        })
+    })
+    $('#choose-type').on('click', function() {
+        api.openWin({
+            name: 'cardType',
+            url: '../cardType/cardType.html'
+        })
+    })
+    $('#card-face-wrap').on('click', function() {
+        api.openWin({
+            name: 'cardModule',
+            url: '../cardModule/cardModule.html'
+        })
+    })
+    /*
+    $('.form-content').on('input porpertychange', '#discount, #amount', function() {
+        var discount = filterCount($('#discount').val());
+        if($('#type').val() == '充值卡') {
+            $('#bamount').val(($('#amount').val() / discount).toFixed(2));      
+        }
+        console.log(discount);
+    })
+    */
+    var filterCount = function(data) {
+        if(data == ''||data == 10|| data >= 100) {
+            return 1
+        } else {
+            if(data.length == 1||data.split('.').length >= 2) {
+                return data / 10
+            } else {
+                return (data.slice(0, 3)) / 100;
+            }
+        }
+    }
+    var selectCardFace = function() {
+        var avatar = store.get('cardface');
+        $('#avatar').attr({src: avatar})
+    }
+    var selectPro = function() {
+        var pro = store.get('selectPros');
+        $('#pro1').val(pro)
+    }
+    var showType = function() {
+        var pro = store.get('selectType');
+        var discount = filterCount($('#discount').val());
+        $('#type').val(pro)
+        if(pro == '充值卡') {
+            $('#balance-amount-wrap').show();
+            $('#amount-wrap1').show();
+            $('#balance-count-wrap').hide();
+            $('#bamount').val(($('#amount').val() / discount).toFixed(2));
+        } else if(pro == '次卡') {
+            //$('#balance-amount-wrap').hide();
+            $('#balance-count-wrap').show();
+            $('#amount-wrap1').hide();
+        }
+    }
+    var addCard = function() {
+        var amount = '', typehood = 0, total = 0;
+        if($('#type').val() == '充值卡') {
+            typehood = 2;  
+            total = $('#amount').val(); 
+            // if($('#discount').val() == '') {
+            //     api.toast({
+            //         msg: '充值卡的折扣不能为空'
+            //     })
+            //     return;
+            // }      
+        } else if($('#type').val() == '次卡') {
+            typehood = 1;
+            total = $('#count').val();
+        }
+        amount = $('#amount').val();
+        if($('#avatar').attr('src') == '../../image/card-face-info.png') {
+            api.toast({
+                msg: '请选择卡片封面'
+            })
+            return;
+        }
+        if(!$('#name').val()) {
+            api.toast({
+                msg: '卡名称不能为空'
+            })
+            return;
+        }
+        if(!$('#pro1').val()) {
+            api.toast({
+                msg: '大项目不能为空'
+            })
+            return;
+        }
+        if(typehood == 0) {
+            api.toast({
+                msg: '卡类型不能为空'
+            })
+            return;
+        }
+        if(!amount||amount == 0) {
+            api.toast({
+                msg: '实收金额不能为空'
+            })
+            return;
+        }
+        var formData = {
+            avatar: $('#avatar').attr('src'),
+            title: $('#name').val(),
+            service: $('#pro1').val(),
+            services: $('#pro1').val().split(','),
+            subService: $('#pro2').val(),
+            amount: amount,
+            total: total,
+            typehood: typehood,
+            text: $('#desc').val(),
+            ratio: filterCount($('#discount').val())||1,
+            createCardRatio:$('#feeRatio').val()/100,
+            consumeCardAmount:$('#serviceFee').val()
+        }
+        ajax.createCard(formData, function(res) {
+            api.toast({
+                msg: '添加成功'
+            })
+            api.closeWin();
+            api.execScript({
+                name: 'card',
+                frameName: 'card_frame',
+                script: 'reload()'
+            })
+        })
+    }
+    apiready = function(){
+        
+    };
+</script>
+</html>

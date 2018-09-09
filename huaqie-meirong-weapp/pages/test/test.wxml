@@ -1,0 +1,9 @@
+<!--test.wxml-->
+<text>test.wxml</text>
+<view class="classname" wx:for="{{obj}}"  >
+    <view class="classname" >{{item}}</view>
+    
+    
+   
+
+</view>

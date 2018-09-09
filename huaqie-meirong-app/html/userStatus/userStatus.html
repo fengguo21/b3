@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>myOpenCode</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-win.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/header.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style>
+        body{
+            
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-primary" id="aui-header">
+        <a class="aui-pull-left" onclick="api.closeWin();"> <span class="aui-iconfont aui-icon-left"></span> </a>
+        <div class="aui-title" id='title'></div>
+    </header>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+        var index = api.pageParam.index;
+        var title = $api.dom('#title');
+        if(index == 1) {
+            $api.text(title, '今日要约');
+        } 
+        else if(index == 3){
+            $api.text(title, '生日提醒');
+        }
+
+        else {
+            $api.text(title, '即将流失');
+        }
+        $api.fixStatusBar($api.dom('header'));
+        api.openFrame({
+            name: 'userStatus_frame',
+            url: './userStatus_frame.html',
+            rect: {
+                x: 0,
+                y: $api.dom('header').offsetHeight,
+                width: 'auto',
+                height: 'auto'
+            },
+            pageParam: {
+                index: index,
+            },
+        })
+    };
+</script>
+</html>

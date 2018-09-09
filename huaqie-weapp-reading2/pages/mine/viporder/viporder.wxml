@@ -1,0 +1,22 @@
+<!--pages/mine/myOrder/myOrder.wxml-->
+<import src="/components/navBack/nav-back" />
+
+<template is="nav-back" />
+<view class="my-order">
+  <view class="book-price">￥{{vip.price}}</view>
+  <view class="useCoupon border-b" >
+    <text class="useCoupon-title">读书会VIP</text>
+    <view class="vip-period">{{vip.period}}个月</view>
+  </view>
+   <view class="useCoupon" bindtap="chooseCoupon">
+    <text class="useCoupon-title">优惠券</text>
+    <view class="useCoupon-usage">{{!useCoupon ? '请选择' : '满 '+useCoupon.coupon.basic.minAmount+' 减'+useCoupon.coupon.basic.price}}
+      <image src="/images/more.png"></image>
+    </view>
+  </view>
+</view>
+
+<view class="buy-btn">
+  <view class="buy-the-book">实付款<text>￥{{lastPrice}}</text></view>
+  <view class="add-vip" bindtap='openVip'>立即支付</view>
+</view>

@@ -1,0 +1,68 @@
+/* pages/index/index.wxss */
+
+ #page{
+  background: url(https://qbox.huaqie.com/FlciX3psOZM19CzYxbe9j_7FicoP);
+  background-size: cover;
+  overflow: hidden;
+ }
+.btnwrap{
+  width: 480rpx;
+  height: 110rpx;
+  margin-bottom: 52rpx;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  overflow: hidden;
+}
+.btnwrap .innerwrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.btnwrap:last-child {
+  margin-bottom: 0
+}
+.btnwrap:nth-child(3n-2){
+  background-image: url(https://qbox.huaqie.com/FuyB79XSx-64uCzszMFJNimO3Hpw);
+}
+.btnwrap:nth-child(3n-1){
+  background-image: url(https://qbox.huaqie.com/FqELEZaIpiuHWJlwevkRvwQxFFMp);
+}
+.btnwrap:nth-child(3n){
+  background: #fc9129
+}
+
+.innerwrap view {
+  line-height: 110rpx;
+  color: white;
+  font-size: 40rpx;
+}
+.innerwrap image {
+  height: 52rpx;
+  width: 50rpx;
+  margin-right: 56rpx;
+  display: block;
+}
+
+.logo {
+  display: block;
+  width: 250rpx;
+  height: 50rpx;
+  margin: 30rpx 30rpx 0;
+}
+.sys-title {
+  margin-top: 120rpx;
+  line-height: 1;
+  text-align: center;
+  font-size: 50rpx;
+  color: rgb(51, 51, 51);
+}
+.footer {
+  bottom: 50rpx;
+  color: rgb(51, 51, 51);
+  font-size: 28rpx;
+  white-space: nowrap;
+}

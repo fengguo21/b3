@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/header.css?v=1"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/report-header.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-primary" id="aui-header">
+        <a class="aui-pull-left" onclick="api.closeWin();"><span class="aui-iconfont aui-icon-left"></span></a>
+        <div class="aui-title">
+            <div class='report-header-wrap position-center border-r border-l border-b border-t' id='header'>
+                <span class='report-header active' onclick="randomSwitchBtn( this );">会员报表</span>
+                <span class='report-header' onclick="randomSwitchBtn( this );">员工报表</span>
+            </div>
+        </div>
+    </header>
+    <div id="sort" class='sort-box border-b'>
+        <div id='normal-search'>
+            <ul>
+                <!--<li data-index='1' class='border-r active'>今日</li>-->
+                <li data-index='3' id='year' class='border-r'></li>
+                <li data-index='2' id='month' class='border-r active'></li>
+                
+            </ul>
+            <div id='sort-date' class="sort-date position-y-center">
+                <img src="../../image/report-sort-date.png" alt="">
+            </div>
+        </div>  
+        <div id="special-search" style='display: none'></div> 
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../script/moment.min.js"></script>
+<script type="text/javascript">
+    var frameArr = ['report_frame_vip','report_frame_member'];
+    var total = '', year = '', month = '', dates = '';
+    var headerTabs = $api.domAll('#header .report-header');
+    $('#month').html(moment(new Date()).format('MM月'));
+    $('#year').html(moment(new Date()).format('YYYY'))
+    apiready = function(){
+        $api.fixStatusBar($api.dom('header'));
+        funIniGroup();
+    };
+    var initQuery = function(index) {
+        var date = new Date();
+        month = '';
+        year = '';
+        dates = '';
+        //week = moment(date.getTime()).format('YYYY-MM-DD');
+        store.set('report_frame' + index, {
+            month: moment(date.getTime()).format('YYYY-MM'),
+            year: year,
+            dates: dates
+        })
+    }
+    var refreshFrame = function(index) {
+        switch(index) {
+            case 0:
+                initQuery(index);
+                api.execScript({
+                    frameName: 'report_frame0',
+                    script: 'init()'
+                }); 
+                break;
+            case 1: 
+                initQuery(index);
+                api.execScript({
+                    frameName: 'report_frame1',
+                    script: 'init()'
+                }); 
+            break;
+            default:;
+        }
+    }
+    function funIniGroup() {
+        var eTabLis = $api.domAll('#header .report-header'),
+            frames = [];
+        for (var i = 0, len = eTabLis.length; i < len; i++) {
+            frames.push({
+                name: 'report_frame' + i,
+                url: './' + frameArr[i] + '.html',
+                bgColor:'#f4f4f4'
+            })    
+        }
+        api.openFrameGroup({
+            name: 'reports',
+            scrollEnabled: true,
+            rect: {
+                x: 0,
+                y: $api.dom('header').offsetHeight + $api.dom('#sort').offsetHeight,
+                w: 'auto',
+                h: 'auto',
+            },
+            index: 0,
+            frames: frames
+        }, function(ret, err) {
+            for (var i = 0, len = eTabLis.length; i < len; i++) {
+                $api.removeCls(eTabLis[i], 'active');
+            }
+            $api.addCls(eTabLis[ret.index], 'active');
+            store.set('dateQueryType', ret.index);
+            initActive();
+            refreshFrame(ret.index)
+        });
+    }
+    // 随意切换按钮
+    function randomSwitchBtn(tag) {
+        if (tag == $api.dom('#header .report-header.active')) return;
+        var eTabLis = $api.domAll('#header .report-header'),
+            index = 0;
+        for (var i = 0, len = eTabLis.length; i < len; i++) {
+            if (tag == eTabLis[i]) {
+                index = i;
+            } else {
+                $api.removeCls(eTabLis[i], 'active');
+            }
+        }
+        $api.addCls(eTabLis[index], 'active');
+        api.setFrameGroupIndex({
+            name: 'reports',
+            index: index,
+            reload: false
+        });
+    }
+    // 初始化
+    function initActive() {
+        $('#normal-search').show();
+        $('#special-search').empty();
+        $('#special-search').hide();
+        store.remove('dateQuery')
+        /*var lis = $('#sort li');
+        if($(lis[0]).is('.active')) return;
+        for(var i = 0; i < lis.length; i++) {
+            $(lis[i]).removeClass('active')
+        }
+        $(lis[0]).addClass('active')
+        */
+    }
+    // 初始化最低级tab
+    function initType(index) {
+        api.execScript({
+            frameName: 'report_frame' + index,
+            script: 'changeQuery(null)'
+        })
+    }
+    function changeDbSearch() {
+        var index = store.get('dateQueryType')||0;
+        var formData = store.get('report_frame' + index);
+        var dates = formData.dates;
+        $('#normal-search').hide();
+        $('#special-search').append("<span>"+ dates[0] +" ~ "+ dates[1] +"</span>"+
+                                    "<img src='../../image/close.png'>")
+        $('#special-search').show();
+    }
+    // 年、月、总计
+    $('#sort').on('click', 'li', function(e) {
+        var date = new Date();
+        var index = this.dataset.index;
+        var param = {};
+        if ($(this).is('.active')) return;
+        $(this).siblings().removeClass('active')
+        $(this).addClass('active');
+        for(var i = 0; i < headerTabs.length; i++) {
+            if($(headerTabs[i]).is('.active')) {
+                // 存不同的筛选条件
+                if(index == 1) {
+                    param = {
+                        month: '',
+                        year: '',
+                        day: moment(date.getTime()).format('YYYY-MM-DD'),
+                        dates: ''
+                    }
+                } else if( index == 2) {
+                    param = {
+                        month: moment(date.getTime()).format('YYYY-MM'),
+                        year: '',
+                        week: '',
+                        dates: ''
+                    }
+                } else {
+                    param = {
+                        month: '',
+                        year: moment(date.getTime()).format('YYYY'),
+                        week: '',
+                        dates: ''
+                    }
+                }
+                store.set('report_frame' + i, param);
+                initType(i); 
+            }
+        }
+        // console.log($(this).html())
+    })
+    // 选择日期
+    $('#sort-date').on('click', function() {
+        api.openWin({
+            name: 'dateQuery',
+            url: '../dateQuery/dateQuery.html'
+        })
+    })
+    $('#special-search').on('click', function() {
+        var index = store.get('dateQueryType');
+        $('#normal-search').show();
+        $('#special-search').empty();
+        $('#special-search').hide();
+        $('#sort li').eq(0).siblings().removeClass('active')
+        $('#sort li').eq(0).addClass('active');
+        store.remove('dateQuery');
+        initQuery(index);
+        api.execScript({
+            frameName: 'report_frame' + index,
+            script: 'init()'
+        }); 
+    })
+</script>
+</html>

@@ -1,0 +1,51 @@
+<!--pages/home/openVip/openVip.wxml-->
+<import src="/components/navBack/nav-back.wxml" />
+
+<template is="nav-back" />
+<view class="vip-open">
+  <view class="open-wrap">
+    <view class="open-title border-b">
+      <text class='sp-border position-y-center'></text>
+      <text class='title-name position-y-center'>开通读书会VIP</text>
+    </view>
+
+    <block wx:for="{{priceList}}" wx:key="{{index}}">
+      <view class="open-list-item {{index != priceList.length - 1 ? 'border-b' : ''}}">
+        <view class="list-item-detail">
+          <view class="list-item-price">
+            <view class="time-and-price">{{item.period}}个月 <text>{{item.priceFormat}}</text> 元</view>
+            <text class="is-hot" wx:if="{{item.recommend}}">荐</text>
+          </view>
+          <view class="list-item-desc">{{item.text}}</view>
+        </view>
+        <view data-title="{{item.title}}" bindtap="navToVip" class="list-item-btn" data-detail='{{item}}'>开通</view>
+      </view>
+    </block>
+  </view>
+
+  <view class="open-power">
+    <view class="open-title border-b">
+      <text class='sp-border position-y-center'></text>
+      <text class='title-name position-y-center'>科大读书会vip权益</text>
+    </view>
+
+    <!-- <view class="power-list">
+      <block wx:for='{{powerList}}' wx:key="{{index}}">
+        <view class="plist-item {{index != powerList.length - 1 ? 'border-b' : ''}}">
+          <image class="plist-item-icon" mode="widthFix" src="{{item.imgUrl}}" />
+          <view class="plist-descs">
+            <text class="plist-item-title">{{item.title}}</text>
+            <text class="plist-item-desc">{{item.desc}}</text>
+          </view>
+        </view>
+      </block>
+    </view> -->
+
+    <view class="power-list">
+      <block wx:for="{{imageList}}" wx:key="{{index}}">
+        <image class="power-list-image" mode="widthFix" src="{{item.url}}"></image>
+      </block>
+    </view>
+
+  </view>
+</view>

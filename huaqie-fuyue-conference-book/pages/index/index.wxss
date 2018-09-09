@@ -1,0 +1,20 @@
+/* pages/index/index.wxss */
+@import '/common/css/meeting-time.wxss';
+@import '/common/css/index.wxss';
+
+.meeting-meal-time {
+  padding-top: 20rpx;
+  padding-bottom: 18rpx;
+  font-size: 26rpx;
+  overflow: hidden;
+  display: flex;
+  line-height: 1.7;
+}
+.meeting-meal-time.border-t::after  {
+  margin-left: 30rpx;
+}
+.meeting-meal-time .meal-time-list {
+  flex: 1;
+  word-break: normal;
+}
+

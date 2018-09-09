@@ -1,0 +1,51 @@
+{
+  "pages":[
+    "pages/case/list/list",
+    "pages/pic/list/list",
+    "pages/pic/detaile/detaile",
+    "pages/designer/designer",
+    "pages/case/detaile/detaile",
+    "pages/products/products",
+    "pages/account/account",
+    "pages/map/map",
+    "pages/product/product",
+    "pages/order/order"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#e85787",
+    "navigationBarTitleText": "喜多婚纱摄影",
+    "navigationBarTextStyle":"#fff"
+  },
+  "tabBar":{
+    "color":"#999999",
+    "selectedColor":"#e85787",
+    "backgroundColor":"#f3f3f3",
+    "list":[
+      {
+        "text":"案例",
+        "pagePath":"pages/case/list/list",
+        "iconPath":"images/cases.png",
+        "selectedIconPath":"images/cases-active.png"
+      },
+      {
+        "text":"图库",
+        "pagePath":"pages/pic/list/list",
+        "iconPath":"images/pics.png",
+        "selectedIconPath":"images/pics-active.png"
+      },
+      {
+        "text":"活动",
+        "pagePath":"pages/products/products",
+        "iconPath":"images/activities.png",
+        "selectedIconPath":"images/activities-active.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/account/account",
+        "iconPath": "images/account.png",
+        "selectedIconPath": "images/account-active.png"
+      }
+    ]
+  }
+}

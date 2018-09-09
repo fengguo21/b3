@@ -1,0 +1,32 @@
+<view class="bc">
+  <image src="https://dn-huaqie.qbox.me/hyb-bc.jpg"></image>
+</view>
+
+<view class="container">
+  <view class="catogary" wx:for="{{oservices}}" wx:for-item="service">
+    <view class="{{service.length>4?'items2':'items'}}" wx:if="{{service.length>=2}}">
+      <view class="title">
+        {{index}}
+      </view>
+      <view class="itemcontainer">
+        <view class="item" catchtap="toDetail" wx:for="{{service}}" wx:if="{{index>0}}" wx:for-item='item' data-id="{{item.peopleId}}" data-service="{{service[0]}}" data-name='{{item.basic.name}}' data-prebooktimes="{{item.extra.prebookTimes}}" data-work='{{item.role.profession}}'
+          data-img='{{item.basic.avatar}}'>
+          <image src="{{item.basic.avatar}}"></image>
+          <view class="cont">
+            <view class="name">{{item.basic.name}}</view>
+            <view class="work">{{item.role.profession}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  
+
+
+</view>
+
+
+<view class="advertise">由花茄提供技术支持</view>
+
+<!-- <button bindtap="scan">scan</button>      -->

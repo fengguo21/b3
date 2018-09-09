@@ -1,0 +1,77 @@
+/**index.wxss**/
+image{
+  display: block;
+  width:100%;
+  height: 300rpx;
+ 
+}
+
+.swiper{
+  min-height: 360rpx;
+  margin-bottom:6rpx;
+}
+.subtitle{
+  font-size: 26rpx;
+  
+  color:#202020;
+}
+.title{
+  
+  color: #202020;
+  font-weight: 600;
+  font-size: 30rpx;
+ 
+}
+.titlebox{
+  margin-top: 117rpx;
+  margin-bottom: 28rpx;
+}
+.titlebox1{
+  margin-top: 67rpx;
+  margin-bottom: 28rpx;
+}
+.subtitlebox{
+  margin-bottom:82rpx;
+}
+
+.img6{
+  margin-bottom: -19rpx;
+}
+.line{
+  border-bottom: 1px solid #e6e6e6;
+  
+}
+
+.footline{
+  height: 100rpx;
+  text-align: center;
+  position: relative;
+  margin-top:0;
+}
+.line1{
+  border-bottom: 2rpx solid #d9d9d9;
+  width:187rpx;
+  position: absolute;
+  top:49rpx;
+  left: 60rpx;
+}
+.line2{
+  border-bottom: 2rpx solid #d9d9d9;
+  width:187rpx;
+  position: absolute;
+  top:49rpx;
+  right:60rpx;
+}
+.nocontent{
+  
+  top:35rpx;
+  line-height: 100rpx;
+  font-size: 24rpx;
+  color: #8b8a8a;
+}
+.line{
+  border-bottom: 1px solid #e6e6e6;
+  position: fixed;
+  bottom: 0rpx;
+  width:100%;
+}

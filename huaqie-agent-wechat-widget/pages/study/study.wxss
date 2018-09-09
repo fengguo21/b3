@@ -1,0 +1,135 @@
+/* study.wxss */
+swiper .slideimage{  
+    width: 100%;  
+
+    
+} 
+.titleInfo{
+ border-top:1px solid #e6e6e6;
+ flex-direction: row;
+ position: relative;
+ background: white;
+ margin-top:0rpx;
+ height: 80rpx;
+ 
+ 
+
+}
+.itemInfo1{
+  position: relative
+}
+.swiper{
+  height: 295rpx;
+}
+.itemInfo1  .first{
+  position: absolute;
+
+  width:73rpx;
+  height: 63rpx;
+  left: 0;
+  top: 0;
+}
+.itemInfo1  .firstText{
+  position: absolute;
+  top:10rpx;
+  left: 8rpx;
+  font-size: 28rpx;
+  color: white;
+}
+.titleInfo image{
+ 
+  width:42rpx;
+  height: 40rpx;
+  margin-left: 28rpx;
+  margin-top: 20rpx;
+  
+}
+.infoText{
+  
+  color:#9470dc;
+  position:absolute;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  margin-left:16rpx;
+}
+.itemInfo image{
+  margin:0;
+  width:344rpx;
+ 
+ height: 232rpx;
+ margin-right: 10rpx;
+    
+     
+}
+.itemInfo{
+    flex-direction: row;
+    position: relative;
+    border:1rpx solid #e6e6e6;
+    height: 232rpx;
+   
+       
+}
+  
+ 
+
+.itemInfo{
+  flex-direction: row;
+  position: relative;
+  border:1rpx solid #e6e6e6;
+  margin-bottom: 9rpx;
+  background: white;
+  padding: 0;
+  
+   
+}
+
+.itemInfo text{
+    position: absolute;
+      top: 33rpx;
+      font-size: 28rpx;
+}
+.itemInfo text{
+  position: absolute;
+  top: 35rpx;
+  
+  font-weight: 500;
+  line-height: 1.5em;
+  color:black;
+  font-family: "宋体";
+  margin:0 13px;
+}
+.infofooter .infoT{
+  position: absolute;
+  top: 175rpx;
+  font-size: 21rpx;
+  font-weight: 500;
+  line-height: 1.3em;
+  color:#999999;
+  font-family: "宋体";
+  margin:0 11rpx;
+  left: 490rpx;
+}
+
+.infofooter .infoN{
+  position: absolute;
+  top: 175rpx;
+  font-size: 21rpx;
+  font-weight: 500;
+  line-height: 1.3em;
+  color:#999999;
+  font-family: "宋体";
+  margin:0 10px;
+  left:365rpx;
+}
+
+.studypage{
+  background: #f7f7f7;
+  position: relative;
+  
+}
+.line{
+  border-bottom: 1px solid #e6e6e6;
+  position: fixed;
+  bottom: 0rpx;
+  width:100%;
+}

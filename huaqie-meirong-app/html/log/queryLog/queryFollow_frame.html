@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>setlog_frame</title>
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/system.css?v=4"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/mrUI.css?v=1"/> 
+    <link rel="stylesheet" type="text/css" href="../../../css/MultiPicker.css?rev=@@hash" /> 
+    <link rel="stylesheet" type="text/css" href="../../../css/setLog.css?rev=1"/>
+    <script type='application/javascript' src='../../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style type="text/css">
+    	
+    	.server-pic{
+    		padding: 8px 0 0 8px;
+    		width:100%;
+    	}
+    	.server-pic img{
+    		
+    		height: 95px;
+    		width:95px;
+    		display: inline-block;
+    		margin:18px 8px;
+    	}
+    	#promotion{
+    		margin:0 5%;
+    		border:1px solid #e5e5e5;
+    		padding: 11px 0 0 11px;
+    		width:90%;
+    		height: 125px;
+    		border-radius: 5px;
+    		font-size: 14px;
+    		color: #666;
+
+    	}
+    	#piclabel{
+    		margin-left:-29px;
+    		font-size: 13px;
+    		color: #808080;
+
+    	}
+    	
+    </style>
+</head>
+<body>
+	<div class="set-layout" id='add-member'>
+        <ul class="form-content">
+			<div class="add-log">
+				<li class="form-item" style="margin-bottom:-15px;">
+	                <div class="form-item-cell">
+	                    <span class='form-item-cell-label position-y-center' id="piclabel">护理后照片</span>
+	                </div>
+	            </li>
+				<li class='border-b' style="display:block">
+					<div class="server-pic" >
+						<img  src="../../../image/beautity.jpg" style="width: 95px"  id='avatar' >
+						
+					</div>
+				</li>
+				<li class="form-item border-b">
+				    <div class="form-item-cell">
+				        <span class='form-item-cell-icon position-y-center'>
+				            <img src="../../../image/nextTime.png?v=1">
+				        </span>
+				        <span class='form-item-cell-label position-y-center'>下次约定护理时间</span>
+				        <span style='right: 18px; width: 100px' class='form-item-cell-other position-y-center'>
+				            <span style="color:#ff3e39"><input style='width: 70%;font-size: 15px;color:#ff3e39' data-id='next-time' class='other-input' id='next-time' type="text" readonly ></span>
+				            <span>天后</span>
+				        </span>
+				        <span class='form-item-cell-other position-y-center'>
+				            <img class='more' src="../../../image/sys-more.png">
+				        </span>  
+				    </div>
+				</li>
+				<li class="form-item" >
+                    <div class="form-item-cell" >
+                        <span class='form-item-cell-icon position-y-center' >
+                            <img src="../../../image/suggest.png">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>关怀与意向</span>
+                    </div>
+                </li>
+                <textarea data-id='promotion' type="text" rows='6'  placeholder="未填写" class='other-input' id='promotion'  readonly="true"></textarea>
+			</div>
+            
+        </ul>
+    </div>
+
+    <div id="targetContainer"></div>
+
+    <div id="radio-box">
+    	<div class="radio-bg">
+    		<div class="dialog position-center">
+    			<form id='dialog-form'>
+    				<div class="check-box" id='check-wrap'></div>
+    			</form>
+    			<div class='dialog-btns'>
+					<span id='dialog-cancel'>取消</span>
+					<span id='dialog-checked'>确认</span>
+				</div>
+    		</div>
+    	</div>
+    </div>
+</body>
+<script src="../../../script/axios.min.js"></script>
+<script src="../../../script/template-web.js"></script>
+<script src="../../../script/zepto.min.js"></script>
+<script src="../../../script/store.min.js"></script>
+<script src="../../../script/moment.min.js"></script>
+<script src="../../../script/store.min.js"></script>
+<script src="../../../script/phone.js"></script>
+<script src="../../../script/weight.js"></script>
+<script src="../../../script/MultiPicker.js"></script>
+<script src="../../../fetch/api.js?rev=@@hash"></script>
+<script src="../../../script/setLog.js?v=2"></script>
+<script type="text/javascript">
+
+    
+    var totalList = {
+        'nextTime': '', 'servicePic': '', 'promotion': ''
+    };
+    var isFirst = true;
+    
+    var init = function() {
+           // var log={servicePic: "https://dn-huaqie.qbox.me/FotaC9OYeqqDTbuivunYPelLkslV", promotion: "剧组天", nextTime: "365"}
+           var log=params.basic.log
+            var count = 0;
+            if(log) {
+                for(key in totalList) {
+                    var domId = formateDomId(key);
+                    if(log[key]) {
+                        totalList[key] = log[key];
+                        if(baseList.indexOf(key) >= 0) {
+                            count += 1;
+                        }   
+                    }
+                    if(domId == 'service-pic') {
+                        $('#' + domId).attr({src: totalList[key]});
+                    } else if(domId == 'arrears') {
+                        $('#' + domId).val(totalList[key] || 0);
+                    } else {
+                        $('#' + domId).val(totalList[key] || '暂未填写');
+                    }
+                }
+               
+                
+                $('#avatar').attr('src',log.servicePic)
+                isFirst = false;
+            } else {
+                isFirst = true;
+                $('#more').hide();
+                $('#more').addClass('img-up');
+                $('.first-write').addClass('first-write-up');
+            }  
+        
+    }
+    var formateDomId = function(key) {
+        return key.replace(/[A-Z]/g, function(val) {
+            return '-' + val.toLowerCase();
+        })
+    }
+    init();
+    apiready = function(){
+        params = api.pageParam;
+        init();
+    }
+
+
+    
+     
+    </script>
+</html>

@@ -1,0 +1,12 @@
+<!--pages/home/bannerAdives/bannerAdvise.wxml-->
+<import src="/components/wxParse/wxParse.wxml"/>
+
+<view class="banner-advise">
+  <text class="book-title">{{detail.title}}</text>
+  <view class="book-audio">
+    <audio poster="{{book.basic.avatar}}" name="{{detail.title}}" author="{{book.basic.author}}" src="{{detail.path}}" controls id="myAudio" ></audio>
+  </view>
+  <view class="book-content">
+    <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+  </view>
+</view>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>setholiday_frame</title>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/calender.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style>
+    	.calendar-controls {
+    		height: 55px;
+    	}
+        .calendar-control {
+        	width: calc(100% / 2);
+        	line-height: 55px;
+        	color: #ff66b5;
+        }
+        .calendar-control p {
+          color: #333;
+        }
+      	.calendar-control::after {
+      		margin: calc(41px / 2);
+      	}
+      	.calendar-control.active::before {
+      		width: 67px;
+      	}
+      	.day.holiday {
+      		color: #333;
+      	}
+      	.day.choosed {
+      		position: relative;
+      		color: #fff;
+      	}
+        .day.choosed.today::after {
+          content: '';
+          display: none!important;
+        }
+      	.day.today.choosed .bg {
+      		display: block;
+      		padding: 0;
+			    position: absolute;
+      		background: #ff55b5;
+      		width: 29px;
+      		height: 29px;
+      		top: 5px;
+      		left: 50%;
+      		border-radius: 50%;
+      		transform: translateX(-50%);
+          -webkit-transform: translateX(-50%);
+      		z-index: 2;
+      	}
+        .day.today.choosed span {
+          position: relative;
+          z-index: 3;
+        }
+        .choosed .bg {
+          display: block;
+          padding: 0;
+          position: absolute;
+          background: #ff55b5;
+          width: 29px;
+          height: 29px;
+          top: 5px;
+          left: 50%;
+          border-radius: 50%;
+          transform: translateX(-50%);
+          -webkit-transform: translateX(-50%);
+          z-index: 2;
+        }
+        .choosed span {
+          position: relative;
+          z-index: 3;
+        }
+      	.choosed .calendar-mark-text {
+      		color: #ff55b5;
+      		padding: 0;
+      		margin: 0;
+      		font-size: 12px;
+      		display: block;
+      		width: 100%;
+      		text-align: center;
+      		padding-top: 10px;
+      	}
+
+    </style>
+</head>
+<body>
+    <div id="header"></div>
+    <div class="calendar-container" id="calendar"></div>
+</body>
+<script type="text/javascript" src='../../script/zepto.min.js'></script>
+<script type="text/javascript" src='../../script/moment.min.js'></script>
+<script type="text/javascript" src='../../script/calendar.js'></script>
+<script type="text/javascript" src='../../script/store.min.js'></script>
+<script type="text/javascript">
+  var dateQueryType = store.get('dateQueryType');
+	var date = new Date();
+	var month = moment(date.getTime()).format('YYYY-MM')
+	var nowTime = moment(moment(date.getTime()).format('YYYY-MM-DD'));
+
+	var tabs = [
+        {
+            title: '起始时间',
+            isChangeMonth: false
+        },
+        {
+            title: '结束时间',
+            isChangeMonth: false
+        }
+    ]
+    buildControls(date.getFullYear(), tabs);
+    function buildControls(date, top) {
+      var div = document.createElement('div');
+      div.className = 'calendar-controls border-b'
+      var currentMonth = moment(new Date().getTime()).format('YYYY-MM');
+      for (var i = 0; i < top.length; i++) {
+        var newTab = document.createElement('div');
+        if(i == 0) {
+        	newTab.className = 'calendar-control border-r active'
+        } else {
+        	newTab.className = 'calendar-control border-r'
+        }
+        newTab.setAttribute('data-calendar-control', top[i].title)
+        newTab.innerHTML = top[i].title;
+        div.appendChild(newTab)
+        
+      }
+      $('#header').append(div)
+    }
+    
+    function eventTime() {
+      $('.day-body').on('click', '.day', function(e) {
+        var chooseTime = moment(this.dataset.date);
+        if(!store.get('dateQuery')) {
+          // $('.calendar-control').eq(0).append('<p>'+ chooseTime.format('YYYY年MM月DD日') +'</p>')
+          $('.calendar-control').eq(0).removeClass('active');
+          $('.calendar-control').eq(1).addClass('active');
+          $(this).addClass('choosed');
+          $(this).append('<span class="bg"></span>')
+          $(this).append('<span class="calendar-mark-text">开始</span>')
+          store.set('dateQuery', [ chooseTime ]);
+        } else {
+          var arr1 = store.get('dateQuery')
+          if(arr1.length == 2) {
+            api.closeWin()
+          } else {
+            if(moment(arr1[0]).diff(moment(chooseTime), 'days') >= 0) {
+              api.toast({
+                msg: '结束时间不得早于开始时间'
+              })
+              return;
+            }
+            // $('.calendar-control').eq(1).append('<p>'+ chooseTime.format('YYYY年MM月DD日') +'</p>')
+            $(this).addClass('choosed');
+            $(this).append('<span class="bg"></span>')
+            $(this).append('<span class="calendar-mark-text">结束</span>')
+            arr1.push(chooseTime)
+            store.set('dateQuery', arr1);
+            returnQuery(arr1);
+            console.log(store.get('dateQuery'));
+          }
+          // if(store.get('dateQuery'))
+        }
+      }) 
+    }
+    function momentDates(date) {
+      return moment(date).format('YYYY-MM-DD')
+    }
+    function returnQuery(dates) {
+      var index = store.get('dateQueryType');
+      var formData = {
+            week: '',
+            year: '',
+            month: '',
+            dates: [momentDates(dates[0]), momentDates(dates[1])],
+        }
+      store.set('report_frame' + index, formData);
+      api.closeWin();
+      if(api.pageParam.from == 'billReport'){
+        api.execScript({
+          name: 'markaccount',
+          script: 'getDietList(1, "'+momentDates(dates[0])+'", "'+momentDates(dates[1])+'")'
+        })
+      }else{
+        api.execScript({
+          name: 'report',
+          script: 'changeDbSearch()'
+        })
+        api.execScript({
+          name: 'report',
+          frameName: 'report_frame' + index,
+          script: 'changeQuery()'
+        })
+      }
+    }
+    apiready = function(){
+      store.remove('dateQuery')
+        calendar('#calendar', {
+          date: new Date(month.split('-')[0], month.split('-')[1] - 1),
+      }, function(res, cb) { 
+          eventTime()
+      })
+    };
+</script>
+</html>

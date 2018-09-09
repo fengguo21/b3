@@ -1,0 +1,192 @@
+<template name="dmask">
+  <scroll-view scroll-y class="detail-mask {{showModal?'detail-mask-show':''}}" catchtouchmove="dmaskTouchMove" catchtap="toggleDmask">
+    <view class="detail-mask-box" catchtap="contentTap">
+      <view class="detail-mask-wrap">
+        <!-- 弹窗头部 start -->
+        <view class="detail-mask-header pd-lr-30">
+          <view class="detail-room-name">{{checkboxItems.basic.title}}</view>
+          <image class="detail-mask-close" src="/images/icon-mask-close.png" bindtap="toggleDmask"></image>
+        </view>
+        <!-- 弹窗头部 end -->
+
+        <!-- 弹窗主体 start -->
+        <scroll-view scroll-y class="detail-mask-body" catchtouchmove="dmaskTouchMove">
+          <view class="mask-body-wrap">
+
+            <swiper
+              indicator-dots="true"
+              autoplay="true"
+              indicator-color="rgba(255, 255, 255, .6)"
+              indicator-active-color="rgb(255, 255, 255)"
+              circular="true"
+            >
+              <block wx:for="{{checkboxItems.basic.images}}" wx:key="index">
+                <swiper-item>
+                  <image src="{{item.url}}"/>
+                </swiper-item>
+              </block>
+            </swiper>
+
+            <view class="dmask-body-tip border-b pd-lr-30 main-color">
+              <image src="/images/icon-mask-call.png"></image>
+              价格可能上涨，建议尽快预定
+            </view>
+
+            <view class="dmask-body-detail pd-lr-30">
+              <view class="dmask-choose-room">
+                <view class="dmask-choose-title">选择预约日期：(总房间{{checkboxItems.maxCount}}间)</view>
+
+                <view class="choose-box-wrap">
+                  <checkbox-group bindchange="checkboxChange">
+                    <label
+                      bindtap="selectTime"
+                      data-time="{{item.value}}"
+                      class="choose-box-item {{item.count == 0 || item.disabled?'disabled':''}} {{item.checked?'checked':''}}"
+                      wx:for="{{checkboxItems.rooms}}"
+                      wx:key="value">
+                      <checkbox
+                        class="choose-box-hidden"
+                        value="{{item.value}}"
+                        checked="{{item.checked}}"
+                        disabled="{{item.disabled}}"/>
+                      <view class="choose-box-date">{{item.date}}</view>
+                      <view wx:if="{{item.count != 0 && !item.disabled}}" class="choose-room-num">剩{{item.count}}间</view>
+                      <view wx:if="{{item.count == 0}}" class="choose-room-num">已定完</view>
+                      <view wx:if="{{item.disabled}}" class="choose-room-num">已过期</view>
+                    </label>
+                  </checkbox-group>
+                </view>
+
+              </view>
+              <block wx:if="{{showMore}}">
+                <view class="body-detail-first">
+                  <view class="body-detail-row" wx:for="{{checkboxItems.basic.desc}}" wx:key="index">
+                    <view class="body-detail-col sp">
+                      <view class="detail-col-label gray">{{item.title}}</view>
+                      <view class="detail-col-value">{{item.text}}</view>
+                    </view>
+                  </view>
+                  <!-- <view class="body-detail-row">
+                    <view class="body-detail-col">
+                      <view class="detail-col-label gray">面积</view>
+                      <view class="detail-col-value">45m²</view>
+                    </view>
+                    <view class="body-detail-col">
+                      <view class="detail-col-label gray">可住</view>
+                      <view class="detail-col-value">2人</view>
+                    </view>
+                  </view>
+
+                  <view class="body-detail-row">
+                    <view class="body-detail-col">
+                      <view class="detail-col-label gray">楼层</view>
+                      <view class="detail-col-value">5-20层</view>
+                    </view>
+                    <view class="body-detail-col">
+                      <view class="detail-col-label gray">床型</view>
+                      <view class="detail-col-value">2张单人床2米</view>
+                    </view>
+                  </view>
+
+                  <view class="body-detail-row">
+                    <view class="body-detail-col">
+                      <view class="detail-col-label gray">无烟</view>
+                      <view class="detail-col-value">不可吸烟</view>
+                    </view>
+                    <view class="body-detail-col">
+                      <view class="detail-col-label gray">宽带</view>
+                      <view class="detail-col-value">全部房间WiFi、有线宽带<text>免费</text></view>
+                    </view>
+                  </view>
+
+                  <view class="body-detail-row">
+                    <view class="body-detail-col">
+                      <view class="detail-col-label gray">早餐</view>
+                      <view class="detail-col-value">单份早餐</view>
+                    </view>
+                    <view class="body-detail-col">
+                      <view class="detail-col-label gray">窗户</view>
+                      <view class="detail-col-value">有窗</view>
+                    </view>
+                  </view> -->
+                </view>
+
+                <!-- <view class="body-detail-second">
+
+                  <view class="body-detail-row">
+                    <view class="body-detail-col sp">
+                      <view class="detail-col-label gray">浴室</view>
+                      <view class="detail-col-value">24小时热水，拖鞋，浴衣，浴缸，独立淋浴间，吹风机，<text>免费</text>洗漱用品</view>
+                    </view>
+                  </view>
+
+                  <view class="body-detail-row">
+                    <view class="body-detail-col sp">
+                      <view class="detail-col-label gray">便利设施</view>
+                      <view class="detail-col-value">电源插座，空调，书桌，沙发，衣橱，220V电压插座，电子秤，开夜床，闹钟，针线包遮光窗帘</view>
+                    </view>
+                  </view>
+
+                  <view class="body-detail-row">
+                    <view class="body-detail-col sp">
+                      <view class="detail-col-label gray">媒体科技</view>
+                      <view class="detail-col-value">国内长途电话，国际长途电话，音响，有线频道，液晶电视</view>
+                    </view>
+                  </view>
+
+                  <view class="body-detail-row">
+                    <view class="body-detail-col sp">
+                      <view class="detail-col-label gray">食品饮品</view>
+                      <view class="detail-col-value">电热水壶，<text>免费</text>瓶装水，小冰箱</view>
+                    </view>
+                  </view>
+
+                </view> -->
+              </block>
+
+              <view class="body-detail-option">
+                <view hidden="{{showMore}}" class="body-detail-more" bindtap="toggleDetailShow">
+                  查看房型设施<image src="/images/icon-mask-detail.png"></image>
+                </view>
+                <view hidden="{{!showMore}}" class="body-detail-less" bindtap="toggleDetailShow">
+                  收起<image src="/images/icon-mask-sumary.png"></image>
+                </view>
+              </view>
+
+            </view>
+
+            <view class="special-tip pd-lr-30">
+              <view class="special-tip-header">特别提示</view>
+
+              <view class="special-tip-item sp">
+                <view class="tip-item-label gray">加早</view>
+                <view class="tip-item-value">自助早餐 RMB 70/每人</view>
+              </view>
+              <view class="special-tip-item sp">
+                <view class="tip-item-label gray">加床</view>
+                <view class="tip-item-value">¥ 200</view>
+              </view>
+
+              <view class="special-tip-item">
+                <view class="tip-item-label gray">在线支付</view>
+                <view class="tip-item-value">房费需要提前支付，可使用微信进行付款</view>
+              </view>
+              <view class="special-tip-item">
+                <view class="tip-item-label gray">不可取消</view>
+                <view class="tip-item-value">该订单确认后不可修改取消，若未入住将收取您全额房费，下单前请您确认核实准确</view>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+        <!-- 弹窗主体 end -->
+
+        <!-- 弹窗底部 start -->
+        <view class="detail-mask-footer pd-lr-30 border-t" catchtap="contentTap">
+          <view class="dmask-footer-left">房费: <text style="margin-left: 23rpx;" class="main-color">¥ <text class="dmask-footer-price">{{checkboxItems.totalPrice}}</text>/人 <text>( {{selectCount&&selectCount>0?selectCount:1}} 天 )</text></text></view>
+          <view data-id="{{checkboxItems.roomId}}" class="dmask-footer-right" bindtap="navToReserve">预定</view>
+        </view>
+        <!-- 弹窗底部 end -->
+      </view>
+    </view>
+  </scroll-view>
+</template>

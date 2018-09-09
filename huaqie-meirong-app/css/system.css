@@ -1,0 +1,170 @@
+/* set */
+.set-layout {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	padding: 15px;
+	overflow: auto;
+}
+/*   表单样式    */
+.form-content {
+	width: 100%;
+	border-radius: 10px;
+	background: #fff;
+	box-sizing: border-box;
+}
+.form-item {
+	height: 48px;
+	margin-left: 15px;
+	overflow: hidden;
+}
+
+.border-b::after {
+    border-bottom:1px solid #e5e5e5!important;
+}
+.form-item-cell {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.form-item-cell-icon {
+	width: 18px;
+	height: 19px;
+	left: 0;
+}
+.form-item-cell-icon img {
+	width: 100%;
+	height: 100%;
+}
+.form-item-cell-label {
+	left: 30px;
+	color: #333;
+	font-size: 14px;
+	padding-top: 3px;
+}
+.form-item-cell-input {
+	left: 0;
+	width: 100%;
+}
+.form-item-cell-input > input {
+	color: #333;
+	font-size: 15px;
+	width: 80%;
+}
+.form-item-cell-btn {
+	box-sizing: border-box;
+	padding-right: 15px;
+	margin: 53px 0 30px;
+}
+.form-item-cell-btn span {
+	font-size: 18px;
+	display: block;
+	width: 100%;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	background: #ff8ec6;
+	color: #fff;
+	border-radius: 45px;
+}
+.form-item-cell-other {
+	right: 0;
+	margin: 0 15px;
+	color: #999;
+	font-size: 13px;
+}
+.form-item-cell-other .more {
+	width: 8px;
+	height: 15px;
+}
+.form-item-cell-other .can-see,
+.form-item-cell-other .can-not-see {
+	width: 19px;
+	height: 9px;
+}
+.form-item-cell-other .can-see {
+	background: url('../image/can-not-see.png') no-repeat center;
+	background-size: 100% 100%;
+}
+.form-item-cell-other .can-not-see {
+	background: url('../image/can-see.png') no-repeat center;
+	background-size: 100% 100%;
+}
+
+
+.form-item.textarea-item {
+	height: 130px;
+	
+}
+.form-item.textarea-item .form-item-cell-icon,
+.form-item.textarea-item .form-item-cell-label {
+	top: 15px;
+	transform: translateY(0);
+	-webkit-transform: translateY(0)
+}
+.form-item.textarea-item .form-item-cell-other {
+	height: 100px;
+}
+.form-item.textarea-item textarea {
+	height: 98px;
+	line-height: 1.2;
+	color: #666;
+	border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    padding: 4px;
+    transition: border-color ease-in .3s;
+    -webkit-transform-origin: 0 0;
+    -webkit-transform: scale(1);
+}
+.form-item.textarea-item textarea:focus {
+	border-color: #ff8ec6;
+}
+.form-item .form-item-cell-other input.other-input {
+	line-height: 1;
+	font-size: 13px;
+	color: #666;
+	text-align: right!important
+}
+.form-item .form-item-cell-other input:disabled {
+	background: #fff;
+}
+.form-item .form-item-cell-other input:disabled::-webkit-input-placeholder{ /* WebKit browsers */
+	color: #999;
+}
+.form-item .form-item-cell-other input:disabled:-moz-placeholder{ /* WebKit browsers */
+	color: #999;
+}
+.form-item .form-item-cell-other input:disabled::-moz-placeholder{ /* WebKit browsers */
+	color: #999;
+}
+.form-item .form-item-cell-other input:disabled:-ms-input-placeholder{ /* WebKit browsers */
+	color: #999;
+}
+
+.form-item .form-item-cell-other .other-input::-webkit-input-placeholder{ /* WebKit browsers */
+	color: #999;
+}
+.form-item .form-item-cell-other .other-input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	color: #999;
+}
+.form-item .form-item-cell-other .other-input::-moz-placeholder { /* Mozilla Firefox 19+ */	
+	color: #999;
+}
+.form-item .form-item-cell-other .other-input:-ms-input-placeholder { /* Internet Explorer 10+ */	
+	color: #999;
+}
+
+
+.form-item .form-item-cell-other textarea::-webkit-input-placeholder{ /* WebKit browsers */
+	text-align: right;
+}
+.form-item .form-item-cell-other textarea:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	text-align: right;
+}
+.form-item .form-item-cell-other textarea::-moz-placeholder { /* Mozilla Firefox 19+ */	
+	text-align: right;
+}
+.form-item .form-item-cell-other textarea:-ms-input-placeholder { /* Internet Explorer 10+ */	
+	text-align: right;
+}

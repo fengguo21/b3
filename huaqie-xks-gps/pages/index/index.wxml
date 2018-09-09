@@ -1,0 +1,20 @@
+
+<view id='page' style='width:{{width}}px;height: {{height}}px'>
+  <image class='logo' src="/images/icon-logo.png" />
+  <view class='sys-title'>
+    班车实时位置
+  </view>
+
+  <view class='position-center' >
+    <view  wx:for="{{lines}}" class='btnwrap' wx:key="{{index}}">
+      <view data-index="{{index + 1}}" bindtap='tomap' data-line='{{item}}' class='innerwrap' >
+       <image src='../../images/bus.png'></image>
+       <view>{{item.basic.title}}</view>
+     </view>
+   </view>
+  </view>
+
+  <view class='footer position-x-center'>
+    仅供参考，以实际运行未知为准。
+  </view>
+</view>

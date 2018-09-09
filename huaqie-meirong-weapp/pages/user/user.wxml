@@ -1,0 +1,197 @@
+<!--index.wxml-->
+<view class="container">
+    <view class="topimg"><image src="https://dn-huaqie.qbox.me/hyb-mybc.png" mode="widthFix"></image></view>
+    <view class="userinfo">
+    
+    <block >
+       <image  class="userinfo-avatar" src="{{avatarUrl}}" background-size="cover"></image> 
+      <text class="userinfo-nickname">{{name}}</text>
+    </block>
+  </view>
+    <view class="card"  wx:if="{{latestinfo.basic.channel=='预约'}}">
+   
+      <view class="title"><text>最近记录</text></view>
+      <view class="skinbox"> <image src="{{latestinfo.basic.avatar}}" class="skin" mode="aspectFill"></image></view>
+      
+      <!-- <view class="cancel" bindtap="ffff"><image src="/images/edit.png"></image></view> -->
+        <view class="menu">
+            <view class="menu-item">
+                    <view class="menu-text">
+                        到店时间： {{whichday}} {{arrivetime}} 
+                    </view>
+            </view>
+            <view class="menu-item">
+                    <view class="menu-text">
+                     预约时长：{{latestinfo.basic.extra.periods.length}}小时
+                    </view> 
+            </view>
+            <view class="menu-item">
+                    <view class="menu-text">
+                        预约项目：{{latestinfo.basic.title}}
+                    </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="card"  wx:if="{{latestinfo.basic.channel=='办卡'}}">
+   
+      <view class="title"><text>最近记录</text></view>
+       <image src="{{latestinfo.basic.avatar}}" class="skin" mode="aspectFill"></image>
+     
+        <view class="menu">
+            <view class="menu-item">
+                    <view class="menu-text">
+                        办卡时间：{{newcardtime}} 
+                    </view>
+            </view>
+            <view class="menu-item">
+                    <view class="menu-text">
+                      
+                    </view> 
+            </view>
+            <view class="menu-item">
+                    <view class="menu-text">
+                        服务项目：{{latestinfo.basic.title}}
+                    </view>
+            </view>
+        </view>
+    </view>
+
+
+     <view class="card"  wx:if="{{latestinfo.basic.channel=='消费'}}">
+   
+      <view class="title"><text>最近记录</text></view>
+       <image src="{{latestinfo.basic.avatar}}" class="skin" mode="aspectFill"></image>
+      
+        <view class="menu">
+            <view class="menu-item">
+                    <view class="menu-text">
+                        消费时间：{{newcardtime}} 
+                    </view>
+            </view>
+            <view class="menu-item">
+                    <view class="menu-text">
+                      
+                    </view> 
+            </view>
+            <view class="menu-item">
+                    <view class="menu-text">
+                        服务项目：{{latestinfo.basic.title}}
+                    </view>
+            </view>
+        </view>
+    </view>
+
+    
+
+    
+    <view class="info_list">
+        <block >
+            <view class="weui_cell" bindtap="tomyorderlist">
+                <view class="weui_cell_hd">
+                    <image src="/images/order.png"></image>
+                </view>
+                <view class="weui_cell_bd">
+                    <view class="weui_cell_bd_p"> 我的记录 </view>
+                </view>
+                
+                <image src="../../images/arrow.png" class="with_arrow"></image>
+            </view>
+            <view class="weui_cell" bindtap="tocoupon">
+                <view class="weui_cell_hd">
+                    <image src="/images/jifen.png"></image>
+                </view>
+                <view class="weui_cell_bd">
+                    <view class="weui_cell_bd_p"> 我的积分 </view>
+                </view>
+
+                
+                
+               
+               <image src="../../images/arrow.png" class="with_arrow"></image>
+            </view>
+
+            <view class="weui_cell" bindtap="tomycard">
+                <view class="weui_cell_hd">
+                    <image src="/images/card.png"></image>
+                </view>
+                <view class="weui_cell_bd">
+                    <view class="weui_cell_bd_p"> 我的卡 </view>
+                </view>
+
+                
+                
+               
+               <image src="../../images/arrow.png" class="with_arrow"></image>
+            </view>
+
+            <!-- <view class="weui_cell contactUs" >
+            
+                <view class="weui_cell_hd">
+                    <image src="/images/contact.png"></image>
+                </view>
+                <view class="weui_cell_bd">
+                    <view class="weui_cell_bd_p"> 联系我们 </view>
+                </view>
+
+                 
+                    <contact-button  class="contactbtn c1"
+                    type="default-dark"
+                    size="27"
+                    session-from="weapp"
+                    >
+                    </contact-button>
+                    <contact-button  class="contactbtn c2"
+                    type="default-dark"
+                    size="27"
+                    session-from="weapp"
+                    >
+                    </contact-button>
+                    <contact-button  class="contactbtn c3"
+                    type="default-dark"
+                    size="27"
+                    session-from="weapp"
+                    >
+                    </contact-button>
+                    <contact-button  class="contactbtn c4"
+                    type="default-dark"
+                    size="27"
+                    session-from="weapp"
+                    >
+                    </contact-button>
+                    <contact-button  class="contactbtn c5"
+                    type="default-dark"
+                    size="27"
+                    session-from="weapp"
+                    >
+                    </contact-button>
+                    <contact-button  class="contactbtn c6"
+                    type="default-dark"
+                    size="27"
+                    session-from="weapp"
+                    >
+                    </contact-button>
+                    <contact-button  class="contactbtn c7"
+                    type="default-dark"
+                    size="27"
+                    session-from="weapp"
+                    >
+                    </contact-button>
+                    
+                   
+               
+               <image src="../../images/arrow.png" class="with_arrow"></image>
+            </view> -->
+        </block>
+    </view>
+</view>
+
+
+
+
+
+
+
+
+
+

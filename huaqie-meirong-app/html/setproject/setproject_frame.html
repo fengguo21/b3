@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>setproject_frame</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mask.css?v=1"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css?v=1"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mrUI.css?rev=@@hash"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        * {
+            line-height: 1;
+        }
+        .aui-user-view::after {
+            border: 0;
+        }
+        .aui-user-view-cell {
+            height: 60px;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: 0 15px;
+            position: relative;
+        }
+        
+        .aui-user-view-cell::after {
+            border-color: #e6e6e6
+        }
+        #pro-list label:last-child li::after {
+            border-color: #fff;
+        }
+        .aui-user-view-cell p {
+            color: #999;
+        }
+        .msg-body {
+            width: calc(100% - 93px);
+            height: 48px;
+            position: absolute;
+            top: 50%;
+            left: 78px;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%)
+        }
+        .msg-body > span {
+            display: block;
+            height: 20px;
+            color: #333;
+            margin: 6px 0 5px;
+            font-size: 13px;
+            overflow: hidden;
+        }
+        .msg-body > span em {
+            float: right;
+        }
+        .msg-body > p {
+            padding: 0;
+            margin: 0;
+            height: 20px;
+            font-size: 12px;
+            color: #666;
+            overflow: hidden;
+        }
+        .msg-body > p em {
+            float: right;
+            color: #999;
+            font-size: 10px;
+            margin-top: 3px;
+        }
+        #order-list .new {
+            color: #ff55b5;
+        }
+        #order-list .cancel {
+            color: #00a5e7;
+        }
+        #order-list .complate {
+            color: #fb5660;
+        }
+        #order-list .ordering {
+            color: #2ecc71;
+        }
+        #count {
+            vertical-align: middle;
+            padding: 10px 15px;
+        }
+        #count img{
+            width: 19px;
+            height: 17px;
+            vertical-align: middle;
+            margin-right: 10px;
+            margin-left: 5px;
+        }
+        #count > span {
+            vertical-align: middle;
+            font-size: 13px;
+            color: #666;
+        }
+        .options {
+            transition: all .3s;
+            z-index: -1;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+            overflow: hidden;
+        }
+        .options span {
+            float: left;
+            width: 50%;
+            line-height: 60px;
+            height: 100%;
+        }
+        .not-move {
+            transition: all .3s;
+            position: relative;
+            left: 0;
+        }
+        .move {
+            transition: all .3s;
+            left: -100px;
+        }
+        .active {
+            width: 138px;
+            transition: all .3s;
+            z-index: 0;
+        }
+        .del {
+            background: #ff4a40;
+        }
+        .edit {
+            background: #58b7ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="mask" id='mask'>
+        <div class='aui-iconfont aui-icon-close icon'></div>
+        <div style='margin-top: 20px; font-size: 18px'></div>
+        <div style='margin-top: 20px;'>长按项目，可删除和编辑。</div>
+        <div style='margin-top: 10px;'></div>
+    </div>
+    <div id="not-empty" style='display: none'>
+        <p class="aui-padded-10" id='count'><img src="../../image/detail-pro.png"><span>共<span id="total">0</span>个项目</span></p>
+        <div class="aui-content">
+            <ul class="aui-user-view aui-in" id="pro-list">
+            <script id="tpl-pro" type="text/html">
+                {{each list value i}}
+                    <label>
+                    <div class='list-wrap' style='position: relative;'>
+                        <li class="aui-user-view-cell aui-img not-move" data-title='{{value.basic.title}}'>
+                            <div class="position-y-center aui-pull-left" style='overflow: hidden; border-radius: 50%; height: 42px'>
+                                <img src="{{value.basic.avatar}}" data-title='{{value.basic.title}}'  style='width: 42px !important; max-height: 42px !important; max-width: inherit !important; height: inherit !important;'>
+                            </div>
+                            <div class='position-y-center' style='float:left; height: 60px; line-height: 60px; left: 72px; font-size: 13px; color: #333'>
+                                <span data-title='{{value.basic.title}}'>{{value.basic.title}}</span>
+                            </div>
+                            <input data-title='{{value.basic.title}}' class='position-y-center radio' style='right: 15px' type="checkbox" name="pro" value="{{value.basic.title}}"></input>
+                        </li>
+                        <div class='options'>
+                            <span class='edit' data-val={{value}}>修改</span>
+                            <span class='del' data-feedId={{value.feedId}}>删除</span>
+                        </div>
+                    </div>
+                    </label>
+                {{/each}}
+            </script>
+            </ul>
+        </div>  
+    </div> 
+    <div id="empty" style='display: none; overflow: hidden; text-align: center'>
+         <div style='width: 165px; height:165px; margin: 178px auto 20px'>
+             <img src="../../image/data-empty.png" style='display: block; width: 186px;'>
+         </div>
+         <span style='font-size: 14px; color: #999'>暂时没有项目</span>
+    </div> 
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script src="../../script/axios.min.js"></script>
+<script type="text/javascript" src="../../script/template-web.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../script/phone.js"></script>
+<script type="text/javascript" src="../../fetch/api.js"></script>
+<script type="text/javascript">
+    var myElement = document.getElementById('pro-list');
+    var mc = new Hammer(myElement);
+    var proList = []
+    var page = 1;
+    var total = 0;
+    var getProList = function() {
+        ajax.getServiceList({
+            page: page,
+            size: 10
+        }, function(res) {
+             console.log(res);
+            total = res.data.total;
+            proList = res.data.list;
+            if(total > 0) {
+                $('#not-empty').show();
+                $('#empty').hide();
+                $('#pro-list').html(template('tpl-pro', {list: proList}));
+                $('#total').html(total);
+            } else {
+                $('#not-empty').hide();
+                $('#empty').show();
+            }
+        })
+    }
+    var loadMore = function() {
+        ajax.getServiceList({
+            page: page,
+            size: 10
+        }, function(res) {
+            // console.log(res);
+            proList = proList.concat(res.data.list);
+            $('#pro-list').html(template('tpl-pro', {list: proList}));
+        })
+    }
+    var reload = function() {
+        proList = [];
+        page = 1;
+        getProList();
+    }
+    var delPro = function(feedId) {
+        ajax.removeService({
+            feedId: feedId
+        }, function(res) {
+            api.toast({
+                msg: '删除成功'
+            })
+            reload();
+        })
+    }
+    mc.get('press').set({time: 500});
+    mc.on("press", function(ev) {
+        var target = $(ev.target);
+        target.addClass('move');
+        target.next().addClass('active')
+    });
+    mc.on("tap", function(ev) {
+        var target = $(ev.target);
+        if(target.is('.move')) {
+            target.removeClass('move');
+            target.next().removeClass('active')
+        } else if(!target.is('.del')&&!target.is('.edit')) {
+            var val = ev.target.dataset.title;
+            var ts = []
+            $('input[type=checkbox]:checked').forEach(function(e){
+                ts.push(e.value)
+            })
+            var exist = false
+            ts.forEach(function(e, k){
+                if(e == val){
+                    ts.splice(k, 1)
+                    exist = true
+                }
+            })
+            if(!exist)
+                ts.push(val)
+            store.set('selectPros', ts);
+            store.set('selectPro', val);
+            //api.closeWin();
+            api.execScript({
+                name: 'addmember',
+                frameName: 'addmember_frame',
+                script: 'selectPro()'
+            })
+            api.execScript({
+                name: 'editMember',
+                frameName: 'editMember_frame',
+                script: 'selectPro()'
+            })
+            api.execScript({
+                name: 'addCard',
+                frameName: 'addCard_frame',
+                script: 'selectPro()'
+            })
+            api.execScript({
+                name: 'editCard',
+                frameName: 'editCard_frame',
+                script: 'selectPro()'
+            })
+        }   
+    });
+    // 删除指定项目
+    $('#pro-list').on('click', '.list-wrap .del', function() {
+        var feedId = this.dataset.feedid;
+        api.confirm({
+            title: '警告',
+            msg: '您即将删除该项目，删除后数据将不能恢复，可能会造成您的损失，是否继续？',
+            buttons: ['删除', '取消']
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            if(index == 1) {
+                delPro(feedId)
+            } else {
+                api.toast({
+                    msg: '已取消删除'
+                })
+            }
+        })
+    })
+    // 编辑指定项目
+    $('#pro-list').on('click', '.list-wrap .edit', function() {
+        var val = JSON.parse(this.dataset.val);
+        store.set('editPro', val)
+        api.openWin({
+            name: 'editPro',
+            url: '../editPro/editPro.html'
+        });
+    })
+    if(store.get('firstLog') != 'dbok') {
+        $('#mask').show();
+    }
+    $('#mask').on('click', function() {
+        $('#mask').hide();
+        store.set('firstLog', 'dbok')
+    })
+    
+    getProList();
+    // mc.on('press', function(e) {
+    //     console.log(e);
+    // })
+    
+    apiready = function(){
+        // 滑动事件
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if(page * 10 < total){
+                page += 1
+                loadMore();
+            } else {
+                api.toast({
+                    msg: '没有更多啦'
+                })
+            }
+        });
+    };
+</script>
+</html>

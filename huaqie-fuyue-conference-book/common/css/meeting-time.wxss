@@ -1,0 +1,60 @@
+/* 会议时间（公有）app.wxss/*.wxss */
+.meeting-time {
+  height: 130rpx;
+  box-sizing: border-box;
+  position: relative;
+  padding: 19rpx 102rpx;
+  background: #fff;
+}
+.meeting-time-start {
+  float: left;
+}
+.meeting-time-end {
+  float: right;
+}
+.meeting-time-start > view,
+.meeting-time-end > view {
+  line-height: 1;
+}
+.meeting-time-text {
+  padding-top: 9rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: rgb(26, 26, 26);
+  margin-bottom: 22rpx;
+}
+.meeting-time-content {
+  font-size: 32rpx;
+  color: rgb(190, 52, 42);
+}
+.meeting-time-process {
+  width: 100rpx;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.meeting-time-process > view {
+  line-height: 1;
+}
+.meeting-time-process .time-progress-box {
+  font-size: 24rpx;
+  width: 100%;
+  height: 40rpx;
+  text-align: center;
+  line-height: 40rpx;
+  border: 2rpx solid #a6a6a6;
+  border-radius: 40rpx;
+  color: rgb(153, 153, 153);
+}
+.time-progress-line {
+  height: 50rpx;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 46rpx;
+  border-right: 2rpx solid #a6a6a6;
+}
+.time-progress-line.border-r::after {
+  border-width: 2rpx;
+  border-color: #a6a6a6;
+}

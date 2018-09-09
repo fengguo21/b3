@@ -1,0 +1,187 @@
+body{
+    /* background: #f5f5f5; */
+    margin: 0;
+    /* display: flex;
+    flex-direction: column;
+    overflow: hidden; */
+}
+.card{
+    /*margin:20px 30px;*/
+    background: white;
+    /*border-radius: 10px;*/
+    overflow: hidden;
+}
+.card .title{
+    height: 44px;
+    margin-left: 15px;
+    font-size: 14px;
+    color:#333;
+    line-height: 44px;
+}
+.card .border-t::after {
+    border-top: 1px solid #e5e5e5;
+}
+.list-item{
+
+    height: 70px;
+    margin-left: 15px;
+    display: flex;
+}
+.list-item img{
+    
+    width: 45px;
+    height: 45px;
+    margin:auto 0;
+
+}
+.list-content{
+    flex: 1
+}
+.content-top{
+    padding-top: 16px;
+
+    
+    width: 100%
+}
+.content-top .project{
+
+    margin-left: 13px;
+    font-size: 13px;
+    color: #333;
+}
+.content-top .pay{
+    float: right;
+    margin-right: 15px;
+    font-size: 13px;
+    color:#ff55b5;
+}
+.content-bottom{
+    margin-top:11px;
+    /*line-height: 18px*/
+}
+.content-bottom span {
+    vertical-align: text-top;
+}
+.content-bottom .beautician{
+    font-size: 12px;
+    color:#666;
+    margin-left: 15px;
+}
+.content-bottom .time{
+    float: right;
+    margin-right: 15px;
+    font-size: 11px;
+    color:#999;
+}
+#service-msg{
+
+    display: flex;
+    margin:0;
+    height: 68px;
+    background: white；
+    width:100%;
+    border:1px solid #efefef;
+    /*border-radius: 0 0 10px 10px;*/
+    line-height: 1;
+}
+.service-item{
+    flex: 1;
+    position: relative;
+}
+
+.service-item .name{
+    margin-top: 15px;
+    text-align: center;
+    font-size: 11px;
+    color:#808080;
+}
+.service-item .val{
+    margin-top: 10px;
+    text-align: center;
+    font-size: 11px;
+    color:#ff3e39;
+    margin-bottom: 15px
+    
+}
+.service-item.border-r::after {
+    height: 30px;
+    border-right: 1px solid #ccc;
+    margin-top: calc(50px / 2);
+}
+.banner {
+    background: url('../image/vipbc.png') center bottom;
+    background-size: 100%;
+    height: 105px;
+    display: flex;
+    line-height: 1;
+    font-size: 0;
+    position: relative;
+}
+.banner .line {
+    width: .5px;
+    height: 45px;
+    background: #fff;
+    z-index: 99;
+}
+#consumecount{
+    color: #ff3e39;
+
+}
+.amount{
+    flex: 1;
+    text-align: center;
+    position: relative;
+}
+ .name{
+    font-size: 12px;
+    color: #fff;
+    margin-top: 23px;
+}
+ .value{
+    font-size: 15px;
+    color: #fff;
+    margin-top: 25px;
+}
+.amount .value{
+    font-size:17px;
+}
+ .value .number{
+    font-size: 30px;
+}
+.cardnum{
+    flex: 1;
+    text-align: center;
+}
+
+.fix-wrap {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 999;
+}
+
+.card-wrap {
+    padding: 183px 0px 10px;
+    /* flex: 1; */
+    width: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+}
+.imgbox img{
+    border-radius: 50%
+}
+.val > span:nth-child(1) {
+    font-size: 18px;
+}
+#lastTime {
+    font-size: 11px;
+}
+#lastTime > span {
+    font-size: 18px;
+}
+.timer{
+    color: #999999;
+}
+

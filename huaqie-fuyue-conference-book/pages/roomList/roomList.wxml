@@ -1,0 +1,71 @@
+<!--pages/roomList/roomList.wxml-->
+<import src="/components/detailMask/detailMask.wxml" />
+
+<view class="room-list layout">
+
+  <!-- banner start -->
+  <view class="banner mg-b-20">
+    <image class="banner-img" src="{{hotelMsg.avatar}}"></image>
+    <view class="banner-mask">
+      <view class="banner-mask-wrap">
+        <view class="banner-mask-left">
+          <view class="mask-left-place">{{hotelMsg.hotel}}</view>
+          <view class="mask-left-address">{{hotelMsg.address}}</view>
+        </view>
+        <view class="banner-mask-right">
+          <image data-phone="{{hotelMsg.phone}}" bindtap="call" style="margin-right: 28rpx;" src="/images/icon-phone-large.png"></image>
+          <image src="/images/icon-location.png" bindtap="navToMap"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- banner end -->
+
+  <!-- list start -->
+  <view class="body">
+    <block wx:for="{{roomList}}" wx:key="{{index}}">
+      <view class="room-list-item">
+        <view class="list-item-wrap {{item.totalHave == 0?'room-item-ended':''}}">
+          <view class="list-item-avatar">
+            <image src="{{item.basic.avatar}}" ></image>
+          </view>
+
+          <view class="list-item-detail">
+            <view class="item-detail-name">{{item.basic.title}}</view>
+            <view class="item-detail-service" wx:if="{{item.basic.tags&&(item.basic.tags[0]||item.basic.tags[1])}}">
+
+              <text v-if="{{item.basic.tags[0]}}" class="pd-r-8 light-green">{{item.basic.tags[0]}}</text><text v-if="{{item.basic.tags[1]}}" class="dark-black">{{item.basic.tags[1]}}</text>
+            </view>
+            <view class="item-detail-check" wx:if="{{item.basic.tags&&(item.basic.tags[2]||item.basic.tags[3])}}">
+            
+              <text v-if="{{item.basic.tags[2]}}" class="pd-r-8 gray">{{item.basic.tags[2]}}</text><text v-if="{{item.basic.tags[3]}}" class="light-green">{{item.basic.tags[3]}}</text>
+            </view>
+            <view class="item-detail-rooms">
+              <view class="detail-rooms-out">已售{{item.out}}间</view>
+              <view class="detail-rooms-have">剩余{{item.have}}间</view>
+            </view>
+          </view>
+
+          <view class="list-item-options {{item.basic.typehood=='special'||item.totalHave==0?'special':'normal'}}">
+            <view class="item-options-money main-color">
+              ¥ <text>{{item.price}}</text>
+            </view>
+            <block wx:if="{{item.totalHave!=0}}">
+              <view class="item-options-btns">
+                <view data-type="normal" data-detail="{{item}}" class="item-options-check" bindtap="openRoom">订房</view>
+                <view data-type="special" data-detail="{{item}}" wx:if="{{item.basic.typehood !== 'normal'}}" class="item-options-add" bindtap="openRoom">拼房</view>
+              </view>
+            </block>
+          </view>
+          <block wx:if="{{item.totalHave==0}}">
+            <image class="item-options-end" src="/images/icon-room-end.png"></image>
+          </block>
+        </view>
+      </view>
+    </block>
+  </view>
+  <!-- list end -->
+
+</view>
+
+<template is='dmask' data="{{...dmask, checkboxItems, selectCount}}"></template>

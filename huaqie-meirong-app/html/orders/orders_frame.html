@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>云API</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <link href="../../css/sweetalert2.min.css" rel="stylesheet">
+    <script src="../../script/zepto.min.js"></script>
+    <script src="../../script/fastclick.js"></script>
+    <script>
+        $(function() {  
+            FastClick.attach(document.body);  
+        });  
+    </script>
+    <style type="text/css">
+
+    .aui-badge{
+        color: #bdc3c7;
+        background-color: transparent;
+    }
+    .aui-badge-success{
+        color: green
+    }
+    #no-results{
+        display: none;
+        padding-top: 33%;
+        color: #999999;
+        text-align: center;
+    }
+    #no-results img{
+        width:40%;
+        display:block;
+        margin: 0 auto;
+        margin-bottom: 10px;
+    }
+    #orders{
+        display: none;
+    }
+     
+        #filter-box {
+            display: flex;
+            font-size: 14px;
+            background: white;
+            height: 50px;
+
+        }
+        #filter-box .active{
+            color:#ff55b5;
+            position: relative;
+        }
+
+        #filter-box .active::after {
+            content: '';
+            display: block;
+            width: 55px;
+            border-bottom: 2px solid #ff55b5;
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+        }
+        
+        .filter-box.show {
+            display: block;
+        }
+        .filter-box li {
+            /* padding: 15px 0; */
+            flex: 1;
+            /*margin:0 35px;*/
+           /*width:55px;*/
+            height: 50px;
+            line-height: 50px;
+            color: #999999;
+            text-align: center;
+            font-size: 13px;
+           
+        }
+        
+
+
+        .flex-header {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+        }
+        #count {
+            background: #f4f4f4;
+        }
+        .flex-wrap {
+            /* flex: 1;
+            overflow: auto; */
+            padding-top: 66px;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-header">
+        <ul class='filter-box' id='filter-box'>
+            <li data-name='consume' class="active">线上订单</li>
+            <li data-name='consumeTime'>线下订单</li>
+            
+        </ul>
+        
+    </div>
+
+
+
+<div class="aui-content" >
+    <ul class="aui-list-view aui-in" id="orders" style="margin-top: -5px">
+
+<div class="aui-content">
+
+    <ul class="aui-list-view aui-in" id="orders">
+
+    <script id="tpl-order" type="text/html">
+        {{each list value i}}
+        <li class="aui-list-view-cell">
+        	<a class=" aui-arrow-right">
+            {{ if value.channel.indexOf('wepay') == 0 }}
+            <!--<i class="aui-iconfont aui-icon-edit aui-bg-success" style="border-radius:50%;"></i>-->
+            <img src="../../image/wepay.svg" style="width:32px;line-height:32px;vertical-align:middle;margin-right:10px;"/>
+            {{ else if value.channel.indexOf('alipay') == 0 }}
+            <img src="../../image/alipay.svg" style="width:32px;line-height:32px;vertical-align:middle;margin-right:10px;"/>
+            {{ else }}
+            <img src="../../image/unkown.svg" style="width:32px;line-height:32px;vertical-align:middle;margin-right:10px;"/>
+            {{ /if }}
+            ¥{{value.amount}}
+            <span style="position:absolute;left: 150px; top: 16px;">{{value.people.name}}</span>
+            {{ if value.step == 4 }}
+            <span class="aui-badge">{{value.created}}</span>
+            {{ else if value.step == 1 }}
+            <span class="aui-badge">待付款 {{value.created}}</span>
+            {{ /if }}
+            </a>
+        </li>
+        {{/each}}
+        </script>
+    </ul>
+    <div id="no-results">
+    <img src="../../image/no-results.png" />
+        还没有收款记录～
+    </div>
+</div>
+
+
+<script src="../../script/store.min.js"></script>
+<script src="../../script/sweetalert2.min.js"></script>
+<script src="../../script/template-web.js"></script>
+<script src="../../script/axios.min.js"></script>
+<script src="../../script/timeago.min.js"></script>
+<script src="../../fetch/api.js"></script>
+
+<script type="text/javascript">
+    var page = 1
+    var total = 0
+    var orders = []
+
+    var goOrder = function(orderId) {
+        api.openWin({
+            name: 'order',
+            url: './order.html',
+            pageParam: {
+                orderId: orderId
+            }
+        })
+    }
+    $('#filter-box').on('click', 'li', function(e) {
+            
+            $('li').removeClass('active')
+            e.target.className='active'
+            $('#filter-box').removeClass('show')
+            var name = this.dataset.name;
+            refresh()
+           
+        })
+    var fetch = function() {
+        var me = store.get('me')
+        //var path = (me.role.level == 1)?'findByState':'frontFindByState'
+        ajax.getOrders({
+            step: 4,
+            page: page,
+            size: 10
+        }, function(ret) {
+            console.log(ret)
+            if(ret.code){
+                swal('提示', ret.message)
+                return
+            }
+            if(ret.data.total == 0){
+                $('#no-results').show()
+                $('#orders').hide()
+                return
+            }
+            $('#no-results').hide()
+            $('#orders').show()
+            ret.data.list.forEach(function(e){
+                e.created = timeago().format(e.created, 'zh_CN')
+            })
+            orders = orders.concat(ret.data.list)
+            $('#orders').html(template('tpl-order', {list: orders}))
+            total = ret.data.total
+        })
+    }
+
+    var refresh = function() {
+        page = 1
+        orders = []
+        total = 0
+        fetch()
+    }
+ 
+    apiready = function(){
+        fetch()
+        api.addEventListener({
+            name : 'scrolltobottom',
+            extra : {
+                threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if(total == 0)
+                return
+            if(page * 10 < total){
+                page += 1
+                fetch()
+            } else {
+                api.toast({
+                    msg: '没有更多啦'
+                })
+                api.removeEventListener({
+                    name : 'scrolltobottom'
+                })
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

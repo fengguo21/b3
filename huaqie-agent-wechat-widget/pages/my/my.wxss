@@ -1,0 +1,140 @@
+/* my.wxss */
+.bc{
+  width:100%;
+  
+}
+
+
+.cont{
+  display: block;
+  min-height: 150px;
+}
+
+.clicktext{
+  position: absolute;
+  display: block;
+  
+  left:197rpx;
+  top:122rpx;
+  
+
+}
+.clicktext image{
+  width:353rpx;
+  height: 206rpx;
+}
+
+
+.sever image{
+  width:152rpx;
+  height: 150rpx;
+  display: inline-block;
+  margin-left: 37rpx;
+  margin-top:46rpx;
+  border-radius: 50%;
+  
+  
+}
+.header{
+  position: relative;
+}
+.sever{
+  display: block;
+  position: relative;
+  width:667rpx;
+  height: 238rpx;
+  margin:12rpx auto;
+  border-radius: 12rpx;
+  background: white;
+}
+.sever5{
+  margin-bottom:0;
+}
+.name{
+  display: block;
+  line-height: 1em;
+  
+  font-size: 35rpx;
+ 
+  color: #202020;
+  margin-bottom: -5px;
+  
+}
+.servicebox {
+  text-align: center;
+  
+  
+  margin-top:33rpx;
+  margin-bottom: 87rpx;
+  color: #9470dc;
+  font-weight: 600;
+  font-size: 42rpx;
+}
+.tel{
+  display: block;
+  line-height: 1em;
+  color: #999999;
+  margin-top:28rpx;
+  font-size: 26rpx;
+}
+.sever .personalTel{
+  position: absolute;
+  right: 47rpx;
+  bottom: 10rpx;
+  width:70rpx;
+  height: 70rpx;
+  
+}
+.sever .information{
+  display: block;
+  width:65%;
+  position: absolute;
+  top:87rpx;
+  float: right;
+  left:215rpx;
+
+}
+.serverimg{
+  float: left
+}
+
+
+.personalphone{
+  width:30rpx;
+}
+.mypage{
+  background: #f7f7f7;
+}
+.footline{
+  height: 100rpx;
+  text-align: center;
+  position: relative;
+}
+.line1{
+  border-bottom: 2rpx solid #d9d9d9;
+  width:187rpx;
+  position: absolute;
+  top:49rpx;
+  left: 60rpx;
+}
+.line2{
+  border-bottom: 2rpx solid #d9d9d9;
+  width:187rpx;
+  position: absolute;
+  top:49rpx;
+  right:60rpx;
+}
+.nocontent{
+ 
+  top:35rpx;
+  line-height: 100rpx;
+  font-size: 24rpx;
+  color: #808080;
+
+}
+.line{
+  border-bottom: 1px solid #e6e6e6;
+  position: fixed;
+  bottom: 0rpx;
+  width:100%;
+}

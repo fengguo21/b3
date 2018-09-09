@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/meeting/meeting",
+    "pages/roomList/roomList",
+    "pages/addMeal/addMeal",
+    "pages/invoice/invoice",
+    "pages/reserve/reserve",
+    "pages/indexShare/indexShare",
+    "pages/map/map"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#be342a",
+    "navigationBarTitleText": "富悦大酒店",
+    "navigationBarTextStyle": "#fff"
+  },
+  "debug": true
+}

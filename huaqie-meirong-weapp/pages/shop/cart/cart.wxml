@@ -1,0 +1,30 @@
+<view class="main">
+    <view wx:if="{{hasList}}">
+        <view class="cart-box">
+            <view class="cart-list" wx:for="{{carts}}" wx:key="{{index}}">
+                <icon wx:if="{{item.selected}}" type="success" color="#ff8ec6" data-pid="{{item.productId}}" data-index="{{index}}"  class="cart-pro-select" bindtap="selectList"/>
+                <icon wx:else type="circle" class="cart-pro-select" data-pid="{{item.productId}}" data-index="{{index}}" bindtap="selectList"/>
+                <navigator url="../details/details?id={{item.id}}"><image class="cart-thumb" src="{{item.basic.images[0].url}}"></image></navigator>
+                <text class="cart-pro-name">{{item.basic.title}}</text>
+                <text class="cart-pro-price">￥{{item.basic.price}}</text>
+                <view class="cart-count-box">
+                    <text class="cart-count-down" bindtap="minusCount" data-index="{{index}}" data-pid="{{item.productId}}">-</text>
+                    <text class="cart-count-num">{{item.count}}</text>
+                    <text class="cart-count-add" bindtap="addCount" data-index="{{index}}" data-pid="{{item.productId}}">+</text>
+                </view>
+                <text class="cart-del" bindtap="deleteList" data-index="{{index}}" data-pid="{{item.productId}}">×</text>
+            </view>
+        </view>
+
+        <view class="cart-footer" wx:if="{{totalPrice>0}}">
+            <icon wx:if="{{selectAllStatus}}" type="success_circle" color="#fff" class="total-select" bindtap="selectAll"/>
+            <icon wx:else type="circle" color="#fff" class="total-select" bindtap="selectAll"/>
+            <navigator url="../orders/orders"><view class="order-icon">去结算<image mode="widthFix" src="../../../../images/arrow-right-circle.png" style="position:fixed;margin-left: 10rpx;bottom: 24rpx;width:42rpx;height:42rpx"></image></view></navigator>
+            <text>全选</text>
+            <text class="cart-toatl-price">￥{{totalPrice}}</text>
+        </view>
+    </view>
+    <view wx:else>
+        <view class="cart-no-data"><image mode="widthFix" src="../../../../images/no-cart.png"></image>购物车是空的，快去选购吧~</view>
+    </view>
+</view>

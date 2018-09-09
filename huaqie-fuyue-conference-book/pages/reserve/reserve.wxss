@@ -1,0 +1,16 @@
+/* pages/reserve/reserve.wxss */
+@import '/components/mask/mask.wxss';
+@import '/components/successMask/success-mask.wxss';
+@import '/common/css/form.wxss';
+@import '/common/css/index.wxss';
+
+form {
+  height: auto;
+}
+button.pay-btn::after {
+  border: 0;
+}
+.room-pay-style:last-child {
+  margin-bottom: 0;
+}
+

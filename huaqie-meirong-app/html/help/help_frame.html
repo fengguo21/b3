@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>system_frame</title>
+    <link rel="stylesheet" type="text/css" href="../../css/mrUI.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/system.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }  
+    </script>
+    <style type="text/css">
+        .video {
+            margin-bottom: 20px;
+            position: relative;
+            display: flex;
+        }
+        .video img{
+            width: 140px;
+            height: 230px;
+            border-radius: 10px;
+        }
+        .video h3{
+            margin: 10px 0 10px 0;
+            font-weight: normal;
+            font-size: 17px;
+        }
+        .video .mask{
+            position:absolute;
+            top:0;
+            left:0;
+            width:140px;
+            opacity:0.5;
+            bottom:0;
+            height:230px;
+            background:black;
+            border-radius: 10px;
+        }
+        .video .play{
+            position: absolute;
+            top: 115px;
+            left: 70px;
+            -moz-transform: translate(-50%,-50%);
+            -webkit-transform: translate(-50%,-50%);
+            -o-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+            width: 48px;
+            height: 48px;
+        }
+        .item-left{
+            width: 140px;
+        }
+        .item-right{
+            flex: 1;
+            padding-left: 10px;
+        }
+        .item
+    </style>
+</head>
+<body>
+    <div class='set-layout'>
+        <ul class="videos">
+            <li class="video" onclick="play('会员卡的办理及使用', 'https://qbox.huaqie.com/help-1.mp4')">
+                <div class="item-left">
+                    <img src="https://qbox.huaqie.com/Screenshot_2017-10-26-10-03-29-325_%E5%BE%AE%E4%BF%A1.jpg" />
+                    <div class="mask"></div>
+                    <img src="../../image/video-play2.png" class="play">
+                </div>
+                <div class="item-right">
+                    <h3>1.会员卡的办理及使用</h3>
+                    <p>关于会员卡的创建，修改，删除以及使用等。</p>
+                </div>
+            </li>
+            <li class="video" onclick="play('会员管理', 'https://qbox.huaqie.com/help-2.mp4')">
+                <div class="item-left">
+                    <img src="https://qbox.huaqie.com/Screenshot_2017-10-26-10-03-29-325_%E5%BE%AE%E4%BF%A1.jpg" />
+                    <div class="mask"></div>
+                    <img src="../../image/video-play2.png" class="play">
+                </div>
+                <div class="item-right">
+                    <h3>2.会员管理</h3>
+                    <p>关于会员信息的查看以及记录等。</p>
+                </div>
+            </li>
+            <li class="video" onclick="play('报表管理', 'https://qbox.huaqie.com/help-3.mp4')">
+                <div class="item-left">
+                    <img src="https://qbox.huaqie.com/Screenshot_2017-10-26-10-03-29-325_%E5%BE%AE%E4%BF%A1.jpg" />
+                    <div class="mask"></div>
+                    <img src="../../image/video-play2.png" class="play">
+                </div>
+                <div class="item-right">
+                    <h3>3.报表管理</h3>
+                    <p>关于信息的统计报表的查看和使用等。</p>
+                </div>
+            </li>
+            <li class="video" onclick="play('记账', 'https://qbox.huaqie.com/help-4.mp4')">
+                <div class="item-left">
+                    <img src="https://qbox.huaqie.com/Screenshot_2017-10-26-10-03-29-325_%E5%BE%AE%E4%BF%A1.jpg" />
+                    <div class="mask"></div>
+                    <img src="../../image/video-play2.png" class="play">
+                </div>
+                <div class="item-right">
+                    <h3>4.记账</h3>
+                    <p>关于记账功能的使用等。</p>
+                </div>
+            </li>
+            <li class="video" onclick="play('工作时间设置及预约', 'https://qbox.huaqie.com/help-5.mp4')">
+                <div class="item-left">
+                    <img src="https://qbox.huaqie.com/Screenshot_2017-10-26-10-03-29-325_%E5%BE%AE%E4%BF%A1.jpg" />
+                    <div class="mask"></div>
+                    <img src="../../image/video-play2.png" class="play">
+                </div>
+                <div class="item-right">
+                    <h3>5.工作时间设置及预约</h3>
+                    <p>关于员工工作时间的设置以及预约等。</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript">
+    var videoPlayer = null;
+    var isIphone;
+    var play = function (title, url) {
+        if(!videoPlayer)
+            return
+        videoPlayer.play({
+            texts: {
+                head: {
+                    title: title
+                }
+            },
+            styles: {
+                head: {
+                    bg: 'rgba(0.5,0.5,0.5,0.7)',
+                    height: 44,
+                    titleSize: 20,
+                    titleColor: '#fff',
+                    backSize: 44,
+                    backImg: 'widget://image/video-back.png',
+                    setSize: 44,
+                    setImg: 'widget://image/video-set.png'
+                },
+                foot: {
+                    bg: 'rgba(0.5,0.5,0.5,0.7)',
+                    height: 44,
+                    playSize: 44,
+                    playImg: 'widget://image/video-play.png',
+                    pauseImg: 'widget://image/video-pause.png',
+                    nextSize: 44,
+                    nextImg: 'widget://image/video-next.png',
+                    timeSize: 14,
+                    timeColor: '#fff',
+                    sliderImg: 'widget://image/'+ (isIphone ? "video-slider" : "slider") +'.png',
+                    progressColor: '#696969',
+                    progressSelected: '#76EE00'
+                }
+            },
+            path: url, //（可选项）字符串类型；文档的路径，支持网络和本地（fs://）路径；默认：未传值时不播放
+            //在 android 平台上不支持 widget://
+            autoPlay: true //（可选项）布尔类型；打开时是否自动播放；默认：true（自动播放）
+        }, function(ret, err) {
+            
+        });
+    }
+    
+    apiready = function(){
+          videoPlayer = api.require('videoPlayer');
+          if(api.systemType == 'ios') {
+            isIphone = true;
+          } else {
+            isIphone = false;
+          }
+    };
+</script>
+</html>

@@ -1,0 +1,27 @@
+<!--pages/home/canUseCoupon/canUseCoupon.wxml-->
+<view class="coupon-wrap">
+  <scroll-view scroll-y class="coupon-list" lower-threshold="5" bindscrolltolower="scrollToLower">
+    <block wx:if="{{ list.length <= 0 }}">
+      <view class="is-empty">
+        <image mode="widthFix" src="/images/coupon-empty.png" ></image>
+        <text>暂时没有可用的优惠券</text>
+      </view>
+    </block>
+    <block wx:else>
+      <view data-coupon="{{item}}" bindtap="chooseCoupon" class="coupon-list-item" wx:for="{{list}}" wx:key="{{index}}">
+        <image mode="widthFix" src="/images/coupon-not-use.png"></image>
+          <view class="coupon-item-left">
+           <view class="coupon-face">￥<text>{{item.coupon.basic.price}}</text>优惠券</view>
+           <view class="coupon-time">有效期：<text>{{item.startDate}}-{{item.endDate}}</text></view>
+          </view>
+        <view class="coupon-item-right">
+          <!-- 使用条件 -->
+          <text class="coupon-term">{{item.coupon.basic.title}}<block wx:if="{{ item.coupon.basic.minAmount == 0 }}">无门槛</block><block wx:else>满{{item.coupon.basic.minAmount}}减{{item.coupon.basic.price}}</block>
+          </text>
+          <text class="coupon-btn position-x-center {{btnColor}}" bindtap="useCoupon">立即使用</text>
+        </view>
+      </view>
+    </block>
+
+  </scroll-view>
+</view>

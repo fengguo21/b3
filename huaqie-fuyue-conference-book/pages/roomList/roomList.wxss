@@ -1,0 +1,202 @@
+/* pages/roomList/roomList.wxss */
+@import '/components/detailMask/detailMask.wxss';
+
+/* banner start */
+.room-list .banner {
+  width: 100%;
+  height: 360rpx;
+  position: relative;
+  overflow: hidden;
+}
+.banner-img {
+  width: 100%;
+  height: 100%;
+}
+.banner-mask {
+  width: 100%;
+  height: 140rpx;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .4);
+  box-sizing: border-box;
+  padding: 0 30rpx;
+}
+.banner-mask-wrap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+}
+.banner-mask-left {
+  overflow: hidden;
+}
+.banner-mask-left > view {
+  line-height: 1;
+}
+.banner-mask-left .mask-left-place {
+  font-size: 30rpx;
+  margin: 38rpx 0 22rpx;
+}
+.banner-mask-left .mask-left-address {
+  font-size: 26rpx;
+}
+.banner-mask-right {
+  float: right;
+  display: flex;
+  align-items: center;
+}
+.banner-mask-right image {
+  width: 70rpx;
+  height: 70rpx;
+}
+
+/* banner end */
+
+/* list start */
+.room-list .body {
+  width: 100%;
+  min-height: calc(100% - 380rpx);
+  box-sizing: border-box;
+  padding: 8rpx 30rpx 38rpx;
+  background: url('https://qbox.huaqie.com/FtxZc5GCATg-jQoMO3rQGR19cOqM') repeat-y center top;
+  background-size: 100% auto;
+}
+.room-list-item {
+  margin-top: 30rpx;
+  width: 100%;
+  height: 250rpx;
+  background: #fff;
+  box-sizing: border-box;
+  border-radius: 10rpx;
+  padding: 10rpx;
+}
+.list-item-wrap {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.list-item-wrap.room-item-ended view,
+.list-item-wrap.room-item-ended text {
+  color: rgb(153, 153, 153);
+}
+
+.list-item-avatar {
+  width: 220rpx;
+  height: 100%;
+  border-radius: 10rpx;
+  overflow: hidden;
+  margin-right: 22rpx;
+}
+.list-item-avatar image {
+  width: 100%;
+  height: 100%;
+}
+
+.list-item-detail > view {
+  line-height: 1;
+}
+.item-detail-name {
+  font-size: 30rpx;
+  color: #000;
+  margin-bottom: 20rpx;
+}
+.item-detail-service {
+  margin-bottom: 20rpx;
+}
+.item-detail-check {
+  margin-bottom: 18rpx;
+}
+.item-detail-service,
+.item-detail-check {
+  font-size: 24rpx;
+}
+.item-detail-rooms {
+  font-size: 20rpx;
+  display: flex;
+  overflow: hidden;
+}
+.item-detail-rooms > view {
+  padding: 0 4rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  border-radius: 4rpx;
+}
+
+.item-detail-rooms .detail-rooms-out {
+  color: rgb(255, 105, 19);
+  margin-right: 10rpx;
+  border: 1rpx solid rgb(255, 105, 19);
+}
+.item-detail-rooms .detail-rooms-have {
+  color: rgb(66, 137, 255);
+  border: 1rpx solid rgb(66, 137, 255);
+}
+.list-item-wrap.room-item-ended .detail-rooms-have,
+.list-item-wrap.room-item-ended .detail-rooms-out {
+  border: 1rpx solid rgb(153, 153, 153);
+}
+
+.list-item-options {
+  position: absolute;
+  right: 30rpx;
+  overflow: hidden;
+}
+.item-options-end {
+  width: 130rpx;
+  height: 130rpx;
+  position: absolute;
+  bottom: 20rpx;
+  right: 10rpx;
+}
+.item-options-money {
+  line-height: 1;
+  font-size: 20rpx;
+  margin-bottom: 10rpx;
+  text-align:right;
+}
+.item-options-money > text {
+  font-size: 44rpx;
+}
+.item-options-btns {
+  float: right;
+  width: 88rpx;
+}
+.item-options-check {
+  width: 88rpx;
+  height: 92rpx;
+  border-radius: 6rpx;
+  background: #be342a;
+  color: #fff;
+  overflow: hidden;
+  font-size: 36rpx;
+  text-align: center;
+  line-height: 92rpx;
+}
+.item-options-add {
+  height: 68rpx;
+  line-height: 68rpx;
+  width: 88rpx;
+  color: #fff;
+  font-size: 36rpx;
+  text-align: center;
+  border-radius: 6rpx;
+  background: #ff6913;
+  margin-top: 12rpx;
+}
+.list-item-options.normal {
+  top: 34rpx;
+}
+.list-item-options.special {
+  top: 12rpx;
+}
+.list-item-options.special .item-options-check {
+  height: 68rpx;
+  line-height: 68rpx;
+}
+/* list end */

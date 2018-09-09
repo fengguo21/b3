@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/system.css?v=1"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        body{
+            
+        }
+        #add-card .form-item-cell-icon {
+            width: 19px;
+        }
+        #add-card .form-item-cell-label {
+            left: 29px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="set-layout" id='add-card'>
+        <ul class="form-content">
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/user-name.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>会员姓名</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='name' type="text" readonly>
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/phone.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>手机号码</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='phone' type="text" readonly>
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b" id='choose-type'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/vip-card.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>卡种</span>
+                    <span style='right: 18px' class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='type' type="text" placeholder="请选择" readonly>
+                    </span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <img class='more' src="../../image/sys-more.png">
+                    </span>          
+                </div>
+            </li>
+            <li id='count-wrap' class="form-item border-b" style='display: none'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/card-count.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>可消费次数</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='count' type="number" placeholder="请输入可消费次数">
+                    </span>
+                </div>
+            </li>
+            <li id='amount-wrap' class="form-item border-b" style='display: none'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/card-amount.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>可消费金额</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='amount' type="number" placeholder="请输入可消费金额">
+                    </span>
+                </div>
+            </li>
+            <li id='count' class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/card-cost.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>实收金额</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='cost' type="number" placeholder="请输入实付金额">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item" style='height: 128px'>
+                <div class="form-item-cell">
+                    <div class='form-item-cell-btn' onclick='addMember()'>
+                        <span>确认</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/axios.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../fetch/api.js"></script>
+<script type="text/javascript">
+    var param = store.get('peopleCreateCard');
+    var typeVal = '';
+    var cardId = '';
+    $('#choose-type').on('click', function() {
+        api.openWin({
+            name: 'chooseCard',
+            url: '../chooseCard/chooseCard.html'
+        })
+    })
+    var selectCard = function() {
+        var val = store.get('chooseCard');
+        var type = val.basic.typehood == 1? '次卡': '充值卡';
+        typeVal = type;
+        $('#type').val(val.basic.title +'('+ type +')');
+        $('#cost').val(val.basic.amount);
+        cardId = val.feedId;
+        if(type == '充值卡') {
+            $('#count-wrap').hide();
+            $('#amount-wrap').show();
+            $('#amount').val(val.basic.total);
+        } else if(type == '次卡') {
+            $('#count-wrap').show();
+            $('#amount-wrap').hide();
+            $('#count').val(val.basic.total);
+        }
+    }
+    var addMember = function() {
+        var balance = '';
+        if(typeVal == '充值卡') {
+            balance = $('#amount').val();
+        } else if(typeVal == '次卡') {
+            balance = $('#count').val();
+        }
+        if($('#type').val() == '') {
+            api.toast({
+                msg: '卡种不能为空'
+            })
+            return;
+        }
+        if(balance == '') {
+            api.toast({
+                msg: '次数或余额不能为空'
+            })
+            return;
+        }
+        if($('#cost').val() == '') {
+            api.toast({
+                msg: '开卡金额不能为空'
+            })
+            return;
+        }
+        ajax.updateMemberCard({
+            feedId: param.basic.member.feedId,//会员卡id
+            cardId: cardId||"59c1e00be405f86740427091",//模板会员卡id
+            amount: $('#cost').val(),
+            balance: balance
+        }, function(res) {
+            api.toast({
+                msg: '开卡成功'
+            })
+            api.closeWin();
+            api.execScript({
+                frameName: 'index_frame',
+                script: 'reloadNotifyList()'
+            })
+        })
+    }
+    var init = function() {
+        console.log(param.basic);
+        $('#name').val(param.basic.member.name);
+        $('#phone').val(param.basic.member.phone);
+    }
+    init();
+    apiready = function(){
+        
+    };
+</script>
+</html>

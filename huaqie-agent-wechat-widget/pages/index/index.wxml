@@ -1,0 +1,60 @@
+<!--index.wxml-->
+
+<view class="classname"><image src="https://dn-huaqie.qbox.me/bcs1.png" mode="widthFix"></image></view>
+
+<view class="container">
+<view class="titlebox1">
+  <text class="title">欢乐送商城</text>
+</view>
+<view class="subtitlebox">
+  <text class="subtitle">为提供就近配送业务的商户提供商城系统</text>
+</view>
+  <image src="https://dn-huaqie.qbox.me/agent-ss1.png" bindtap="toDetail1" class="image1" mode="widthFix"></image>
+  <view class="titlebox">
+  <text class="title">精品商城</text>
+</view>
+<view class="subtitlebox">
+  <text class="subtitle">为产品类别较高端的商户提供精致线上商城</text>
+</view>
+  <image src="https://dn-huaqie.qbox.me/agent-ss2.png" bindtap="toDetail2" mode="widthFix"></image>
+
+   <view class="titlebox">
+  <text class="title">客临门</text>
+</view>
+<view class="subtitlebox">
+  <text class="subtitle">专注于解决各类行业对于会员制线上管理的系统需求</text>
+</view>
+  <image src="https://dn-huaqie.qbox.me/agent-ss3.png" bindtap="toDetail3" mode="widthFix"></image>
+
+   <view class="titlebox">
+  <text class="title">分销批发商城</text>
+</view>
+<view class="subtitlebox">
+  <text class="subtitle">为企业实现推广、销售功能，快速组建移动电商营销网络</text>
+</view>
+  <image src="https://dn-huaqie.qbox.me/agent-ss4.png" bindtap="toDetail4" mode="widthFix"></image>
+
+   <view class="titlebox">
+  <text class="title">共享充电 </text>
+</view>
+<view class="subtitlebox">
+  <text class="subtitle">智能查找充电桩 智能充电 智能管理</text>
+</view>
+  <image src="https://dn-huaqie.qbox.me/agent-ss5.png" bindtap="toDetail5" mode="widthFix"></image>
+
+   <view class="titlebox">
+  <text class="title">移动收款系统</text>
+</view>
+<view class="subtitlebox">
+  <text class="subtitle">提供多个支付场景和支付方式的现代化收款系统</text>
+</view>
+  <image src="https://dn-huaqie.qbox.me/agent-ss6.png" bindtap="toDetail6" mode="widthFix" class="img6"></image>
+</view>
+
+<view class="footline">
+<view class="line1"></view>
+<text class="nocontent">没有更多内容了</text>
+<view class="line2"></view>
+
+</view>
+<view class="line"></view>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>report</title>
+    <link rel="stylesheet" type="text/css" href="../css/control.css?v=6"/>
+    <script type='application/javascript' src='../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+</head>
+<body>
+    <!--
+    <div class="con-banner">
+        <img src="../image/con-bg.png" alt="会员宝管理系统">
+    </div>
+    -->
+    <div class="report">
+        <div class="report-header">
+            <span onclick="chooseDate(1)">今日</span>
+            <span onclick="chooseDate(2)">昨日</span>
+            <span onclick="chooseDate(3)">本月</span>
+            <div class="report-header-sort"><img src="../image/report-sort.png"></div>
+        </div>
+        <div class="report-body">
+            <div class="report-body-left">
+                <div id='report-chart' class="report-charts"></div>
+                <div class="report-body-left-title"><span id="report-body-0">0.00</span><div>总收入</div></div>
+            </div>
+            <div class="report-body-right" style="font-size: 13px">
+                <div class="report-body-right-item"><span class="report-body-right-item-label label-1"></span>开卡<div id="report-body-1">0.00</div></div>
+                <div class="report-body-right-item"><span class="report-body-right-item-label label-2"></span>商品<div id="report-body-2">0.00</div></div>
+                <div class="report-body-right-item right-item-3"><span class="report-body-right-item-label label-3"></span>还款<div id="report-body-3">0.00</div></div>
+                <div class="report-body-right-item right-item-4"><span class="report-body-right-item-label label-4"></span>欠款<div id="report-body-4">-0.00</div></div>
+            </div>
+        </div>
+        
+
+        <div id="service-msg" style="background: #fff;">
+            <!--  onclick="go('vip')" -->
+            <div class="service-item border-r">
+                <p class="name" >新增会员</p>
+                <p class="val"><span id="report-bottom-1">0</span>人</p>
+            </div>
+            <!--  onclick="go('vip')" -->
+            <div class="service-item border-r">
+                <p class="name">新开卡</p>
+                <p class="val"><span id="report-bottom-2">0</span>张</p>
+            </div>
+            <!--  onclick="go('log')" -->
+            <div class="service-item">
+                <p class="name">服务人次</p>
+                <p class="val"><span id="report-bottom-3">0</span>人</p>
+            </div>
+        </div>
+    </div>
+    <div class="nine-box border-t">
+        <ul class='box-wrap'>
+            <li class='border-r border-b' onclick="go('report')">
+                <div class="icon-wrap">
+                    <img src="../image/con-report.png" alt="报表">
+                </div>
+                <span class="icon-title">报表</span>
+            </li>
+            <li class='border-r border-b' onclick="go('vip')">
+                <div class="icon-wrap">
+                    <img src="../image/con-vip.png" alt="会员">
+                </div>
+                <span class="icon-title">会员</span>
+            </li>
+            <li class='border-b' onclick="go('team')">
+                <div class="icon-wrap">
+                    <img src="../image/con-team.png" alt="团队">
+                </div>
+                <span class="icon-title">团队</span>
+            </li>
+            <li class='border-r border-b' onclick="go('card')">
+                <div class="icon-wrap">
+                    <img src="../image/con-card.png" alt="会员卡">
+                </div>
+                <span class="icon-title">会员卡</span>
+            </li>
+            <li class='border-b border-r' onclick="go('orders')">
+                <div class="icon-wrap">
+                    <img src="../image/orders@2x.png" alt="订单">
+                </div>
+                <span class="icon-title">订单</span>
+            </li>
+            <li class='border-b border-r' onclick="go('shop')">
+                <div class="icon-wrap">
+                    <img src="../image/shop.png" alt="收款记录">
+                </div>
+                <span class="icon-title">商城</span>
+            </li>
+            <li class='border-b border-r' onclick="go('promote')">
+                <div class="icon-wrap">
+                    <img src="../image/promote@2x.png" alt="预约优惠">
+                </div>
+                <span class="icon-title">预约优惠</span>
+            </li>
+            <li class='border-r border-b' onclick="go('markaccount')">
+                <div class="icon-wrap">
+                    <img src="../image/markaccount.png" alt="会员卡">
+                </div>
+                <span class="icon-title">记欠账</span>
+            </li>
+            <li class='border-b border-r' onclick="go('summary')">
+                <div class="icon-wrap">
+                    <img src="../image/zongjie@2x.png" alt="总结">
+                </div>
+                <span class="icon-title">总结</span>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/zepto.min.js"></script>
+<script type="text/javascript" src="../script/echarts.common.min.js"></script>
+<script type="text/javascript" src="../script/moment.min.js"></script>
+<script type="text/javascript" src="../script/move.min.js"></script>
+<script src="../script/store.min.js"></script>
+<script type="text/javascript" src="../fetch/api.js"></script>
+<script src="../script/axios.min.js"></script>
+<script type="text/javascript">
+    var current_day = 1
+    var current_day_doing = false
+    var oldv = 1
+
+    var go = function (v) {
+        ajax.getVipInfo({}, function(res) {
+            if(res.code){
+                api.toast({
+                    msg: res.message
+                })
+                return
+            }
+            var role = res.data.role
+            if(role.level >= 2 && (
+                !role.authorities 
+                || !(v in role.authorities))){
+                api.toast({
+                    msg: '你没有获得该权限'
+                })
+                return
+            }
+            api.openWin({
+                name: v,
+                url: './'+v+'/'+v+'.html'
+            });
+        })
+    }
+    var more = function () {
+        /*
+        var wx = api.require('wx');
+        
+wx.shareText({
+    apiKey: 'wxfe290aca5acd5e9b',
+    scene: 'timeline',
+    text: '我分享的文本'
+}, function(ret, err) {
+    if (ret.status) {
+        alert('分享成功');
+    } else {
+        alert(err.code);
+    }
+});
+
+api.download({
+    url: 'https://qbox.huaqie.com/FhPhnZZUntqAeu5aLYNownbn6E_b',
+    savePath: 'fs://FhPhnZZUntqAeu5aLYNownbn6E_b',
+    report: true,
+    cache: true,
+    allowResume: true
+}, function(ret, err) {
+    if (ret.state == 1) {
+        //下载成功
+            wx.shareImage({
+            scene: 'timeline',
+            thumb: 'fs://FhPhnZZUntqAeu5aLYNownbn6E_b',
+            contentUrl: 'fs://FhPhnZZUntqAeu5aLYNownbn6E_b'
+        }, function(ret, err) {
+           
+        });
+    } else {
+
+    }
+});
+        
+
+       */
+        api.alert({
+            title: '小提示',
+            msg: '更多功能会逐步开放，敬请期待'
+        })
+        
+    }
+
+    var updateChart = function ( params ) {
+        var chartBox = document.getElementById('report-chart');
+        var myChart = echarts.init(chartBox);
+        var option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            series: [
+                {
+                    name: params.title,
+                    type:'pie',
+                    radius: ['50%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            show: false,
+                            textStyle: {
+                                fontSize: '10',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    // 提示框
+                    tooltip: {
+                        trigger: 'item',           // 触发类型，默认数据触发，见下图，可选为：'item' ¦ 'axis'
+                        showDelay: 20,             // 显示延迟，添加显示延迟可以避免频繁切换，单位ms
+                        hideDelay: 100,            // 隐藏延迟，单位ms
+                        transitionDuration : 0.4,  // 动画变换时间，单位s
+                        backgroundColor: 'rgba(0,0,0,0.7)',     // 提示背景颜色，默认为透明度为0.7的黑色
+                        borderColor: '#333',       // 提示边框颜色
+                        borderRadius: 4,           // 提示边框圆角，单位px，默认为4
+                        borderWidth: 0,            // 提示边框线宽，单位px，默认为0（无边框）
+                        padding: 5,                // 提示内边距，单位px，默认各方向内边距为5，
+                        position: function(p){
+                            return [p[0] + 10, p[1] - 10];
+                        },
+                                                   // 接受数组分别设定上右下左边距，同css
+                        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                            type : 'line',         // 默认为直线，可选为：'line' | 'shadow'
+                            lineStyle : {          // 直线指示器样式设置
+                                color: '#48b',
+                                width: 2,
+                                type: 'solid'
+                            },
+                            shadowStyle : {                       // 阴影指示器样式设置
+                                width: 'auto',                   // 阴影大小
+                                color: 'rgba(150,150,150,0.3)'  // 阴影颜色
+                            }
+                        },
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    data: params.data
+                }
+            ]
+        };
+        myChart.setOption(option);
+    }
+
+    var chooseDate = function ( v ) {
+        if(v == current_day || current_day_doing)
+            return
+        current_day = v
+        current_day_doing = true
+
+
+        move('.report-header-sort')
+        .add('right', -(v-oldv)*85)
+        .end(function() {
+            //$('.report-header-sort').css('right', (v == 2)?35:120)
+            current_day_doing = false
+        })
+        //$('.report-header span:nth-child('+(3-v)+')').css('color', '#333333')
+        $('.report-header span:nth-child('+v+')').css('color', '#ff55b5')
+        $('.report-header span:nth-child('+v+')').siblings().css('color', '#333')
+        
+        update()
+        oldv = v
+    }
+
+    var update = function () {
+        if(current_day==3){
+            startDate = moment(new Date()).format('YYYY-MM')+'-01',
+            endDate = moment().format('YYYY-MM-DD')
+        }else if(current_day==2){
+            startDate = moment().add(-1, 'days').format('YYYY-MM-DD');
+            endDate = moment().add(-1, 'days').format('YYYY-MM-DD');
+        }else{
+            startDate = moment().format('YYYY-MM-DD');
+            endDate = moment().format('YYYY-MM-DD')
+        }
+        ajax.getReport({
+            startDate:startDate,
+            endDate: endDate
+           //date: (current_day == 1)?moment().format('YYYY-MM-DD'):moment().add(1, 'days').format('YYYY-MM-DD')
+        }, function(res) {
+            if(res.code){
+                alert(res.message)
+                return
+            }
+            $('#report-body-0').text((res.data.createMember+res.data.productSold+res.data.billIn).toFixed(2))
+            $('#report-body-1').text(res.data.createMember.toFixed(2))
+            $('#report-body-2').text(res.data.productSold.toFixed(2))
+            $('#report-body-3').text(res.data.billIn.toFixed(2))
+            $('#report-body-4').text('-'+res.data.billOut.toFixed(2))
+            $('#report-bottom-1').text(res.data.newPeopleCount)
+            $('#report-bottom-2').text(res.data.newMemberCount)
+            $('#report-bottom-3').text(res.data.consumeCount)
+            updateChart({
+                title: (current_day == 1)?'今日报表':'昨日报表',
+                data: [
+                    {value: res.data.createMember.toFixed(2), name:'开卡', itemStyle:{normal:{color:'#e97a18'}}},             
+                    {value: res.data.billIn.toFixed(2), name:'还款', itemStyle:{normal:{color:'#3ba246'}}},
+                    {value: res.data.billOut.toFixed(2), name:'欠款', itemStyle:{normal:{color:'#df2a2e'}}},
+                    {value: res.data.productSold.toFixed(2), name:'商品', itemStyle:{normal:{color:'#3c89cd'}}}
+                ]
+            })
+        })
+    }
+update()
+    apiready = function(){
+        update()
+    };
+</script>
+</html>

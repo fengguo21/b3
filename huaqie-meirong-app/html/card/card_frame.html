@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>detail</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/cardface.css?v=2"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/report-body.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        * {
+            line-height: 1;
+        }
+        .aui-user-view:after {
+            border: 0;
+        }
+        .aui-user-view-cell {
+            height: 74px;
+            overflow: hidden;
+            padding: 14px 15px;
+            position: relative;
+        }
+        
+        .aui-user-view-cell:after {
+            border-color: #e6e6e6
+        }
+        .aui-user-view-cell:last-child:after {
+            /* border-color: #fff; */
+            border: 0;
+        }
+        .aui-user-view-cell p {
+            color: #999;
+        }
+        .msg-body {
+            width: calc(100% - 93px);
+            height: 48px;
+            position: absolute;
+            top: 50%;
+            left: 78px;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%);
+        }
+        .msg-body > span {
+            display: block;
+            height: 20px;
+            color: #333;
+            margin: 6px 0 5px;
+            font-size: 13px;
+            overflow: hidden;
+        }
+        .msg-body > span em {
+            float: right;
+        } 
+        .msg-body > p {
+            padding: 0;
+            margin: 0;
+            height: 20px;
+            font-size: 12px;
+            color: #666;
+            overflow: hidden;
+        }
+        .msg-body > p em {
+            float: right;
+            color: #999;
+            font-size: 10px;
+            margin-top: 3px;
+        }
+        #order-list .new {
+            color: #ff55b5;
+        }
+        #order-list .cancel {
+            color: #00a5e7;
+        }
+        #order-list .complate {
+            color: #fb5660;
+        }
+        #order-list .ordering {
+            color: #2ecc71;
+        }
+        #count {
+            vertical-align: middle;
+            padding: 10px 15px;
+            padding-top: 55px
+        }
+        #count img{
+            width: 19px;
+            height: 17px;
+            vertical-align: middle;
+            margin-right: 10px;
+            margin-left: 5px;
+        }
+        #count > span {
+            vertical-align: middle;
+            font-size: 13px;
+            color: #666;
+        }
+        #not-empty .card-layout {
+            padding-top: 0;
+        }
+        .card-msg .countcard{
+            display: inline-block;
+            width:45px;
+            height: 23px;
+            vertical-align: middle;
+            border-radius: 25px;
+            line-height: 21px;
+            text-align: center;
+            font-size: 13px;
+            color: #3ca5ff;
+            border:1px solid #3ca5ff;
+            padding: 0;
+            margin:0;
+        }
+        .card-msg .amountcard{
+            display: inline-block;
+            width:57px;
+            height: 23px;
+            vertical-align: middle;
+            border-radius: 25px;
+            line-height: 21px;
+            text-align: center;
+            font-size: 13px;
+            color: #ff8d00;
+            border:1px solid #ff8d00;
+            padding: 0;
+            margin:0;
+        }
+    </style>
+</head>
+<body>
+    <div class="count-tabs border-b" id='tabs' style="position: fixed;z-index: 100;">
+        <div data-index='1' class="count-tabs-item border-r active">
+            <span class='position-y-center'>次卡</span>
+        </div>
+        <div data-index='2' class="count-tabs-item border-r">
+            <span class='position-y-center'>充值卡</span>
+        </div>
+    </div>
+    <div id='not-empty' style='display: none' >
+        <p class="aui-padded-10" id='count'><img src="../../image/vip-card.png"><span>共<span id="total">1</span>种会员卡</span></p>
+
+        <div class="card-layout">
+            <ul class='card-wrap' id='card-list'>
+                <script type="text/html" id='tpl-card'>
+                    {{each list val i}}
+                    <li data-val='{{val}}' class='active' data-avatar='{{val.basic.avatar}}'>
+                        <div data-val='{{val}}' class='card-img'>
+                            <img data-val='{{val}}' src="{{val.basic.avatar}}" alt='网络出错'>
+                        </div>
+                        <div data-val='{{val}}' class="card-msg">
+                            <img class='go-det' src="../../image/mine-more.png">
+                            <div data-val='{{val}}' class="card-msg-wrap position-y-center">
+                                <p data-val='{{val}}' class="card-name">{{val.basic.title}}</p>
+                                <p  data-val='{{val}}' 
+                                class="{{val.basic.typehood==1?'countcard':'amountcard'}}">{{val.basic.typehood|formatType}}</p>
+                                <p data-val='{{val}}' class="card-pro">项目：{{val.basic.service}}
+                                    {{if val.basic.subService}}
+                                        - {{val.basic.subService}}
+                                    {{/if}}
+                                </p>
+                                {{if val.basic.total&&val.basic.typehood == 1}}
+                                    <p data-val='{{val}}' class="card-cost">可消费次数：<span>{{val.basic.total}}</span> 次</p>
+                                {{else if val.basic.total&&val.basic.typehood == 2}}
+                                    <p data-val='{{val}}' class="card-cost">可消费余额：<span>{{val.basic.total}}</span> 元</p>
+                                {{/if}}
+                                <p data-val='{{val}}' class="card-cost">实收金额：<span>{{val.basic.amount}}</span> 元</p>
+                                {{if val.basic.ratio&&val.basic.typehood==2}}
+                                    {{if val.basic.ratio == 1}}
+                                        <p data-val='{{val}}' class="card-cost">折扣：<span style="font-size: 0.8em">无折扣</span></p>
+                                    {{/if}}
+                                    {{if val.basic.ratio < 1}}
+                                        <p data-val='{{val}}' class="card-cost">折扣：<span>{{val.basic.ratio|formatZk}}</span> 折</p>
+                                    {{/if}}
+                                {{/if}}
+                            </div>
+                        </div>
+                    </li>
+                    {{/each}}
+                </script>
+            </ul>
+        </div>
+    </div>
+    <div id="empty" style='display: none; overflow: hidden; text-align: center'>
+        <div style='width: 165px; height:165px; margin: 178px auto 20px'>
+            <img src="../../image/data-empty.png" style='display: block; width: 186px;'>
+        </div>
+        <span style='font-size: 14px; color: #999'>暂时没有会员卡</span>
+    </div>
+    <script src="../../script/api.js"></script>
+    <script src="../../script/axios.min.js"></script>
+    <script src="../../script/template-web.js"></script>
+    <script src="../../script/zepto.min.js"></script>
+    <script src="../../script/store.min.js"></script>
+    <script src="../../script/phone.js"></script>
+    <script src="../../fetch/api.js?v=2"></script>
+    <script type="text/javascript">
+        var myElement = document.getElementById('card-list');
+        var mc = new Hammer(myElement);
+        template.defaults.imports.formatType = function(data){
+            switch(data) {
+                case 1: return '次卡'; break;
+                case 2: return '充值卡'; break;
+                default: return '未知类型';
+            }
+        };
+        template.defaults.imports.formatZk = function(data){
+            if(data) {
+                return filterZk(data)
+            }
+        };
+        
+        var orderList = []
+        var page = 1;
+        var total = 0;
+        typehood:'';
+        var getCardList = function(typehood) {
+            ajax.getCardList({
+                page: 1,
+                size: 10,
+                typehood:typehood
+            }, function(res) {
+                 console.log('cardList======', res)
+                total = res.data.total;
+                orderList = res.data.list;
+                // console.log(total);
+                if(total > 0) {
+                    // console.log('is not empty');
+                    $('#not-empty').show();
+                    $('#empty').hide();
+                    $('#total').html(total);
+                    $('#card-list').html(template('tpl-card', {list: orderList}))
+                } else {
+                    // console.log('is empty');
+                    $('#not-empty').hide();
+                    $('#empty').show();
+                } 
+                
+            })
+        }
+        
+
+        var filterZk = function(data) {
+            return  !data || data == '' 
+                    ? 
+                    1
+                    : 
+                    String(data).split('.')[1]
+                    ?
+                    String(data).split('.')[1].split('')[0] == 0 
+                    ?
+                    String(data).split('.')[1].split('').join('.')
+                    :
+                    String(data).split('.')[1]
+                    :
+                    data;
+        }
+
+        var loadMore = function(typehood) {
+            ajax.getCardList({
+                page: page,
+                size: 10,
+                typehood:typehood
+
+            }, function(res) {
+                orderList = orderList.concat(res.data.list);
+                $('#card-list').html(template('tpl-card', {list: orderList}))
+            })
+        }
+        var reload = function() {
+            page = 1;
+            orderList = [];
+            getCardList()
+        }
+        var delCard = function(val) {
+            api.confirm({
+                title: '警告',
+                msg: '您将永久删除这张卡模板，会造成已办卡用户无法正常使用，是否继续？',
+                buttons: ['删除', '取消']
+            }, function(ret, err) {
+                var index = ret.buttonIndex;
+                if(index == 1) {
+                    ajax.removeCard({
+                        feedId: val.feedId
+                    }, function(res) {
+                        api.toast({
+                            msg: '删除成功'
+                        })
+                        reload();
+                    })
+                } else {
+                    api.toast({
+                        msg: '已取消删除'
+                    })
+                }
+            });  
+        }
+        var editCard = function(val) {
+            store.set('editCard', val);
+            api.openWin({
+                name: 'editCard',
+                url: '../editCard/editCard.html'
+            })
+        }
+        var initTab = function() {
+            $('#tabs .count-tabs-item').eq(0).addClass('active');
+            $('#tabs .count-tabs-item').eq(0).siblings().removeClass('active');
+        }
+         initTab();
+         $('#tabs').on('click', '.count-tabs-item', function(){
+        var index = this.dataset.index;
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active')
+            if(index == 1) {
+                typehood = 1;
+            } else {
+                typehood = 2;
+            }
+            getCardList(typehood)
+        })
+
+        mc.get('press').set({time: 500});
+        mc.on("press", function(ev) {
+            // console.log(ev);
+            if(store.get('me').role.level != 1&&store.get('me').role.level != 1.5) {
+                api.alert({
+                    title: '警告',
+                    msg: '您没有操作权限！'
+                })
+                return;
+            }
+            var target = ev.target;
+            // console.log(target);
+            var val = JSON.parse(target.dataset.val);
+            delCard(val);
+        });
+        mc.on("tap", function(ev) {
+            // console.log(ev);
+            if(store.get('me').role.level != 1&&store.get('me').role.level != 1.5) {
+                api.alert({
+                    title: '警告',
+                    msg: '您没有操作权限！'
+                })
+                return;
+            }
+            var target = ev.target;
+            var val = JSON.parse(target.dataset.val);
+            // api.actionSheet({
+            //     title: '操作',
+            //     cancelTitle: '取消',
+            //     buttons: [ '编辑']
+            // }, function(ret, err) {
+            //     const index = ret.buttonIndex;
+            //     switch(index) {
+            //         case 1: 
+            editCard(val);
+            //         break;
+            //         default: return;
+            //     }
+            // });
+            // target.addClass('move');
+            // target.next().addClass('active')
+        });
+        // $('#card-list').on('click', 'li', function() {
+        //     const val = JSON.parse(this.dataset.val)
+        //     api.actionSheet({
+        //         title: '操作',
+        //         cancelTitle: '取消',
+        //         destructiveTitle: '删除',
+        //         buttons: ['修改']
+        //     }, function(ret, err) {
+        //         var index = ret.buttonIndex;
+        //         switch(index) {
+        //             case 1: delCard(val);break;
+        //             case 2: editCard(val);break;
+        //             case 3: return ;break;
+        //             default: return;
+        //         }
+        //     });
+        // })
+        getCardList(1);
+        apiready = function(){
+            api.addEventListener({
+                name: 'scrolltobottom',
+                extra: {
+                    threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+                }
+            }, function(ret, err) {
+                if(page * 10 < total){
+                    page += 1
+                    loadMore(typehood);
+                } else {
+                    api.toast({
+                        msg: '没有更多啦'
+                    })
+                }
+            });
+        }   
+    </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>detail</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <script type='application/javascript' src='../script/fastclick.js'></script>
+    <script src="../script/axios.min.js"></script>
+    <script src="../script/zepto.min.js"></script>
+	<script src="../script/store.min.js"></script>
+	<script src="../fetch/api.js?v=2"></script>
+    <script type="text/javascript">
+        if ('addEventListener' in document) {
+            document.addEventListener('DOMContentLoaded', function() {
+                FastClick.attach(document.body);
+            }, false);
+        }
+    </script>
+    <style type="text/css">
+    html,body{
+    	background: rgba(0, 0, 0, 0.3);
+    }
+     #box{
+            
+        }
+
+        .box-background{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.5;
+            background: black;
+            z-index: 1000;
+
+        }
+
+        .box-container{
+           position: absolute;
+           z-index: 1007;
+            padding: 40px;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%);
+            margin-top: -28px;
+        }
+
+        .box-header {
+            text-align: right;
+        }
+
+        .box-header img{
+            margin-right: 5px;
+            width: 28px;
+            height: 28px;
+            margin-bottom: 24px;
+            display: block;
+            position: absolute;
+            top: -12px;
+            right: 42px;
+        }
+        .box-header::after{
+            position: absolute;
+            border:1px solid white;
+            height: 25px;
+            top: 15px;
+            right: 60px;
+            content: '';
+        }
+
+        .box-body{
+            background: white;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .box-body-title {
+            text-align: center;
+            font-size: 17px;
+            color: black !important;
+            margin: 20px 0 20px 0;
+        }
+
+        .box-body-button {
+            background: #ec75b9;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 30px;
+            margin: 0 auto;
+            width: 100px;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        #box-body-input {
+            border: 1px solid #ec75b9;
+        }
+    </style>
+    </head>
+<body>
+<div id="box">
+        <div class="box-background"></div>
+
+        <div class="box-container">
+            <div class="box-header">
+                <img src="../image/dialog-close.png?v=2" onclick="closeBox()" />
+            </div>
+            <div class="line"></div>
+            <div class="box-body">
+                <h3 class="box-body-title" id="box-body-title">请输入收款金额</h3>
+                <input type="number" id="box-body-input" placeholder="请输入收款金额">
+                <input type="text" id="box-body-input-note" placeholder="备注，可不填">
+                <div class="box-body-button" onclick="doPay()">确认</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+	var doing = false
+
+	var closeBox = function() {
+		api.closeFrame({
+			name: 'payment'
+		})
+	}
+	var doPay = function() {
+        var amount = Number($("#box-body-input").val()).toFixed(2)
+            if(isNaN(amount) || amount <= 0){
+                api.toast({
+                    msg: '请输入正确的收款金额'
+                })
+                return
+            }
+
+            var title = $("#box-body-input-note").val()
+       
+            var scanner = api.require('scanner');
+
+            scanner.open({
+                sound: 'widget://audio/5383.wav'
+            }, function(ret, err) {
+                if (ret && ret.eventType == 'success') {
+                    var code = ret.msg
+                    var app = store.get('app')
+                    var me = store.get('me')
+                    if(doing){
+                        api.toast({
+                            msg: '请稍候再试'
+                        })
+                        return
+                    }
+                    doing = true
+                    ajax.createServiceOrder({
+                        amount: amount,
+                        title: title || app.basic.title,
+                        name: me.basic.name
+                    }, function(ret){
+                        var channel = (code[0] == 1)?'paymentWechatMicroPay':'paymentAlipayMicroPay'
+
+                        ajax[channel]({
+                            orderId: ret.data.orderId,
+                            authCode: code
+                        }, function(ret){
+                            doing = false
+                            closeBox()
+                        })
+                    })
+                } else {
+                    //alert(JSON.stringify(err));
+                }
+            });
+        }
+    apiready = function(){
+       $('#box-body-input').focus() 
+    }    
+</script>
+
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>detail</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/aui.css"/>
+    <script type='application/javascript' src='../../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        * {
+            line-height: 1;
+        }
+        .aui-user-view:after {
+            border: 0;
+        }
+        .aui-user-view-cell {
+            height: 74px;
+            overflow: hidden;
+            padding: 14px 15px;
+            position: relative;
+        }
+        
+        .aui-user-view-cell:after {
+            border-color: #e6e6e6
+        }
+        .aui-user-view-cell:last-child:after {
+            /* border-color: #fff; */
+            border: 0;
+        }
+        .aui-user-view-cell p {
+            color: #999;
+        }
+        .msg-body {
+            width: calc(100% - 93px);
+            height: 48px;
+            position: absolute;
+            top: 50%;
+            left: 78px;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%)
+        }
+        .msg-body > span {
+            display: block;
+            height: 20px;
+            margin: 6px 0 5px;
+            font-size: 12px;
+            color:#333;
+        }
+        .msg-body > span em {
+            display: inline-block;
+            min-width: 50px;
+            text-align: center;
+            float: right;
+            color: #ff3e39;
+            font-size: 15px;
+            margin-top: 3px;
+        }
+        .msg-body > p {
+            padding: 0;
+            margin: 0;
+            height: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        .msg-body > p em {
+            
+            float: right;
+            font-size: 12px;
+            color: #999;
+        }
+        #order-list .new {
+            color: #ff55b5;
+        }
+        #order-list .cancel {
+            color: #00a5e7;
+        }
+        #order-list .complate {
+            color: #fb5660;
+        }
+        #order-list .ordering {
+            color: #2ecc71;
+        }
+        #count {
+            vertical-align: middle;
+            padding: 10px 15px;
+        }
+
+        #count img{
+            width: 19px;
+            height: 17px;
+            vertical-align: middle;
+            margin-right: 10px;
+            margin-left: 5px;
+        }
+        #count > span {
+            vertical-align: middle;
+            font-size: 13px;
+            color: #666;
+        }
+        #filter-box {
+            display: flex;
+            font-size: 14px;
+            background: white;
+            height: 50px;
+        }
+        #filter-box .active{
+            color:#ff55b5;
+            position: relative;
+        }
+
+        #filter-box .active::after {
+            content: '';
+            display: block;
+            width: 55px;
+            border-bottom: 2px solid #ff55b5;
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+        }
+        
+        .filter-box.show {
+            display: block;
+        }
+        .filter-box li {
+            /* padding: 15px 0; */
+            flex: 1;
+            /*margin:0 35px;*/
+           /*width:55px;*/
+            height: 50px;
+            line-height: 50px;
+            color: #999999;
+            text-align: center;
+            font-size: 13px;
+           
+        }
+        #not-empty .top{
+            padding-top: 14px;
+        }
+
+
+        .flex-header {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+        }
+        #count {
+            background: #f4f4f4;
+        }
+        .flex-wrap {
+            /* flex: 1;
+            overflow: auto; */
+            padding-top: 86px;
+        }
+    </style>
+</head>
+<body>  
+    <div class="flex-header">
+        <ul class='filter-box' id='filter-box'>
+            <li data-name='createCard' class="active">提成明细</li>
+            <li data-name='consumeCard'>手工费明细</li>
+            
+        </ul>
+        <p class="aui-padded-10 top" id='count'><img src="../../../image/vip-vip.png"><span>共<span id="total">0</span>位客户</span>
+           <!-- <a class="aui-pull-right" onclick="showOrder()"> 
+                <span class="aui-iconfont aui-icon-order" style='font-size: 22.5px;color:#ff8624;margin-right: 12px;'></span> 
+            </a>   -->   
+        </p>
+    </div>
+    <div class="flex-wrap">
+        <div id='not-empty' style='display: none'>
+            <div class="aui-content">
+                <ul class="aui-user-view aui-in" id='order-list'>
+                    <script type="text/html" id='tpl-order'>
+                        {{each list val index}}
+                            <li class="aui-user-view-cell aui-img" >
+                                <div class="aui-img-object aui-pull-left" style='overflow: hidden; border-radius: 50%'>
+                                    <img src="{{val.basic.avatar|formatAvatar}}"  style='width: 100%;'>
+                                </div>
+                                <div class="msg-body">
+                                    <span >
+                                        {{val.basic.extra.name}}
+                                        <em class="msg-value">
+                                            
+                                        </em>
+                                    </span>
+                                    <p class='aui-ellipsis-1' class="msg-name">
+                                            {{val.basic.title}}
+                                        
+                                        <em >
+                                           {{val.created|formatDate}}
+                                        </em>
+                                    </p>
+                                </div>
+                            </li>
+                        {{/each}}
+                    </script>
+                </ul>
+            </div>
+        </div>
+        <div id="empty" style='display: none; overflow: hidden; text-align: center'>
+             <div style='width: 165px; height:165px; margin: 178px auto 20px'>
+                 <img src="../../../image/data-empty.png" style='display: block; width: 186px;'>
+             </div>
+             <span style='font-size: 14px; color: #999'>没有记录</span>
+        </div>
+    </div>
+    <script src="../../../script/api.js"></script>
+    <script src="../../../script/axios.min.js"></script>
+    <script src="../../../script/moment.min.js"></script>
+    <script src="../../../script/timeago.min.js"></script>
+    <script src="../../../script/template-web.js"></script>
+    <script type="text/javascript" src="../../../script/zepto.min.js"></script>
+    <script src="../../../script/store.min.js"></script>
+    <script src="../../../fetch/api.js?v=1"></script>
+    <script type="text/javascript">
+        var timeago = timeago();
+        var order = -1;
+
+
+    /**
+    *   过滤器
+    */  template.defaults.imports.formatDate = function(data){
+            return moment(data).format('YYYY-MM-DD hh:mm')
+        };
+        template.defaults.imports.formatAvatar = function(data) {
+            return data||'../../image/mine-avatar.png'
+        }
+        template.defaults.imports.formatMsgName = function(data) {
+            var vl =  store.get('vipFilter');
+            var sortName = vl&&vl.sortName ? vl.sortName : 'consume'
+            switch(sortName) {
+                case 'consume': return '消费金额'; break;
+                case 'consumeTime': return '最近到店'; break;
+                case 'consumeCount': return '服务次数'; break;
+                default: return '';
+            }
+        }
+        template.defaults.imports.formatMsgValue = function(data) {
+            var vl =  store.get('vipFilter');
+            var sortName = vl&&vl.sortName ? vl.sortName : 'consume'
+            switch(sortName) {
+                case 'consume': return '¥ ' + (data.extra.consume.toFixed(2)||0) ; break;
+                case 'consumeTime': return timeago.format(data.extra.consumeTime, 'zh_CN'); break;
+                case 'consumeCount': return (data.extra.consumeCount||0) + '次'; break;
+                default: return '';
+            }
+        }
+        
+        var orderList = [];
+        var channel='createCard';
+        var page = 1;
+        var total = 0;
+        var query=store.get('queryTime');
+        console.log(query)
+        var getMemberItem=function(){
+            ajax.getMemberItem({
+               salesPeopleId:salesPeopleId,
+               startDate:query.startDate,
+               endDate:query.endDate,
+               page:page,
+               size:10,
+               channel:channel
+            },function(res){
+                console.log(res,34)
+                 total = res.data.total;
+                if(page == 1) {
+                    orderList = res.data.list;
+                } else {
+                    orderList = orderList.concat(res.data.list);
+                }
+                if(total > 0) {
+                    $('#not-empty').show();
+                    $('#empty').hide();
+                    $('#total').html(total);
+                    $('#order-list').html(template('tpl-order', {list: orderList}))
+                } else {
+                    $('#not-empty').hide();
+                    $('#empty').show();
+                    $('#total').html(total);
+                } 
+            })
+
+        }
+       
+        var toggleShow = function() {
+            $('#filter-box').toggleClass('show')
+        }
+        
+        $('#filter-box').on('click', 'li', function(e) {
+            
+            
+            $('li').removeClass('active')
+            e.target.className='active'
+            $('#filter-box').removeClass('show')
+            var name = this.dataset.name;
+            channel = name;
+            getMemberItem()
+            
+        })
+        // total = orderList.length;
+        apiready = function(){
+            // 滑动事件
+            var id = api.pageParam.id;
+            salesPeopleId = id;
+             getMemberItem()
+            api.addEventListener({
+                name: 'scrolltobottom',
+                extra: {
+                    threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+                }
+            }, function(ret, err) {
+                if(page * 10 < total){
+                    page += 1
+                    getMemberItem();
+                } else {
+                    api.toast({
+                        msg: '没有更多啦'
+                    })
+                }
+            });
+        };
+
+    </script>
+   
+</script>
+    
+</body>
+</html>

@@ -1,0 +1,25 @@
+/* 颜色区块 */
+.dark-black {
+  color: rgb(0, 0, 0);
+}
+.middle-black {
+  color: rgb(51, 51, 51);
+}
+
+.light-green {
+  color: rgb(48, 176, 3);
+}
+
+.gray {
+  color: rgb(153, 153, 153);
+}
+.middle-gray {
+  color: rgb(102, 102, 102);
+}
+.light-gray {
+  color: rgb(76, 76, 76);
+}
+
+.main-color {
+  color: rgb(190, 52, 42);
+}

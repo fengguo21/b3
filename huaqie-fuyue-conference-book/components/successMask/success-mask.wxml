@@ -1,0 +1,34 @@
+<template name="smask">
+  <view class="success-mask {{showModal?'success-mask-show':''}}" catchtouchmove="smaskTouchMove">
+    <view class="success-mask-box position-center">
+      <image class="success-mask-icon" src="/images/icon-success.png"></image>
+      <view class="success-mask-title">{{title}}</view>
+
+      <view class="success-mask-tip light-gray">
+        <block wx:if="{{typehood == 1}}">
+          您已成功预约{{tip}}
+        </block>
+        <block wx:elif="{{typehood == 2}}">
+          团满<text class="main-color">{{tip}}</text>人即可拼团成功
+        </block>
+      </view>
+
+      <view class="success-mask-btns main-color">
+        <view class="success-mask-checked" bindtap="navToOrder">确认</view>
+      </view>
+
+      <view class="success-mask-warn gray" data-type="{{typehood}}" bindtap="navToInvoice">
+        <block wx:if="{{typehood == 1}}">
+          <!-- <view>填写发票信息</view>
+          <image class='icon-next icon' src="/images/icon-mask-next.png"></image> -->
+          <image class='icon-wran icon' src="/images/icon-mask-warn.png"></image>
+          <view>查看订单详情</view>
+        </block>
+        <block wx:elif="{{typehood == 2}}">
+          <image class='icon-wran icon' src="/images/icon-mask-warn.png"></image>
+          <view>人数不足自动退款</view>
+        </block>
+      </view>
+    </view>
+  </view>
+</template>

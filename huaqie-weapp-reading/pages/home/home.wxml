@@ -1,0 +1,139 @@
+<!--pages/home/home.wxml-->
+<import src="/components/outtime-box.wxml" />
+<import src="/components/float-radio.wxml"/>
+
+<view class="home-wrap {{showModal || showOutTimeModal?'no-scroll':''}}">
+  <!-- swiper start -->
+  <view class="swiper-wrap">
+    <swiper
+      autoplay="true"
+      interval="3000"
+      circular="true"
+      bindchange="bannerChange"
+    >
+      <block wx:for="{{bannerList}}" wx:key="{{index}}">
+        <swiper-item data-detail="{{item.basic}}" bindtap='clickBanner'>
+          <image src="{{item.basic.image}}" mode="widthFix" class="slide-image" />
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="indicator-wrap">
+      <block wx:for="{{bannerList}}" wx:key="{{index}}">
+        <text class="{{currentBanner === index ? 'on' : ''}}"></text>
+      </block>
+    </view>
+  </view>
+  <!-- swiper end -->
+
+  <!-- navbar start -->
+  <view class="navbar-wrap">
+    <scroll-view class='navbar' scroll-x scroll-left="0" bindscrolltoupper="" bindscrolltolower="" scroll-into-view="{{selectTab}}">
+      <block wx:for="{{tabs}}" wx:key="{{index}}">
+        <view id="{{item.basic.title}}" data-type="{{item.basic.typehood}}" class="navbar-tabs {{item.basic.title === selectTab? 'navbar-tabs-on border-b' : ''}}" bindtap="changeTab">{{item.basic.title}}</view>
+      </block>
+    </scroll-view>
+  </view>
+  <!-- navbar end -->
+
+  <!-- booklist start -->
+  <!--
+    booklist-wrap 最外层的容器
+    bookItem-wrap 当前书单的容器
+    bookItem      书单中的每一本书
+    book-face     书封面
+    book-more     跳转详情的按钮
+    book-book-msg 书的信息
+    book-summery  书的简介
+  -->
+
+  <view class="booklist-wrap">
+    <view class="bookItem-wrap">
+      <block wx:if="{{bookList.length > 0}}" wx:for="{{bookList}}" wx:key="{{index}}">
+        <view class="bookItem {{index !== (bookList.length-1) ? 'border-b' : ''}}">
+          <view data-detail="{{item}}" class="book-face" bindtap="radioAll">
+            <image src="{{item.basic.avatar}}" />
+            <view class="icon-wrap" wx:if="{{tabType != 2}}">
+              <image class='position-center' src="/images/play.png" />
+            </view>
+          </view>
+
+          <view class="book-msg-wrap">
+            <view data-detail="{{item}}" class="book-msg" bindtap='goDetail'>
+              <view class="book-title">
+                <text>{{item.basic.title}}</text>
+                <block wx:if="{{ item.tag == 'new'}}">
+                  <image class='new' src="/images/new.png" />
+                </block>
+                <block wx:if="{{ item.tag == 'hot'}}">
+                  <image class='hot' src="/images/hot.png" />
+                </block>
+              </view>
+              <view class="book-summery">
+                {{item.basic.subTitle?item.basic.subTitle:item.basic.text}}
+              </view>
+              <view class="book-record">
+                <view>
+                  <image style='width: 22rpx; height: 20rpx; margin-left: 1rpx;' src="/images/listener.png" />
+                  <block wx:if="{{tabType == 1}}">
+                    <text>{{item.newReadCount}}人听过</text>
+                  </block>
+                  <block wx:elif="{{tabType == 2}}">
+                    <text>{{item.newReadCount}}人读过</text>
+                  </block>
+                </view>
+                <view wx:if="{{tabType != 2}}">
+                  <image style='width: 28rpx; height: 20rpx;' src="/images/collect.png" />
+                  <text>共{{item.basic.audios.length}}集</text>
+                </view>
+                <view  wx:if="{{tabType != 2}}" style='float: right; text-align: right; margin: 0;'>
+                  <text style='color: #ffa42f; font-size: 24rpx; line-height: 1.2'>￥{{item.bookPrice}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+
+          <view data-detail="{{item}}" class="book-more" bindtap='goDetail'>
+            <image mode="widthFix" src="/images/more.png" class='position-y-center' />
+          </view>
+        </view>
+      </block>
+      <block wx:if="{{bookList.length <= 0}}">
+        <view class="list-empty">
+          <image mode="widthFix" src="/images/buy-empty.png" ></image>
+          <text>该分类暂时没有书籍</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="footer-version">
+    <view class="footer-version-user">青松编导20年来最好的作品</view>
+    <view class="footer-version-comp">
+      <image src="/images/hqlogo.png"></image>由花茄提供技术支持
+    </view>
+  </view>
+  <!-- booklist end -->
+</view>
+
+<view class="mask {{showModal?'mask-show':''}}">
+  <view class="coupon-wrap position-center">
+    <image bindtap="toggleModal" class="close-btn" mode="widthFix" src="/images/close-btn.png"></image>
+    <image class="get-bg" mode="widthFix" src="/images/get-coupon-bg.png"></image>
+    <view class="coupon-info">
+      <view class='info-text'>{{couponMsg.basic.text}}</view>
+    </view>
+    <view class="coupon-message-box">
+      <view class="coupon-message">
+        <view class="coupon-title">{{couponMsg.basic.title}}</view>
+        <view class="coupon-price"><text>{{couponMsg.basic.price}}</text><text>元</text></view>
+      </view>
+      <view data-coupon-id="{{couponMsg.couponId}}" bindtap="getCoupon" class="coupon-get position-x-center">立即领取</view>
+      <!-- <view class="coupon-geted position-x-center" hidden="">已领取</view> -->
+    </view>
+  </view>
+</view>
+
+<!-- 过期弹窗 -->
+<template is="outtime-box" data="{{showOutTimeModal}}"></template>
+<!-- 悬浮播放窗口 -->
+<template data="{{hasRadio, radioRun, ...radioOther}}" is="floatRadio"></template>

@@ -1,0 +1,42 @@
+/* border */
+.border-t, .border-r,
+.border-l, .border-b {
+	position: relative;
+}
+.border-t::after, 
+.border-r::after, .border-l::after, 
+.border-b::after {
+	-webkit-transform-origin: 0 0;
+    -webkit-transform: scale(1);
+    pointer-events: none;
+}
+.border-t::after, .border-r::after, 
+.border-l::after, .border-b::after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.border-t::after {
+	border-top: 1px solid #e6e6e6;
+}
+.border-l::after {
+	border-left: 1px solid #e6e6e6;
+}
+.border-r::after {
+	border-right: 1px solid #e6e6e6;
+}
+.border-b::after {
+	border-bottom: 1px solid #e6e6e6;
+}
+@media screen and (-webkit-min-device-pixel-ratio:1.5) {
+    .border-t::after, .border-r::after, 
+	.border-l::after, .border-b::after {
+    	right: -100%;
+        bottom: -100%;
+        -webkit-transform: scale(0.5);
+    }
+}

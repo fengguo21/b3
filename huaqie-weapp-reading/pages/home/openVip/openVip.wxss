@@ -1,0 +1,127 @@
+/* pages/home/openVip/openVip.wxss */
+/* 公共样式 */
+.vip-open {
+  overflow: hidden;
+}
+.vip-open .border-b::after {
+  margin-left: 56rpx;
+}
+
+.open-wrap {
+  margin-bottom: 10rpx;
+  background: #fff;
+}
+.open-power {
+  background: #fff;
+}
+.power-list-image {
+  width: 100%;
+  display: block;
+}
+
+
+.open-title {
+  height: 96rpx;
+  position: relative;
+}
+/* 开通样式 */
+.sp-border {
+  display: inline-block;
+  width: 6rpx;
+  height: 30rpx;
+  background: #ffa42f;
+  left: 30rpx;
+}
+.title-name {
+  font-size: 32rpx;
+  color: #1a1a1a;
+  left: 56rpx;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.open-list-item {
+  height: 118rpx;
+  display: flex;
+  padding-left: 56rpx;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+.list-item-btn {
+  width: 150rpx;
+  height: 60rpx;
+  margin-right: 30rpx;
+  text-align: center;
+  line-height: 60rpx;
+  background: #ffa42f;
+  color: #fff;
+  font-size: 28rpx;
+  border-radius: 150rpx;
+}
+.list-item-price {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.time-and-price {
+  font-size: 30rpx;
+  color: #1a1a1a;
+}
+.list-item-price text,
+.list-item-price view {
+  line-height: 1;
+}
+.time-and-price > text {
+  color: #ffa42f;
+  font-weight: 700;
+}
+.list-item-price .is-hot {
+  font-size: 24rpx;
+  color: #fff;
+  display: block;
+  width: 32rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+  background: #fa533d;
+  border-radius: 4rpx;
+  margin-left: 20rpx;
+}
+
+.list-item-desc {
+  margin-top: 14rpx;
+  line-height: 1;
+  font-size: 24rpx;
+  color: #7f7f7f;
+}
+
+/* vip权益 */
+.plist-item {
+  height: 200rpx;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx;
+}
+.plist-item-icon {
+  width: 96rpx;
+  margin-right: 24rpx;
+}
+.plist-descs {
+  flex: 1;
+}
+.plist-descs > text {
+  display: block;
+  word-break: break-all;
+}
+.plist-item-title {
+  color: #292929;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+.plist-item-desc {
+  margin-top: 6rpx;
+  color: #999;
+  font-size: 24rpx;
+}

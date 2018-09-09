@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>detail</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/cardface.css?v=1"/>
+    <script type='application/javascript' src='../../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        * {
+            line-height: 1;
+        }
+        .aui-user-view:after {
+            border: 0;
+        }
+        .aui-user-view-cell {
+            height: 74px;
+            overflow: hidden;
+            padding: 14px 15px;
+            position: relative;
+        }
+        
+        .aui-user-view-cell:after {
+            border-color: #e6e6e6
+        }
+        .aui-user-view-cell:last-child:after {
+            /* border-color: #fff; */
+            border: 0;
+        }
+        .aui-user-view-cell p {
+            color: #999;
+        }
+        .msg-body {
+            width: calc(100% - 93px);
+            height: 48px;
+            position: absolute;
+            top: 50%;
+            left: 78px;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%);
+        }
+        .msg-body > span {
+            display: block;
+            height: 20px;
+            color: #333;
+            margin: 6px 0 5px;
+            font-size: 13px;
+            overflow: hidden;
+        }
+        .msg-body > span em {
+            float: right;
+        } 
+        .msg-body > p {
+            padding: 0;
+            margin: 0;
+            height: 20px;
+            font-size: 12px;
+            color: #666;
+            overflow: hidden;
+        }
+        .msg-body > p em {
+            float: right;
+            color: #999;
+            font-size: 10px;
+            margin-top: 3px;
+        }
+        #order-list .new {
+            color: #ff55b5;
+        }
+        #order-list .cancel {
+            color: #00a5e7;
+        }
+        #order-list .complate {
+            color: #fb5660;
+        }
+        #order-list .ordering {
+            color: #2ecc71;
+        }
+        #count {
+            vertical-align: middle;
+            padding: 10px 15px;
+        }
+        #count img{
+            width: 19px;
+            height: 17px;
+            vertical-align: middle;
+            margin-right: 10px;
+            margin-left: 5px;
+        }
+        #count > span {
+            vertical-align: middle;
+            font-size: 13px;
+            color: #666;
+        }
+        #not-empty .card-layout {
+            padding-top: 0;
+        }
+        .card-msg .countcard{
+            display: inline-block;
+            width:45px;
+            height: 23px;
+            vertical-align: middle;
+            border-radius: 25px;
+            line-height: 21px;
+            text-align: center;
+            font-size: 13px;
+            color: #3ca5ff;
+            border:1px solid #3ca5ff;
+            padding: 0;
+            margin:0;
+            padding-top: 2px
+        }
+        .card-msg .amountcard{
+            display: inline-block;
+            width:57px;
+            height: 23px;
+            vertical-align: middle;
+            border-radius: 25px;
+            line-height: 21px;
+            text-align: center;
+            font-size: 13px;
+            color: #ff8d00;
+            border:1px solid #ff8d00;
+            padding: 0;
+            margin:0;
+            padding-top: 2px
+        }
+        .almostEmpty{
+            position: absolute;
+            width: 74px;
+            right: 5px;
+            bottom: 2px;
+            margin-right: -25px;
+            margin-bottom: -18px;
+        }
+        
+        @media(max-width: 340px) {
+            .almostEmpty{
+                width: calc(74px / 375 * 320);
+                right: calc(15px / 375 * 320);
+                bottom: calc(22px / 375 * 320);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id='not-empty' style='display: none'>
+        <p class="aui-padded-10" id='count'><img src="../../../image/vip-card.png"><span>共<span id="total">1</span>张会员卡</span></p>
+        <div class="card-layout">
+            <ul class='card-wrap' id='card-list'>
+                <script type="text/html" id='tpl-card'>
+                    {{each list val i}}
+                    <li data-val='{{val}}' class='active' data-avatar='{{val.basic.avatar}}'  data-feed='{{val.feedId}}' onclick='goConsumeList(this)'>
+                        <div data-val='{{val}}' class='card-img'>
+                            <img data-val='{{val}}' src="{{val.card.basic.avatar}}" alt='网络出错'>
+                        </div>
+                        <div data-val='{{val}}' class="card-msg">
+
+                            <div data-val='{{val}}' class="card-msg-wrap position-y-center">
+                                <p data-val='{{val}}' class="card-name">{{val.card.basic.title}}</p>
+                                <p  data-val='{{val}}' 
+                                class="{{val.card.basic.typehood==1?'countcard':'amountcard'}}">{{val.card.basic.typehood|formatType}}</p>
+                                <p data-val='{{val}}' class="card-pro">项目：{{val.card.basic.service}}
+                                    {{if val.card.basic.subService}}
+                                        - {{val.card.basic.subService}}
+                                    {{/if}}
+                                </p>
+                                {{if val.card.basic.total&&val.card.basic.typehood == 1}}
+                                    <p data-val='{{val}}' class="card-cost">总次：<span>{{val.card.basic.amount}}</span> 次</p>
+                                {{else if val.card.basic.total&&val.card.basic.typehood == 2}}
+                                    <p data-val='{{val}}' class="card-cost">总额：<span>{{val.card.basic.amount}}</span> 元</p>
+                                {{/if}}
+                                {{if val.card.basic.total&&val.card.basic.typehood == 1}}
+                                    <p data-val='{{val}}' class="card-cost">余次：<span>{{val.basic.balance}}</span> 次</p>
+                                    {{if val.basic.balance<10}}
+                                    <img src="../../../image/almostEmpty.png" class="almostEmpty">
+                                    {{/if}}
+                                {{else if val.card.basic.total&&val.card.basic.typehood == 2}}
+                                    <p data-val='{{val}}' class="card-cost">余额：<span>{{val.basic.balance}}</span> 元</p>
+                                    {{if val.basic.balance<100}}
+                                    <img src="../../../image/almostEmpty.png" class="almostEmpty">
+                                    {{/if}}
+                                {{/if}}                
+                            </div>
+                        </div>
+                    </li>
+                    {{/each}}
+                </script>
+            </ul>
+        </div>
+    </div>
+    <div id="empty" style='display: none; overflow: hidden; text-align: center'>
+        <div style='width: 165px; height:165px; margin: 178px auto 20px'>
+            <img src="../../../image/data-empty.png" style='display: block; width: 186px;'>
+        </div>
+        <span style='font-size: 14px; color: #999'>暂时没有会员卡</span>
+    </div>
+    <script src="../../../script/api.js"></script>
+    <script src="../../../script/axios.min.js"></script>
+    <script src="../../../script/template-web.js"></script>
+    <script src="../../../script/zepto.min.js"></script>
+    <script src="../../../script/store.min.js"></script>
+    <script src="../../../script/phone.js"></script>
+    <script src="../../../fetch/api.js?rev=@@hash"></script>
+    <script type="text/javascript">
+        var myElement = document.getElementById('card-list');
+        var mc = new Hammer(myElement);
+        template.defaults.imports.formatType = function(data){
+            switch(data) {
+                case 1: return '次卡'; break;
+                case 2: return '充值卡'; break;
+                default: return '未知类型';
+            }
+        };
+        
+        
+        var orderList = [];
+        var page = 1;
+        var total = 0;
+        var param={
+            page: page,
+            step: 2,
+            peopleId: '',
+            size: 10,
+        }
+        var getVipCard = function(param) {
+            // console.log(this.id,23)
+            ajax.getVipCard(param, function(res) {
+                console.log(res,234)
+                total = res.data.total;
+                orderList = res.data.list;
+                if (total>0) {
+                    $('#card-list').html(template('tpl-card', {list: orderList}));
+                    $('#not-empty').show();
+                    $('#empty').hide();
+                    $('#total').html(total);
+                }else{
+                    $('#not-empty').hide();
+                    $('#empty').show();
+                }    
+            })
+        }
+
+        var goConsumeList = function(e) {
+            api.openWin({
+                name: 'ConsumeList',
+                url: './consumeList/consumeList.html',
+                pageParam: {
+                    feed: e.dataset.feed 
+                }
+            })
+        }
+        var loadMore = function(param) {
+            ajax.getVipCard(param, function(res) {
+                console.log(res,234)
+                total = res.data.total;
+                orderList = orderList.concat(res.data.list);
+                if (total>0) {
+                    $('#card-list').html(template('tpl-card', {list: orderList})); 
+                    $('#not-empty').show();
+                    $('#empty').hide();
+                    $('#total').html(total);
+                }else{
+                    $('#not-empty').hide();
+                    $('#empty').show();
+                }    
+            })
+        }
+        
+        
+        
+        
+       //getVipCard()
+       
+        apiready = function(){
+            var id = api.pageParam.id;
+            param.peopleId = id;
+            getVipCard(param);
+            api.addEventListener({
+                name: 'scrolltobottom',
+                extra: {
+                    threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+                }
+            }, function(ret, err) {
+                if(page * 10 < total){
+                    page += 1;
+                    param.page = page;
+                    loadMore(param);
+                } else {
+                    api.toast({
+                        msg: '没有更多啦'
+                    })
+                }
+            });
+        }   
+    </script>
+</body>
+</html>

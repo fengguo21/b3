@@ -1,0 +1,85 @@
+@import url('mrUI.css?v=1');
+
+h4 {
+        font-weight: normal;
+        font-size: 15px;
+        margin-bottom: 10px
+}
+.card-layout {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	padding: 20px 21px;
+}
+.card-wrap li{
+        position: relative;
+        box-sizing: border-box;
+        padding: 19px 13px;
+	width: 100%;
+	height: 202px;
+	background: url('../image/card-bg-noton.png') no-repeat center;
+	background-size: 100% 100%;
+        overflow: hidden;
+        margin-bottom: 18px;
+        transition: background ease-in-out .3s
+}
+.card-wrap li.active {
+	background: url('../image/card-bg-on.png') no-repeat center;
+	background-size: 100% 100%
+}
+.card-img {
+        width: 96px;
+        height: 100%; 
+        float: left;  
+}
+.card-img img{
+        width: 100%;
+}
+.card-msg {
+        position: relative;
+        float: left; 
+        width: calc(100% - 96px);
+        height: 100%
+}
+.card-msg-wrap {
+        left: 18px;
+}
+.card-msg-wrap p {
+        font-size: 13px;
+        color: #999;
+        padding: 8px 0;
+}
+.card-msg-wrap .card-name {
+        font-size: 17px;
+        color: #404040;
+}
+.card-msg-wrap p span {
+        font-size: 15px;
+        color: #ff55b5;
+}
+
+
+.radio-box {
+        width: 20px;
+        height: 20px;
+        position: relative;
+        display: block;
+        bottom: 19px;
+        right: 19px;
+        position: absolute;
+}
+.radio-box .radio {
+        width: 20px;
+        height: 20px;
+}
+.radio-box .radio:checked:after {
+        width: 12px;
+        height: 12px;
+}
+.go-det {
+    width: 10px;
+    position:absolute; 
+    right: 0; 
+    transform: translateY(50%);
+    -webkit-transform: translateY(50%)
+}

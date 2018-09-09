@@ -1,0 +1,36 @@
+<view class="banner pr tc">
+  <image class="pic" src="https://syy.freep.cn/590050/mybc.png" mode="aspectFill"></image>
+  <image class="head pa" src="{{me.basic.avatar}}" mode="aspectFill"></image>
+  <text class="name pa full">{{me.basic.name}}</text>
+  <text class="price pa full">积分: <text>{{me.score}}</text></text>
+</view>
+
+<view class="box tc service_bar ">
+  <text class="flex1" bindtap="goLocation">店铺位置</text>
+  <text class="flex1" bindtap="makePhoneCall" data-tel="051785978219">咨询客服</text>
+</view>
+
+<view class="box tc tab_bar mt15">
+  <text class="flex1{{tabs[0]?' active':''}}" data-index="1" bindtap="tab">待付款</text>
+  <text class="flex1{{tabs[1]?' active':''}}" data-index="2" bindtap="tab">待服务</text>
+  <text class="flex1{{tabs[2]?' active':''}}" data-index="3" bindtap="tab">待完成</text>
+  <text class="flex1{{tabs[3]?' active':''}}" data-index="4" bindtap="tab">已完成</text>
+</view>
+
+
+
+  <view class="w"  wx:if="{{orders.length > 0}}">
+    <navigator wx:for="{{orders}}" wx:key="id" class="case pr" url="../order/order?orderId={{item.orderId}}" data-gid="{{item.id}}">
+        <image class="pic" src="{{item.basic.products[0].basic.avatar}}" mode="aspectFill"></image>
+        <view class="title ellipsis">{{item.basic.title}}</view>
+        <view class="tag ellipsis">¥{{item.amount}} | {{item.created}}</view>
+    </navigator>
+  </view>
+  <view wx:else  class='empty'>
+  <image src='https://syy.freep.cn/590050/empty.png' mode='widthFix'></image>
+  <view>你还没有{{tips}}订单～</view>
+  </view>
+
+<view class="tips" wx:if="{{orders.length > 0}}">{{tips}}</view>
+
+<include src="../../template/footer.wxml"/>

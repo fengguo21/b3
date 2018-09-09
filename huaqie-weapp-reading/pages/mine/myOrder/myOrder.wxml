@@ -1,0 +1,25 @@
+<!--pages/mine/myOrder/myOrder.wxml-->
+<view class="my-order">
+  <view class="book-price">￥{{bookDetail.price}}</view>
+  <view class="book-msg">
+    <view class="book-msg-title border-b">图书信息</view>
+    <view class="book-msg-detail">
+      <image src="{{bookDetail.basic.avatar}}"></image>
+      <view class='book-msg-text'>
+        <view class="book-msg-title">{{bookDetail.basic.title}}</view>
+        <view class="book-msg-doc">{{bookDetail.basic.text}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="useCoupon" bindtap="chooseCoupon">
+    <text class="useCoupon-title">优惠券</text>
+    <view class="useCoupon-usage">{{!useCoupon ? '请选择' : '满 '+useCoupon.coupon.basic.minAmount+' 减'+useCoupon.coupon.basic.price}}
+      <image src="/images/more.png"></image>
+    </view>
+  </view>
+</view>
+
+<view class="buy-btn">
+  <view class="buy-the-book">实付款<text>￥{{lastPrice}}</text></view>
+  <view class="add-vip" bindtap='buy'>立即支付</view>
+</view>

@@ -1,0 +1,85 @@
+<!--pages/reserve/reserve.wxml-->
+<import src="/components/mask/mask.wxml"/>
+<import src="/components/successMask/success-mask.wxml"/>
+
+<view class="reserve layout">
+  <!-- 预定的床位信息 start -->
+  <view class="meeting-room border-b mg-b-20">
+    <view class="meeting-room-wrap">
+      <view class="room-avatar">
+        <image src="{{roomMsg.basic.avatar}}"></image>
+      </view>
+      <view class="room-msg">
+        <view class="room-msg-left">
+          <view class="room-name">{{roomMsg.basic.title}}</view>
+          <view class="room-pay-style gray">入住时间：<text class="middle-black">{{roomMsg.inDate}}</text></view>
+          <view class="room-pay-style gray">离店时间：<text class="middle-black">{{roomMsg.outDate}}</text></view>
+        </view>
+        <view class="room-msg-right">
+          <view class="room-pay-status">共{{dates.length}}天</view>
+          <view class="room-amount">¥ <text>{{roomMsg.totalPrice}}</text></view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 预定的床位信息 end -->
+
+  <form bindsubmit="formSubmit">
+    <view class="form-item border-b pd-lr-30">
+      <view class="form-item-title">姓名</view>
+      <view class="input-box">
+        <input name="name" placeholder="请输入姓名" type="text" placeholder-style="color: #b3b3b3"/>
+      </view>
+    </view>
+
+    <view class="form-item border-b pd-lr-30">
+      <view class="form-item-title">身份证号</view>
+      <view class="input-box">
+        <input name="identityId" bindinput='inputIdCard' placeholder="请输入身份证号" type="idcard" placeholder-style="color: #b3b3b3"/>
+      </view>
+    </view>
+
+    <view class="form-item border-b pd-lr-30">
+      <view class="form-item-title">性别</view>
+      <view class="input-box">
+        <radio-group name="sex" class="form-radio-group" bindchange="radioChange">
+          <label class="form-radio-label middle-gray" wx:for="{{sexList}}" wx:key="index">
+            <!-- 自定义的checkbox -->
+            <view
+              class="form-radio-checkbox {{item.checked?'radio-checkbox-on':''}}"
+            ></view>
+            {{item.label}}
+
+            <!-- 隐藏的checkbox -->
+            <radio value="{{item.value}}" checked="{{item.checked}}" />
+          </label>
+        </radio-group>
+      </view>
+    </view>
+
+    <view class="form-item border-b pd-lr-30">
+      <view class="form-item-title">手机号</view>
+      <view class="input-box">
+        <input name="tel" placeholder="请输入手机号" type="number" placeholder-style="color: #b3b3b3"/>
+      </view>
+    </view>
+
+    <view class="form-item-last pd-lr-30">
+      <!-- 备注 -->
+      <view class="form-item-title">备注</view>
+      <!-- <textarea hidden="{{mask.showModal || smask.showModal}}" name="desc" placeholder="请输入备注内容" placeholder-style="color: rgb(179, 179, 179);" maxlength="-1"/>
+      <view hidden="{{!mask.showModal && !smask.showModal}}" class="textarea-alias"></view> -->
+      <input class="desc" type="text" name="text" placeholder="请输入备注内容" placeholder-style="color: rgb(179, 179, 179);" />
+    </view>
+
+
+    <!-- 确认按钮 -->
+    <view class="pay-btn-wrap">
+      <button class='pay-btn {{!canClick?"end":""}}' formType="submit">确认预约</button>
+    </view>
+  </form>
+</view>
+<!-- 支付方式弹窗(公有组件) -->
+<template is="mask" data="{{...mask}}"></template>
+<!-- 支付成功弹窗 -->
+<template is="smask" data="{{...smask}}"></template>

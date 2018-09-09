@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/system.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/activity.css?v=1"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+</head>
+<body id='sortiy'>
+    <div class="count-tabs border-b" id='tabs'>
+        <div data-index='1' class="count-tabs-item border-r active"><span class='position-y-center'>促销短信</span></div>
+        <div data-index='2' class="count-tabs-item border-r"><span class='position-y-center'>促销消息</span></div>
+    </div>
+    <div class='set-layout' id='sys'>
+	    <ul class="form-content">
+	    	<li class="form-item border-b">
+	    	    <div class="form-item-cell">
+	    	        <span class='form-item-cell-icon position-y-center'>
+	    	            <img src="../../image/title-name.png">
+	    	        </span>
+	    	        <span class='form-item-cell-label position-y-center'>标题名称</span>
+	    	        <span class='form-item-cell-other position-y-center'>
+	    	            <input id='title' type='text' placeholder="请输入标题名称">
+	    	        </span>
+	    	    </div>
+	    	</li>
+	    	<li class="form-item">
+	    	    <div class="form-item-cell">
+	    	        <span class='form-item-cell-icon position-y-center'>
+	    	            <img src="../../image/addressee.png">
+	    	        </span>
+	    	        <span class='form-item-cell-label position-y-center'>收件人</span>
+	    	        <span class='form-item-cell-other position-y-center'>
+	    	            <input id='addressee' type='text' readonly>
+	    	        </span>
+	    	    </div>
+	    	</li>
+	    </ul>
+	    <ul class="form-content" id='textarea'>
+	    	<li class="form-item">
+	    	    <div class="form-item-cell">
+	    	        <textarea id='desc' placeholder="请将消息内容控制在500个汉字或1500个纯英文以内。"></textarea>
+	    	    </div>
+	    	</li>
+	    </ul>
+	    <div class="send-btn" onclick='sendMsg()'>
+	    	发送
+	    </div>
+	</div>
+</body>
+<script src='../../script/zepto.min.js'></script>
+<script type="text/javascript">
+	var Oaddss = $('#addressee');
+	var sendMsg = function() {
+		if(!$('#title').val()) {
+			api.toast({
+				msg: '标题不能为空'
+			})
+			return;
+		}
+		if(!$('#desc').val()) {
+			api.toast({
+				msg: '发送内容不能为空'
+			})
+			return;
+		}
+		api.toast({
+			msg: '发送成功'
+		})
+		setTimeout(function() {
+			api.closeWin();
+		}, 1000)
+	}
+    apiready = function(){
+        var name = api.pageParam.name;
+		Oaddss.val(name)
+    };
+</script>
+</html>

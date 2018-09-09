@@ -1,0 +1,80 @@
+.mask {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: rgba(0, 0, 0, .6);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: all .5s ease;
+}
+.mask-show {
+  z-index: 1024;
+  opacity: 1;
+}
+
+.mask-box {
+  width: 542rpx;
+  height: 438rpx;
+  background: #fff;
+  border-radius: 10rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.mask-success-icon {
+  width: 104rpx;
+  height: 86rpx;
+  display: block;
+  margin: 40rpx auto;
+}
+.mask-title {
+  line-height: 1;
+  text-align: center;
+  font-size: 36rpx;
+  color: #000;
+  margin-bottom: 40rpx;
+}
+.mask-tip {
+  font-size: 28rpx;
+  line-height: 1;
+  text-align: center;
+  margin-bottom: 59rpx;
+}
+.mask-btns {
+  padding: 0 40rpx;
+  display: flex;
+  overflow: hidden;
+  justify-content: space-between;
+  align-items: center;
+}
+.mask-btns > button,
+.mask-btns > view {
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: 2rpx solid #be342a;
+  border-radius: 50rpx;
+  width: 210rpx;
+  height: 70rpx;
+  text-align: center;
+  line-height: 70rpx;
+  font-size: 30rpx;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: #be342a;
+  background: none;
+}
+.mask-btns > button::after {
+  border: 0;
+}
+
+.mask-btns .mask-btns-mine {
+  background-color: #be342a;
+  color: #fff;
+}
+

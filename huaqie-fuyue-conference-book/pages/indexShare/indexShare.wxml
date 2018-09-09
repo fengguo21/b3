@@ -1,0 +1,89 @@
+<!--pages/indexShare/indexShare.wxml-->
+<import src="/components/meeting-time.wxml" />
+
+<view class="last-order layout">
+  <block wx:if="{{isEmpty}}">
+    <view class="empty">
+      <view class="position-center">
+        <image src="/images/empty-order.png"></image>
+        <view class="empty-text">暂时没有订单</view>
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+    <!-- 会议地址详情 start -->
+    <view class="meeting-place mg-b-20">
+      <view class="meeting-hotel">
+        <text class="meeting-hotel-name">{{meetAddress.hotel}}</text>
+        <text class="meeting-hotel-detail" bindtap="navToDetail">酒店详情</text>
+      </view>
+
+      <view class="meeting-phone">
+        <view class="meeting-phone-wrap">
+          电话：<text>{{meetAddress.phone}}</text>
+        </view>
+      </view>
+
+      <view class="meeting-address">
+        <view class="meeting-address-wrap">
+          电话：<text>{{meetAddress.address}}</text>
+        </view>
+        <text class="meeting-address-map" bindtap="navToMap">查看地图</text>
+      </view>
+    </view>
+    <!-- 会议地址详情 end -->
+
+    <!-- 预定的床位信息 start -->
+    <view class="meeting-room border-b mg-b-20">
+      <view class="meeting-room-wrap">
+        <view class="room-avatar">
+          <image src="{{roomMsg.avatar}}"></image>
+        </view>
+        <view class="room-msg">
+          <view class="room-msg-left">
+            <view class="room-name">
+              {{roomMsg.title}}
+              <text wx:if="{{orderDetail.basic.special}}">{{orderDetail.basic.special?'拼':''}}</text>
+            </view>
+            <view class="room-pay-style">支付方式：<text>{{roomMsg.payStyle || '在线支付'}}</text></view>
+            <view class="room-pay-time">{{roomMsg.created}}</view>
+          </view>
+          <view class="room-msg-right">
+            <view class="room-pay-status  {{orderDetail.step==2?'success':''}}">{{orderDetail.step==2?'已支付':'等待付款'}}</view>
+            <view class="room-amount">¥ <text>{{roomMsg.amount}}</text></view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 预定的床位信息 end -->
+
+    <!-- 入住人信息 start -->
+    <view class="room-people mg-b-20">
+      <view class="room-people-list">
+        <view class="room-people-item" style="padding-left: 2rpx;">入 住 人 ：<text>{{peopleMsg.name}}</text></view>
+        <view class="room-people-item">联系手机：<text>{{peopleMsg.tel}}</text></view>
+        <view class="room-people-item">入住日期：<text>{{peopleMsg.inDate}}</text></view>
+        <view class="room-people-item">离店日期：<text>{{peopleMsg.outDate}}</text></view>
+        <!-- <view class="room-people-item">发票信息：<text>{{peopleMsg.bill?'已开发票':'未开发票'}}</text></view> -->
+      </view>
+    </view>
+    <!-- 入住人信息 end -->
+    <!-- 会议简介 start -->
+    <view class="meeting-summary border-b">
+      <view class="meeting-summary-msg border-b">
+        <view class="meeting-summary-title">{{meetingMsg.title}}</view>
+        <view class="meeting-summary-detail">
+          {{meetingMsg.text}}
+        </view>
+      </view>
+      <template is="meetingTime" data="{{...meetingMsg}}"></template>
+    </view>
+    <!-- 会议简介 end -->
+
+    <view class="pay-btn-wrap">
+      <view class="pay-btn {{!canClick?'end':''}}" bindtap="readyToPay">{{orderDetail.step==2?'已支付':'为TA预约'}}</view>
+    </view>
+
+  </block>
+</view>
+

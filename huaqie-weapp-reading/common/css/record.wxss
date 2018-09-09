@@ -1,0 +1,43 @@
+.record-item {
+  padding: 0 30rpx 22rpx 0;
+  overflow: hidden;
+  margin-top: 12rpx;
+}
+.record-item.border-b::after {
+  margin-left: 92rpx;
+}
+.record-user-msg {
+  height: 70rpx;
+  overflow: hidden;
+  margin-bottom: 10rpx;
+  display: flex;
+}
+.record-user-msg > image {
+  width: 70rpx;
+  border-radius: 50%;
+  display: block;
+  margin-right: 22rpx;
+}
+.record-user-other {
+  flex: 1;
+  display: flex;
+  padding-right: 12rpx;
+  justify-content: space-between;
+  align-items: center;
+}
+.record-user-name {
+  font-size: 28rpx;
+  color: #666;
+}
+.record-user-time {
+  font-size: 24rpx;
+  color: #a6a6a6;
+}
+.record-content {
+  padding: 0 10rpx 0 92rpx;
+  word-break: break-all;
+  font-size: 28rpx;
+  color: #1a1a1a;
+  line-height: 1.5;
+  margin-top: -11rpx;
+}

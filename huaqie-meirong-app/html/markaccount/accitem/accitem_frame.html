@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>detail</title>
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="../../../css/aui.css"/>
+    <script type='application/javascript' src='../../../script/fastclick.js'></script> 
+    <!-- <link rel="stylesheet" type="text/css" href="../../../css/position.css?v=2"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/border.css?v=2"/> -->
+    
+    <style>
+    *{
+        margin:0;
+        padding: 0
+    }
+       ul li{
+        list-style: none;
+       }
+        .listwrap{
+            background: white;
+        }
+        
+        .itemlist{
+            border-top: 1px dashed #e5e5e5;
+            padding-top: 8px;
+            padding-bottom: 0px;
+        }
+        
+        .itemlist .item{
+            margin-top: 10px;
+            margin-left: 15px;
+            margin-right: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            font-size: 13px;
+            color: #ff3e39;
+            
+        }
+        .itemlist .item .time{
+           flex: 1;
+            
+            text-align: right;
+            font-size: 12px;
+            color: #999;
+        }
+        .itemlist .item .note{
+            color: #333;
+            flex: 1;
+            white-space: nowrap;/*让文字不换行*/
+            overflow:hidden;
+            text-overflow:ellipsis;
+            -o-text-overflow:ellipsis;
+            -icab-text-overflow: ellipsis;
+            -khtml-text-overflow: ellipsis;
+            -moz-text-overflow: ellipsis;
+            -webkit-text-overflow: ellipsis;
+        }
+        .money{
+            position: fixed;
+            bottom: 0;
+            background: white;
+            display: flex;
+            height: 58px;
+            font-size: 18px;
+            width:100%;
+            text-align: center;
+            line-height: 58px;
+            border-top: 1px solid #e5e5e5;
+        }
+        .pay{
+            flex:1;
+            line-height: 58px;
+            color: #13b859;
+            position: relative;
+        }
+        .pay::after{
+            content: '';
+            display: block;
+            height: 28px;
+            border-right: 1px solid #e5e5e5;
+            position: absolute;
+            right: 0;
+            top:50%;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%); 
+        }
+        .loan{
+            flex: 1;
+            line-height: 58px;
+            color: #ff3e39;
+
+        }
+        .payment{
+            color:#13b859;
+            flex: 1
+        }
+
+        .diet{
+            flex:1;
+        }
+        .aui-content{
+            background: white;
+            height: 67px;
+            position: relative;
+            display: flex;
+            padding-top: 8px;
+            
+        }
+        .aui-content img{
+            height: 60px;
+            width:60px;
+           margin-left: 15px
+           margin-top:8px;
+        }
+        .topline{
+            margin-top: 5px;
+            display: inline-block;
+        }
+        .topline .rightitem{
+            margin-right: 15px;
+            text-align: right;
+        }
+        .botline{
+            margin-top: 5px;
+        }
+        .imgbox img{
+            margin-left: 15px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .loanbox{
+            display: none;
+            position: absolute;
+            z-index: 10;
+            width:271px;
+            height: 214px;
+            border-radius: 5px;
+            background: white;
+            left:50%;
+            transform: translateX(-50%);
+            top: 30%;
+            padding-top: 0 auto;
+        }
+        .loanbox p{
+            display: block;
+            margin-top: 39px;
+            font-size: 20px;
+            color: #333;
+            text-align: center;
+            width:100%;
+            margin-bottom: 30px;
+        }
+
+        
+       * {
+            line-height: 1;
+        }
+        body {
+            /*display: flex;
+            flex-direction: column;*/
+            /*overflow: hidden;*/
+            width: 100%;
+            height: 100%;
+        }
+        .aui-user-view:after {
+            border: 0;
+        }
+        .aui-user-view-cell {
+            height: 74px;
+            /*overflow: hidden;*/
+            padding: 14px 15px;
+            position: relative;
+        }
+        
+        .aui-user-view-cell:after {
+            border-color: #e6e6e6
+        }
+        .aui-user-view-cell:last-child:after {
+            /* border-color: #fff; */
+            border: 0;
+        }
+        .aui-user-view-cell p {
+            color: #999;
+        }
+        .msg-body {
+            width: calc(100% - 93px);
+            height: 48px;
+            position: absolute;
+            top: 50%;
+            left: 78px;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%)
+        }
+        .msg-body > span {
+            display: block;
+            height: 20px;
+            margin: 6px 0 5px;
+            font-size: 12px;
+            color:#333;
+        }
+        .msg-body > span em {
+            float: right;
+            font-size: 12px;
+            color: #999;
+        }
+        .msg-body > p {
+            padding: 0;
+            margin: 0;
+            height: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        .msg-body > p em {
+            display: inline-block;
+            min-width: 50px;
+            text-align: center;
+            float: right;
+            color: #ff3e39;
+            font-size: 15px;
+            /margin-top: 3px;*/
+        }
+
+        .bc{
+            position: absolute;
+            z-index: 2;
+            height: 100%;
+            width: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+        }
+        .flex-wrap {
+            flex: 1;
+            overflow: auto;
+        } 
+
+        #box{
+            display: none;
+
+        }
+
+        .box-background{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.5;
+            background: black;
+        }
+
+        .box-container{
+           position: absolute;
+            padding: 40px;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%);
+            margin-top: -28px;
+        }
+
+        .box-header {
+            text-align: right;
+        }
+
+        .box-header img{
+            margin-right: 5px;
+            width: 28px;
+            height: 28px;
+            margin-bottom: 24px;
+        }
+        .box-header::after{
+            position: absolute;
+            border:1px solid white;
+            height: 25px;
+            top:70px;
+            right:60px;
+            content: '';
+        }
+
+        .box-body{
+            background: white;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .box-body-title {
+            text-align: center;
+            font-size: 17px;
+            color: black !important;
+            margin: 20px 0 20px 0;
+        }
+
+        .box-body-button {
+            background: #ec75b9;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 30px;
+            margin: 0 auto;
+            width: 100px;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        .line{
+            
+
+        }
+        #personinfo{
+            position: relative;
+        }
+        
+
+
+        
+    </style>
+</head>
+<body style='position: relative;'  id="body">
+    <div id="info">
+        <script type="text/html" id='tpl-info'>
+            <div id="personinfo" class="aui-user-view-cell aui-img"    style="height: 75px;padding: 0;background: white">
+            <div class="aui-img-object aui-pull-left" style="padding-top: 8px;margin-left: 15px;border-radius: 50%">
+                <img src={{avatar}} style="width:60px;height:60px;border-radius:50%;margin-right: 8px">
+            </div>
+            <div class="msg-body" style="margin-left: 5px">
+                <span class="msg-name">{{name}}
+                  <em class="msg-value">待还金额</em>
+                </span>
+                <p class='aui-ellipsis-1'>{{phone}}<em>￥{{number.toFixed(2)}}</em></p>
+              </div>
+        </div>
+        </script>
+    </div>
+        <div class="listwrap" style="overflow: auto;">
+           
+            <div class='itemlist' style="overflow: auto;">
+              
+                <ul id="content" style="overflow: auto;">
+                   <script type="text/html" id='tpl-order'>
+                     {{each list val index}}
+                     <li>
+                        <p class="item" style="height: 25px">
+                            <span class={{val.class}}>{{val.info}}</span>
+                            <span class="note" onclick="show('{{val.basic.note}}')">{{val.basic.note|formatNote}}</span>
+                            <span class="time" >{{val.basic.date}}</span>
+                       </p>  
+                     </li>
+                     {{/each}}
+                </script>
+                </ul>
+           
+          </div>
+        </div>
+
+        <div class="money">
+            <div class="pay" id="pay" onclick="action(2)">还款</div>
+            <div class="loan" id='loan' onclick="action(1)">记账</div>
+        </div>
+
+        <div id="box">
+        <div class="box-background"></div>
+        
+        <div class="box-container">
+            <div class="box-header">
+                <img src="../../../image/dialog-close.png" onclick="closeDialog()" />
+            </div>
+            <div class="line"></div>
+            <div class="box-body">
+                <h3 class="box-body-title" id="box-body-title">请输入记账金额</h3>
+                <input type="number" id="box-body-input" placeholder="请输入记账金额">
+                <div class="box-body-button" onclick="save()">确认</div>
+            </div>  
+        </div>
+        </div>
+    
+    <script src="../../../script/api.js"></script>
+    <script src="../../../script/axios.min.js"></script>
+    <script src="../../../script/moment.min.js"></script>
+    <script src="../../../script/timeago.min.js"></script>
+    <script src="../../../script/template-web.js"></script>
+    <script src="../../../script/zepto.min.js"></script>
+    <script src="../../../script/store.min.js"></script>
+    <script src="../../../fetch/api.js?v=4"></script>
+    <script type="text/javascript">
+        template.defaults.imports.formatNote = function(data) {
+            return data//(data.length > 10)?data.substr(0, 10)+'...':data
+        }
+        
+        var direction = 2
+        
+         var total=0
+         var list=[]
+        var getDietItems = function(paramesTest){
+            
+            ajax.getDietItem(paramesTest, function(res){
+                console.log(res,res.data.total)
+                total = res.data.total;
+                console.log(total)
+                res.data.list.forEach(e => {
+                    e.created=moment(e.created).format('YYYY-MM-DD hh:mm')
+                        if(e.basic.direction==1){
+                            console.log(1)
+                            e.info='记账￥'+e.basic.amount
+                            e.class='diet'
+                        }
+                        else{
+                           e.info= '还款￥'+e.basic.amount
+                            e.class='payment'
+                        }
+                  })
+                    list=list.concat(res.data.list)
+                 $('#content').html(template('tpl-order', {list: list}))
+            })
+        }
+        var loadmore=function(paramesTest){
+            ajax.getDietItem(paramesTest, function(res){
+                res.data.list.forEach(e => {
+                    e.created=moment(e.created).format('YYYY-MM-DD hh:mm')
+                        if(e.basic.direction==1){
+                            console.log(1)
+                            e.info='记账￥'+e.basic.amount
+                            e.class='diet'
+                        }
+                        else{
+                           e.info= '还款￥'+e.basic.amount
+                            e.class='payment'
+                        }
+                  })
+                list=list.concat(res.data.list)
+
+                 $('#content').html(template('tpl-order', {list: list}))
+            })
+        }
+
+        var action = function ( v ) {
+            direction = v
+            $('#box-body-title').text((v == 2)?'请输入还款金额':'请输入记账金额')
+            $('#box-body-input').attr('placeholder', (v == 2)?'请输入还款金额':'请输入记账金额')
+            $('#box').show()
+        }
+
+        var closeDialog = function () {
+            $('#box').hide()
+        }
+
+        var show = function ( v ) {
+            api.alert({
+                msg: v
+            })
+        }
+
+        var save = function () {
+            if(!$('#box-body-input').val() || $('#box-body-input').val() <= 0){
+                alert('请填写正确的金额')
+                return
+            }
+            ajax.markAccount( {
+               amount: $('#box-body-input').val(),
+                direction: direction,
+                peopleId: api.pageParam.peopleId,
+                note: '',
+                date: moment(new Date()).format('YYYY-MM-DD') 
+            }, function(res) {
+                if(res.code){
+                    api.alert({
+                        msg: res.message
+                    })
+                    return
+                }
+                api.toast({
+                    msg: (direction == 2)?'还款成功':'记账成功'
+                })
+                api.execScript({
+                    name: 'markaccount',
+                    frameName: 'markaccount_frame',
+                    script: 'getDietList(1)'
+                })
+                api.closeWin();
+            })
+        }
+        
+        // var paramesTest = {
+        //                 page:1,
+        //                 size:200,
+        //                 peopleId: "59ce424f94a2cb151b915ac6"
+        //             }
+        //             getDietItems(paramesTest)
+            
+        apiready = function(){
+            
+
+            var page=1;
+            var paramesTest = {
+                page:page,
+                size:20,
+                peopleId: api.pageParam.peopleId
+            }
+            getDietItems(paramesTest)
+
+            $('#info').html(template('tpl-info',  {
+                avatar: api.pageParam.avatar,
+                name: api.pageParam.name,
+                phone: api.pageParam.phone,
+                number: api.pageParam.number   
+            }))
+            // 滑动事件
+            api.addEventListener({
+                name: 'scrolltobottom',
+                extra: {
+                    threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+                }
+            }, function(ret, err) {
+                
+                if(page * 20 < total){
+                    page += 1
+                    paramesTest.page=page
+                    getDietItems(paramesTest);
+                } else {
+                    api.toast({
+                        msg: '没有更多啦'
+                    })
+                }
+            });
+        };
+
+    
+   
+</script>
+    
+</body>
+</html>

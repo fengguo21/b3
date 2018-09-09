@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>system_frame</title>
+    <link rel="stylesheet" type="text/css" href="../../css/mrUI.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/system.css?v=1"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style type="text/css">
+        .form-item-cell-other {
+            height: 100%;
+            width: 19px;
+        }
+    </style>
+</head>
+<body>
+    <div class='set-layout'>
+        <ul class='form-content'>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-input position-y-center'>
+                        <input id='oldP' type="password" placeholder="旧密码">
+                    </span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <div class="can-see position-y-center"></div>
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-input position-y-center'>
+                        <input id='newP' type="password" placeholder="新密码">
+                    </span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <div class="can-see position-y-center"></div>
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-input position-y-center'>
+                        <input id='renewP' type="password" placeholder="重复新密码">
+                    </span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <div class="can-see position-y-center"></div>
+                    </span>
+                </div>
+            </li>
+            <li class="form-item" style='height: 128px'>
+                <div class="form-item-cell">
+                    <div class='form-item-cell-btn' onclick='submit()'>
+                        <span>确认修改</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script src="../../script/axios.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../fetch/api.js?v=1"></script>
+<script type="text/javascript">
+    var oldPass = $('#oldP');
+    var newPass = $('#newP');
+    var renewPass = $('#renewP');
+    $('.form-item').on('click', '.form-item-cell-other', function() {
+        var see = $(this).find('.can-see');
+        see.toggleClass("can-not-see");
+        if(see.is(".can-not-see")) {
+            see.parent().prev().find('input').attr({type: 'text'})
+        } else {
+            see.parent().prev().find('input').attr({type: 'password'})
+        }
+    })
+    var signOut = function() {
+        store.clear();
+        api.openWin({
+            name: 'signIn',
+            url: '../signIn/signIn.html'
+        });
+    }
+    var submit = function() {
+        if(oldPass.val() == '') {
+            api.toast({
+                msg: '旧密码不能为空'
+            });
+            return;
+        }
+        if(newPass.val() == '') {
+           api.toast({
+                msg: '新密码不能为空'
+            });
+            return; 
+        }
+        if(renewPass.val() == '') {
+           api.toast({
+                msg: '请重复新密码'
+            });
+            return; 
+        }
+        if(renewPass.val() != newPass.val()) {
+           api.toast({
+                msg: '两次密码输入不一致'
+            });
+            return; 
+        }
+        ajax.updatePassword({
+            oldPassword: oldPass.val(),
+            password: newPass.val()
+        }, function(res) {
+            api.toast({
+                msg:'密码修改成功！'
+            });
+            signOut();
+        })
+    }
+    apiready = function(){
+        
+    };
+</script>
+</html>

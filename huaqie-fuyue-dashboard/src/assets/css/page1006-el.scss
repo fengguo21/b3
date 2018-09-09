@@ -1,0 +1,48 @@
+.page1006 {
+  .top-picker {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .el-button.el-button--primary {
+      height: 46px;
+      font-size: $font-16;
+    }
+
+    .el-input.el-input-group {
+      font-size: $font-16;
+      width: 380px;
+
+      .el-input__inner {
+        height: 46px;
+        padding: 0 18px;
+      }
+      .el-input-group__append {
+        background: $color-input-append;
+        padding: 0 16px;
+      }
+
+      img {
+        width: $size-input-append;
+        height: $size-input-append;
+      }
+    }
+  }
+// tabs
+  .el-tabs.el-tabs--top {
+    margin-top: 20px;
+    // background: #fff;
+    // padding-left: 40px;
+    // border-radius: 4px;
+
+    // .el-tabs__header {
+    //   margin-bottom: 0;
+    // }
+    // .el-tabs__item {
+    //   font-weight: 600;
+    // }
+    // .el-tabs__nav-wrap::after {
+    //   background-color: #fff;
+    // }
+  }
+}

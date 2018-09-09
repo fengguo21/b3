@@ -1,0 +1,8 @@
+<!--pages/home/bannerAdives/bannerAdvise.wxml-->
+<import src="/components/wxParse/wxParse.wxml"/>
+
+<view class="banner-advise">
+  <view class="book-content">
+    <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+  </view>
+</view>

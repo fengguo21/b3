@@ -1,0 +1,31 @@
+<!--mycard.wxml-->
+
+
+
+
+
+<view class="mycards"  wx:for="{{cards}}">
+      <view class="card" class="{{selected[index]?'card':'card2'}}"    >
+      <image src="{{item.card.basic.avatar}}" class='cardimg'></image>
+      <view class='cont'>
+          <view class="name">{{item.card.basic.title}}</view>
+            <view class="class">类型：{{item.card.basic.typehood==2?'充值卡':'次卡'}}</view>
+            <view class="proj">项目：{{item.card.basic.service}}</view>
+            <view class='total'>总{{item.card.basic.typehood==2?'额':'次'}}：<text class='totalnum'>{{item.card.basic.amount}}</text>{{item.card.basic.typehood==2?'元':'次'}}</view>
+            <view class='balance'>
+             <text>余{{item.card.basic.typehood==2?'额':'次'}}：<text class='surplus'>{{item.basic.balance}} </text>{{item.card.basic.typehood==2?'元':'次'}}</text> 
+            </view> 
+            <view class="thiscard"  bindtap='choosecard' data-type="{{item.card.basic.typehood}}" data-index="{{index}}" data-feed="{{item.feedId}}" data-cardid="{{item.basic.cardId}}" data-ratio="{{item.card.basic.ratio}}">使用此卡</view>
+            
+      </view>
+      
+      </view> 
+      
+      
+</view>
+<view class="empty" wx:if="{{cards.length==0}}">
+<image src="/images/empty.png"></image>
+<text>暂无会员卡</text>
+</view>
+
+

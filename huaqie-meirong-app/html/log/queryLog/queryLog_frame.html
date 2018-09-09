@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>setlog_frame</title>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/system.css?v=4"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/mrUI.css?v=1"/> 
+    <link rel="stylesheet" type="text/css" href="../../../css/MultiPicker.css?rev=@@hash" /> 
+    <link rel="stylesheet" type="text/css" href="../../../css/setLog.css?rev=1"/>
+    <script type='application/javascript' src='../../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+</head>
+<body>
+    <div class="set-layout" id='add-member'>
+        <ul class="form-content">
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../../image/title-name.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>基本信息完成度：<span id='progress'>0%</span></span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../../image/user-name.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>姓名</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='name' type="text" readonly>
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../../image/phone.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>手机号码</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <input class='other-input' id='phone' type="text" readonly>
+                    </span>
+                </div>
+            </li>
+
+            <li class="form-item border-b" id='more' style='display: none'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-other position-y-center'>
+                        <span style='right: 18px; margin: 0;' class='form-item-cell-other position-y-center'>
+                            <p style='width: 50px; color: #FF8EC6'>更多...</p>
+                        </span>
+                        <img class='more' src="../../../image/sys-more.png">
+                    </span>  
+                </div>
+            </li>
+
+            <div class="first-write">
+                <li class="form-item border-b">
+                    <div class="form-item-cell">
+                        <span class='form-item-cell-icon position-y-center'>
+                            <img src="../../../image/birthday.png?v=1">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>生日</span>
+                        <span class='form-item-cell-other position-y-center'>
+                            <input class='other-input' id="birth" type="text" readonly>
+                        </span>
+                    </div>
+                </li>
+
+                <li class="form-item border-b">
+                    <div class="form-item-cell">
+                        <span class='form-item-cell-icon position-y-center'>
+                            <img src="../../../image/skin-type.png?v=2">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>皮肤类型</span>
+                        <span class='form-item-cell-other position-y-center'>
+                            <input data-id='skin' class='other-input' id='skin' type="text" readonly>
+                        </span>
+                    </div>
+                </li>
+                <li class="form-item border-b">
+                    <div class="form-item-cell">
+                        <span class='form-item-cell-icon position-y-center'>
+                            <img src="../../../image/skin-problem.png?v=1">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>皮肤问题</span>
+                        <span class='form-item-cell-other position-y-center'>
+                            <input data-id='skin-problem' class='other-input' id='skin-problem' type="text" readonly>
+                        </span>
+                    </div>
+                </li>
+                <li class="form-item border-b">
+                    <div class="form-item-cell">
+                        <span class='form-item-cell-icon position-y-center'>
+                            <img src="../../../image/consumeLevel.png?v=1">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>消费水平</span>
+                        <span class='form-item-cell-other position-y-center'>
+                            <input data-id='consume' class='other-input' id='consume' type="text" readonly>
+                        </span>
+                    </div>
+                </li>
+
+                <li class="form-item border-b">
+                    <div class="form-item-cell">
+                        <span class='form-item-cell-icon position-y-center'>
+                            <img src="../../../image/charac.png?v=1" style="width:23px;height: 23px">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>性格</span>
+                        <span class='form-item-cell-other position-y-center'>
+                            <input data-id='temper' class='other-input' id='temper' type="text" readonly>
+                        </span> 
+                    </div>
+                </li>
+
+                <li class="form-item border-b">
+                    <div class="form-item-cell">
+                        <span class='form-item-cell-icon position-y-center'>
+                            <img src="../../../image/weight.png">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>体重</span>
+                        <span class='form-item-cell-other position-y-center'>
+                            <input data-id='weight' class='other-input' id='weight' type="text" readonly>
+                            <span>kg</span>
+                        </span>
+                    </div>
+                </li>
+
+                <li class="form-item border-b">
+                    <div class="form-item-cell">
+                        <span class='form-item-cell-icon position-y-center'>
+                            <img src="../../../image/career.png?v=1">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>职业</span>
+                        <span class='form-item-cell-other position-y-center'>
+                            <input data-id='profession' class='other-input' id='profession' type="text" readonly>
+                        </span>
+                    </div>
+                </li>
+
+                <li class="form-item border-b">
+                    <div class="form-item-cell">
+                        <span class='form-item-cell-icon position-y-center'>
+                            <img src="../../../image/card-desc.png">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>健康状况</span>
+                        <span class='form-item-cell-other position-y-center'>
+                            <input data-id='health' class='other-input' id='health' type="text" readonly>
+                        </span>
+                    </div>
+                </li>
+            </div>
+
+            <div class="add-log">
+                <li class="form-item">
+                    <div class="form-item-cell">
+                        <span class='form-item-cell-icon position-y-center'>
+                            <img src="../../../image/afterService.png?v=1">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>护理后照片</span>
+                    </div>
+                </li>
+                <li class='border-b'>
+                    <div class="server-pic" onclick='chooseImg()'>
+                        <img id='avatar' src="../../../image/takePic.png?v=1" style="width: 90px">
+                    </div>
+                </li>
+                
+                <li class="form-item border-b">
+                    <div class="form-item-cell">
+                        <span class='form-item-cell-icon position-y-center'>
+                            <img src="../../../image/nextTime.png?v=1">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>下次约定护理时间</span>
+                        <span style='width: 100px' class='form-item-cell-other position-y-center'>
+                            <input style='width: 70%' data-id='next-time' class='other-input' id='next-time' type="text" readonly style="font-size: 15px;color:#ff3e39">
+                            <span>天后</span>
+                        </span>
+                    </div>
+                </li>
+
+                <!-- <li class="form-item border-b">
+                    <div class="form-item-cell">
+                        <span class='form-item-cell-icon position-y-center'>
+                            <img src="../../../image/todayPay.png?v=1">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>今日购买</span>
+                        <span class='form-item-cell-other position-y-center'>
+                            <input data-id='buy' class='other-input' id='buy' type="text" readonly>
+                        </span>
+                    </div>
+                </li> -->
+
+                <li class="form-item border-b">
+                    <div class="form-item-cell">
+                        <span class='form-item-cell-icon position-y-center'>
+                            <img src="../../../image/detail-pro.png">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>关怀与意向</span>
+                        <span class='form-item-cell-other position-y-center'>
+                            <input data-id='promotion' class='other-input' id='promotion' type="text" readonly>
+                        </span>
+                    </div>
+                </li>
+
+                <li class="form-item border-b">
+                    <div class="form-item-cell">
+                        <span class='form-item-cell-icon position-y-center'>
+                            <img src="../../../image/card-cost.png">
+                        </span>
+                        <span class='form-item-cell-label position-y-center' id='cost-wrap'></span>
+                        <span class='form-item-cell-other position-y-center'>
+                            <input class='other-input' type="number" id='cost' readonly>
+                        </span>
+                    </div>
+                </li>
+
+                <li class="form-item">
+                    <div class="form-item-cell">
+                        <span class='form-item-cell-icon position-y-center'>
+                            <img src="../../../image/loanAmount.png?v=1">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>欠款</span>
+                        <span class='form-item-cell-other position-y-center'>
+                            <input class='other-input' type="number" id='arrears' readonly>
+                        </span>
+                    </div>
+                </li>
+            </div>
+        </ul>
+    </div>
+
+    <div id="targetContainer"></div>
+
+    <div id="radio-box">
+        <div class="radio-bg">
+            <div class="dialog position-center">
+                <form id='dialog-form'>
+                    <div class="check-box" id='check-wrap'></div>
+                </form>
+                <div class='dialog-btns'>
+                    <span id='dialog-cancel'>取消</span>
+                    <span id='dialog-checked'>确认</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../../script/axios.min.js"></script>
+<script src="../../../script/template-web.js"></script>
+<script src="../../../script/zepto.min.js"></script>
+<script src="../../../script/store.min.js"></script>
+<script src="../../../script/moment.min.js"></script>
+<script src="../../../script/store.min.js"></script>
+<script src="../../../script/phone.js"></script>
+<script src="../../../fetch/api.js?rev=@@hash"></script>
+<script>
+    var baseList = [ 'birth', 'skin', 'skinProblem', 'consume', 'temper', 'profession', 'health', 'weight' ]
+    var totalList = {
+        'nextTime': '', 'servicePic': '', 'promotion': '', 'buy': '', 'arrears': '', 'desc': '', 'birth': '', 'skin': '', 'skinProblem': '', 'consume': '', 'temper': '', 'profession': '', 'health': '', 'weight': ''
+    };
+    var isFirst = true;
+    var params = null;
+    var peopleId = '';
+    var init = function() {
+        var data = params.basic.extra;
+        $('#name').val(data.name);
+        $('#phone').val(data.phone);
+        $('#cost').val(data.amount == 1 ? data.amount : data.amount.toFixed(2));
+        if(data.amount == 1) {
+            $('#cost-wrap').text('消费次数');
+        } else {
+            $('#cost-wrap').text('实付金额');
+        }
+        peopleId = params.basic.peopleId;
+        ajax.getServerPeople({
+            peopleId: peopleId,
+        }, function(res) {
+            console.log(res);
+            var profile = res.data.extra.profile;
+            var count = 0;
+            if(profile) {
+                for(key in totalList) {
+                    var domId = formateDomId(key);
+                    if(profile[key]) {
+                        totalList[key] = profile[key];
+                        if(baseList.indexOf(key) >= 0) {
+                            count += 1;
+                        }   
+                    }
+                    if(domId == 'service-pic') {
+                        $('#' + domId).attr({src: totalList[key]});
+                    } else if(domId == 'arrears') {
+                        $('#' + domId).val(totalList[key] || 0);
+                    } else {
+                        $('#' + domId).val(totalList[key] || '暂未填写');
+                    }
+                }
+
+                $('#progress').text(count ? (count / baseList.length * 100).toFixed(2) + '%' : '0%');
+                isFirst = false;
+                $('#more').show();
+                $('#more').removeClass('img-up');
+                $('.first-write').removeClass('first-write-up');
+            } else {
+                isFirst = true;
+                $('#more').hide();
+                $('#more').addClass('img-up');
+                $('.first-write').addClass('first-write-up');
+            }  
+        })
+    }
+    var formateDomId = function(key) {
+        return key.replace(/[A-Z]/g, function(val) {
+            return '-' + val.toLowerCase();
+        })
+    }
+    // 点击更多
+    $('#more').on('click', function() {
+        $(this).toggleClass('img-up');
+        $('.first-write').toggleClass('first-write-up');
+    })
+    apiready = function(){
+        params = api.pageParam;
+        init();
+    }
+        
+</script>
+</html>

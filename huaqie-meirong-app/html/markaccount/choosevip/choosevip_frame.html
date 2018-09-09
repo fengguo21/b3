@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>detail</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/aui.css"/>
+    <script type='application/javascript' src='../../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        * {
+            line-height: 1;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+        .aui-user-view:after {
+            border: 0;
+        }
+        .aui-user-view-cell {
+            height: 74px;
+            overflow: hidden;
+            padding: 14px 15px;
+            position: relative;
+        }
+        
+        .aui-user-view-cell:after {
+            border-color: #e6e6e6
+        }
+        .aui-user-view-cell:last-child:after {
+            /* border-color: #fff; */
+            border: 0;
+        }
+        .aui-user-view-cell p {
+            color: #999;
+        }
+        .msg-body {
+            width: calc(100% - 93px);
+            height: 48px;
+            position: absolute;
+            top: 50%;
+            left: 78px;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%)
+        }
+        .msg-body > span {
+            display: block;
+            height: 20px;
+            margin: 6px 0 5px;
+            font-size: 12px;
+            color:#333;
+        }
+        .msg-body > span em {
+            float: right;
+            font-size: 12px;
+            color: #999;
+        }
+        .msg-body > p {
+            padding: 0;
+            margin: 0;
+            height: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        .msg-body > p em {
+            display: inline-block;
+            min-width: 50px;
+            text-align: center;
+            float: right;
+            color: #ff3e39;
+            font-size: 15px;
+            /margin-top: 3px;*/
+        }
+        #order-list .new {
+            color: #ff55b5;
+        }
+        #order-list .cancel {
+            color: #00a5e7;
+        }
+        #order-list .complate {
+            color: #fb5660;
+        }
+        #order-list .ordering {
+            color: #2ecc71;
+        }
+        #count {
+            vertical-align: middle;
+            padding: 10px 15px;
+        }
+
+        #count img{
+            width: 19px;
+            height: 17px;
+            vertical-align: middle;
+            margin-right: 10px;
+            margin-left: 5px;
+        }
+        #count > span {
+            vertical-align: middle;
+            font-size: 13px;
+            color: #666;
+        }
+        #filter-box {
+            display: flex;
+            font-size: 14px;
+            background: white;
+            height: 50px;
+        }
+        #filter-box .active{
+            color:#ff55b5;
+            position: relative;
+        }
+
+        #filter-box .active::after {
+            content: '';
+            display: block;
+            width: 55px;
+            border-bottom: 2px solid #ff55b5;
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+        }
+        
+        .filter-box.show {
+            display: block;
+        }
+        .filter-box li {
+            /* padding: 15px 0; */
+            flex: 1;
+            /*margin:0 35px;*/
+           /*width:55px;*/
+            height: 50px;
+            line-height: 50px;
+            color: #999999;
+            text-align: center;
+            font-size: 13px;
+           
+        }
+        #not-empty .top{
+               padding-top: 14px;
+        }
+        .flex-wrap {
+            flex: 1;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body style='position: relative;'>  
+    <div class="flex-header">
+        
+        <p class="aui-padded-10 top" id='count'><img src="../../../image/vip-vip.png"><span>共<span id="total">0</span>位会员</span>
+           
+        </p>
+    </div>
+    <div class="flex-wrap">
+        <div id='not-empty' style='display: none'>
+            <div class="aui-content">
+                <ul class="aui-user-view aui-in" id='order-list'>
+                    <script type="text/html" id='tpl-order'>
+                        {{each list val index}}
+                            <li class="aui-user-view-cell aui-img" data-name='{{val.basic.name}}' data-peopleId='{{val.peopleId}}'  onclick='choose({{val}})'>
+                                <div class="aui-img-object aui-pull-left" style='overflow: hidden; border-radius: 50%'>
+                                    <img src="{{val.basic.avatar|formatAvatar}}"  style='width: 100%;'>
+                                </div>
+                                <div class="msg-body">
+                                    <span class="msg-name">
+                                        {{val.extra.name}}
+                                        <em class="msg-value">
+                                            {{val|formatMsgName}}
+                                        </em>
+                                    </span>
+                                    <p class='aui-ellipsis-1'>
+<!--                                         {{val.extra.phone}} -->
+                                        <em>
+                                            {{val|formatMsgValue}}
+                                        </em>
+                                    </p>
+                                </div>
+                            </li>
+                        {{/each}}
+                    </script>
+                </ul>
+            </div>
+        </div>
+        <div id="empty" style='display: none; overflow: hidden; text-align: center'>
+             <div style='width: 165px; height:165px; margin: 178px auto 20px'>
+                 <img src="../../image/data-empty.png" style='display: block; width: 186px;'>
+             </div>
+             <span style='font-size: 14px; color: #999'>暂时没有会员</span>
+        </div>
+    </div>
+    <script src="../../../script/api.js"></script>
+    <script src="../../../script/axios.min.js"></script>
+    <script src="../../../script/moment.min.js"></script>
+    <script src="../../../script/timeago.min.js"></script>
+    <script src="../../../script/template-web.js"></script>
+    <script src="../../../script/zepto.min.js"></script>
+    <script src="../../../script/store.min.js"></script>
+    <script src="../../../fetch/api.js?v=1"></script>
+    <script type="text/javascript">
+        var timeago = timeago();
+        var order = -1;
+
+    /**
+    *   过滤器
+    */  template.defaults.imports.formatDate = function(data){
+            return moment(data).format('YYYY-MM-DD hh:mm')
+        };
+        template.defaults.imports.formatAvatar = function(data) {
+            return data||'../../image/mine-avatar.png'
+        }
+        template.defaults.imports.formatMsgName = function(data) {
+            var vl =  store.get('vipFilter');
+            var sortName = vl&&vl.sortName ? vl.sortName : 'consume'
+            switch(sortName) {
+                case 'consume': return '消费金额'; break;
+                case 'consumeTime': return '最近到店'; break;
+                case 'consumeCount': return '服务次数'; break;
+                default: return '';
+            }
+        }
+        template.defaults.imports.formatMsgValue = function(data) {
+            var vl =  store.get('vipFilter');
+            var sortName = vl&&vl.sortName ? vl.sortName : 'consume'
+            switch(sortName) {
+                case 'consume': return '¥ ' + (data.extra.consume||0) ; break;
+                case 'consumeTime': return timeago.format(data.extra.consumeTime, 'zh_CN'); break;
+                case 'consumeCount': return (data.extra.consumeCount||0) + '次'; break;
+                default: return '';
+            }
+        }
+        var orderList = [];
+        var key = '', phone = '', name = '', sortName = '', sortBy = -1;
+        var page = 1;
+        var total = 0;
+        var getVipList = function() {
+            var vipFilter = store.get('vipFilter');
+            
+            key = vipFilter&&vipFilter.key ? vipFilter.key : '';
+            
+            sortBy = vipFilter&&vipFilter.order ? vipFilter.order : -1;
+            sortName = vipFilter&&vipFilter.sortName ? vipFilter.sortName : "consume";
+            
+            if(key == '') {
+                name = '';
+                phone = '';
+            } else {
+                if(isNaN(key)) {
+                    name = key
+                } else {
+                    phone = key
+                } 
+            }
+            var format = {
+                page: page,
+                size: 10,
+                name: name,
+                phone: phone,
+                sortName: sortName,
+                sortBy: sortBy
+            }
+            ajax.getVipList( format , function(res) {
+                console.log(res,2)
+                total = res.data.total;
+                if(page == 1) {
+                    orderList = res.data.list;
+                } else {
+                    orderList = orderList.concat(res.data.list);
+                }
+                if(total > 0) {
+                    $('#not-empty').show();
+                    $('#empty').hide();
+                    $('#total').html(total);
+                    $('#order-list').html(template('tpl-order', {list: orderList}))
+                } else {
+                    $('#not-empty').hide();
+                    $('#empty').show();
+                } 
+            })
+        }
+        var showOrder = function() {
+            if(order == -1) {
+                order = 1;    
+            } else {
+                order = -1;
+            }
+            setOrder();
+            search();
+        }
+        var setOrder = function() {
+            if(store.get('vipFilter')) {
+                var vipFil = store.get('vipFilter');
+                vipFil.order = order;
+                store.set('vipFilter', vipFil) 
+            } else {
+                store.set('vipFilter', {order: order}) 
+            }
+        }
+        var search = function() {
+            page = 1;
+            getVipList();
+        }
+        var loaded = function() {            
+            page = 1;
+            store.remove('vipFilter')
+            getVipList();
+        }
+        var telPhone = function(phone) {
+            // console.log(phone);
+            if(!phone) {
+                return;
+            }
+            api.call({
+                type: 'tel_prompt',
+                number: phone
+            });
+        }
+        var choose = function(val) {
+            store.set('choosedPeople', {
+                peopleId: val.peopleId,
+                name: val.extra.name,
+                avatar: val.basic.avatar,
+                phone: val.extra.phone
+            });
+            api.execScript({
+                name: 'addacc',
+                frameName: 'addacc_frame',
+                script: 'update()'
+            })
+            api.closeWin();
+        }
+        var loadMore = function() {
+            ajax.getVipList({
+                page: page,
+                size: 10
+            }, function(res) {
+                orderList = orderList.concat(res.data.list);
+                $('#order-list').html(template('tpl-order', {list: orderList}))
+            })
+        }
+        loaded();
+
+        var goSendMsg = function(e) {
+            var name = e.dataset.name;
+            api.openWin({
+                name: 'activity',
+                url: '../activity/activity.html',
+                pageParam: {
+                    name: name
+                }
+            })
+        }
+        var toggleShow = function() {
+            $('#filter-box').toggleClass('show')
+        }
+        
+        $('#filter-box').on('click', 'li', function(e) {
+            // 清空搜索关键词
+            api.execScript({
+                name: 'vip',
+                script: 'clearKeyWord()'
+            })
+
+            if(store.get('vipFilter')) {
+                var vipFil = store.get('vipFilter');
+                vipFil.key = '';
+                store.set('vipFilter', vipFil) 
+            } else {
+               store.set('vipFilter', {key: ''}); 
+            }
+            
+            $('li').removeClass('active')
+            e.target.className='active'
+            $('#filter-box').removeClass('show')
+            var name = this.dataset.name;
+ 
+            sortName = name;
+            order = -1;
+ 
+            if(store.get('vipFilter')) {
+                var vipFil = store.get('vipFilter');
+                vipFil.sortName = sortName;
+                store.set('vipFilter', vipFil) 
+            } else {
+               store.set('vipFilter', {sortName: sortName}) 
+            }
+            setOrder();
+            search();
+        })
+        // total = orderList.length;
+        apiready = function(){
+            // 滑动事件
+            api.addEventListener({
+                name: 'scrolltobottom',
+                extra: {
+                    threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+                }
+            }, function(ret, err) {
+                if(page * 10 < total){
+                    page += 1
+                    getVipList();
+                } else {
+                    api.toast({
+                        msg: '没有更多啦'
+                    })
+                }
+            });
+        };
+
+    </script>
+   
+</script>
+    
+</body>
+</html>

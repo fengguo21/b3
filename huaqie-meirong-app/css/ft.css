@@ -1,0 +1,73 @@
+header {
+    background-color: #ff8ec6;
+}
+
+header ul li {
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    display: none;
+    color: #fff;
+    position: relative;
+    font-size: 18px;
+}
+
+header ul li.active {
+    display: block;
+}
+
+#footer {
+    border-top: 1px solid #e6e6e6;
+    background-color: #fff;
+    color: #999;
+}
+
+#footer ul li {
+    padding-top: 32px;
+    padding-bottom: 4px;
+    font-size: 10px;
+    line-height: 1;
+    background: url() no-repeat center 5px;
+    background-size: auto 22px;
+    text-align: center;
+    position: relative;
+}
+
+#footer ul li.active {
+    color: #ff55b5;
+}
+
+#footer ul li:nth-child(1) {
+    background-image: url(../image/work-gray.png);
+}
+
+#footer ul li:nth-child(2) {
+    background-image: url(../image/manage-gray.png);
+}
+
+#footer ul li:nth-child(3) {
+    background-image: url(../image/mine-gray.png);
+}
+
+#footer ul li:nth-child(1).active {
+    background-image: url(../image/work-light.png);
+}
+
+#footer ul li:nth-child(2).active {
+    background-image: url(../image/manage-light.png);
+}
+
+#footer ul li:nth-child(3).active {
+    background-image: url(../image/mine-light.png);
+}
+
+#main {
+    display: block;
+    overflow: hidden;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+}
+
+.flex-con {
+    overflow: auto
+}

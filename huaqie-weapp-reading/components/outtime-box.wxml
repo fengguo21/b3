@@ -1,0 +1,12 @@
+<template name="outtime-box">
+  <view hidden="{{!showOutTimeModal}}" class="mask {{showOutTimeModal?'mask-show':''}}">
+    <view class="outtime-wrap position-center">
+      <image bindtap="toggleOutTimeModal" class="close-btn" mode="widthFix" src="/images/close-btn.png"></image>
+      <view class="outtime-box-wrap">
+        <view class="outtime-box-title">会员到期提醒</view>
+        <view class="outtime-box-content">您的会员已到期，请续费后再继续播放。</view>
+        <view bindtap="navToVip" class="outtime-box-btn">立即续费</view>
+      </view>
+    </view>
+  </view>
+</template>

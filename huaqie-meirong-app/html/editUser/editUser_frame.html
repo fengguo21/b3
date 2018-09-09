@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>editUser_frame</title>
+    <link rel="stylesheet" type="text/css" href="../../css/editUser.css?v=2"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style>
+        body{
+            
+        }
+        .border-b::after {
+            border-color: #e5e5e5;
+        }
+    </style>
+</head>
+<body>
+    <div class="edit-wrap">
+        <div class="edit-box">
+            <div class="edit-avatar border-b" onclick="openPic()">
+                <span class='edit-title position-y-center'><img src="../../image/user-avatar.png"><span class='position-y-center'>头像</span></span>
+                <div class="avatar-wrap position-y-center">
+                    <img id='avatar' src="../../image/user-avatar-info.png">
+                </div>
+            </div>
+            <div class="edit-name">
+                <span class='edit-title position-y-center'><img src="../../image/user-name.png"><span class='position-y-center'>姓名</span></span>
+                <input id='name' class='position-y-center' placeholder="请输入姓名" type="text">
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script src="../../script/axios.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../fetch/api.js?v=1"></script>
+<script type="text/javascript">
+    var options = {
+        type: 'picture',
+        column: 4,
+        classify: true,
+        max: 1,
+        sort: {
+            key: 'time',
+            order: 'desc'
+        },
+        texts: {
+            stateText: '已选择*项',
+            cancelText: '取消',
+            finishText: '完成'
+        },
+        styles: {
+            bg: '#fff',
+            mark: {
+                icon: '',
+                position: 'bottom_left',
+                size: 20
+            },
+            nav: {
+                bg: '#eee',
+                stateColor: '#000',
+                stateSize: 18,
+                cancelBg: 'rgba(0,0,0,0)',
+                cancelColor: '#000',
+                cancelSize: 18,
+                finishBg: 'rgba(0,0,0,0)',
+                finishColor: '#000',
+                finishSize: 18
+            }
+        },
+        exchange: true,
+    }
+    var Oavatar = $('#avatar');
+    var initPage = function() {
+        var avatar = store.get('me').basic.avatar;
+        var name = store.get('me').basic.name;
+        $('#avatar').attr({src: avatar});
+        $('#name').val(name);
+    }
+
+    var openPic = function() {
+        var UIMediaScanner = api.require('UIMediaScanner');
+        UIMediaScanner.open(options, function(ret) {
+           if (ret) {
+                if(ret.eventType == 'confirm') {
+                    if(ret.list.length <= 0) {
+                        api.toast({
+                            msg: '至少选择一张图片'
+                        });
+                    } else {
+                        var size = ret.list[0].size / 1024 / 1024;
+                        if(size >= 2) {
+                            api.toast({
+                                msg: '请上传小于2M的图片',
+                            });
+                        } else {
+                            UIMediaScanner.transPath({
+                                path: ret.list[0].path,
+                            }, function(ret, err) {
+                                if (ret) {
+                                    api.showProgress({
+                                        title: '正在加载中...',
+                                        text: '请稍后...',
+                                        modal: false
+                                    });
+                                    uploadAvatar(ret);
+                                } else {
+                                    api.toast({
+                                        msg: JSON.stringify(err)
+                                    });
+                                }
+                            });
+                        } 
+                    }
+                } else {
+                    api.toast({
+                        msg: '已取消选择'
+                    });
+                }
+           }
+        }); 
+    }
+
+    var uploadAvatar = function(ret) {
+        api.ajax({
+            url: "https://g2.huaqie.com/cloud/app/upload",
+            method: 'post',
+            data: {
+                values: {
+                    file: 'file'
+                },
+                files: {
+                   file: ret.path
+                }
+           }
+        }, function(ret, err) {
+            if (ret) {
+                if( ret.code > 0) {
+                    api.toast({ msg: ret.message });
+                    return;
+                }
+                api.hideProgress();
+                Oavatar.attr('src', ret.data.url)
+                // api.alert({ msg: JSON.stringify(ret) });
+            } else {
+                api.toast({ msg: '网络出错' });
+            }
+        });
+    }
+
+    var save = function() {
+        if($('#name').val() == '') {
+            api.toast('姓名不能为空')
+            return;
+        }
+        var formData = {
+            peopleId: store.get('me').peopleId,
+            avatar: $('#avatar').attr('src'),
+            name: $('#name').val()
+        }
+        ajax.updateUser(formData , function(ret) {
+            store.set('me', ret.data),
+            api.toast({ msg: '修改成功' })
+            api.closeWin();
+            api.execScript({
+                name: 'root',
+                frameName: 'frame2',
+                script: 'getUser()'
+            });         
+        });
+    }
+
+    initPage();
+    apiready = function(){
+        
+    };
+</script>
+</html>

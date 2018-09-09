@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>setholiday_frame</title>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/calender.css?v=1"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="header"></div>
+    <div class="calendar-container" id="calendar"></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script src="../../script/axios.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../script/moment.min.js"></script>
+<script type="text/javascript" src="../../script/template-web.js"></script>
+<script type="text/javascript" src="../../script/calendar.js?v=2"></script>
+<script type="text/javascript" src="../../fetch/api.js?v=1"></script>
+<script type="text/javascript">
+    var timeLimit = {
+        day: [
+            '09:00-10:00', 
+            '10:00-11:00', 
+            '11:00-12:00',
+            '12:00-13:00',
+            '13:00-14:00',
+            '14:00-15:00',
+            '15:00-16:00',
+            '16:00-17:00',
+        ],
+        night: [
+            '12:00-13:00',
+            '13:00-14:00',
+            '14:00-15:00',
+            '15:00-16:00',
+            '16:00-17:00',
+            '17:00-18:00',
+            '18:00-19:00',
+            '19:00-20:00',
+            '20:00-21:00',
+            '21:00-22:00'
+        ],
+        all: [
+            '09:00-10:00', 
+            '10:00-11:00', 
+            '11:00-12:00',
+            '12:00-13:00',
+            '13:00-14:00',
+            '14:00-15:00',
+            '15:00-16:00',
+            '16:00-17:00',
+            '17:00-18:00',
+            '18:00-19:00',
+            '19:00-20:00',
+            '20:00-21:00',
+            '21:00-22:00'
+        ]
+    }
+
+    var date = new Date();
+    var prevMonth = getMonth(-1);
+    var currentMonth = getMonth();
+    var nextMonth = getMonth(1);
+    var tabs = [
+        {
+            month: prevMonth,
+            isChangeMonth: true
+        },
+        {
+            month: currentMonth,
+            isChangeMonth: true
+        },
+        {
+            month: nextMonth,
+            isChangeMonth: true
+        }
+    ]
+    var data = [];
+    buildControls(currentMonth, tabs);
+    function init(month) {
+        month = month||currentMonth;
+        getWorkTime(month);
+    }
+    function buildControls(date, top) {
+      var div = document.createElement('div');
+      div.className = 'calendar-controls border-b'
+      var currentMonth = moment(new Date().getTime()).format('YYYY-MM');
+      for (var i = 0; i < top.length; i++) {
+        var newTab = document.createElement('div');
+        newTab.className = currentMonth == top[i].month?
+                           'calendar-control active border-r'
+                           :
+                           'calendar-control border-r'
+        if(top[i].isChangeMonth) {
+          newTab.setAttribute('data-calendar-control', top[i].month);
+          newTab.innerHTML = currentMonth == top[i].month? 
+                             '当月'
+                             :
+                             moment(top[i].month).format('MM') + '月';
+          div.appendChild(newTab)
+        } else {
+          newTab.setAttribute('data-calendar-control', top[i].title)
+          newTab.innerHTML = top[i].title;
+          div.appendChild(newTab)
+        }
+      }
+      $('#header').on('click', '.calendar-control', function(e) {
+            if($(this).is('.active')) return;
+            var dateset = this.getAttribute('data-calendar-control')
+            $(this).siblings().removeClass('active')
+            $(this).addClass('active')
+            init(dateset)
+      }) 
+      $('#header').append(div)
+    }
+    function getWorkTime(month) {
+        data = [];
+        $('#calendar').empty();
+        ajax.getMonthWorkTime({
+            peopleId: store.get('me').peopleId,
+            month: month
+        }, function(res) {
+            res.data.forEach(function(item) {
+                data.push({
+                    date: item.basic.date,
+                    imgUrl: item.basic.title == '全天'?
+                            '../../image/setwork-all.png':
+                            item.basic.title == '白班'?
+                            '../../image/setwork-day.png':
+                            item.basic.title == '晚班'?
+                            '../../image/setwork-night.png':
+                            '../../image/setwork-holiday.png'
+                })
+            })
+            calendar('#calendar', {
+                date: new Date(month.split('-')[0], month.split('-')[1] - 1),
+                data: data,
+                top: tabs,
+                isMark: true
+            }, function(res, cb) {
+                setTime(res, cb);
+                return;
+            })
+        })
+    }
+    function getMonth(index) {
+        // index 0||null 当月 -1 前一个月 1 后一个月
+        index = index||0;
+        return moment(moment(date.getTime()).add(index, 'M')).format('YYYY-MM')
+    }
+    function setTime(dayTime, cb) { 
+        var setDay = dayTime;
+        api.actionSheet({
+            cancelTitle: '取消',
+            buttons: ['白班', '晚班', '全天', '休息'],
+            style: {
+               fontNormalColor: '#333',
+               fontPressColor: '#666'
+            }
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            var formData = {
+                title: '',
+                date: '',
+                periods: []
+            }
+            switch(index) {
+                case 1: 
+                    formData.title = '白班';
+                    formData.date = setDay;
+                    formData.periods = timeLimit.day;
+                    setWorkTime(formData);
+                    return;
+                    break;
+                case 2: 
+                    formData.title = '晚班';
+                    formData.date = setDay;
+                    formData.periods = timeLimit.night;
+                    setWorkTime(formData);
+                    return;
+                    break;
+                case 3: 
+                    formData.title = '全天';
+                    formData.date = setDay;
+                    formData.periods = timeLimit.all;
+                    setWorkTime(formData);
+                    return;
+                    break;
+                case 4: 
+                    formData.title = '休息';
+                    formData.date = setDay;
+                    formData.periods = [];
+                    setWorkTime(formData);
+                    return;
+                    break;
+                default: cb();
+            }
+            return;
+        });
+        return;
+    }
+    // console.log(moment('2017-01-01').format('YYYY-MM'));
+    init();
+    function setWorkTime(formData) {
+        ajax.setWorkTime(formData, function(res) {
+            api.toast({
+                msg: '设置成功'
+            })
+            init(res.data.basic.month);
+        })
+    }
+    apiready = function(){
+        
+    };
+</script>
+</html>

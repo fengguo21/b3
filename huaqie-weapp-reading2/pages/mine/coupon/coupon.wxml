@@ -1,0 +1,38 @@
+<!--pages/mine/coupon/coupon.wxml-->
+<import src="/components/navBack/nav-back" />
+
+<template is="nav-back" />
+<view class="coupon-wrap">
+  <view class="coupon-navbar">
+    <block wx:for="{{tabs}}" wx:key="{{index}}">
+      <text bindtap="selectTab" id="{{index}}" class="coupon-navbar-item {{index == selectIndex ? 'on' : ''}}">{{item}}</text>
+    </block>
+  </view>
+
+  <scroll-view scroll-y class="coupon-list" lower-threshold="5" bindscrolltolower="scrollToLower">
+    <block wx:if="{{ list.length <= 0 }}">
+      <view class="is-empty">
+        <image mode="widthFix" src="/images/coupon-empty.png" ></image>
+        <text>暂时没有优惠券</text>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="coupon-list-item" wx:for="{{list}}" wx:key="{{index}}">
+        <image mode="widthFix" src="{{couponUrl}}"></image>
+          <view class="coupon-item-left">
+           <view class="coupon-face">￥<text>{{item.coupon.basic.price}}</text>优惠券</view>
+           <view class="coupon-time">有效期：<text>{{item.startDate}}-{{item.endDate}}</text></view>
+          </view>
+        <view class="coupon-item-right">
+          <!-- 使用条件 -->
+          <text class="coupon-term">{{item.coupon.basic.title}}
+          </text>
+          <text class="coupon-term">满{{item.coupon.basic.minAmount}}元可用
+          </text>
+          <text class="coupon-btn position-x-center {{btnColor}}" bindtap="useCoupon">{{btnText}}</text>
+        </view>
+      </view>
+    </block>
+
+  </scroll-view>
+</view>

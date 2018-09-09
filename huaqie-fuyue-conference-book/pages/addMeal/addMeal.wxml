@@ -1,0 +1,95 @@
+<!--pages/addMeal/addMeal.wxml-->
+<import src="/components/mask/mask.wxml"/>
+<import src="/components/successMask/success-mask.wxml"/>
+
+<view class="add-meal layout">
+  <!-- banner start -->
+  <view class="meal-banner">
+    <image src="{{detail.avatar}}"></image>
+  </view>
+  <!-- banner end -->
+
+  <!-- 拼团规则和简介 start -->
+  <view class="meal-rule pd-lr-30 mg-b-20">
+    <view class="meal-rule-header border-b">
+      <view class="meal-title">{{detail.title}}</view>
+      <view class="meal-price main-color">¥<text>{{detail.price}}</text></view>
+    </view>
+    <view class="meal-rule-bottom">
+      <view class="rule-bottom-header main-color">
+        <image src="/images/icon-add-rule.png"></image>拼团规则
+      </view>
+      <view class="rule-bottom-content middle-gray">
+        <block wx:if="{{detail.typehood == 0}}">
+          支付并邀请好友开团，人数不足<text class="main-color">{{detail.basic.rule}}</text>人拼团失败则自动退款。
+        </block>
+        <block wx:elif="{{detail.typehood == 1}}">
+          还差<text class="main-color">{{detail.basic.remain}}</text>个名额，团满即可拼团成功。
+        </block>
+        <block wx:elif="{{detail.typehood == 2}}">
+          20人已满，您已拼团成功啦。
+        </block>
+        <block wx:else>
+          {{detail.basic.text}}
+        </block>
+      </view>
+      <view class="rule-bottom-end middle-gray">拼团截止日期：<text class="main-color">{{detail.basic.deadDate}}</text></view>
+    </view>
+  </view>
+  <!-- 拼团规则和简介 end -->
+
+  <view class="choose-meal mg-b-20">
+    <view class="choose-box-title">选择拼团日期：</view>
+
+    <view class="choose-box-wrap">
+      <checkbox-group bindchange="checkboxChange">
+        <label
+          bindtap="selectCheck"
+          data-index="{{index}}"
+          class="choose-box-item {{item.isOutline?'disabled':''}} {{item.checked?'checked':''}} {{item.isBuy?'buyed':''}}"
+          wx:for="{{checkboxItems}}"
+          wx:key="value">
+          <checkbox
+            class="choose-box-hidden"
+            value="{{item.value}}"
+            checked="{{item.checked}}"
+            disabled="{{item.isOutline||item.isBuy||item.disabled}}"/>
+          <view class="choose-box-date">{{item.date}}</view>
+          <block wx:if="{{!item.isBuy}}">
+            <view wx:if="{{!item.isOutline}}" class="choose-room-num">
+              <block wx:if="{{item.count <= 0}}">已开团</block>
+              <block wx:else>剩{{item.count}}人</block>
+            </view>
+            <view wx:else class="choose-room-num">已过期</view>
+          </block>
+          <block wx:else>
+            <view class="choose-room-num">已报名</view>
+          </block>
+        </label>
+      </checkbox-group>
+    </view>
+
+  </view>
+
+  <!-- 自助餐详情 start -->
+  <view class="meal-detail pd-lr-30">
+    <view class="meal-detail-header border-b middle-black">自助餐详情</view>
+    <block wx:for="{{detail.basic.desc}}" wx:key="index">
+      <view class="meal-detail-list border-b middle-black">
+        <text class="middle-gray">{{item.title}}</text>{{item.text}}
+      </view>
+    </block>
+  </view>
+  <!-- 自助餐详情 end -->
+
+  <!-- 支付确认按钮 start -->
+  <view class="pay-btn-wrap">
+    <view class="pay-btn {{!canClick?'end':''}}" bindtap="goCreate">{{!orderId ? '立即拼团' : '为TA拼团'}}</view>
+  </view>
+  <!-- 支付确认按钮 end -->
+</view>
+<!-- 支付方式弹窗(公有组件) -->
+<template is="mask" data="{{...mask}}"></template>
+<!-- 支付成功弹窗 -->
+<template is="smask" data="{{...smask}}"></template>
+

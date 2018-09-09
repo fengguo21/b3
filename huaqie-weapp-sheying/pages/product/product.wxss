@@ -1,0 +1,121 @@
+.banner{width:100%;height:353rpx;overflow: hidden;}
+.banner .pic{width:100%;height:100%;}
+.banner .title{font-size:50rpx;text-shadow:1px 1px 2px #333;color:#fff;width:100%;top:100rpx;left:0;z-index: 1;}
+.banner:after{content:"";display:block;width:20%;height:1px;background: #fff;position: absolute;left:40%;top:5rem;z-index: 1;}
+.banner .tag{font-size:0.747rem;color:#fff;width:100%;top:5.333rem;left:0;z-index: 1;text-shadow:1px 1px 2px #333;}
+
+.sjs_bar{height:4.933rem;}
+.sjs_bar .pic{width:2.96rem;height:2.96rem;border-radius: 50%;margin-top:0.986rem;}
+.sjs_bar .name{font-size:0.933rem;left:3.5rem;top:1.4rem;color:#333;}
+.sjs_bar .des{font-size:0.813rem;left:3.5rem;top:2.6rem;color:#666;}
+.sjs_bar .btn{right:0;top:1.7rem;}
+
+.detaile{padding:10px 0;}
+.linian title{display:block;line-height: 30px;color:#333;font-size: 16px;}
+.content image{display:block;width:100%;margin:10px 0;}
+.buy-box{
+	position: fixed;
+	text-align: center;
+	z-index: 1000;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	color: white;
+	background: #e85787;
+	height: 90rpx;
+  line-height: 90rpx;
+  margin-bottom:-2rpx;
+}
+
+.show-btn {
+  margin-top: 100rpx;
+  color: #22cc22;
+}
+
+.modal-mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.5;
+  overflow: hidden;
+  z-index: 9000;
+  color: #fff;
+}
+
+.modal-dialog {
+  width: 540rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 0;
+  z-index: 9999;
+  background: #f9f9f9;
+  margin: -180rpx 105rpx;
+  border-radius: 28rpx;
+}
+
+.modal-title {
+  padding-top: 50rpx;
+  font-size: 36rpx;
+  color: #030303;
+  text-align: center;
+}
+
+.modal-content {
+  padding: 50rpx 32rpx;
+}
+
+.modal-input {
+  display: flex;
+  background: #fff;
+  border: 2rpx solid #ddd;
+  border-radius: 4rpx;
+  font-size: 28rpx;
+}
+
+.modal-tips{
+  color: #e85787;
+  padding-top: 10rpx;
+}
+
+.input {
+  width: 100%;
+  height: 82rpx;
+  font-size: 32rpx;
+  line-height: 28rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  color: #333;
+  margin-top: 0!important;
+}
+
+input-holder {
+  color: #666;
+  font-size: 28rpx;
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: row;
+  height: 86rpx;
+  border-top: 1px solid #dedede;
+  font-size: 34rpx;
+  line-height: 86rpx;
+}
+
+.btn-cancel {
+  width: 50%;
+  color: #666;
+  text-align: center;
+  border-right: 1px solid #dedede;
+}
+
+.btn-confirm {
+  width: 50%;
+  color: #e85787;
+  text-align: center;
+}

@@ -1,0 +1,16 @@
+<template name="meetingTime">
+  <view class="meeting-time">
+    <view class="meeting-time-start">
+      <view class="meeting-time-text">开始时间</view>
+      <view class="meeting-time-content">{{startDate}}</view>
+    </view>
+    <view class="meeting-time-end">
+      <view class="meeting-time-text">结束时间</view>
+      <view class="meeting-time-content">{{endDate}}</view>
+    </view>
+    <view class="meeting-time-process">
+      <view class="time-progress-box">共{{progress}}天</view>
+      <view class="time-progress-line"></view>
+    </view>
+  </view>
+</template>

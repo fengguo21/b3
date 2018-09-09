@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mask.css?v=1"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css?v=1"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mrUI.css?v=2"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        * {
+            line-height: 1;
+        }
+        .aui-user-view:after {
+            border: 0;
+        }
+        .aui-user-view-cell {
+            height: 60px;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding: 0 15px;
+            position: relative;
+        }
+        
+        .aui-user-view-cell:after {
+            border-color: #e6e6e6!important;
+            margin-left: 15px;
+        }
+        #pro-list label:last-child li:after {
+            /* border-color: #fff; */
+            border-color: #fff!important;
+        }
+        .aui-user-view-cell p {
+            color: #999;
+        }
+        .msg-body {
+            width: calc(100% - 93px);
+            height: 48px;
+            position: absolute;
+            top: 50%;
+            left: 78px;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%);
+        }
+        .msg-body > span {
+            display: block;
+            height: 20px;
+            color: #333;
+            margin: 6px 0 5px;
+            font-size: 13px;
+            overflow: hidden;
+        }
+        .msg-body > span em {
+            float: right;
+        }
+        .msg-body > p {
+            padding: 0;
+            margin: 0;
+            height: 20px;
+            font-size: 12px;
+            color: #666;
+            overflow: hidden;
+        }
+        .msg-body > p em {
+            float: right;
+            color: #999;
+            font-size: 10px;
+            margin-top: 3px;
+        }
+        #order-list .new {
+            color: #ff55b5;
+        }
+        #order-list .cancel {
+            color: #00a5e7;
+        }
+        #order-list .complate {
+            color: #fb5660;
+        }
+        #order-list .ordering {
+            color: #2ecc71;
+        }
+        #count {
+            vertical-align: middle;
+        }
+        #count img{
+            width: 19px;
+            height: 17px;
+            vertical-align: middle;
+            margin-right: 10px;
+            margin-left: 5px;
+        }
+        #count > span {
+            vertical-align: middle;
+            font-size: 13px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+   <div id="not-empty" style='display: none'>
+       <p class="aui-padded-10" id='count'><img src="../../image/vip-card.png"><span>共<span id="total">0</span>种卡</span></p>
+       <div class="aui-content">
+           <ul class="aui-user-view aui-in" id="pro-list">
+           <script id="tpl-pro" type="text/html">
+               {{each list value i}}
+                   <label>
+                       <li class="aui-user-view-cell aui-img" data-title='{{value.basic.title}}'>
+                           <div class="position-y-center aui-pull-left" style='overflow: hidden; border-radius: 50%; height: 42px'>
+                               <img src="{{value.basic.avatar}}" data-title='{{value.basic.title}}'  style='width: 42px !important; max-height: 42px !important; max-width: inherit !important; height: inherit !important;'>
+                           </div>
+                           <div class='position-y-center' style='float:left; height: 60px; line-height: 60px; left: 72px; font-size: 13px; color: #333'>
+                               <span data-title='{{value.basic.title}}'>{{value.basic.title}}</span>
+                           </div>
+                           <input data-title='{{value.basic.title}}' class='position-y-center radio' style='right: 15px' type="radio" name="pro"></input>
+                       </li>
+                   </label>
+               {{/each}}
+           </script>
+           </ul>
+       </div>  
+   </div> 
+   <div id="empty" style='display: none; overflow: hidden; text-align: center'>
+        <div style='width: 165px; height:165px; margin: 178px auto 20px'>
+            <img src="../../image/data-empty.png" style='display: block; width: 186px;'>
+        </div>
+        <span style='font-size: 14px; color: #999'>暂时没有卡种</span>
+   </div>  
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/template-web.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../script/phone.js"></script>
+<script type="text/javascript">
+    var myElement = document.getElementById('pro-list');
+    var mc = new Hammer(myElement);
+	var typeList = [
+		{
+			basic: {
+				title: '次卡',
+				avatar: '../../image/card-ci.png'
+			}
+		},
+		{
+			basic: {
+				title: '充值卡',
+				avatar: '../../image/card-charge.png'
+			}
+		}
+	]
+	var total = typeList.length;
+	var init = function() {
+		if(total > 0) {
+			$('#not-empty').show();
+			$('#empty').hide();
+			$('#total').html(total);
+			$('#pro-list').html(template('tpl-pro', {list: typeList}))
+		} else {
+			$('#not-empty').hide();
+			$('#empty').show();
+		}
+	}
+    mc.on("tap", function(ev) {
+        var target = $(ev.target);
+        var val = ev.target.dataset.title;
+        store.set('selectType', val);
+        api.closeWin();
+        api.execScript({
+            name: 'addCard',
+            frameName: 'addCard_frame',
+            script: 'showType()'
+        }) 
+        api.execScript({
+            name: 'editCard',
+            frameName: 'editCard_frame',
+            script: 'showType()'
+        }) 
+    });
+	init();
+    apiready = function(){
+        
+    };
+</script>
+</html>

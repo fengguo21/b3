@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/mine/mine",
+    "pages/mine/myBuy/myBuy",
+    "pages/mine/myComment/myComment",
+    "pages/mine/coupon/coupon",
+    "pages/mine/expire/expire",
+    "pages/home/bookDetail/bookDetail",
+    "pages/home/bookSummary/bookSummary",
+    "pages/home/openVip/openVip",
+    "pages/home/bookVedio/bookVedio",
+    "pages/home/bookMenus/bookMenus",
+    "pages/home/userRecord/userRecord",
+    "pages/mine/buyDetail/buyDetail",
+    "pages/home/bannerAdvise/bannerAdvise",
+    "pages/mine/myOrder/myOrder",
+    "pages/home/canUseCoupon/canUseCoupon",
+    "pages/home/shared/shared",
+    "pages/mine/viporder/viporder",
+    "pages/home/freeArticle/freeArticle"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#5b595d",
+    "navigationBarTitleText": "科大读书会",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#5b595d",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "精选",
+        "iconPath": "images/study.png",
+        "selectedIconPath": "images/study-on.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/mine.png",
+        "selectedIconPath": "images/mine-on.png"
+      }
+    ]
+  },
+  "debug": true
+}

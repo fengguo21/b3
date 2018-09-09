@@ -1,0 +1,250 @@
+.meeting-place {
+  /*height: 222rpx;*/
+  width: 100%;
+  background: #fff;
+  box-sizing: border-box;
+  padding: 42rpx 30rpx 36rpx;
+}
+/* 会议地址详情 start */
+.meeting-hotel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30rpx;
+}
+.meeting-hotel text {
+  line-height: 1;
+}
+.meeting-hotel-name {
+  font-size: 32rpx;
+  color: rgb(51, 51, 51);
+}
+.meeting-hotel-detail,
+.meeting-address-map {
+  width: 120rpx;
+  text-align: right;
+}
+
+.meeting-hotel-detail {
+  font-size: 26rpx;
+  color: rgb(190, 52, 42);
+  padding-top: 6rpx;
+}
+
+.meeting-phone {
+  margin-bottom: 26rpx;
+}
+.meeting-phone-wrap,
+.meeting-address-wrap {
+  font-size: 26rpx;
+  line-height: 1;
+  color: rgb(153, 153, 153);
+}
+.meeting-phone-wrap > text {
+  color: rgb(190, 52, 42);
+}
+
+.meeting-address {
+  display: flex;
+  justify-content: space-between;
+}
+.meeting-address-wrap > text {
+  line-height: 1.5;
+  color: rgb(51, 51, 51);
+  margin-top: -16rpx;
+}
+.meeting-address-map {
+  line-height: 1;
+  font-size: 26rpx;
+  color: rgb(190, 52, 42);
+  padding-top: 6rpx;
+}
+/* 会议地址详情 end */
+
+/* 预定的床位信息 start */
+.meeting-room,
+.meeting-meal-item {
+  background: #fff;
+  height: 222rpx;
+  box-sizing: border-box;
+  padding: 21rpx 30rpx;
+}
+.meeting-room.border-b::after {
+  margin-left: 30rpx;
+}
+.meeting-room-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.room-avatar {
+  width: 210rpx;
+  height: 180rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+  margin-right: 24rpx;
+}
+.room-avatar image {
+  width: 100%;
+  height: 100%;
+}
+.room-msg {
+  flex: 1;
+  overflow: hidden;
+}
+.room-msg-left {
+  float: left;
+}
+.room-msg-left > view {
+  line-height: 1;
+}
+.room-msg-right {
+  float: right;
+  padding-top: 26rpx;
+}
+.room-msg-right > view {
+  line-height: 1;
+}
+  /* 左侧 */
+  .room-name {
+    display: flex;
+    align-items: center;
+    font-size: 32rpx;
+    color: #000;
+    margin-bottom: 26rpx;
+  }
+  .room-name text {
+    display: inline-block;
+    font-size: 24rpx;
+    background-color: #be342a;
+    color:#fff;
+    border-radius: 6rpx;
+    padding: 5rpx;
+    line-height: 1;
+    margin-left: 10rpx;
+  }
+  .room-pay-style,
+  .room-pay-time {
+    color: rgb(153, 153, 153);
+    font-size: 26rpx;
+  }
+  .room-pay-style {
+    margin-bottom: 26rpx;
+  }
+  .room-pay-style > text {
+    line-height: 1;
+  }
+  /* 右侧 */
+  .room-pay-status {
+    font-size: 26rpx;
+    color: rgb(48, 176, 3);
+    margin-bottom: 26rpx;
+    text-align: right;
+  }
+  .room-amount {
+    font-size: 24rpx;
+    color: rgb(190, 52, 42);
+    text-align: right;
+  }
+  .room-amount text {
+    font-size: 36rpx;
+  }
+/* 预定的床位信息 end */
+
+/* 入住人信息 start */
+.room-people {
+  background: #fff;
+}
+.room-people-list {
+  width: 100%;
+  height: 100%;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+.room-people-item {
+  margin-bottom: 30rpx;
+  line-height: 1;
+  font-size: 26rpx;
+  color: rgb(153, 153, 153);
+}
+.room-people-item:last-child {
+  margin-bottom: 0;
+}
+.room-people-item > text {
+  color: rgb(51, 51, 51);
+}
+/* 入住人信息 end */
+
+/* 会议简介 start */
+.meeting-summary {
+  background: #fff;
+  overflow: hidden;
+}
+.meeting-summary-msg {
+  padding: 30rpx 20rpx 24rpx 30rpx;
+}
+.meeting-summary-msg.border-b::after {
+  margin-left: 30rpx;
+}
+.meeting-summary-title {
+  line-height: 1;
+  font-size: 32rpx;
+  color: rgb(51, 51, 51);
+  margin-bottom: 20rpx;
+}
+.meeting-summary-detail {
+  word-break: break-all;
+  font-size: 26rpx;
+  color: rgb(153, 153, 153);
+}
+
+/* 会议简介 end */
+
+/* 自助餐拼团 start */
+.meeting-meal {
+  background: #fff;
+}
+.meeting-meal-title {
+  height: 86rpx;
+  background: #fff;
+  line-height: 86rpx;
+  font-size: 32rpx;
+  color: #000;
+}
+.meeting-meal-title.border-b::after {
+  margin-left: 30rpx;
+}
+.meeting-meal-item {
+  position: relative;
+}
+.meeting-meal .room-pay-style {
+  font-size: 24rpx;
+  color:rgb(190, 52, 42);
+}
+.meeting-meal .room-pay-style > text {
+  font-size: 36rpx;
+}
+.meeting-meal .room-pay-time image {
+  display: inline-block;
+  width: 26rpx;
+  height: 26rpx;
+  margin-right: 12rpx;
+}
+.meeting-meal .room-pay-time text,
+.meeting-meal .room-pay-time image {
+  vertical-align: middle;
+}
+.meeting-meal-btn {
+  width: 160rpx;
+  height: 58rpx;
+  color: #fff;
+  border-radius: 50rpx;
+  text-align: center;
+  line-height: 58rpx;
+  font-size: 28rpx;
+  background: rgb(190, 52, 42);
+  position: absolute;
+  right: 44rpx;
+  bottom: 38rpx;
+}
+/* 自助餐拼团 end */

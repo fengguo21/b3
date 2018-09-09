@@ -1,0 +1,131 @@
+#aui-header .aui-title{
+    height: 44px;
+}
+#aui-header .border-b::after,#aui-header  .border-l::after,
+#aui-header .border-t::after,#aui-header  .border-r::after {
+    border: 2px solid #fff!important;
+    border-radius: 10px;
+} 
+.report-header-wrap {
+    width: 195px!important;
+    height: 31px!important;
+    box-sizing: border-box;
+    font-size: 13px;
+    color: #fff;
+    overflow: hidden;
+}
+.report-header {
+    display: block; 
+    width: 50%;
+    height: 100%;
+    line-height: 31px;
+    float: left;
+    text-align: center;
+    transition: background,color ease-in-out,ease-in-out .2s,.2s
+}
+.report-header:first-child {  
+    border-radius: 5px 0 0 5px;    
+}
+.report-header:last-child {
+    border-radius: 0 5px 5px 0;
+}
+.report-header.active {
+    background: #fff;
+    color: #ff8ec6;
+}
+#special-search {
+    width: 100%;
+    text-align: center;
+    height: 100%;
+    line-height: 30px;
+    font-size: 0;
+    color: #333; 
+    vertical-align: middle;  
+    z-index: 1000;
+}
+#special-search span {
+    vertical-align: middle;
+    font-size: 11px;
+    margin-right: 5px
+}
+#special-search img {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;  
+    cursor: pointer;
+}
+.sort-box {
+    height: 30px;
+    background: #fff;
+    overflow: hidden;
+}
+.sort-box ul {
+    width: calc(100% - 30px);
+    padding-left: calc(100% / 3);
+    padding-right: 20px;
+    height: 29px;
+    position: relative;
+    overflow: hidden;
+}
+.sort-box ul li {
+    cursor: pointer;
+    box-sizing: border-box;
+    height: calc(100% - 7px);
+    margin-top: 7px;
+    float: right;
+    width: calc(100% / 3);
+    font-size: 10px;
+    color: #333;
+    text-align: center;
+    transition: color ease-in-out .3s
+}
+.sort-box ul li::before {
+    content: '';
+    display: block;
+    width: 9px;
+    height: 9px;
+    position: absolute;
+    left: 0;
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    bottom: 0;
+    background: #fff;
+    background-size:  100% 100%;
+    transition: left,color ease-in-out,ease-in-out .3s,.3s;
+}
+.sort-box ul li.active {
+    color: #ff55b5;
+}
+
+.sort-box ul li.active::before {
+    content: '';
+    display: block;
+    width: 9px;
+    height: 9px;
+    position: absolute;
+    background: url('../image/report-sort.png') no-repeat center;
+    background-size:  100% 100%;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    transition: left,color ease-in-out,ease-in-out .3s,.3s;
+}
+.sort-date {
+    width: 15px;
+    height: 16px;
+    right: 15px;
+}
+.sort-date img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+#sort .border-r::after {
+    margin-top: 1px;
+    border-left: 1px solid #ccc!important;
+    height: 18px;
+}
+#sort .border-r:last-child::after {
+    border-color: #fff!important;
+}

@@ -1,0 +1,109 @@
+/* pages/home/userRecord/userRecord.wxss */
+@import '/common/css/record.wxss';
+
+.user-record {
+  padding-bottom: 110rpx;
+}
+
+.book-menus {
+  padding-bottom: 98rpx;
+}
+
+.book-face {
+  width: 100%;
+  height: 470rpx;
+  background: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.book-face image {
+  display: block;
+  width: 280rpx;
+  box-shadow: 12rpx 12rpx 16rpx 6rpx rgba(99, 99, 99, .16);
+}
+
+.mode {
+  background: #fff;
+  box-sizing: border-box;
+  padding: 0 30rpx 22rpx;
+  margin-bottom: 10rpx;
+}
+.mode.sp {
+  padding: 0 0 0 30rpx;
+}
+.mode.sp .mode-title {
+  padding: 37rpx 0 30rpx;
+}
+.mode-title {
+  line-height: 1;
+  position: relative;
+  padding: 37rpx 0 42rpx;
+  display: flex;
+  font-size: 32rpx;
+  color: #1a1a1a;
+  font-weight: 700;
+  align-items: center;
+}
+.mode-title-border {
+  width: 6rpx;
+  height: 30rpx;
+  background: #ffa42f;
+  margin-right: 20rpx;
+}
+.mode-text {
+  font-size: 30rpx;
+  color: #4c4c4c;
+  word-break: break-all;
+  margin-top: -12rpx;
+}
+.mode-text text {
+  word-break: break-all;
+  font-size: 30rpx!important;
+}
+
+.record-count {
+  font-size: 32rpx;
+  color: #999;
+  font-weight: normal;
+}
+
+.input-wrap {
+  border-top: 1rpx solid #e5e5e5;
+  height: 110rpx;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px -3px 15px 5px rgba(229, 229, 229, .5);
+}
+
+.input-wrap input {
+  width: 540rpx;
+  height: 72rpx;
+  border-radius: 72rpx;
+  background: #eff1f4;
+  padding: 0 30rpx;
+  line-height: 72rpx;
+  font-size: 28rpx;
+  color: #1a1a1a!important;
+}
+.input-wrap .input-placeholder {
+  color: #999!important;
+}
+.input-wrap text {
+  display: block;
+  font-size: 32rpx;
+  color: #ccc;
+  font-weight: 600;
+}
+.input-wrap text.text-has {
+  color: #ffa42f;
+}

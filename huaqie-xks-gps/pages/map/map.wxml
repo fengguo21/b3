@@ -1,0 +1,15 @@
+<!--pages/map/map.wxml-->
+<view wx:if="{{false}}">
+  <view class='imgwrap'>
+    <image src='../../images/nobus.png'></image>
+    <view class='tip'>
+      暂无运行班车
+    </view>
+  </view>
+</view>
+<view class='mapwrap'>
+  <map v-if="{{latitude&&longitude}}" id="map" showLocation="{{false}}" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" polyline="{{polyline}}" show-location  style="width:{{map_width}}px;height:{{map_height}}px"></map>
+
+</view>
+
+

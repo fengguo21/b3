@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>card</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/aui-win.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/header.css?v=2"/>
+    <script type='application/javascript' src='../../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        body{
+            
+        }
+        .aui-bar .aui-pull-right {
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-primary" id="aui-header">
+        <a class="aui-pull-left" onclick="api.closeWin();"> <span class="aui-iconfont aui-icon-left"></span> </a>
+        <div class="aui-title">
+            会员卡
+        </div>
+        
+    </header>
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/store.min.js"></script>
+<script type="text/javascript">
+	var addCard = function() {
+        if(store.get('me').role.level != 1&&store.get('me').role.level != 1.5) {
+            api.alert({
+                title: '警告',
+                msg: '您没有操作权限！'
+            })
+            return;
+        }
+        api.openWin({
+            name: 'addCard',
+            url: '../addCard/addCard.html'
+        });
+    }
+    apiready = function(){
+        var id = api.pageParam.id;
+        $api.fixStatusBar($api.dom('header'));
+        api.openFrame({
+        	name: 'vipCard_frame',
+        	url: './vipCard_frame.html',
+        	rect: {
+        		x: 0,
+        		y: $api.dom('header').offsetHeight,
+        		width: 'auto',
+        		height: 'auto'
+        	},
+            pageParam: {
+                id: id,
+            },
+        })
+    };
+</script>
+</html>

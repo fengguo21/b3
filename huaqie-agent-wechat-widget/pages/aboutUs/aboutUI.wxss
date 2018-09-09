@@ -1,0 +1,87 @@
+view{
+  padding: 0
+}
+
+.logo{
+  margin-top:46rpx;
+  margin-bottom: 32rpx;
+  
+}
+.logo image{
+  display: block;
+  width:88rpx;
+  height: 104rpx;
+  margin: 0 auto;
+}
+.title{
+  margin-top:32rpx;
+  margin-bottom: 23rpx;
+}
+.name{
+  font-size: 32rpx;
+  color:black;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+.secondTitle{
+ 
+  margin-bottom:44rpx;
+}
+.secondName{
+  font-size: 26rpx;
+  color:black;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+.map{
+  height: 298rpx;
+  overflow:auto ;
+  
+  margin:0 40rpx;
+  border:solid 4rpx #ede4ff;
+  margin-bottom: 53rpx;
+  margin-top:30rpx；
+
+}
+.map map{
+  height: 298rpx;
+  
+}
+.con{
+  margin-bottom: 21rpx;
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+  line-height: 51rpx;
+  font-size: 24rpx;
+  color: #1a1a1a;
+  margin-top: 44rpx;
+  text-indent: 2em
+}
+.line{
+  border-bottom: 1px dashed #e6e6e6;
+  margin:0 40rpx;
+}
+.contact{
+  margin-top: 31rpx;
+  margin-bottom: 25rpx;
+  margin-left: 40rpx;
+  font-size: 26rpx;
+  color: #1a1a1a;
+  line-height: 1em;
+}
+.tel{
+  font-size: 24rpx;
+  color: #1a1a1a;
+  margin-left: 92rpx;
+  margin-bottom:18rpx;
+}
+.ph1{
+  margin-left: 34rpx;
+}
+.last{
+  margin-bottom:28rpx;
+}

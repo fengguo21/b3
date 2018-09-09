@@ -1,0 +1,120 @@
+<!-- 书单详情 pages/mine/buyDetail/buyDetail.wxml-->
+<!-- 引用模板 -->
+<import src="/components/float-radio.wxml"/>
+<view class="book-menus">
+  <view class="book-face">
+    <image wx:if="{{bookDetail&&bookDetail.basic.avatar}}" src="{{bookDetail&&bookDetail.basic.avatar}}" ></image>
+  </view>
+
+  <view class="mode">
+    <view class="mode-title">
+      <view class="mode-title-border"></view>
+      <view class="mode-title-text">音频简介</view>
+    </view>
+
+    <view class="mode-text">
+      <text>{{!isOpen?bookSummary:bookSummaryAll}}</text><text bindtap='toggleOpen' class='check-open'>{{!isOpen?'展开':'收起'}}</text>
+    </view>
+  </view>
+
+  <view class="mode" hidden="{{!isShowBuy}}">
+    <view class="mode-title">
+      <view class="mode-title-border"></view>
+      <view class="mode-title-text">购买须知</view>
+    </view>
+
+    <view class="mode-text">
+      <text>本书籍共{{bookDetail.basic.audios.length}}集音频，整本购买价格{{bookDetail.price}}元。用户一经购买成功概不退款，敬请谅解。</text>
+    </view>
+  </view>
+
+  <view class="book-radio">
+    <view class="radio-all border-b" bindtap="radioAll">
+      <image src="/images/book-radio-all.png" ></image>
+      <text>播放全部</text>
+    </view>
+
+    <view class="radio-list">
+
+      <block wx:if="{{ radioList.length > 0 }}">
+        <block wx:for="{{ radioList }}" wx:key='{{index}}'>
+
+        <view class="radio-item border-b">
+          <view class="radio-normal {{item.isComplate ? 'radio-end' : ''}} {{ item.isRun ? 'radio-running' : ''}}">
+            <image bindtap="radioPice" data-index="{{index}}" class="radio-btn" src="{{item.isRun ? radioRunImg : radioStopImg}}"></image>
+            <view class="radio-msg-wrap" bindtap="radioPice" data-index="{{index}}">
+              <view class="radio-title">{{item.title}}</view>
+              <view class="radio-status">
+                <text class="radio-status-time">{{item.createTime}}</text>
+                <text class="radio-status-duration">时长{{item.duration}}</text>
+                <text hidden="{{!item.isComplate}}" class="radio-status-complate">已听完</text>
+                <text hidden="{{!item.audioTime}}" class="radio-status-complate">已听10%</text>
+              </view>
+            </view>
+          </view>
+          <view class="radio-options">
+            <image class="detail" data-index="{{index}}" mode="widthFix" src="/images/book-detail.png" bindtap='navToDetail'></image>
+            <button data-index="{{index}}" size="default" plain="true" open-type="share">
+              <image class="share" data-index="{{index}}" mode="widthFix" src="/images/book-share.png" ></image>
+            </button>
+          </view>
+        </view>
+
+        </block>
+      </block>
+      <block wx:else>
+        <view class="list-empty">
+          <text>本书还没有音频</text>
+        </view>
+      </block>
+
+
+
+    </view>
+
+  </view>
+  <view class="mode sp">
+    <view class="mode-title">
+      <view class="mode-title-border"></view>
+      <view class="mode-title-text">精选评论</view>
+    </view>
+
+    <view class="record-list">
+      <block wx:if="{{recordList.length > 0}}">
+        <block wx:for="{{recordList}}" wx:key='{{index}}'>
+        <view class="record-item {{index !== list.length - 1?'border-b':''}}">
+          <view class="record-user-msg">
+            <image mode="widthFix" src="{{item.basic.people.avatar?item.basic.people.avatar:'/images/play.png'}}"></image>
+            <view class="record-user-other">
+              <text class='record-user-name'>{{item.basic.people.name}}</text>
+              <text class='record-user-time'>{{item.createFormat}}</text>
+            </view>
+          </view>
+          <view class="record-content">
+            {{item.basic.text}}
+          </view>
+        </view>
+        </block>
+      </block>
+
+      <block wx:else>
+        <view class="list-empty">
+          <image mode="widthFix" src="/images/record-empty.png"></image>
+          <text>还没有评论哦~~</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="empty-e" hidden="{{!isShowBuy}}"></view>
+
+</view>
+
+<view class="buy-btn" hidden="{{!isShowBuy}}">
+  <view bindtap="buyBook" class="buy-the-book {{!hasVip?'add-vip':''}}">购买<text>￥{{bookDetail.price}}</text></view>
+  <view wx:if='{{hasVip}}' class="add-vip" bindtap='navToVip'>加入VIP免费听全部</view>
+</view>
+
+<template data="{{hasRadio, radioRun, ...radioOther}}" is="floatRadio"></template>
+
+

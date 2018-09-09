@@ -1,0 +1,69 @@
+<!--pages/mine/myBuy/myBuy.wxml-->
+<import src="/components/float-radio.wxml"/>
+<import src="/components/navBack/nav-back.wxml"/>
+
+<template is="nav-back" />
+<view class="my-buy">
+  <block wx:if="{{ booklist.length <= 0 }}">
+    <view class="is-empty">
+      <image mode="widthFix" src="/images/buy-empty.png" ></image>
+      <text>暂时没有已购书籍</text>
+    </view>
+  </block>
+  <block wx:else>
+  <!-- booklist start -->
+  <!--
+    booklist-wrap 最外层的容器
+    bookItem-wrap 当前书单的容器
+    bookItem      书单中的每一本书
+    book-face     书封面
+    book-more     跳转详情的按钮
+    book-book-msg 书的信息
+    book-summery  书的简介
+  -->
+
+  <view class="booklist-wrap">
+    <view class="bookItem-wrap">
+      <block wx:for="{{booklist}}" wx:key="{{index}}">
+      <view class="bookItem {{index !== (booklist.length-1) ? 'border-b' : ''}}">
+        <view data-detail="{{item}}" class="book-face" bindtap="radioAll">
+          <image src="{{item.basic.avatar}}" />
+          <view class="icon-wrap">
+            <image class='position-center' src="/images/play.png" />
+          </view>
+        </view>
+
+        <view class="book-msg-wrap">
+          <view data-detail="{{item}}" class="book-msg" bindtap='goDetail'>
+            <view class="book-title">
+              <text>{{item.basic.title}}</text>
+            </view>
+            <view class="book-summery">
+              {{item.basic.subTitle?item.basic.subTitle:item.basic.text}}
+            </view>
+            <view class="book-record">
+              <view>
+                <image style='width: 22rpx; height: 20rpx; margin-left: 1rpx;' src="/images/listener.png" />
+                <text>{{item.newReadCount}}人听过</text>
+              </view>
+              <view>
+                <image style='width: 28rpx; height: 20rpx;' src="/images/collect.png" />
+                <text>共{{item.basic.audios.length}}集</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view data-detail="{{item}}" class="book-more" bindtap='goDetail'>
+          <image src="/images/more.png" class='position-y-center' />
+        </view>
+      </view>
+      </block>
+    </view>
+  </view>
+  <!-- booklist end -->
+  </block>
+</view>
+
+<!-- 悬浮播放窗口 -->
+<template data="{{hasRadio, radioRun, ...radioOther}}" is="floatRadio"></template>

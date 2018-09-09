@@ -1,0 +1,188 @@
+page{
+  height: 100%;
+  background: #f7f7f7;
+  width:100%;
+}
+.container{
+  height: 314rpx;
+}
+.topimg image{
+  width:100%;
+}
+.card {
+  margin-top:8rpx;
+  background: #fff;
+  padding: 0rpx 28rpx;
+  padding-bottom: 0;
+  border: 1rpx solid #e6e6e6;
+  height: 280rpx;
+  margin-bottom:17rpx;
+  position: relative;
+  box-sizing: 375rpx;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 0rpx;
+  height:314rpx;
+  left: 50%;
+  transform: translateX(-50%)
+}
+
+.userinfo-avatar {
+  width: 180rpx;
+  height: 180rpx;
+  margin-top:10rpx;
+  border-radius: 50%;
+  margin-bottom: 30rpx;
+  border:7rpx solid rgba(255, 255, 255, 0.5);
+}
+
+.userinfo-nickname {
+  color: #fff;
+  font-size: 30rpx;
+  
+}
+.skin{
+  width:176rpx;
+  height: 176rpx;
+  margin-top: 21rpx;
+  overflow: hidden
+}
+
+
+.weui_cell {
+    position: relative;
+    display: flex;
+    margin-left:20rpx;
+    
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-bottom: 1rpx solid #e6e6e6;
+    height: 92rpx;
+}
+.weui_cell:last-child{
+  border-bottom:none;
+}
+
+.info_list{
+  background: white;
+  border-top:1rpx solid #e6e6e6;
+}
+.weui_cell_hd {
+    display: inline-block;
+    
+    margin-right: 20rpx;
+}
+
+.weui_cell_hd image {
+    width:40rpx;
+    height: 44rpx;
+    vertical-align: -10rpx;
+}
+
+.weui_cell_bd {
+    display: inline-block;
+    min-width: 85%;
+}
+
+.weui_cell_bd_p {
+    font-size: 26rpx;
+    color: #666666;
+}
+
+
+
+.with_arrow {
+    width: 18rpx;
+    height: 32rpx;
+    margin-right:rpx;
+}
+
+
+
+
+
+
+
+
+/*list*/
+
+
+.menu-item {
+  
+  padding: 10rpx 0;
+  
+}
+.title{
+    font-size: 26rpx;
+    color:#666666;
+    margin-top:23rpx;
+
+}
+.menu{
+ position: absolute;
+ top:90rpx;
+ left: 238rpx;
+  
+}
+
+
+.menu-item:after {
+  content: '.';
+  height: 0;
+  clear: both;
+  overflow: hidden;
+  display: block;
+}
+
+
+.menu-text {
+  vertical-align: middle;
+  font-size: 24rpx;
+  color: #666666
+  
+}
+.contactUs{
+  position: relative;
+}
+.contactbtn{
+  position: absolute;
+  opacity: 0;
+}
+.c1{
+  left: 30rpx;
+}
+.c2{
+  left: 110rpx;
+}
+.c3{
+  left: 190rpx;
+}
+.c4{
+  left: 270rpx;
+}
+.c5{
+  left: 350rpx;
+}
+.c6{
+  left: 430rpx;
+}
+.c7{
+  left: 510rpx;
+}
+
+
+.cancel image{
+  
+  width: 44rpx;
+  height: 40rpx;
+  vertical-align: middle;
+  position: absolute;
+  top:26rpx;
+  right:34rpx;
+}
+

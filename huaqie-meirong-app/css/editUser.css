@@ -1,0 +1,69 @@
+@import url('./reset.css');
+@import url('./border.css');
+@import url('./position.css');
+
+.edit-wrap {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	box-sizing: border-box;
+	padding: 15px;
+}
+.edit-box {
+	background: #fff;
+	border-radius: 10px;
+	width: 100%;
+	height: 131px;
+	overflow: hidden;
+	padding-left: 15px;
+}
+
+.edit-title {
+	display: block;
+	width: 61px;
+	height: 21px;
+	font-size: 16px;
+	color: #333;
+	overflow: hidden;
+}
+.edit-title img {
+	float: left;
+	margin-right: 10px;
+	font-size: 0;
+	width: 19px;
+}
+.edit-title span {
+	left: 29px;
+	display: block;
+	padding-top: 1px;
+	height: 21px;
+	line-height: 21px;
+}
+
+.edit-avatar {
+	height: 75px;
+}
+.edit-avatar .avatar-wrap {
+	width: 52px;
+	height: 52px;
+	border-radius: 50%;
+	overflow: hidden;
+	right: 15px;
+}
+.avatar-wrap img {
+	width: 100%;
+}
+
+.edit-name {
+	height: 55px;
+	position: relative;
+}
+.edit-name input {
+	width: 50%;
+	height: 21px;
+	line-height: 21px;
+	color: #999;
+	font-size: 15px;
+	right: 15px;
+	text-align: right;
+}

@@ -1,0 +1,170 @@
+.el-tabs.el-tabs--top {
+  margin-top: 20px;
+}
+.top-picker {
+  width: 100%!important;
+  display: block!important;
+  
+  /*white-space: nowrap;
+  overflow-x: auto!important;
+  overflow-y: hidden!important;*/
+  box-sizing: initial!important;
+  padding-bottom: 10px!important;
+
+  .page-title {
+    vertical-align: middle;
+  }
+
+  .el-button {
+    height: 46px;
+    font-size: $font-16;
+  }
+  .el-date-editor {
+    margin-bottom: 15px;
+  }
+  .el-input {
+    width: 200px;
+    font-size: $font-16;
+    margin-bottom: 15px;
+
+    .el-input__inner {
+      width: 200px;
+      height: 46px;
+      padding: 0 18px;
+    }
+
+    &.el-input--prefix .el-input__inner{
+      padding-left: 30px;
+    }
+  }
+}
+
+.el-table {
+  border: 1px solid #DCDFE6;
+  border-radius: 4px;
+
+  th {
+    background: #ebeef5;
+    color: #666666;
+  }
+}
+
+.el-date-editor .el-range-separator {
+  padding: 0;
+}
+.toolbar {
+  background: #f2f2f2;
+  padding: 10px;
+  //border:1px solid #dfe6ec;
+  margin: 10px 0px;
+  .el-form-item {
+    margin-bottom: 10px;
+  }
+}
+
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+.container .header .userinfo .userinfo-inner{
+  outline: none;
+}
+
+.el-tag {
+  border: 0;
+}
+
+.el-submenu [class^=fa] {
+  vertical-align: baseline;
+  margin-right: 10px;
+}
+
+.el-menu-item, .el-submenu__title {
+  height: 76px;
+  line-height: 76px;
+  font-size: $font-16;
+  padding-left: 48px!important;
+}
+.el-menu-item.is-active {
+  background: $color-menu-select;
+}
+.el-menu-item.is-active::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: $color-menu-sideline;
+}
+
+.el-menu-item [class^=fa] {
+  vertical-align: baseline;
+  margin-right: 10px;
+}
+
+.login {
+  .el-input-group__append,
+  .el-input-group__prepend {
+    padding: 0 15px;
+    color: rgb(249, 249, 249);
+  }
+  .el-input__inner {
+    padding-left: 20px;
+  }
+  button {
+    font-size: 16px;
+  }
+  .out-password {
+    font-size: 14px;
+    padding: 0;
+    color: $gray;
+  }
+  .remember {
+    margin: 0;
+    font-size: 14px;
+
+    .el-checkbox__label {
+      color: $gray;
+      padding-left: 12px;
+    }
+    .el-checkbox__inner {
+      width: 20px;
+      height: 20px;
+
+      &::after {
+        height: 10px;
+        left: 7px;
+        top: 2px;
+      }
+    }
+  }
+}
+
+.el-dialog .el-row {
+  margin-top: 10px;
+}
+
+.el-date-range-picker__time-picker-wrap{
+  padding: 5px !important;
+}

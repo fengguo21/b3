@@ -1,0 +1,62 @@
+<!--pages/howmuch/howmuch.wxml-->
+<view class='formcard'>
+
+
+    <view  class='namecontainer1'><text class='personalinfo'>服务消费</text></view>
+    <view >
+    
+      <text class='name'>服务项目</text>
+     <view class="services"><text bindtap="chooseService" data-title="{{item.title}}" class="{{item.active?'active':''}}" wx:for="{{services}}">{{item.title}}</text></view>
+    
+      
+      </view>
+    <view class='namecontainer'>
+    
+      <text class='name'>输入金额</text>
+      <input placeholder="询问店员后输入"  placeholder-class='inputname' bindinput='inputblur' type="number" style="margin-right:30rpx"/>
+    
+      
+      </view>
+
+      <view class='namecontainer' wx:if="{{ratio>0}}">
+        <text class='name'>折扣</text>
+        <span class='ratio' wx-if="{{ratio < 1}}">{{ratio*10}}折</span>
+        <span class='ratio' wx-if="{{ratio == 1}}">无折扣</span>
+      </view>
+
+      <view class='namecontainer' wx:if="{{ratio>0}}">
+        <text class='name'>实付款</text>
+        <span class='realpay'>{{ratio*consumenum}} </span>
+      </view>
+
+      
+
+
+      <view class="book">
+
+      <view class="ar_book"   formType="submit" bindtap='sure'   bindtap="show">确认支付</view>
+      
+      </view>
+  
+  
+  </view>
+
+
+<view bindtap='showdialog'  class='dialog'   wx:if="{{sure}}">
+  <view class='success'>
+    <image src='/images/iconsuccess.png'></image>
+  </view>
+  <view class='textbox'>
+  <text class='suctext' >支付成功！</text>
+  </view>
+  <view class="info">
+  <text>恭喜您，已成功支付服务金额，可立即享受该服务。</text>
+  </view>
+  <view class="surebtn">
+   <view  bindtap="sure">知道了</view>
+  </view>
+
+</view>
+
+
+<view class="bcgrey" wx:if="{{sure}}"></view>

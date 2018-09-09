@@ -1,0 +1,29 @@
+<view class="detailinfo">
+  <view class="detailtit">
+    提现信息
+  </view>
+  <view class="detailtxt">
+    提现金额：¥{{withdraw.amount}}
+  </view>
+  <view class="detailtxt">
+    手机号：{{withdraw.basic.phone}}
+  </view>
+  <view class="detailtxt">
+    提交时间：{{withdraw.created}}
+  </view>
+  <view class="detailtxt">
+    确认时间：{{withdraw.updated}}
+  </view>
+  <view class="detailtit">
+    银行信息
+  </view>
+  <view class="detailtxt">
+    银行：{{withdraw.basic.bank}}
+  </view>
+  <view class="detailtxt">
+    账户号：{{withdraw.basic.account}}
+  </view>
+  <view class="detailtxt">
+    开户名：{{withdraw.basic.name}}
+  </view>
+</view>

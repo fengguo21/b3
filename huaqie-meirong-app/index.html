@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>index</title>
+    <link rel="stylesheet" type="text/css" href="./css/aui-win.css?v=3" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css?v=3" />
+    <link rel="stylesheet" type="text/css" href="./css/ft.css?v=3" />
+    <script type='application/javascript' src='./script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style>
+        #msg-count {
+            color: #fff;
+            background: #ff55b5;
+            position: absolute;
+            left: 55%;
+            top: 2px;
+            transform: translateX(-20%);
+            -webkit-transform: translateX(-20%);
+            min-width: 12px;        
+            height: 12px;
+            line-height: 12px;
+            text-align: center;
+            border-radius: 12px;
+            box-sizing: border-box;
+            padding: 1px 4px;
+            font-size: 10px;
+        }
+        header.on {
+            background: url("./image/header-bg.png") no-repeat center top; 
+            background-size: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap" class="flex-wrap flex-vertical">
+        <header>
+            <ul>
+                <li class="border-b active" id='title'></li>
+            </ul>
+        </header>
+        <div id="main" class="flex-con">
+
+        </div>
+        <div id="footer" class="border-t">
+            <ul class="flex-wrap">
+                <li tapmode="hover" id='msg' onclick="randomSwitchBtn( this, 0);" class="flex-con active">工作</li>
+                <li tapmode="hover" onclick="randomSwitchBtn( this, 1 );" class="flex-con">管理</li>
+                <li tapmode="hover" onclick="randomSwitchBtn( this, 2 );" class="flex-con">我的</li>
+            </ul>
+        </div>
+    </div>
+     
+</body>
+
+</html>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/axios.min.js"></script>
+<script type="text/javascript" src="./script/zepto.min.js"></script>
+<script type="text/javascript" src="./script/store.min.js"></script>
+<script type="text/javascript" src="./fetch/api.js?v=1"></script>
+<script type="text/javascript">
+    var count = 0;
+    var AJPUSH = null;
+    var speechRecognizer = null;
+    // var ajpush = api.require('ajpush');
+    if(!store.get('sessionId')) {
+       ajax.getSessionId({}, function(res) {
+           store.set('sessionId', res.data);
+       }) 
+    } 
+    var logout = function() {
+        if(AJPUSH)
+            AJPUSH.stopPush()
+    }
+    var getUnreadNotify = function() {
+        if(!store.get('me')){
+            return;
+        }
+        ajax.getUnreadNotify({}, function(res) {
+            console.log('UnreadNotifyCount========', res.data);
+
+            var proData = res.data;
+            var preb=proData.prebookUnread;
+            var cons=proData.consumeUnread;
+            console.log(preb,cons)
+            api.execScript({
+                frameName: 'frame0',
+                script: 'getUnreadCount('+ preb+','+cons +')'
+            })
+            count = proData.total >= 99 ? '99+': proData.total;
+            // console.log(count);
+            if(count) {
+                $('#msg').append('<span id="msg-count">'+ count +'</span>')
+            } else {
+                $('#msg').html('工作')
+            }    
+        })
+    }
+    var signOutIn = function(people) {
+        var eFootLis = $('#footer li');
+        $('header').addClass('on');
+        setTitle();
+        initFrame(0);
+        eFootLis.eq(0).addClass('active');
+        eFootLis.eq(0).siblings().removeClass('active')
+        api.execScript({
+            frameName: 'frame0',
+            script: 'getNotifyList()'
+        })
+        getUnreadNotify();
+        bindJpush(people);  
+    }
+
+    var setTitle = function() {
+
+        if(store.get('app')) {
+            var oTitle = $('#title');
+            var title = store.get('app').basic.title;
+            oTitle.html(title);
+            // console.log(title);
+        } 
+    }
+
+    var refreshFrame = function(index) {
+        // api.alert({
+        //     msg: '123123'
+        // })
+        switch(index) {
+            case 0: 
+                getUnreadNotify();
+                $('header').addClass('on');
+                api.execScript({
+                    frameName: 'frame0',
+                    script: 'reloadNotifyList()'
+                });break;
+            case 1:
+                $('header').removeClass('on');
+                break;
+            case 2: 
+                $('header').removeClass('on');
+                api.execScript({
+                    frameName: 'frame2',
+                    script: 'init()'
+                });break;
+            default:;
+        }
+    }
+
+    var showBox = function() {
+        api.openFrame({
+            name: 'payment',
+            url: './html/payment_frame.html',
+            vScrollBarEnabled: false,
+            hScrollBarEnabled: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    }
+
+    var frameArr = ['index_frame','report_frame' , 'mine_frame'];
+    apiready = function() {
+        if(!store.get('me')){
+            api.openWin({
+                name: 'signIn',
+                url: './html/signIn/signIn.html'
+            })
+        }
+        $api.fixStatusBar($api.dom('header'));
+        initFrame(0);
+        api.setStatusBarStyle({
+            style : 'light'
+        });
+        AJPUSH = api.require('ajpush');
+        speechRecognizer = api.require('speechRecognizer');
+        AJPUSH.init(function(ret) {
+            if (ret && ret.status){
+                //success
+                // alert('success1'+ret.status)        
+            }
+        });
+        ajpush();
+        // funIniGroup();
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+            api.toLauncher()
+        });
+        api.addEventListener({
+            name:'resume'
+        }, function(ret, err){          
+            AJPUSH.setBadge({
+                badge:0
+            });
+        });
+    }
+    function initFrame(index) {
+        if(index == 0) {
+            $('header').addClass('on');
+        } else {
+            $('header').removeClass('on');
+        }
+        api.openFrame({
+            name: 'frame' + index,
+            url: './html/'+ frameArr[index] +'.html',
+            rect: {
+                x: 0,
+                y: $api.dom('header').offsetHeight,
+                w: api.winWidth,
+                h: $api.dom('#main').offsetHeight,
+            },
+            vScrollBarEnabled: false,
+            hScrollBarEnabled: false
+        });
+    }
+    var bindJpush = function (people) {
+        // var me = store.get('me');
+        // var param = {alias: me.peopleId};
+        if(AJPUSH){
+            AJPUSH.resumePush();
+            AJPUSH.bindAliasAndTags({
+                alias: people
+            },function(ret) {
+            })
+        }
+        
+    }
+    // 极光推送
+    function ajpush() {
+
+        if(AJPUSH) {
+            AJPUSH.setListener(
+                function(ret) {
+                    var mode = store.get('mode')!=undefined?store.get('mode'):true;
+                    if(mode) {
+                        speechRecognizer.read({
+                            readStr: ret.content,
+                        }, function(res, err) {
+                            if (res.status) {
+                                // ret.speakProgress;
+                            } else {
+                                api.alert({ msg: err.msg });
+                            }
+                        });
+                    } else {
+                       speechRecognizer.pauseRead() 
+                    }
+                    api.execScript({
+                        frameName: 'frame0',
+                        script: 'getNotifyList()'
+                    })
+                    getUnreadNotify();
+                }
+            );
+        }
+    }
+    function changeMode() {
+        var mode = store.get('mode')!=undefined?store.get('mode'):true;
+        if(mode) {
+            speechRecognizer.resumeRead()
+        } else {
+           speechRecognizer.pauseRead()
+        }
+    }
+    function funIniGroup() {
+        var eFootLis = $api.domAll('#footer li'),
+            frames = [];
+        for (var i = 0, len = eFootLis.length; i < len; i++) {
+            frames.push({
+                name: 'frame' + i,
+                url: './html/' + frameArr[i] + '.html',
+                bgColor:'rgba(0, 0, 0, 0)',  
+                vScrollBarEnabled: false,
+            })    
+        }
+        api.openFrameGroup({
+            name: 'group',
+            scrollEnabled: true,
+            rect: {
+                x: 0,
+                y: $api.dom('header').offsetHeight,
+                w: api.winWidth,
+                h: $api.dom('#main').offsetHeight,
+            },
+            index: 0,
+            frames: frames
+        }, function(ret, err) {
+            var eFootLis = $api.domAll('#footer li')
+            for (var i = 0, len = eFootLis.length; i < len; i++) {
+                $api.removeCls(eFootLis[i], 'active');
+            }
+            $api.addCls(eFootLis[ret.index], 'active');
+            refreshFrame(ret.index);
+        });
+    }
+    
+    // 随意切换按钮
+    function randomSwitchBtn(tag, tab) {
+        var eFootLis = $api.domAll('#footer li'),
+            index = 0;
+        if (tag == $api.dom('#footer li.active')) return;
+        
+        
+        for (var i = 0, len = eFootLis.length; i < len; i++) {
+            if (tag == eFootLis[i]) {
+                index = i;
+            } else {
+                $api.removeCls(eFootLis[i], 'active');
+            }
+        }
+        $api.addCls(eFootLis[index], 'active');
+        initFrame(index);
+        refreshFrame(index);
+    }
+    setTitle();
+    getUnreadNotify();
+</script>

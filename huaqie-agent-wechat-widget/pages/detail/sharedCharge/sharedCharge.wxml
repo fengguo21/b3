@@ -1,0 +1,36 @@
+<!--sharedCharge.wxml-->
+<view class="banner"><image src="https://dn-huaqie.qbox.me/agent-sd5.png" mode="widthFix"></image></view>
+<view ><image src="https://dn-huaqie.qbox.me/agent-t17.png" mode="widthFix"></image></view>
+<view ><image src="https://dn-huaqie.qbox.me/agent-t18.png" mode="widthFix"></image></view>
+<view ><image src="https://dn-huaqie.qbox.me/agent-d17.png" mode="widthFix"></image></view>
+
+<view class="footer">
+<view class="swiper-title-box">
+<text class="swiper-title">适用行业</text>
+</view>
+<swiper indicator-dots="{{indicatorDots}}"  id="swiper" circular="circular"
+        autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">  
+      <block wx:for="{{imgUrls}}">  
+        <swiper-item>  
+           <navigator url="{{item.link}}" hover-class="navigator-hover">  
+            <image src="{{item.url}}" class="slide-image" width="355" height="150" mode="widthFix"/>  
+           </navigator>   
+        </swiper-item>  
+        <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+      </block>  
+</swiper>
+<view class="swiper-subtitle-box">
+<text class="swiper-subtitle">共享充电公司</text>
+</view>
+
+
+
+
+</view>
+
+<view class="footline">
+<view class="line1"></view>
+<text class="nocontent">没有更多内容了</text>
+<view class="line2"></view>
+</view>

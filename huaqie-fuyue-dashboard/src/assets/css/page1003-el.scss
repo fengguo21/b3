@@ -1,0 +1,34 @@
+.page1003 {
+  .top-picker {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+// button
+    .el-button.el-button--primary {
+      height: 46px;
+      font-size: $font-16;
+    }
+// input
+    .el-input.el-input-group {
+      font-size: $font-16;
+      width: 380px;
+
+      .el-input__inner {
+        height: 46px;
+      }
+      .el-input-group__append {
+        background: $color-input-append;
+        padding: 0 16px;
+      }
+
+      img {
+        width: $size-input-append;
+        height: $size-input-append;
+      }
+    }
+  }
+
+  .el-input-number {
+    width: 100%;
+  }
+}

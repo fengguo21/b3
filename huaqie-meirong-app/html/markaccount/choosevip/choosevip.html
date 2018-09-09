@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/aui-win.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/header.css?v=2"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/position.css?v=2"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/border.css?v=2"/>
+    <script type='application/javascript' src='../../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        #aui-header {
+            position: relative;
+            overflow: inherit;
+        }
+        .aui-title {
+            height: 44px;
+        }
+        .search-box {
+            display: block;
+            z-index: 10;
+            overflow: hidden;
+            width: 100%; 
+            height: 44px; 
+            position: relative;
+
+        }
+        .search-box input{
+            caret-color: auto;
+            display: block;
+            z-index: 11;
+            font-size: 14px;
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            box-sizing: border-box;
+            padding: 2px 20px 2px 25px;
+            color:white;
+            background: rgba(255,255,255,0.2);
+            outline: none;
+            border-radius: 50px;
+        }
+        .search-box input::-webkit-input-placeholder{
+            margin-left: 20px;
+            color:white;
+        }
+        #search-box .search-btn {
+            z-index: 12;
+            color: white;
+            font-size: 13px;
+            position: absolute;
+            left: 10px;
+        }
+
+
+        
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-primary" id="aui-header">
+        <a class="aui-pull-left" onclick="api.closeWin();"> 
+            <span class="aui-iconfont aui-icon-left"></span> 
+        </a>
+        <div class="aui-title">
+            <span class='search-box position-center' id='search-box'>
+                <span class="aui-iconfont aui-icon-search search-btn position-y-center" id='search-btn'></span> 
+                <input type="search" id="search" class='position-center' placeholder="输入姓名或手机号" name="">
+                
+            </span>
+        </div>
+        <!-- <a class="aui-pull-right" onclick="showOrder()"> 
+            <span class="aui-iconfont aui-icon-order" style='font-size: 22.5px'></span> 
+        </a> -->
+        <a class="aui-pull-right" id='filter'> 
+<!--             <span class="aui-iconfont aui-icon-filter" style='font-size: 22.5px'></span> 
+ -->        </a>
+        
+    </header>
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript" src="../../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../../script/store.min.js"></script>
+<script type="text/javascript">
+    var order = -1;
+    $('#search-btn').on('click', function() {
+        setKeyWord();
+        api.execScript({
+            name: 'choosevip',
+            frameName: 'choosevip_frame',
+            script: 'search()'
+        })
+        // console.log(keyWord);
+    })
+    $('#search').on('keypress', function(e) {
+        if(e.keyCode == 13) {
+            setKeyWord();
+            api.execScript({
+                name: 'choosevip',
+                frameName: 'choosevip_frame',
+                script: 'search()'
+            })
+        }
+    })
+
+    $('#search-box').on('input porpertychange', 'input', function() {
+        //if($(this).val() == '') {
+            setKeyWord();
+            api.execScript({
+                name: 'choosevip',
+                frameName: 'choosevip_frame',
+                script: 'search()'
+            })
+        //}
+    })
+    $('#filter').on('click', function() {
+        api.execScript({
+            name: 'choosevip',
+            frameName: 'choosevip_frame',
+            script: 'toggleShow()'
+        })
+    })
+    var showOrder = function() {
+        if(order == -1) {
+            order = 1;    
+        } else {
+            order = -1;
+        }
+        setOrder();
+        api.execScript({
+            name: 'choosevip',
+            frameName: 'choosevip_frame',
+            script: 'search()'
+        })
+    }
+    var setOrder = function() {
+        if(store.get('vipFilter')) {
+            var vipFil = store.get('vipFilter');
+            vipFil.order = order;
+            store.set('vipFilter', vipFil) 
+        } else {
+            store.set('vipFilter', {order: order}) 
+        }
+    }
+    var setKeyWord = function() {
+        var keyWord = $('#search-box').find('input').val();
+        if(store.get('vipFilter')) {
+            var vipFil = store.get('vipFilter');
+            vipFil.key = keyWord;
+            store.set('vipFilter', vipFil) 
+        } else {
+           store.set('vipFilter', {key: keyWord}) 
+        }
+    }
+    var clearKeyWord = function() {
+        $('#search-box').find('input').val('');
+    }
+    apiready = function(){
+        $api.fixStatusBar($api.dom('header'));
+        api.openFrame({
+        	name: 'choosevip_frame',
+        	url: './choosevip_frame.html',
+        	rect: {
+        		x: 0, 
+        		y: $api.dom('header').offsetHeight,
+        		height: 'auto',
+        		width: 'auto'
+        	}
+        })
+    };
+</script>
+
+</html>

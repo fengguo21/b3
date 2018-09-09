@@ -1,0 +1,91 @@
+<!--订单头-->
+<view class="detailtop">
+  <view class="detailtoptit">订单ID：{{order.orderId}}
+  </view>
+</view>
+
+<!--清单-->
+<view class="detaillist">
+  <view class="table">
+    <view class="tr" wx:for="{{order.basic.products}}" wx:key="item">
+      <view class="td" class="ordername" bindtap="goProduct" data-pid="{{item.productId}}"><image src="{{item.basic.avatar}}"></image>{{item.basic.title}}</view>
+      
+      <view class="td" class="ordernum">×{{item.count}}</view>
+      <view class="td" class="orderprice">￥{{item.basic.price}}</view>
+    </view>
+    <view class="trbom">
+      <view class="tdbomtit">运费</view>
+      <view class="tdbomprice">￥{{order.extra.fee}}</view>
+    </view>
+  </view>
+  <view class="tabletotal">
+    实付 ￥{{order.amount}}
+  </view>
+</view>
+
+<!--收货信息-->
+<view class="detailinfo">
+  <view class="detailtit">
+    收货信息
+  </view>
+  <view class="detailtxt">
+    姓名：{{order.basic.address.name}}
+  </view>
+  <view class="detailtxt">
+  电话：{{order.basic.address.phone}}
+  </view>
+  <view class="detailtxt">
+  地址：{{order.basic.address.zone}}{{order.basic.address.detail}}
+  </view>
+  <view class="detailtxt">
+  备注：{{order.basic.note || '无'}}
+  </view>
+</view>
+
+<!--发货信息-->
+<view class="detailinfo" bindtap="getExpress" wx:if="{{order.step == 3 || order.step == 4}}">
+  <view class="detailtit">
+    发货信息 <view wx:if="{{!order.shipment.self}}" style="float:right;color:#cccccc;font-weight:normal;">查看物流信息<image src="../../../image/arrow-right.png" style="width:38rpx;height:38rpx;line-height:38rpx;vertical-align:bottom;margin-left: 10rpx;"></image></view>
+  </view>
+  <view class="detailtxt">
+    快递公司：{{order.shipment.company}}
+  </view>
+  <view class="detailtxt">
+    物流单号：{{order.shipment.code || '无'}}
+  </view>
+  <view class="detailtxt">
+    发货时间：{{order.shipmentedText}}
+  </view>
+</view>
+
+<!--订单信息-->
+<view class="detailinfo">
+  <view class="detailtit">
+    订单信息
+  </view>
+  <view class="detailtxt">
+    订单号：{{order.orderId}}
+  </view>
+  <view class="detailtxt">
+    支付金额：¥{{order.amount}}
+  </view>
+  <view class="detailtxt">
+    支付方式：微信支付
+  </view>
+  <view class="detailtxt" wx:if="{{order.extra.refund}}">
+    退款金额：¥{{order.extra.refund}}
+  </view>
+  <view class="detailtxt">
+    下单时间：{{order.createdText}}
+  </view>
+  <view class="detailtxt" wx:if="{{order.step==2 || order.step==3 || order.step == 4}}">
+    支付时间：{{order.paymentedText}}
+  </view>
+  <view class="detailtxt">
+    订单状态：<text class="{{order.stepClass}}">{{order.stepTitle}}</text>
+  </view>
+</view>
+
+    <view class="button-box" wx:if="{{order.step == 1 || order.step == 3}}">
+    <button type="primary" bindtap="primary" class="{{buttonClass}}" bindtap="process"> {{ buttonText }} </button>
+        </view>

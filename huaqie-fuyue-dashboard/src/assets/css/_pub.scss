@@ -1,0 +1,85 @@
+// 颜色
+$color-white: #fff;
+$color-black: #000;
+$color-primary: #48576a;
+$color-body-bg: rgb(250, 250, 250);
+$color-menu-sideline: #ffca66;
+$color-menu-select: rgb(255, 251, 243);
+$color-input-append: rgb(189, 194, 202);
+$main-color: #ffa42f;
+$gray: rgb(51, 51, 51);
+
+// 字体
+$font-24: 24px;
+$font-18: 18px;
+$font-16: 16px;
+
+// 尺寸
+$size-menu-icon: 28px;
+$size-input-append: 22px;
+
+// margin
+$mg-30: 30px;
+$mg-50: 50px;
+
+// 定位
+@mixin posi($left: 50%, $top: 50%) {
+  position: absolute;
+  left: $left;
+  top: $top;
+  transform: translate(- $left, - $top);
+}
+
+// 去除input默认样式
+@mixin clearDefault {
+  background-color:transparent;
+  border-color:transparent;
+  -webkit-appearance: none;
+  outline: none;
+}
+
+// 一行溢出处理
+@mixin overShowDot {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 媒介查询
+@mixin fixWindow($win: 1920) {
+  $win-percent: $win / 1920;
+
+  .aside.el-aside {
+    @if $win <= 980 {
+      width: 75px!important;
+    } @else {
+      width: $win-percent*300px!important;
+    }
+    margin-top: $win-percent*40px!important;
+    margin-right: $win-percent*34px!important;
+    margin-bottom: $win-percent*40px!important;
+    margin-left: $win-percent*40px!important;
+
+    .el-menu {
+      @if $win <= 980 {
+        width: 70px!important;
+      } @else {
+        width: $win-percent*284px!important;
+      }
+    }
+
+    .menu img {
+      margin-right: $win-percent*32px!important;
+    }
+    .el-menu-item {
+      padding-left: $win-percent*48px!important;
+      padding-right: $win-percent*20px!important;
+
+      span {
+        @if $win <= 980 {
+          display: none;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+.border-l, .border-r,
+.border-t, .border-b {
+  position: relative;
+}
+
+.border-l::after, .border-r::after,
+.border-t::after, .border-b::after {
+  position: absolute;
+  transform-origin: 0 0;
+  transform: scale(1);
+  -webkit-transform-origin: 0 0;
+  -webkit-transform: scale(1);
+  pointer-events: none;
+  content: '';
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.border-l::after {
+  border-left: 1rpx solid rgb(230, 230, 230);
+}
+.border-r::after {
+  border-right: 1rpx solid rgb(230, 230, 230);
+}
+.border-b::after {
+  border-bottom: 1rpx solid rgb(230, 230, 230);
+}
+.border-t::after {
+  border-top: 1rpx solid rgb(230, 230, 230);
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:1.5) {
+  .border-t::after, .border-r::after,
+  .border-l::after, .border-b::after {
+      right: -100%;
+      bottom: -100%;
+      transform: scale(0.5);
+      -webkit-transform: scale(0.5);
+    }
+}

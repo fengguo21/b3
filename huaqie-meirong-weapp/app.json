@@ -1,0 +1,61 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/newcard/newcard",
+    "pages/choosecard/choosecard",
+    "pages/howmuch/howmuch",
+    "pages/howtimes/howtimes",
+    "pages/mycard/mycard",
+    "pages/orderlist/orderlist",
+    "pages/consume/consume",
+    "pages/coupon/coupon",
+    "pages/user/user",
+    "pages/logs/logs",
+    "pages/tomorrow/tomorrow",
+    "pages/edit/edit",
+    "pages/detail/detail",
+    "pages/charge/charge",
+    "pages/test/test",
+    "pages/shop/shop",
+    "pages/shop/details/details",
+    "pages/shop/cart/cart",
+    "pages/shop/orders/orders",
+    "pages/shop/address/address",
+    "pages/shop/addressList/addressList"
+    
+
+    
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#ff55b5",
+    "borderStyle": "grey",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "预约",
+        "iconPath": "images/prebook.png",
+        "selectedIconPath": "images/prebook2.png"
+      },
+      {
+        "pagePath": "pages/shop/shop",
+        "text": "商城",
+        "iconPath": "images/prebook.png",
+        "selectedIconPath": "images/prebook2.png"
+      },
+      
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "images/fellow.png",
+        "selectedIconPath": "images/fellowx.png"
+      }
+    ]
+  }
+}

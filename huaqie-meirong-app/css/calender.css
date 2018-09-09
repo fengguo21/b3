@@ -1,0 +1,124 @@
+.calendar-controls {
+    overflow: hidden;
+    width: 100%;
+    height: 50px;
+    background: #fff;
+}
+.calendar-controls::after{
+    border-bottom: 1px solid #e5e5e5!important;
+}
+.calendar-control {
+    width: calc(100% / 3);
+    height: 100%;
+    float: left;
+    font-size: 13px;
+    color: #999;
+    text-align: center;
+    line-height: 50px;
+}
+.calendar-control::after {
+    height: 28px;
+    margin: calc(36px / 2);
+    border-right: 1px solid #ccc!important;
+}
+.calendar-control:last-child::after {
+    border-color: #fff!important;
+}
+.calendar-control.active {
+    color: #ff55b5;
+}
+.calendar-control::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    width: 55px;
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    transition: left ease-in-out .3s
+}
+.calendar-control.active::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    height: 4px;
+    width: 55px;
+    background: #ff55b5;
+    transition: left ease-in-out .3s
+}
+.day-header {
+    overflow: hidden;
+    height: 37px;
+    width: 100%;
+    background: #fff;
+}
+.now-date {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+}
+.day-body {
+    overflow: hidden;
+    height: 55px;
+    width: 100%;
+    background: #fff;
+}
+.day-body.border-b::after {
+    border-bottom: 1px solid #e5e5e5!important;
+}
+.day {
+    float: left;
+    width: calc(100% / 7);
+    height: 100%;
+    line-height: 37px;
+    text-align: center;
+    font-size: 13px;
+    color: #333;
+    cursor: pointer;
+}
+.day span {
+    padding-top: 15px;
+    line-height: 1;
+    display: block;
+}
+.calendar-mark-img {
+    width: 16px;
+    height: 16px;
+    margin: calc(11px / 2) auto;
+}
+.day.today {
+    position: relative;
+    z-index: 3;
+}
+.day.today span {
+    position: relative;
+    z-index: 3;
+}
+.day.today::after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 1px dashed #ff55b5;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1;
+    top: 8.5px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}
+.day.holiday {
+    color: #ff55b5;
+}
+.day.adj-month {
+    visibility: hidden;
+}

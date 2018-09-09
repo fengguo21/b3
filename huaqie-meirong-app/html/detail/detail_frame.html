@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>detail</title>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/system.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style type="text/css">
+        #index-wrap .form-item-cell-icon {
+            width: 19px;
+            height: 19px;
+        }
+        #index-wrap .form-item-cell-label {
+            left: 29px;
+        }
+        #avatar-wrap {
+            height: 75px;
+        }
+        #avatar-wrap .form-item-cell-icon {
+            width: 52px;
+            height: 52px;
+            overflow: hidden;
+            border-radius: 50%
+        }
+        #avatar-wrap .form-item-cell-label {
+            left: 70px;
+        }
+        #avatar-wrap .form-item-cell-label em {
+            display: block;
+            color: #666;
+            font-size: 13px;
+            padding-top: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class='set-layout' id='index-wrap'>
+      <script id="tpl-order" type="text/html">
+        {{each reserveList val index}}
+        {{if val.basic.typehood == 101}}
+        <ul class="form-content">
+            <li class="form-item border-b" id='avatar-wrap'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="{{val.basic.from.avatar}}">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>{{val.basic.from.title}}
+                    {{if val.basic.from.phone}}
+                    <em>{{val.basic.from.phone}}</em>
+                    {{/if}}
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/detail-retime.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>预约日期</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        {{val.basic.content.date|formatDate}}    
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/detail-artime.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>预约时段</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        {{val.basic.content.periods[0].split('-')[0]}}-{{val.basic.content.periods[val.basic.content.periods.length-1].split('-')[1]}}
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/detail-ser.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>预约技师</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        {{val.technician}}
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/detail-pro.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>预约项目</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        {{val.basic.content.service}}
+                    </span>
+                </div>
+            </li>
+            
+            <li class="form-item">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/card-count.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>提交时间</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        {{val.created|formatDateTime}}
+                    </span>
+                </div>
+            </li>
+        </ul>
+        {{else}}
+        <ul class="form-content">
+            <li class="form-item border-b" id='avatar-wrap'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="{{val.basic.from.avatar}}">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>{{val.basic.from.title}}
+                    {{if val.basic.from.phone}}
+                    <em>{{val.basic.from.phone}}</em>
+                    {{/if}}
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/detail-retime.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>消费日期</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        {{val.created|formatDate}}
+                        
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/detail-artime.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>消费时间</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        {{val.created|formatDateTime}}
+                    </span>
+                </div>
+            </li>
+            <li class="form-item">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/card-count.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>{{val.basic.member.amount == 1?'消费次数':'消费金额'}}</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        {{val.basic.member.amount}}{{val.basic.member.amount == 1?'次':'元'}}
+                    </span>
+                </div>
+            </li>
+        </ul>
+        {{/if}}
+        {{/each}}
+      </script>
+    </div>
+    <script src="../../script/api.js"></script>
+    <script src="../../script/axios.min.js"></script>
+    <script src="../../script/template-web.js"></script>
+    <script src="../../script/zepto.min.js"></script>
+    <script src="../../script/store.min.js"></script>
+    <script src="../../script/moment.min.js"></script>
+    <script src="../../fetch/api.js"></script>
+    <script type="text/javascript">  
+        template.defaults.imports.formatDate = function(data){
+            if(data != '') {
+                return filterDate(moment(data).valueOf())
+            } else {
+                return '未确定'
+            }
+            
+        }; 
+        template.defaults.imports.formatDateTime = function(data){
+            if(data != '') {
+                return moment(data).format('YYYY-MM-DD hh:mm')
+            } else {
+                return '未确定'
+            }
+            
+        }; 
+        var filterDate = function(data) {
+            return moment(data).calendar(null, {
+                sameDay: '[今天]',
+                nextDay: '[明天]',
+                nextWeek: 'YYYY-MM-DD',
+                lastDay: '[昨天]',
+                lastWeek: 'YYYY-MM-DD',
+                sameElse: 'YYYY-MM-DD'
+            });
+        }
+        apiready = function(){  
+            var param = api.pageParam;
+            var reserveList = [ param ];
+            var peopleId = param.basic.content&&param.basic.content.salesPeopleId
+            /**
+            *  页面跳转
+            */
+            // $('#index-wrap').on('click', '#edit', function(){
+            //     api.openWin({
+            //         name: 'setUser',
+            //         url: '../setUser/setUser.html',
+            //         pageParam: param
+            //     })
+            // })
+
+            if(param.basic.typehood == 101) {
+                if(peopleId) {
+                    ajax.getServerPeople({
+                        peopleId: param.basic.content.salesPeopleId
+                    }, function(res) {
+                        reserveList[0].technician = res.data.basic.name
+                        load();
+                    }) 
+                    var load = function() {
+                        $('#index-wrap').html(template('tpl-order', {reserveList: reserveList}));
+                    }    
+                } else {
+                    api.toast({
+                        msg: '没有选择技师'
+                    })
+                }     
+            } else {
+                $('#index-wrap').html(template('tpl-order', {reserveList: reserveList}));
+            }
+        }
+
+    </script>
+</body>
+</html>

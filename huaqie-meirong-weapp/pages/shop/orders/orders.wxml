@@ -1,0 +1,67 @@
+<view class="main bc-white">
+  <view bindtap="goAddresses">
+    <view wx:if="{{hasAddress}}" class="orders-address">
+      <view class="address-wrap">
+        <image src="/images/address.png" class="add-img" mode="scaleToFill"></image>
+        <view class="address-item">
+          <text class="orders-address-name">{{address.name}}</text>
+          <text class="orders-address-phone address-default">{{address.phone}}</text>
+          <view class="orders-address-detail">{{address.summary}} {{address.detail}}</view>
+        </view>
+      </view>
+      <image src="/images/next.png" mode="aspectFit" class="next-img"></image>
+    </view>
+    <view wx:else class="orders-no-address">
+      <view class="add-left">
+        <image src="/images/address.png" class="add-img" mode="scaleToFill"></image>
+        <view class="address-item">
+          <text>新增收货地址</text>
+        </view>   
+      </view>
+      <image src="/images/next.png" mode="aspectFit" class="next-img"></image>
+    </view>
+  </view>
+  <view class="pay bc-white">
+    <view class="pay-item">
+      <text>微信支付</text>
+      <image src="/images/selected.png" mode="scaleToFill" class="selected-img"></image>
+    </view>
+
+  </view>
+
+  <view class="mark-item bc-white">
+    <text>备注</text>
+    <input bindinput="updateNote" class="mark-input" placeholder-class='mark-placeholder' placeholder="订单备注（30字以内）" />
+  </view>
+
+  <view class="orders-box bc-white">
+    <view wx:for="{{products}}" wx:key="index" class="orders-list">
+      <image class="orders-thumb" src="{{item.basic.images[0].url}}"></image>
+      <view class="orders-pro-name">{{item.basic.title}}</view>
+      <view class="orders-pices">
+        <view class="orders-pro-price">￥{{item.basic.price}}</view>
+        <view class="orders-count-num">×{{item.count}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="pay bc-white total">
+    <view class="pay-item">
+      <text>商品合计</text>
+      <text class="pay-result">￥{{totalPrice}}</text>
+    </view>
+    <view class="pay-item">
+
+      <text>运费</text>
+      <text class="pay-result">￥{{fee}}</text>
+
+    </view>
+  </view>
+
+
+
+  <view class="orders-footer bc-white">
+    <view class="orders-footer-total text-right">应付：<text>￥{{total}}</text></view>
+    <view class="orders-footer-btn" bindtap="toPay">提交订单</view>
+  </view>
+</view>

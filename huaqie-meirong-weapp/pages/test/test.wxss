@@ -1,0 +1,4 @@
+/* test.wxss */
+page{
+  height: 1900rpx;
+}

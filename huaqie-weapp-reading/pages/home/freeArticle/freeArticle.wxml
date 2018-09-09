@@ -1,0 +1,11 @@
+<!--pages/home/freeArticle/freeArticle.wxml-->
+<import src="/components/wxParse/wxParse.wxml"/>
+
+<view class="banner-advise">
+  <!-- <text class="book-title">{{detail.title}}</text> -->
+
+  <view class="book-content">
+    <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+  </view>
+</view>
+

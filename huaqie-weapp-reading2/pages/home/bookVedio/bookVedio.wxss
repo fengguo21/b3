@@ -1,0 +1,141 @@
+/* pages/home/bookVedio/bookVedio.wxss */
+.book-vedio {
+  height: 100%;
+  background: url('https://qbox.huaqie.com/ForGs6368lqdOfCy42ypHRaso274') no-repeat center;
+  background-size: 100% 100%;
+  box-sizing: border-box;
+  padding: 80rpx 0 50rpx;
+}
+.book-face {
+  display: block;
+  width: 400rpx;
+  height: 526rpx;
+  margin: 0 auto 38rpx;
+}
+.book-name {
+  text-align: center;
+  position: relative;
+  color: #fff;
+  max-width: 600rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0 auto;
+  text-overflow: ellipsis;
+}
+
+.book-name > text {
+  font-size: 36rpx;
+  font-weight: 700;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.book-author-wrap {
+  line-height: 1;
+  margin-top: -3rpx;
+}
+.book-author-wrap .book-author {
+  position: relative;
+  line-height: 1;
+  font-size: 28rpx;
+  display: inline-block;
+}
+.book-author-wrap .book-author::after,
+.book-author-wrap .book-author::before {
+  content: '';
+  display: block;
+  width: 36rpx;
+  height: 2rpx;
+  background: rgba(255, 255, 255, .5);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.book-author-wrap .book-author::before {
+  left: -56rpx;
+}
+.book-author-wrap .book-author::after {
+  right: -56rpx;
+}
+
+.operation {
+  margin-top: 68rpx;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 102rpx;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, .95);
+}
+.operation-item {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.operation-item button {
+  display: block;
+  border: 0;
+  padding: 1rpx;
+}
+.operation-item image {
+  width: 44rpx;
+  height: 44rpx;
+  display: block;
+}
+.operation-item text {
+  font-size: 20rpx;
+  margin-top: 12rpx;
+}
+
+.controllar {
+  margin-top: 48rpx;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  font-size: 24rpx;
+}
+.controllar .control-bar {
+  position: relative;
+  width: 516rpx;
+  height: 4rpx;
+  background: rgba(255, 255, 255, .5);
+}
+.controllar .control-bar-dot {
+  z-index: 2;
+  width: 26rpx;
+  height: 26rpx;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, -50%);
+}
+.controllar .control-bar-run {
+  z-index: 1;
+  position: absolute;
+  height: 4rpx;
+  width: 0;
+  background: #fff;
+}
+
+.controllar-tabs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 46rpx;
+  box-sizing: border-box;
+  padding: 0 163rpx;
+}
+.controllar-tab-prev,
+.controllar-tab-next {
+  width: 44rpx;
+  height: 44rpx;
+}
+.controllar-tab-play {
+  width: 140rpx;
+  height: 140rpx;
+}

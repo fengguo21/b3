@@ -1,0 +1,70 @@
+<view class="main">
+    <view class="header">
+        <image src="{{me.avatar || '../../../image/avatar.png'}}" class="thumb"></image>
+        <text class="nickname">{{me.name}}</text>
+        <navigator url="../about/about" class="about">关于我们</navigator>
+    </view>
+    <view class="address-box">
+        <view class="address-manage">
+            <navigator url="/page/component/addressList/addressList">地址管理</navigator>
+        </view>
+        <view wx:if="{{hasAddress}}" class="address-list">
+            <view>{{address.name}}</view>
+            <view>{{address.phone}}</view>
+            <view>{{address.detail}}</view>
+        </view>
+       
+        <view class="address-manage">
+            <navigator url="/page/component/qrcode/qrcode">我是销售员</navigator>
+        </view>
+       
+    </view>
+
+
+
+
+
+
+<view class="address-box">
+
+       
+      
+    </view>
+
+
+
+    <view class="orders-box">
+    <view class="address-box" style="border-bottom:0">
+    <view class="address-manage">
+            <navigator url="/page/component/myorders/myorders">所有订单</navigator>
+        </view>
+        </view>
+     <view class="goods-tab-box">
+       <view class="goods-tab-nav {{curIndex == 1 ?'on':''}}" catchtap="changeTab" data-index="1">待付款</view>
+        <view class="goods-tab-nav {{curIndex == 2 ?'on':''}}" bindtap="changeTab" data-index="2">待发货</view>
+        <view class="goods-tab-nav {{curIndex == 3 ?'on':''}}" bindtap="changeTab" data-index="3">待收货</view>
+        <view class="goods-tab-nav {{curIndex == 4 ?'on':''}}" bindtap="changeTab" data-index="4">已完成</view>
+        </view> 
+        <!--<view class="orders">我的订单</view>-->
+        <view class="orders-list" wx:if="{{orders.length > 0}}" wx:for="{{orders}}" wx:key="index">
+            <view class="orders-number">订单编号：{{item.orderId}}</view>
+             <navigator class="orders-detail" url="/page/component/order/order?orderId={{item.orderId}}">
+                <image src="{{item.basic.avatar}}"></image>
+                <view class="">{{item.basic.title}}</view>
+                <view class="">{{item.count}}</view>
+                <text class="orders-status {{item.stepClass}}">{{item.stepTitle}}</text>
+            </navigator>
+            <view class="orders-footer">
+                <text>实付：￥{{item.amount}}</text>
+                <button size="mini" class="orders-btn orders-btn-pay" data-oid="{{item.orderId}}" wx:if="{{item.step==1}}" bindtap="payOrders">继续付款</button><button size="mini" class="orders-btn orders-btn-receive" data-oid="{{item.orderId}}" wx:if="{{item.step==3}}" bindtap="confirm">确认收货</button>
+            </view>
+        </view>
+        <view class="no-orders" wx:if="{{orders.length == 0}}">
+          <image src="../../../image/no-orders.png" mode="widthFix"></image>
+          你还没有{{stepText}}订单，快去选购吧~
+        </view>
+    </view>
+</view>
+
+
+ <view class="tips" wx:if="{{orders.length > 0}}">{{tips}}</view>

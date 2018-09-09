@@ -1,0 +1,12 @@
+<!--pages/home/bannerAdives/bannerAdvise.wxml-->
+<import src="/components/wxParse/wxParse.wxml"/>
+<import src="/components/navBack/nav-back.wxml"/>
+
+<template is="nav-back"/>
+<view class="banner-advise">
+  <!-- <text class="book-title">{{detail.title}}</text> -->
+
+  <view class="book-content">
+    <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+  </view>
+</view>

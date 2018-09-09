@@ -1,0 +1,103 @@
+form {
+  display: block;
+  height: 100%;
+  background: #fff;
+}
+.form-item {
+  height: 100rpx;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.form-item-title {
+  font-size: 30rpx;
+  color: #000;
+}
+.form-radio-group {
+  overflow: hidden;
+}
+.form-radio-label {
+  line-height: 1;
+  float: left;
+  display: flex;
+  align-items: center;
+  margin-left: 64rpx;
+  font-size: 30rpx;
+}
+.form-radio-checkbox {
+  box-sizing: border-box;
+  width: 44rpx;
+  height: 44rpx;
+  border: 2rpx solid #ccc;
+  border-radius: 8rpx;
+  margin-right: 24rpx;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-size: 28rpx 18rpx;
+  background-position: center;
+  transition: all .3s ease-in;
+  background-image: url('https://qbox.huaqie.com/Ft9es7goqbHPV40s4CnM9vBEtP5S');
+}
+.form-radio-checkbox.radio-checkbox-on {
+  background-color: #be342a;
+  border-color: #be342a;
+}
+
+.form-item-last {
+  background: #fff;
+  overflow: hidden;
+}
+.form-item-last .form-item-title {
+  line-height: 1;
+  margin: 34rpx 0;
+}
+
+.form-btn-checked {
+  bottom: 64rpx;
+}
+.form-btn-checked button{
+  display: block;
+  width: 650rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  overflow: hidden;
+  border-radius: 50rpx;
+  background: rgb(190, 52, 42);
+  color: #fff;
+  border: 0;
+}
+.form-btn-checked button::after {
+  border: 0;
+}
+
+.input-box input[type="text"],
+.input-box input[type="number"],
+.input-box input[type="idCard"] {
+  font-size: 30rpx;
+  color: #666;
+  text-align: right;
+  width: 440rpx;
+}
+
+.input-box radio {
+  display: none;
+}
+
+textarea, .textarea-alias {
+  width: 100%;
+  height: 256rpx;
+  padding: 36rpx 30rpx;
+  box-sizing: border-box;
+  border: 1rpx solid #e5e5e5;
+  font-size: 28rpx;
+  border-radius: 20rpx;
+  color: #666;
+}
+.form-item-last .desc {
+  color: #666;
+  font-size: 28rpx;
+  padding: 36rpx 30rpx;
+  border: 1rpx solid #e5e5e5;
+  border-radius: 20rpx;
+}

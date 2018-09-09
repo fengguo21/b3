@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>detail</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/system.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/aui-win.css"/>
+
+    <script type='application/javascript' src='../../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style type="text/css">
+        #index-wrap .form-item-cell-icon {
+            width: 19px;
+            height: 19px;
+        }
+        #index-wrap .form-item-cell-label {
+            left: 29px;
+        }
+        #avatar-wrap {
+            height: 75px;
+        }
+        #avatar-wrap .form-item-cell-icon {
+            width: 52px;
+            height: 52px;
+            overflow: hidden;
+            border-radius: 50%
+        }
+        #avatar-wrap .form-item-cell-label {
+            left: 70px;
+        }
+        #avatar-wrap .form-item-cell-label em {
+            display: block;
+            color: #666;
+            font-size: 13px;
+            padding-top: 13px;
+        }
+        input{
+            text-align: right;
+            color:#666;
+        }
+        
+        
+        .choose{
+            font-size: 13px;
+            color:#999;
+            text-align: right;
+            position: absolute;
+            top:50%;
+            right: 0;
+            transform: translateY(-50%);
+        }
+        .choose span{
+            margin-left: 9px;
+            margin-right: 15px;
+        }
+        #name{
+            position: absolute;
+            top: 17px;
+            left: 70px;
+            display: block;
+            font-size: 14px;
+        }
+        #phone{
+            position: absolute;
+            top: 42px;
+            left: 70px;
+            display: block;
+            font-size: 14px;
+            color: gray;
+        }
+        .button-box{
+            margin: 60px 0 30px 0;
+            text-align: cener;
+        }
+        .button{
+            border-radius: 30px;
+            padding: 10px 30px;
+            background: #fc75b9;
+            color: white;
+            text-align: center;
+            width: 80%;
+            margin: 0 auto;
+        }
+        #amount,#date,#note{
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class='set-layout' id='index-wrap'>
+      <!-- <script id="tpl-order" type="text/html"> -->
+        
+        <ul class="form-content">
+            <li class="form-item border-b" id='avatar-wrap'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../../image/defaultava.png" id="avatar">
+                    </span>
+                    <span id="name"></span>
+                    <span id="phone"></span>
+                    <p class="choose" onclick="go()"> 
+                        选择会员<span class="aui-iconfont aui-icon-right"></span> 
+                    </p>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../../image/amount.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>欠款</span>
+                    <input id="amount" type="number" placeholder="请输入金额" class='form-item-cell-other position-y-center'>
+                        
+                    </input>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../../image/note.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>备注</span>
+                    <input id="note" type="text" placeholder="请输入备注" class='form-item-cell-other position-y-center'>
+                        
+                    </input>
+                </div>
+            </li>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../../image/date.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>日期</span>
+                   
+                    <span class='form-item-cell-other position-y-center' onclick="openPicker()" id="date">
+                        
+                    </span>
+                    
+                </div>
+            </li>
+            <div class="button-box"><div class="button" onclick="save()">确认添加</div></div>
+        </ul>
+
+
+        
+        
+       
+      <!-- </script> -->
+    </div>
+    <script src="../../../script/api.js"></script>
+    <script src="../../../script/axios.min.js"></script>
+    <script src="../../../script/template-web.js"></script>
+    <script src="../../../script/zepto.min.js"></script>
+    <script src="../../../script/store.min.js"></script>
+    <script src="../../../script/moment.min.js"></script>
+    <script src="../../../fetch/api.js"></script>
+    <script type="text/javascript">  
+        var people = {}
+    	$('#date').text(moment(new Date()).format('YYYY-MM-DD'))
+        $('#avatar-wrap').on('click', function() {
+            api.openWin({
+                name: 'choosevip',
+                url: '../choosevip/choosevip.html'
+            })
+        })
+
+        var update = function() {
+            people = store.get('choosedPeople')
+            $('#avatar')[0].src = people.avatar
+            $('#name').text(people.name)
+            $('#phone').text(people.phone)
+        }
+
+        var save = function(){
+            if(!people.peopleId){
+                alert('请选择会员')
+                return
+            }
+            if(!$('#amount').val() || $('#amount').val() <= 0){
+                alert('请填写正确的金额')
+                return
+            }
+            ajax.markAccount( {
+               amount: $('#amount').val(),
+                direction: 1,
+                peopleId: people.peopleId,
+                note: $('#note').val(),
+                date: $('#date').text() 
+            }, function(res) {
+                if(res.code){
+                    api.alert({
+                        msg: res.message
+                    })
+                    return
+                }
+                api.toast({
+                    msg: '添加账单成功'
+                })
+                api.execScript({
+                    name: 'markaccount',
+                    frameName: 'markaccount_frame',
+                    script: 'getDietList(1)'
+                })
+                api.closeWin();
+            })
+        }
+
+        var openPicker = function () {
+            api.openPicker({
+                type: 'date',
+                date: moment().format('YYYY-MM-DD'),
+                title: '选择日期'
+            }, function(ret, err) {
+                if (ret) {
+                    var day = ret.year+'-'+ret.month+'-'+ret.day
+                    if(day > moment().format('YYYY-MM-DD')){
+                        api.alert({
+                            msg: '不能选择将来的日期'
+                        })
+                        return
+                    }
+                    $('#date').text(day)
+                }
+            });
+        }
+
+        apiready = function(){  
+            
+        }
+
+    </script>
+</body>
+</html>

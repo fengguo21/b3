@@ -1,0 +1,23 @@
+.position-center, .position-x-center,
+.position-y-center {
+	position: absolute;
+}
+	
+.position-center, .position-x-center{
+	left: 50%;
+}
+.position-center, .position-y-center{	
+	top: 50%;
+}
+.position-center {
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+}
+.position-x-center {
+	transform: translateX(-50%);
+	-webkit-transform: translateX(-50%);
+}
+.position-y-center {
+	transform: translateY(-50%);
+	-webkit-transform: translateY(-50%);
+}

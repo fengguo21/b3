@@ -1,0 +1,80 @@
+@import '/common/css/position.wxss';
+@import '/common/css/border.wxss';
+@import '/common/css/color.wxss';
+@import '/common/css/pd-mg.wxss';
+
+page {
+  width: 100%;
+  height: 100%;
+  background: #f5f5f5;
+  line-height:1.6;
+  font-family:-apple-system-font,Helvetica Neue,sans-serif;
+}
+
+page view,
+page text {
+  word-break: break-all;
+}
+.icon {
+  vertical-align: middle;
+}
+
+page > .layout {
+  overflow-x: hidden;
+  min-height: 100%;
+  height: 100%;
+  background: #f5f5f5;
+  position: relative;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+/* 为空样式 */
+.empty {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.empty image {
+  width: 460rpx;
+  height: 464rpx;
+  margin-bottom: 66rpx;
+}
+.empty .empty-text {
+  line-height: 1;
+  font-size: 30rpx;
+  text-align: center;
+  color: rgb(102, 102, 102);
+}
+
+/* 支付按钮样式 */
+.pay-btn-wrap {
+  background: #fff;
+  width: 100%;
+  padding: 114rpx 0 64rpx;
+}
+.pay-btn-wrap .pay-btn {
+  width: 650rpx;
+  height: 90rpx;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 90rpx;
+  color: #fff;
+  background: rgb(190, 52, 42);
+  border-radius: 50rpx;
+  font-size: 36rpx;
+}
+.pay-btn-wrap .pay-btn.end {
+  background: rgb(179, 179, 179);
+}
+
+.system-set {
+  padding: 15rpx;
+  text-align: center;
+  color: #ccc;
+  font-size: 20rpx;
+}

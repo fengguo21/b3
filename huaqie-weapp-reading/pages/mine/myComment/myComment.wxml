@@ -1,0 +1,35 @@
+<!--pages/mine/myComment/myComment.wxml-->
+<view class="my-comment">
+  <block wx:if="{{ list.length <= 0 }}">
+    <view class="is-empty">
+      <image mode="widthFix" src="/images/record-empty.png" ></image>
+      <text>暂时没有评论</text>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="mode sp">
+      <view class="mode-title">
+        <view class="mode-title-border"></view>
+        <view class="mode-title-text">我的评论</view>
+        <text class="record-count">（{{total}}）</text>
+      </view>
+
+      <view class="record-list">
+        <block wx:for="{{list}}" wx:key="{{index}}">
+        <view class="record-item {{index !== list.length - 1?'border-b':''}}">
+          <view class="record-user-msg">
+            <image mode="widthFix" src="{{me.basic.avatar ? me.basic.avatar : '/images/play.png'}}"></image>
+            <view class="record-user-other">
+              <text class='record-user-name'>{{me.basic.name}}</text>
+              <text class='record-user-time'>{{item.createFormat}}</text>
+            </view>
+          </view>
+          <view class="record-content">
+            {{item.basic.text}}
+          </view>
+        </view>
+        </block>
+      </view>
+    </view>
+  </block>
+</view>

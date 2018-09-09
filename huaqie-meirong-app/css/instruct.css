@@ -1,0 +1,50 @@
+.instruct-box {
+	overflow: hidden
+}
+.instruct-box h4 {
+	padding: 10px 15px 0;
+	font-weight: normal;
+	line-height: 1.5;
+	color: #333;
+}
+.instruct-wrap {
+	overflow: hidden;
+	margin: 10px;
+}
+.instruct-wrap .times-title img {
+	width: 25px;
+	float:left;
+	margin: 0 15px;
+}
+.times-title {
+	overflow: hidden;
+}
+.instruct-wrap .times-title > span {
+	height: 100%;
+	line-height: 25px;
+	display: inline-block;
+	vertical-align: middle;
+}
+.times {
+	padding: 0 15px;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	margin-top: 10px;
+}
+.times span {
+	width: 100px;
+	font-size: 13px;
+	padding: 8px 0;
+	line-height: 1.5;
+	text-align: center;
+	border-radius: 30px;
+	margin-bottom: 10px;
+}
+.times .times-item {
+	background: #fff;
+}
+.times p {
+	color: #666;
+	line-height: 1.5
+}

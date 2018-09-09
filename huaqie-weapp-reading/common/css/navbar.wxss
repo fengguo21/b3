@@ -1,0 +1,42 @@
+/*
+* navbar start
+*/
+.navbar-wrap {
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  background: #fff;
+  height: 90rpx;
+  position: relative;
+}
+.navbar {
+  width: auto;
+  height: 100%;
+  white-space: nowrap;
+}
+.navbar-tabs {
+  margin: 0 31rpx;
+  /* width: 128rpx;
+  max-width: 130rpx; */
+  height: 100%;
+  display: inline-block;
+  text-align: center;
+  line-height: 90rpx;
+  color: #1a1a1a;
+  transition: all .3s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 32rpx;
+}
+.navbar-tabs.navbar-tabs-on {
+  color: #ffa42f;
+}
+.navbar-tabs.navbar-tabs-on.border-b::after {
+  width: 256rpx;
+  border-width: 8rpx;
+  border-color: #ffa42f;
+}
+/*
+* navbar end
+*/

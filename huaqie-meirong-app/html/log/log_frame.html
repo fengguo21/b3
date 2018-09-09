@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/index_frame.css?v=3"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script>
+    <script type="text/javascript">
+        if ('addEventListener' in document) {
+            document.addEventListener('DOMContentLoaded', function() {
+                FastClick.attach(document.body);
+            }, false);
+        }
+    </script>
+    <title>log</title>
+    <style type="text/css">
+        body{
+
+        }
+        .aui-user-view-cell{
+
+        }
+        .enterFollow{
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            font-size: 14px;
+            color: #13b859;
+        }
+        .enterFollow2{
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            font-size: 14px;
+            color: #3da8ff;
+        }
+        .enterFollow img{
+            margin-left: 9px;
+            margin-bottom: -1px;
+        }
+        .infoItem{
+            margin: 10px 15px;
+            background: white;
+            border-radius: 10px;
+        }
+        .consumeNumber{
+            color:#ff3e39;
+        }
+        .infoRatio{
+            display:  inline-block;
+        }
+        .infoPic{
+            display: inline-block;
+            width:62px;
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            padding: 0;
+            position: relative;
+            margin-left: 6px;
+        }
+        .percPic{
+            height: 100%;
+            display: inline-block;
+            width: 0px;
+            background: #ff55b5;
+            margin:0;
+            border-radius: 10px;
+            position: absolute;
+            top:0;
+        }
+        .percent{
+            color: #ff55b5;
+            font-size: 10px;
+        }
+        .msg-body p{
+            overflow: auto;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="aui-content" id="not-empty" style='display: none'>
+        <ul class="aui-user-view aui-in" id='order-list' style="background: #f5f5f5">
+            <script type="text/html" id='tpl-order'>
+                {{each list val index}}
+                    <li class="infoItem">
+                        <div class="aui-user-view-cell aui-img" data-noteid='{{val.feedId}}' onclick='handleClick({{val}})'>
+                            <img data-noteid='{{val.feedId}}' class="aui-img-object aui-pull-left" src="{{val.basic.extra|formatAvatar}}">
+                            <div data-noteid='{{val.feedId}}' class="msg-body">
+                                <span data-noteid='{{val.feedId}}' style="font-size: 15px">{{val.basic.extra&&val.basic.extra.name}}<em data-noteid='{{val.feedId}}' class='complate' style="font-size: 13px;color: #999">基本资料</em></span>
+                                <p data-noteid='{{val.feedId}}' class='aui-ellipsis-1' style="font-size: 13px">
+                                    {{val.basic.title}}
+                                    <span class="consumeNumber">{{val.basic.extra.amount == 1 ? val.basic.extra.amount : val.basic.extra.amount.toFixed(2)}}</span> {{val.basic.extra.amount == 1?'次': '元'}}
+                                <em class="infoRatio">
+                                    <span class="percent">{{val.percent}}</span><span class="infoPic"><span class="percPic" style='width: {{val.len}}'></span></span>
+                                </em>
+                                </p>
+                            </div>
+                        </div>
+
+                        <p  onclick="editlog({{val}})" class="enterFollow" id="enter"><span class="enterTitle"  >去填写跟踪日志</span><img src="../../image/green.png" id="arrow" style="width: 12px;height: 9px;display: inline-block;margin-left: 9px"></p>
+                    </li>
+                {{/each}}
+            </script>
+        </ul>
+    </div>
+    <div id="empty" style='display: none; overflow: hidden; text-align: center'>
+         <div style='width: 165px; height:165px; margin: 178px auto 20px'>
+             <img src="../../image/data-empty.png" style='display: block; width: 186px;'>
+         </div>
+         <span style='font-size: 14px; color: #999'>暂时没有日志</span>
+    </div>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/axios.min.js"></script>
+<script src="../../script/template-web.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script src="../../script/store.min.js"></script>
+<script src="../../script/moment.min.js"></script>
+<script src="../../script/store.min.js"></script>
+<script src="../../script/phone.js"></script>
+<script src="../../fetch/api.js?rev=@@hash"></script>
+<script type="text/javascript">
+    /**
+    *   过滤器
+    */
+    template.defaults.imports.formatAvatar = function(data){
+        if(data&&data.avatar) {
+            return data.avatar
+        } else {
+            return '../../image/mine-avatar.png'
+        }
+    };
+
+    template.defaults.imports.formatTime = function(data) {
+        return moment(data).format('YYYY-MM-DD hh:mm')
+    }
+
+    var baseList = [ 'birth', 'skin',  'consume', 'temper', 'profession', 'health', 'weight' ];
+    var orderList = [];
+    var page = 1;
+    var total = 0;
+    var index ='';
+    var getPreBook = function() {
+        if(!index){
+            return
+        }
+        var that = this;
+        var params = {
+            page: page,
+            size: 100,
+            channel:'consumeCard',
+            log: index,
+        }
+        ajax.getProfile(params, function(res) {
+            res.data.list.forEach(function(item) {
+                var count = 0;
+                if(item.profile) {
+                    for(key in item.profile) {
+                        if(baseList.indexOf(key) >= 0 && item.profile[key]) {
+                            count += 1;
+                        }
+                    }
+                    percent = count ? (count / baseList.length * 100).toFixed(0) + '%' : '0%';
+                    ratio = parseInt(count ? (count / baseList.length * 100).toFixed(2) + '%' : '0%') / 100;
+                    item.len = 62 * ratio + 'px';
+                    item.percent = percent;
+                }
+            })
+            // alert('RNEDER SUCCESS');
+            // console.log('complate======= ', res.data.list)
+            if(res.data.page == 1) {
+                orderList = res.data.list;
+            } else {
+                orderList = orderList.concat(res.data.list);
+            }
+            total = res.data.total;
+            if(total > 0) {
+                $('#not-empty').show();
+                $('#empty').hide();
+                $('#order-list').html(template('tpl-order', {list: orderList}))
+                initEnter()
+            } else {
+                $('#not-empty').hide();
+                $('#empty').show();
+            }
+        })
+    }
+    var handleClick = function(data) {
+        if(index == 1) {
+            api.openWin({
+                name: 'queryBasicInfo',
+                url: './queryLog/queryBasicInfo.html',
+                pageParam: data,
+            })
+            return;
+        }
+        api.openWin({
+            name: 'basicInfo',
+            url: './setLog/basicInfo.html',
+            pageParam: data,
+        })
+    }
+    var editlog = function(data) {
+        if(index == 1) {
+            api.openWin({
+                name: 'queryFollow',
+                url: './queryLog/queryFollow.html',
+                pageParam: data,
+            })
+            return;
+        }
+        api.openWin({
+            name: 'followLog',
+            url: './setLog/followLog.html',
+            pageParam: data,
+        })
+    }
+    var initEnter=function(){
+        console.log(index)
+        if(index==2){
+            console.log($('.enterTitle'))
+        }else{
+            $('.enterTitle').html('已完成日志');
+            $('p#enter').removeClass('enterFollow')
+            $('p#enter').addClass('enterFollow2')
+            $('img#arrow').attr('src','../../image/blueRight.png')
+        }
+    }
+   // //getPreBook()
+    apiready = function(){
+        index = api.pageParam.index;
+
+        getPreBook();
+        // // 滑动事件
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if(page * 10 < total){
+                page += 1
+                getPreBook();
+            } else {
+                api.toast({
+                    msg: '没有更多啦'
+                })
+            }
+        });
+    };
+</script>
+</html>

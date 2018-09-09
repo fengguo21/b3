@@ -1,0 +1,10 @@
+/* pages/indexShare/indexShare.wxss */
+@import '/common/css/meeting-time.wxss';
+@import '/common/css/index.wxss';
+
+.room-pay-status {
+  color: rgb(66, 137, 255);
+}
+.room-pay-status.success {
+  color: rgb(48, 176, 3);
+}

@@ -1,0 +1,82 @@
+<!--pages/invoice/invoice.wxml-->
+<view class="invoice layout">
+  <form bindsubmit="formSubmit">
+    <view class="form-item border-b pd-lr-30">
+      <view class="form-item-title">名称</view>
+      <view class="input-box">
+        <input name="title" placeholder="公司名称 (必填)" type="text" placeholder-style="color: #b3b3b3"/>
+      </view>
+    </view>
+
+    <view class="form-item border-b pd-lr-30">
+      <view class="form-item-title">税号</view>
+      <view class="input-box">
+        <input name="taxNo" placeholder="15-20位 (企业报销时必填)" type="text" placeholder-style="color: #b3b3b3"/>
+      </view>
+    </view>
+
+    <view class="form-item border-b pd-lr-30">
+      <view class="form-item-title">单位地址</view>
+      <view class="input-box">
+        <input name="address" placeholder="公司地址" type="text" placeholder-style="color: #b3b3b3"/>
+      </view>
+    </view>
+
+    <view class="form-item border-b pd-lr-30">
+      <view class="form-item-title">电话号码</view>
+      <view class="input-box">
+        <input name="tel" placeholder="公司电话" type="text" placeholder-style="color: #b3b3b3"/>
+      </view>
+    </view>
+
+    <view class="form-item border-b pd-lr-30">
+      <view class="form-item-title">开户银行</view>
+      <view class="input-box">
+        <input name="bank" placeholder="开户银行" type="text" placeholder-style="color: #b3b3b3"/>
+      </view>
+    </view>
+
+    <view class="form-item border-b pd-lr-30">
+      <view class="form-item-title">银行账户</view>
+      <view class="input-box">
+        <input name="account" placeholder="银行账户" type="text" placeholder-style="color: #b3b3b3"/>
+      </view>
+    </view>
+
+    <view class="form-item border-b pd-lr-30">
+      <view class="form-item-title">发票类型</view>
+      <view class="input-box">
+        <radio-group name="typehood" class="form-radio-group" bindchange="radioChange">
+          <label class="form-radio-label middle-gray">
+            纸质
+            <radio value="2" checked="true" />
+          </label>
+        </radio-group>
+        <!-- <radio-group name="typehood" class="form-radio-group" bindchange="radioChange">
+          <label class="form-radio-label middle-gray" wx:for="{{typeList}}" wx:key="index"> -->
+            <!-- 自定义的checkbox -->
+            <!-- <view
+              class="form-radio-checkbox {{item.checked?'radio-checkbox-on':''}}"
+            ></view>
+            {{item.label}} -->
+
+            <!-- 隐藏的checkbox -->
+            <!-- <radio value="{{item.value}}" checked="{{item.checked}}" />
+          </label>
+        </radio-group> -->
+      </view>
+    </view>
+
+    <!-- <view hidden="{{chooseType == 2}}" class="form-item border-b pd-lr-30">
+      <view class="form-item-title">邮箱地址</view>
+      <view class="input-box">
+        <input name="email" placeholder="邮箱地址" type="text" placeholder-style="color: #b3b3b3"/>
+      </view>
+    </view> -->
+
+    <!-- 确认按钮 -->
+    <view class="form-btn-checked position-x-center">
+      <button formType="submit">保存</button>
+    </view>
+  </form>
+</view>

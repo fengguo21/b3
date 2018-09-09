@@ -1,0 +1,190 @@
+<!--studyDetail2.wxml-->
+<view class="title">
+<text>手把手教你如何接入小程序，为店铺带来更大利益</text>
+</view>
+<view class="time">
+<text>2017-08-20 16:58</text>
+</view>
+
+<view class="">
+  <image src="https://dn-huaqie.qbox.me/agent-t37.png" mode="widthFix"></image>
+</view>
+
+<view class=" k">
+  <text>很多人想使用微信小程序，却不知道在该如何注册。下面提供一个非常详细的教程，让大家快速学会如何注册微信小程序。</text>
+</view>
+<view class="k">
+<text>小程序开发流程：（商家小程序申请成功后，只需一周的开发时间，小程序即可上线）</text>
+</view>
+<view class="k">
+<text>1.申请小程序（微信公众平台申请小程序）</text>
+</view>
+<view class="k">
+<text>2.微信支付（申请小程序微信支付）</text>
+</view>
+
+<view class="k">
+<text> 3.把小程序授权给花茄</text>
+</view>
+
+<view class="k">
+<text>4.填写商户信息，提交审核</text>
+</view>
+<view class="k">
+<text>5.审核通过，小程序上线</text>
+</view>
+<view class="k">
+<text class="boldf">商家申请小程序流程：</text>
+</view>
+<view class="k">
+<text class="boldf">需要的资料：</text>
+</view>
+<view class="k">
+<text>1.邮箱（没有注册过微信相关业务的邮箱）</text>
+</view>
+<view class="k">
+<text>2.企业营业执照扫描件（或照片）或个体工商户执照</text>
+</view>
+<view class="k">
+<text>3.能收款的企业对公账户（或个体工商户对应的银行卡）</text>
+</view>
+<view class="k">
+<text>4.指派一位管理员（可以是法人或者委托的任何人）。需要管理员的个人微信号，且必须绑定和管理员身份证相符的银行卡。</text>
+</view>
+<view class="k">
+<text>5.管理员身份证扫描件（或照片）</text>
+</view>
+<view class="k">
+<text>6.座机号</text>
+</view>
+<view class="k">
+<text>7.企业公章（个体工商户不需要）</text>
+</view>
+<view class="k">
+<text>8.打印机（或者到复印店打印）</text>
+</view>
+
+<view class="k">
+<text>9.扫描仪（或手机拍照）</text>
+</view>
+<view class="k">
+<text>10.其他证书，如食品卫生许可证等（根据经营范围不同，证件不同）</text>
+</view>
+
+<view class="k">
+<text  class="boldf">步骤：</text>
+</view>
+
+<view class="p">
+<text>第一步：在浏览器中输入https://mp.weixin.qq.com点击注册，下图红色箭头方向</text>
+</view>
+
+
+<view class="imgbox1">
+  <image src="https://dn-huaqie.qbox.me/agent-t47.png"  mode="widthFix"></image>
+</view>
+
+<view class="p">
+<text>第二步：选择小程序</text>
+</view>
+
+<view class="imgbox1">
+  <image src="https://dn-huaqie.qbox.me/agent-t48.png" mode="widthFix"></image>
+</view>
+
+<view class="p">
+<text>第三步：填写邮箱、密码等信息，按提示操作即可</text>
+</view>
+
+<view class="imgbox1">
+  <image src="https://dn-huaqie.qbox.me/agent-t49.png"  mode="widthFix"></image>
+</view>
+
+<view class="p">
+<text>第四步：打开邮箱，点击刚刚微信发到邮箱的验证邮件，点击链接。</text>
+</view>
+
+<view class="p">
+<text>第五步：填写相关信息，按提示操作即可，同时需要注意的是，一定要选择“企业”和“微信认证”选项，红色箭头方向。（不能选择其它选项，其它选项的认证步骤非常耗时并且仍然需要支付认证费）</text>
+</view>
+
+<view class="p">
+<text>第六步：点击认证按钮</text>
+</view>
+
+
+
+<view class="imgbox1">
+  <image src="https://dn-huaqie.qbox.me/agent-t50.png"  mode="widthFix"></image>
+</view>
+
+<view class="p">
+<text>第七步：填写企业相关信息和管理员相关信息，按提示操作即可。同时需要注意的是一定要上传申请公函，公函需要管理管用黑色签字笔签字，以及盖企业公章。有打印条件的可以直接选择下载公函按钮，然后选择打印。没有打印条件的，请点击下载公函按钮，把这个页面截图后保存到有打印条件的地方打印。</text>
+</view>
+
+<view class="p">
+<text>第八步：填写好信息，核对无误后提交审核，微信收取300元审核费用，可直接微信扫码支付。</text>
+</view>
+
+<view class="p">
+<text>第九步：等待接听审核电话，会核实包括公司名、公司注册地址、公司法人姓名等信息。需要注意的是微信也有可能在此时向提交的企业对公账户汇入0.01元到1元不等的金额，您需要通知财务登录企业对公账户网银查看具体金额，告知审核方。</text>
+</view>
+
+<view class="p">
+<text>第十步：开通微信支付。点击左边的微信支付、和右边的开通。</text>
+</view>
+
+<view class="p">
+<text>第十一步：开通商家微信收款，如果是新开通商家，选择新申请。</text>
+</view>
+
+
+<view class="p">
+<text>第十二步：填写相关信息，按照提示操作即可。需要注意的是选择经营类目的时候必须是营业执照上写明的经营范围的类目，另外不同类目需要上传相关资质，比如卫生许可证等。</text>
+</view>
+
+
+
+<view class="p">
+<text>第十三步：填写相关信息，需要注意的是此步骤需要上传管理员的个人身份证扫描件或者照片。</text>
+</view>
+
+
+
+<view class="p">
+<text>第十四步：等待审核。1到5个工作日，微信官方会把审核结果发送到您填写的邮箱中。如审核通过，按照邮件中给的账户、密码、登录地址，登录后查收账户余额，并在小程序上验证，以及点击确认《微信支付服务协议》。</text>
+</view>
+
+
+<view class="p">
+<text>第十五步：全部审核完成。前期微信公众号、小程序的申请可代办（所产生的相关费用需要商家自行承担）。</text>
+</view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<text></text>
+<text></text>
+<text></text>
+<text></text>
+<text></text>
+<text></text>

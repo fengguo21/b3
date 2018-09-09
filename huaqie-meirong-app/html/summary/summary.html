@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>setproject</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-win.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/header.css?v=2"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script src="../../script/zepto.min.js"></script>
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style>
+        body{
+            
+        }
+        .aui-bar .aui-pull-right {
+            font-size: 15px;
+        }
+        #filter-box {
+            display: flex;
+            font-size: 14px;
+            background: white;
+            height: 50px;
+
+        }
+        #filter-box .active{
+            color:#ff55b5;
+            position: relative;
+        }
+
+        #filter-box .active::after {
+            content: '';
+            display: block;
+            width: 55px;
+            border-bottom: 2px solid #ff55b5;
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+        }
+        
+        .filter-box.show {
+            display: block;
+        }
+        .filter-box li {
+            /* padding: 15px 0; */
+            flex: 1;
+            /*margin:0 35px;*/
+           /*width:55px;*/
+            height: 50px;
+            line-height: 50px;
+            color: #999999;
+            text-align: center;
+            font-size: 13px;
+           
+        }
+        
+
+
+        .flex-header {
+            position: fixed !important;
+            top: 66px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 999;
+        }
+        #count {
+            background: #f4f4f4;
+        }
+        .flex-wrap {
+            /* flex: 1;
+            overflow: auto; */
+            padding-top: 66px;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-primary" id="aui-header">
+        <a class="aui-pull-left" onclick="api.closeWin();"> <span class="aui-iconfont aui-icon-left"></span> </a>
+        <div class="aui-title">
+            总结
+        </div>
+    </header>
+    <div class="flex-header">
+        <ul class='filter-box' id='filter-box'>
+            <li data-name='month' class="active">月度</li>
+            <li data-name='year'>年度</li>
+            
+        </ul>
+        
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript"> 
+	$('#filter-box').on('click', 'li', function(e) {
+            
+        $('li').removeClass('active')
+        e.target.className='active'
+        $('#filter-box').removeClass('show')
+        api.execScript({
+            name: 'summary',
+            frameName: 'summary_frame',
+            script: 'changeMode("'+this.dataset.name+'")'
+        })
+    }) 
+    apiready = function(){
+        $api.fixStatusBar($api.dom('header'));
+        api.openFrame({
+            name: 'summary_frame',
+            url: './summary_frame.html',
+            rect: {
+                x: 0,
+                y: $api.dom('header').offsetHeight+50,
+                w: 'auto',
+                h: 'auto'
+            }
+        });    
+    };
+</script>
+</html>

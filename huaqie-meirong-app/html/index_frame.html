@@ -1,0 +1,575 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>detail</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/index_frame.css?v=6"/>
+    <script type='application/javascript' src='../script/fastclick.js'></script>
+    <script type="text/javascript">
+        if ('addEventListener' in document) {
+            document.addEventListener('DOMContentLoaded', function() {
+                FastClick.attach(document.body);
+            }, false);
+        }
+    </script>
+    <style>
+        .msg-count-preb,
+        .msg-count-diary
+         {
+            color: #fff;
+            background: #ff55b5;
+            position: absolute;
+            min-width: 12px;
+            height: 12px;
+            line-height: 12px;
+            text-align: center;
+            border-radius: 12px;
+            box-sizing: border-box;
+            padding: 1px 4px;
+            font-size: 10px;
+        }
+        .msg-count-preb {
+            left: 110%;
+            top: -10px;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+        }
+        .msg-count-diary {
+            left: 40%;
+            top: 10px;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+        }
+        .topnotice{
+            display: flex;
+            width:100%;
+            padding: 10px 0;
+            background: white;
+            margin-bottom: 10px;
+        }
+        .topnotice img{
+            height: 22px;
+            width:21px;
+            margin-top: 12px;
+            margin-left: 21px;
+
+        }
+        .left{
+            flex:1;
+            border-right: 1px solid #e6e6e6;
+            display: flex;
+        }
+        .right{
+            flex: 1;
+            display: flex;
+        }
+        .pic{
+            flex: 0 0 66px;
+        }
+        .content{
+            flex: 1
+        }
+        .content h2{
+            font-size: 15px;
+            color: #1a1a1a;
+        }
+        .content p{
+            font-size: 12px;
+            color: #999;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="code-tabs" id='code-tabs'>
+        <div class="code-box" data-index='1'><div class='aui-iconfont aui-icon-qrcode'></div><span>新开卡</span></div>
+        <div class="code-box" data-index='2'><div class='aui-iconfont aui-icon-barcode'></div><span>服务码</span></div>
+        <div class="code-box" data-index='3'><div class='aui-iconfont '><img src="../image/cashier.png" style="width:25px;"></div><span>收银台</span></div>
+    </div>
+    <div class="code-tabs2" id='code-tabs2'>
+        <div class="code-box" data-index='1'><div class='aui-iconfont aui-icon-qrcode'></div></div>
+        <div class="code-box" data-index='2'><div class='aui-iconfont aui-icon-barcode'></div></div>
+    </div>
+
+   <!--  <div  style="height: 65px;margin-top: 80px;" class="topnotice">
+        <div class="left">
+            <div class="pic">
+                <img src="../image/kaoqin.png">
+            </div>
+
+           <div class="content"  onclick="more()">
+               <h2>考勤签到</h2>
+               <p>员工上班每天打卡</p>
+           </div>
+        </div>
+        <div class="right">
+            <div class="pic">
+                <img src="../image/birth.png">
+            </div>
+            <div class="content"  onclick='checkStatus(3)'>
+               <h2>生日提醒</h2>
+               <p>会员生日自动提醒</p>
+           </div>
+        </div>
+    </div> -->
+    <div class="aui-content" id='content-top'>
+
+        <div class="service aui-user-view aui-in" >
+
+            <div class='aui-user-view-cell'>预约</div>
+            <ul class='aui-user-view-cell flex'>
+                <li onclick='findMe()'>
+                    <div class="img-wrap" id="preb">
+                        <img src="../image/index-findme.png?v=1" >
+                        <!-- <i></i> -->
+                    </div>
+                    <span >客户约我</span>
+                </li>
+                <li onclick='checkStatus(1)'>
+                    <div class="img-wrap">
+                        <img src="../image/index-tm.png?v=1" >
+                        <!-- <i></i> -->
+                    </div>
+                    <span>今日要约</span>
+                </li>
+                <li onclick='checkStatus(2)'>
+                    <div class="img-wrap">
+                        <img src="../image/index-today.png?v=1" >
+                    </div>
+                    <span>即将流失</span>
+                </li>
+                <!-- <li >
+                    <div class="img-wrap">
+                        <img src="../image/birthday.png?v=1" >
+                    </div>
+                    <span>快到生日</span>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+
+    <div class="aui-content">
+        <div class="service aui-user-view aui-in" style='margin: 0;'>
+            <div class='aui-user-view-cell'>服务</div>
+            <ul class='aui-user-view-cell flex flex-between' id='log-wrap'>
+                <li data-index='2'>
+                    <div class="img-wrap" id="diary">
+                        <img src="../image/index-service.png?v=1" >
+                    </div>
+                </li>
+                <li data-index='1'>
+                    <div class="img-wrap">
+                        <img src="../image/index-complete.png?v=1" >
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="aui-content" id="not-empty" style='display: none;'>
+        <ul class="aui-user-view aui-in" id='order-list'>
+            <script type="text/html" id='tpl-order'>
+                <div class='aui-user-view-cell' id='list-title'>办卡(<span id='card-list-num'></span>)</div>
+                {{each list val index}}
+                    <li class="aui-user-view-cell aui-img" data-noteid='{{val.feedId}}' onclick='goDetail(this,{{val}})'>
+                        <i data-noteid='{{val.feedId}}' class='unread' style='display: {{val.basic.unread|formatUnread}}'></i>
+                        <img data-noteid='{{val.feedId}}' class="aui-img-object aui-pull-left" src="{{val.basic.from|formatAvatar}}">
+                        <div data-noteid='{{val.feedId}}' class="msg-body">
+                            <span data-noteid='{{val.feedId}}'>{{val.basic.from&&val.basic.from.title}}<em data-noteid='{{val.feedId}}' class='{{val.basic.typehood|formatClass}}'>{{val.basic.typehood|formatStatu}}</em></span>
+                            <p data-noteid='{{val.feedId}}' class='aui-ellipsis-1'>
+                            {{if val.basic.typehood == 101}}
+                                项目：{{val.basic.content.service}}
+                            {{else if val.basic.typehood == 102}}
+                                {{val.basic.member.phone}}
+                            {{else}}
+                                {{val.basic.member.amount == 1?'消费次数': '消费金额'}}：{{val.basic.member.amount}} {{val.basic.member.amount == 1?'次': '元'}}
+                            {{/if}}
+                            <em data-noteid='{{val.feedId}}'>
+                                {{val.created|formatTime}}
+                            </em>
+                            </p>
+                        </div>
+                    </li>
+                {{/each}}
+            </script>
+        </ul>
+    </div>
+
+    <div id="box">
+        <div class="box-background"></div>
+
+        <div class="box-container">
+            <div class="box-header">
+                <img src="../image/dialog-close.png?v=2" onclick="closeDialog()" />
+            </div>
+            <div class="line"></div>
+            <div class="box-body">
+                <h3 class="box-body-title" id="box-body-title">请输入金额</h3>
+                <input type="number" id="box-body-input" placeholder="请输入金额">
+                <div class="box-body-button" onclick="save()">确认</div>
+            </div>
+        </div>
+        </div>
+    <div id="empty" style='display: none; overflow: hidden; text-align: center'>
+         <div style='width: 165px; height:165px; margin: 178px auto 20px'>
+             <img src="../image/data-empty.png" style='display: block; width: 186px;'>
+         </div>
+         <span style='font-size: 14px; color: #999'>暂时没有消息</span>
+    </div>
+    <script src="../script/api.js"></script>
+    <script src="../script/axios.min.js"></script>
+    <script src="../script/template-web.js"></script>
+    <script src="../script/zepto.min.js"></script>
+    <script src="../script/store.min.js"></script>
+    <script src="../script/moment.min.js"></script>
+    <script src="../script/store.min.js"></script>
+    <script src="../script/phone.js"></script>
+    <script src="../fetch/api.js?v=5"></script>
+    <script type="text/javascript">
+    /**
+    *   过滤器
+    */
+        template.defaults.imports.formatAvatar = function(data){
+            if(data&&data.avatar) {
+                return data.avatar
+            } else {
+                return '../../image/mine-avatar.png'
+            }
+        };
+        template.defaults.imports.formatStatu = function(data){
+            switch(data) {
+                case 101: return '预约'; break;
+                case 102: return '办卡'; break;
+                case 103: return '消费'; break;
+                case 4: return '请假'; break;
+                default: return '未知状态';
+            }
+        };
+        template.defaults.imports.formatUnread = function(data){
+            if(data == 1) {
+                return 'block'
+            } else {
+                return 'none'
+            }
+        };
+        template.defaults.imports.formatClass = function(data){
+            switch(data) {
+                case 101: return 'new'; break;
+                case 102: return 'new'; break;
+                case 103: return 'complate'; break;
+                case 4: return 'ordering'; break;
+                default: return '';
+            }
+        };
+        template.defaults.imports.formatTime = function(data) {
+            return moment(data).format('YYYY-MM-DD HH:mm')
+        }
+        var orderList = []
+        var page = 1;
+        var total = 0;
+        var orderListSub = [];
+        var prebook = 0;
+        var consume = 0;
+        var contentTop = document.getElementById('content-top');
+        var conTop = contentTop.offsetTop;
+        var myElement = document.getElementById('order-list');
+        var mc = new Hammer(myElement);
+        mc.get('press').set({time: 500});
+        mc.on("press", function(ev) {
+            var noteId = ev.target.dataset.noteid;
+            console.log(ev.target.dataset.noteid);
+            api.confirm({
+                title: '警告',
+                msg: '您即将删除这条信息，数据将不能恢复，是否继续？',
+                buttons: ['删除', '取消']
+            }, function(ret, err) {
+                var index = ret.buttonIndex;
+                if(index == 1) {
+                    removeNotify(noteId);
+                }
+            });
+            // target.addClass('move');
+            // target.next().addClass('active')
+        });
+        // 获取预约和消费记录未读数量
+        var getUnreadCount = function(preb,cons) {
+            setCell(preb, 'preb');
+            setCell(cons, 'diary');
+
+
+        }
+        var more = function () {
+        api.alert({
+            title: '小提示',
+            msg: '敬请期待'
+        })
+    }
+
+        var setCell = function(num, dom) {
+            count = num >= 99 ? '99+': num;
+             console.log(count);
+            if(count) {
+                $('#' + dom).append('<span class="msg-count-'+ dom +'">'+ count +'</span>')
+            } else {
+
+            }
+        }
+        var save=function(){
+            $('#box').hide()
+        }
+        // 删除信息
+        var removeNotify = function(feedId) {
+            ajax.removeNotify({
+                feedId: feedId
+            }, function(res) {
+                getNotifyList();
+                api.execScript({
+                    name: 'root',
+                    script: 'getUnreadNotify()'
+                })
+                api.toast({
+                    msg: '删除成功'
+                })
+            })
+        }
+
+        var clearData = function() {
+            orderList = [];
+            page = 1;
+            total = 0;
+            $('#order-list').html(template('tpl-order', {list: orderList}))
+        }
+        // 获取消息列表
+        var getNotifyList = function() {
+            if(!store.get('me')) {
+                return;
+            }
+            orderList = [];
+            page = 1;
+            total = 0;
+            ajax.getNotifyList({
+                page: page,
+                size: 10,
+                typehood: 102,
+            }, function(res) {
+                orderList = res.data.list;
+                total = res.data.total;
+                if(total > 0) {
+                    $('#not-empty').show();
+                    $('#empty').hide();
+                    // console.log(orderList);
+                    $('#order-list').html(template('tpl-order', {list: orderList}))
+                    $('#card-list-num').text(total);
+                } else {
+                    $('#not-empty').hide();
+                    $('#empty').show();
+                    $('#card-list-num').text(total);
+                }
+            })
+        }
+        // 加载更多
+        var loadMore = function() {
+            ajax.getNotifyList({
+                page: page,
+                size: 10,
+                typehood: 102,
+            }, function(res) {
+                orderList = orderList.concat(res.data.list);
+                total = res.data.total;
+                if(total > 0) {
+                    $('#not-empty').show();
+                    $('#empty').hide();
+                    $('#order-list').html(template('tpl-order', {list: orderList}));
+                    $('#card-list-num').text(total);
+                } else {
+                    $('#not-empty').hide();
+                    $('#empty').show();
+                    $('#card-list-num').text(total);
+                }
+            })
+        }
+        // 读取消息
+        var readNotify = function(feedId) {
+            ajax.readNotify({
+                feedId: feedId
+            }, function(res) {
+                console.log(res.data)
+                api.execScript({
+                    name: 'root',
+                    script: 'getUnreadNotify()'
+                })
+            })
+        }
+        // 重新加载列表
+        var reloadNotifyList = function() {
+            if(!store.get('me')) {
+                return;
+            }
+            page = 1;
+            orderList = [];
+            getNotifyList()
+        }
+        // 读取信息
+        var readNote = function(item, noteId) {
+            if(item.feedId == noteId) {
+                if(!item.basic.unread) {
+                    orderListSub.push(item);
+                } else {
+                   item.basic.unread = 0;
+                   orderListSub.push(item);
+                }
+            } else {
+                orderListSub.push(item);
+            }
+        }
+        // 跳转详情
+        var goDetail = function(e, item) {
+            orderListSub = [];
+            if(item.basic.unread) {
+                readNotify(item.feedId);
+                orderList.forEach(function(item) {
+                    readNote(item, e.dataset.noteid)
+                });
+                orderList = JSON.parse(JSON.stringify(orderListSub));
+                $('#order-list').html(template('tpl-order', {list: orderList}))
+            }
+            if(item.basic.typehood == 102) {
+                ajax.getMemberById({
+                    feedId: item.basic.member.feedId
+                }, function(res) {
+                    // console.log(res);
+                    if(res.data.basic.step == 2) {
+                        api.openWin({
+                            name: 'createCardDetail',
+                            url: './createCardDetail/createCardDetail.html',
+                            pageParam: {
+                                detail: res.data
+                            }
+                        });
+                        return;
+                    }
+                    store.set('peopleCreateCard', item);
+                    api.openWin({
+                        name: 'peopleCreateCard',
+                        url: './peopleCreateCard/peopleCreateCard.html',
+                    });
+                })
+            } else {
+                // console.log(item);
+                api.openWin({
+                    name: 'detail',
+                    url: './detail/detail.html',
+                    pageParam: item
+                });
+            }
+        }
+        getNotifyList();
+        $('#code-tabs, #code-tabs2').on('click', '.code-box', function(e) {
+            var index = this.dataset.index;
+            if(index == 1) {
+                api.openWin({
+                    name: 'myOpenCode',
+                    url: './myOpenCode/myOpenCode.html'
+                })
+            } else if(index == 2) {
+                api.openWin({
+                    name: 'myServerCode',
+                    url: './myServerCode/myServerCode.html'
+                })
+            }else if(index == 3) {
+                 //$('#box').show()
+                 api.execScript({
+                    name: 'root',
+                    script: 'showBox()'
+                 })
+            }
+        }),
+
+
+        $('#log-wrap').on('click', 'li', function() {
+            //清零未读数
+            var index = this.dataset.index;
+            api.openWin({
+                name: 'log',
+                url: './log/log.html',
+                pageParam: {
+                    index: index,
+                },
+            });
+        })
+        $('#diary').on('click',function(){
+            ajax.clearUnread({ typehood:103 }, function(){
+               $('.msg-count-diary').remove()
+            })
+        })
+
+        var findMe = function() {
+            //取消未读数
+            ajax.clearUnread({typehood:101},function(){
+               $('.msg-count-preb').remove()
+            })
+            store.set('yuyueList', 1);
+            api.openWin({
+                name: 'yuyue',
+                url: './yuyue/yuyue.html',
+            })
+        }
+        // var clear=function(){
+        //     ajax.clearUnread({typehood:101},function(res){
+        //         console.log(res)
+        //     })
+        // }
+        // clear()
+        var closeDialog = function () {
+            $('#box').hide()
+        }
+        var checkStatus = function(index) {
+            var index = index;
+            api.openWin({
+                name: 'userStatus',
+                url: './userStatus/userStatus.html',
+                pageParam: {
+                    index: index,
+                },
+            })
+        }
+        var scrollPage = function() {
+            if(window.scrollY >= (conTop / 2)) {
+                if(!$('#code-tabs').is('.code-tabs-hide')) {
+                    $('#code-tabs').addClass('code-tabs-hide');
+                    $('#code-tabs2').addClass('code-tabs2-show');
+                }
+            } else {
+                if($('#code-tabs').is('.code-tabs-hide')) {
+                    $('#code-tabs').removeClass('code-tabs-hide');
+                    $('#code-tabs2').removeClass('code-tabs2-show');
+                }
+            }
+            // console.log('window.scrollY======', window.scrollY);
+            // console.log('contentTop.offsetTop======', conTop);
+        };
+        $(document).on('scroll', scrollPage)
+        apiready = function(){
+            api.addEventListener({
+                name: 'scrolltobottom',
+                extra: {
+                    threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+                }
+            }, function(ret, err) {
+                if(page * 10 < total){
+                    page += 1
+                    loadMore();
+                } else {
+                    api.toast({
+                        msg: '没有更多啦'
+                    })
+                }
+            });
+        }
+    </script>
+</body>
+</html>

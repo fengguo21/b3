@@ -1,0 +1,81 @@
+<!--detail.wxml-->
+
+
+
+<view class="info">
+  <view class="photo">
+    <image src="{{img}}"></image>
+  </view>
+  <view class="name">{{name}}</view>
+  <view class="work">{{work}}</view>
+  <view class="active">在线</view>
+  <view class="num">已预约<text class="">{{prebooktimes}}</text>次</view>
+</view>
+
+<view class="time">
+  <view class="title">预约时间</view>
+
+  <view class="nav">
+    <view class="{{line1?'selectline1':''}}"></view>
+    <view class="{{line2?'selectline2':''}}"></view>
+
+    <text class="{{line1?'navitemx':'navitem'}}" bindtap="tabs1">明天</text>
+
+    <text class="line">|</text>
+    <text class="{{line2?'navitemx':'navitem'}}" bindtap="tabs2">后天</text>
+
+  </view>
+</view>
+
+
+<view class="{{morningwork.length==0&&afternoonwork.length==0&&eveningwork.length==0?'timebox':''}}">
+<view class="subt" wx:if="{{!a==0}}"><text>上午：</text></view>
+<view class="items">
+
+  <view class="{{available[index]==true?'':'unavailable'}}   {{t[index]==true?'selectitem':'item'}}   " bindtap="choosetab" data-idx="{{index}}" wx:for="{{worktime}}" wx:if="{{index<a}}">
+    <view class="classname">
+      {{item}}<view class="promote" wx-if="{{promotePeriods.periods[item]}}">{{promotePeriods.ratio*10}}折</view>
+    </view>
+    
+  </view>
+</view>
+
+<view class="subt" wx:if="{{b>a}}"><text>下午：</text></view>
+<view class="items">
+
+  <view class="{{available[index]==true?'':'unavailable'}}   {{t[index]==true?'selectitem':'item'}} " bindtap="choosetab" data-idx="{{index}}" wx:for="{{worktime}}" wx:if="{{index>=a&&index<b}}">
+    <view class="classname">
+      {{item}}<view class="promote" wx-if="{{promotePeriods.periods[item]}}">{{promotePeriods.ratio*10}}折</view>
+    </view>
+  </view>
+</view>
+
+<view class="subt" wx:if="{{b<worktime.length}}"><text>晚上：</text></view>
+<view class="items">
+
+  <view class="{{available[index]==true?'':'unavailable'}}   {{t[index]==true?'selectitem':'item'}}  " bindtap="choosetab" data-idx="{{index}}" wx:for="{{worktime}}" wx:if="{{index>=b}}">
+    <view class="classname">
+      {{item}}<view class="promote" wx-if="{{promotePeriods.periods[item]}}">{{promotePeriods.ratio*10}}折</view>
+    </view>
+  </view>
+</view>
+
+
+
+ <view class="empty" wx:if="{{morningwork.length==0&&afternoonwork.length==0&&eveningwork.length==0}}">
+<image src="/images/empty.png"></image>
+<text>美容师繁忙</text>
+</view>
+ 
+
+
+<view class="book"  wx:else>
+
+  <view class="ar_book" bindtap="onpost">确认预约</view>
+  <toast hidden="{{bookToastHidden}}" bindchange="hideToast">
+    预约成功
+  </toast>
+</view>
+
+
+</view>

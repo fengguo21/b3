@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>myOpenCode_frame.html</title>
+    <link rel="stylesheet" type="text/css" href="../../css/code.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        body{
+            
+        }
+    </style>
+</head>
+<body>
+    <div class='code-wrap'>
+        <div class="code-card">
+            <div class="code-header">
+                <div class="code-avatar">
+                    <img id='avatar' src="" alt="">
+                </div>
+                <div class="code-user position-y-center">
+                    <p id='name' class='code-user__name'></p>
+                    <p id='role' class='code-user__role'></p>
+                </div>
+            </div>
+            <div class="code-body">
+                <div id='code' class="img-wrap"></div>
+            </div>
+            <div class="code-footer">出示给顾客扫码</div>
+        </div>
+    </div>
+</body>
+<script src="../../script/axios.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script src="../../fetch/api.js"></script>
+<script type="text/javascript">
+    var getServerCode = function() {
+        if(!store.get('myServerCode')) {
+            ajax.getServerCode({}, function(res) {
+                store.set('myServerCode', res.data);
+                $('#code').html('<img src="'+ res.data +'">')
+            })
+        } else {
+            var code = store.get('myServerCode');
+            $('#code').html('<img src="'+ code +'">')
+        }
+    }
+    var init = function() {
+        getServerCode();
+        var me = store.get('me');
+        var title = me.role.profession ? me.role.profession : me.role.title;
+        var avatar = me.basic.avatar||'../../image/user4.png';
+        $('#avatar').attr({src: avatar});
+        $('#name').html(me.basic.name);
+        $('#role').html(title);
+    }
+    init();
+    apiready = function(){
+        
+    };
+</script>
+</html>

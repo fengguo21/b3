@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>signIn_frame</title>
+    <link rel="stylesheet" type="text/css" href="../../css/signIn.css?rev=3"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+</head>
+<body> 
+    <div class="sign-wrap">
+        <div id="sign-logo" class="sign-logo">
+            <img src="../../image/signIn-logo.png?v=2">
+        </div>
+        <div class="sign-form">
+            <input type='tel' id='phone' placeholder="手机号"></input>
+            <input type='password' id='password' placeholder="密码"></input>
+            <div class='log-btn' onclick='signIn()'>登录</div>
+            <div class='other-opt'>
+                <div class="no-account" onclick="goAbout()">我还没有账户</div>
+                <div class='teach-vedio' onclick="goVedio()">使用帮助</div>
+            </div>
+        </div>
+        <div class='sign-bg'>
+            <img src="../../image/signIn-bg.png">
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script src="../../script/axios.min.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script src="../../script/store.min.js"></script>
+<script src="../../fetch/api.js"></script>
+<script type="text/javascript">    
+    var signIn = function() {
+        ajax.getSessionId({}, function(res) {
+           store.set('sessionId', res.data);
+           sendLogIn();
+        }) 
+    }
+    var sendLogIn = function() {
+        var phone = $('#phone').val();
+        var password = $('#password').val();
+        if(!phone||!password) {
+            alert('账号或密码不能为空！');
+            return;
+        }
+        ajax.signIn({
+            phone: phone,
+            password: password
+        }, function(res) {
+            // console.log(res);
+            store.set('app', res.data.app);
+            store.set('me', res.data.people);
+            api.toast({
+                msg: '登陆成功'
+            })
+            api.execScript({
+                name: 'root',
+                script: 'signOutIn("'+ res.data.people.peopleId +'")'
+            });
+            api.execScript({
+                name: 'root',
+                frameName: 'frame2',
+                script: 'getUser()'
+            });
+            api.closeToWin({
+                name: 'root'
+            });
+        })
+    }
+    var goAbout = function () {
+        api.openWin({
+            name: 'about',
+            url: '../about/about.html'
+        });
+    }
+    var goVedio = function() {
+        api.openWin({
+            name: 'vedio',
+            url: './vedio/vedio.html'
+        });
+    }
+    apiready = function(){
+        api.addEventListener({
+            name:'swiperight'
+        }, function(ret, err){        
+           
+        });
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err){        
+            api.toLauncher()
+        });
+
+        if(api.systemType == 'ios' 
+            && 
+            (
+               api.deviceModel.indexOf('iPad') != -1
+            || api.deviceModel.indexOf('iPhone 4') != -1
+            || api.deviceModel.indexOf('iPhone SE') != -1
+            || api.deviceModel.indexOf('iPhone 5') != -1
+            || api.deviceModel.indexOf('iPhone 5s') != -1
+            )
+          ){
+            $('#sign-logo').css('margin-bottom', 50)
+        }
+    };
+</script>
+</html>

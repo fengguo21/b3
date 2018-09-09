@@ -1,0 +1,58 @@
+<!--study.wxml-->
+
+
+<view class="studypage">
+  <swiper indicator-dots="{{indicatorDots}}"  class="swiper"
+        autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}"  circular="{{circular}}">  
+      <block wx:for="{{imgUrls}}">  
+        <swiper-item>  
+           <navigator url="{{item.link}}" hover-class="navigator-hover">  
+            <image src="{{item.url}}" class="slideimage"  mode="widthFix"/>  
+           </navigator>   
+        </swiper-item>  
+      </block>  
+</swiper>
+<view class="titleInfo " >
+  <image src="../../images/today.png"></image><text class="infoText">今日发现精选</text>
+  
+</view>
+
+<view class="itemInfo itemInfo1" bindtap="tostudyDetail">
+<image src="https://dn-huaqie.qbox.me/agent-st005.png" mode="widthFix"></image>
+<image src="../../images/fi.png" class="first"></image>
+<view class="firstText" >头条</view>
+<text>今日揭晓：小程序到底能为商家带来什么?</text><view class="infofooter">
+  <text class="infoN">2017-08-23 10:25</text>
+  </view>
+
+</view>
+<view class="itemInfo" bindtap="tostudyDetail2">
+
+<image src="https://dn-huaqie.qbox.me/agent-st004.png" mode="widthFix"></image>
+
+  
+  <text>手把手教你如何接入小程序，为店铺带来更大收益</text>
+  
+  <view class="infofooter">
+  <text class="infoN">2017-08-20 16:58</text>
+  </view>
+  
+</view>
+<view class="itemInfo" bindtap="tostudyDetail3">
+  <image src="https://dn-huaqie.qbox.me/agent-st003.png" mode="widthFix"></image>
+  <text>移动互联网时代，让商家赢在起跑线的究竟是什么？</text>
+  <view class="infofooter">
+  <text class="infoN">2017-08-18 16:25</text>
+  </view>
+</view>
+</view>
+
+<!-- audio.wxml -->
+
+
+
+<view class="line"></view>
+
+
+
+

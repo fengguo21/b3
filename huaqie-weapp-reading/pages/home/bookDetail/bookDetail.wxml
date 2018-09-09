@@ -1,0 +1,8 @@
+<!-- 文稿 pages/home/bookDetail/bookDetail.wxml-->
+<import src="/components/wxParse/wxParse.wxml"/>
+
+<view class="book-detail">
+  <view class="book-content">
+    <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+  </view>
+</view>

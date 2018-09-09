@@ -1,0 +1,43 @@
+<!--pages/home/userRecord/userRecord.wxml-->
+<view class="user-record">
+  <block wx:if="{{ list.length <= 0 }}">
+    <view class="is-empty">
+      <image mode="widthFix" src="/images/record-empty.png" ></image>
+      <text>暂时没有评论</text>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="mode sp">
+      <view class="mode-title">
+        <view class="mode-title-border"></view>
+        <view class="mode-title-text">听众评论</view>
+        <text class="record-count">（{{total}}）</text>
+      </view>
+
+      <view class="record-list">
+        <block wx:for="{{list}}" wx:key="{{index}}">
+        <view class="record-item {{index !== list.length - 1?'border-b':''}}">
+          <view class="record-user-msg">
+            <image mode="widthFix"
+            src="{{item.basic.people.avatar?item.basic.people.avatar:'/images/play.png'}}"></image>
+            <view class="record-user-other">
+              <text class='record-user-name'>{{item.basic.people.name}}</text>
+              <text class='record-user-time'>{{item.createFormat}}</text>
+            </view>
+          </view>
+          <view class="record-content">
+            {{item.basic.text}}
+          </view>
+        </view>
+        </block>
+      </view>
+    </view>
+  </block>
+
+  <view class="input-wrap">
+    <input type="text" placeholder="期待您的评论" confirm-type="send" bindconfirm="submitRecord" bindinput="bindKeyInput" value="{{recordValue}}" />
+    <text class='{{recordValue.length > 0 ? "text-has" : ""}}' bindtap="submitRecord">发布</text>
+  </view>
+</view>
+
+

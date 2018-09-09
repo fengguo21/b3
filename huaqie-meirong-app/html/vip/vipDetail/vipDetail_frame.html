@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/border.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/position.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/vip-detail.css">
+    <script type='application/javascript' src='../../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+</head>
+<body id="body">
+    
+    <div class="fix-wrap">
+        <div class="banner">
+            <div class="amount">
+                <p class="name" >消费总金额</p>
+                <p class="value" >￥<span class="number" id="consumeNum"></span></p>
+            </div>
+            <div class="line position-center"></div>
+            <div class="cardnum">
+                <p class="name">会员卡</p>
+                <p class="value" onclick='goVipCard()' data-id={{this.id}}><span class="number" id="cardnum"></span> 张</p>
+            </div>
+        </div>
+
+        <div id="service-msg" style="background: #fff">
+            <div class="service-item border-r">
+                <p class="name" >服务次数</p>
+                <p class="val"><span id="consumeCount"></span>次</p>
+            </div>
+            <div class="service-item border-r">
+                <p class="name">服务频率</p>
+                <p class="val"><span id="perCount"></span>天/次</p>
+            </div>
+            <div class="service-item">
+                <p class="name">上次服务</p>
+                <p class="val"><span id="lastTime"></span><span id="lastBeau"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-wrap">
+        <div class="card" id="card">
+            <div class="title">服务记录(<span id="listnum"></span>)</div>
+            <div id="cardlist">
+                <script id="test" type="text/html">
+                    {{each list value index}}
+                    <div class="list-item border-t imgbox">
+                        <img src={{value.avatar}}>
+                        <div class="list-content">
+                            <div class="content-top">
+                                <span class="project">{{value.proj}}</span>
+                                <span class="pay">{{value.amount}}</span>
+                            </div>
+                            <div class="content-bottom">
+                                <span class="beautician">
+                                    美容师:{{value.salesname}}
+                                </span>
+                                <span class="time">{{value.timer}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../../script/api.js"></script>
+<script src="../../../script/axios.min.js"></script>
+<script src="../../../script/moment.min.js"></script>
+<script src="../../../script/timeago.min.js"></script>
+<script src="../../../script/template-web.js"></script>
+<script src="../../../script/zepto.min.js"></script>
+<script src="../../../script/store.min.js"></script>
+<script src="../../../fetch/api.js?v=3"></script>
+<script type="text/javascript">
+    var peopleId=''
+    // alert(1);
+    var timeago = timeago();
+    // alert(2);
+    var params = {
+        peopleId: '',
+    }
+    // alert(3);
+    var params2 = {
+        page: 1,
+        size: 10,
+        channel: 'consumeCard',
+        peopleId: "",
+    }
+    // alert(4);
+    var page = 1
+    var total = 0
+    var mylist = []
+    // alert(5);
+    var getlist = function (param) {
+        ajax.getVipConsume(param, function(res){
+            if(res.data.total){
+               total = res.data.total 
+            }
+            else{
+                total = 0
+            }
+            
+            var list = res.data.list
+            for (var i = 0; i < list.length; i++) {
+                   var avatar = list[i].basic.avatar
+                    var proj = list[i].basic.title
+                    var salesname = list[i].basic.sales.name
+                    var time = list[i].created
+                    var timer = moment(time).format('YYYY-MM-DD hh:mm')
+
+                    var amount = list[i].basic.extra.amount
+                    if(amount == 1){
+                        amount = "1次"
+                    }
+                    else{
+                        amount = amount.toFixed(2);
+                        amount = '￥' + amount
+                    }
+                    var obj = {
+                        avatar:avatar,
+                        proj:proj,
+                        salesname:salesname,
+                        timer:timer,
+                        amount:amount
+                    }
+                    mylist.push(obj)
+            }
+            var mydata = mylist
+            var data = {
+                list: mylist
+            };
+            console.log(mylist)
+            var html = template('test', data);
+            document.getElementById('cardlist').innerHTML = html;
+            var listnumhtml = total;
+            $("#listnum").html(listnumhtml); 
+        })
+        
+    }
+
+    // alert(6);
+    var getVipInfo = function(param){
+
+        var now = Date.now()
+
+        ajax.getVipInfo(param, function(res){
+            var consume = res.data.extra.consume || 0
+            var consumeCount = res.data.extra.consumeCount || 0
+            var lastTime = res.data.extra.consumeTime
+            var when = (lastTime) ? timeago.format(lastTime, 'zh_CN') : '暂无';
+            
+            when = when.replace(/\w+/g, (res) => {
+                return '<span>' + res + '</span>' 
+            })
+            var lastBeau = res.data.extra.consumeRoleName || ''
+            var cardnum = res.data.extra.memberCount || 0
+            var createTime = res.data.created
+            var span = parseInt((now-createTime)/(1000*24*60*60))
+            var perCount = (consumeCount)?parseInt(span/consumeCount):0
+            
+            var consumeHtml = '<span>' + consume + '</span>'
+            var consumeCountHtml = '<span>' + consumeCount + '</span>'
+            var perCountHtml = '<span>'+ perCount + '</span>'
+            
+            if (lastBeau) {
+              var lastBeauHtml = '<span>(' + lastBeau + ')</span>'  
+            }
+            else{
+                var lastBeauHtml = ''
+            }
+            if (cardnum) {
+              var cardnumHtml = '<span>' + cardnum + '</span>'
+            }
+            else{
+                var cardnumHtml='0'
+            }
+            var whenhtml = '<span>' + when + '</span>'
+            $("#consumeNum").html(consumeHtml);
+            $("#consumeCount").html(consumeCountHtml);
+            $("#lastBeau").html(lastBeauHtml);
+            $("#cardnum").html(cardnumHtml);
+            $("#perCount").html(perCountHtml);
+            $("#lastTime").html(when);
+        })
+    }
+    var goVipCard = function() {
+        console.log(this.peopleId)
+        api.openWin({
+            name: 'vipCard',
+            url: '../vipCard/vipCard.html',
+            pageParam: {
+                id: this.peopleId, 
+            }
+        })
+    }
+    // alert(7);
+      //getVipInfo(params)  
+      
+    apiready = function(){
+        // alert(8);
+        peopleId = api.pageParam.msg;
+        var msg = api.pageParam.msg;
+        // alert(9);
+        params.peopleId = msg;
+        // alert(10);
+        params2.peopleId = msg;
+        // alert(11);
+        getVipInfo(params);
+        // alert(12);
+        getlist(params2);
+        // alert(13);
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if(page * 10 < total){
+                page += 1
+                params2.page = page;
+                getlist(params2)
+            } else {
+                api.toast({
+                    msg: '没有更多啦'
+                })
+            }
+        });
+        
+    };
+</script>
+</html>

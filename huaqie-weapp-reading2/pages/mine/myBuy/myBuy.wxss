@@ -1,0 +1,14 @@
+/* pages/mine/myBuy/myBuy.wxss */
+@import '/common/css/booklist.wxss';
+@import '/common/css/float-radio.wxss';
+
+.my-buy {
+  height: calc(100% - 80rpx);
+}
+.float-radio {
+  bottom: 20rpx;
+}
+
+.book-title text {
+  max-width: 100%;
+}

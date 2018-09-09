@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>detail</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+    <style>
+        * {
+            line-height: 1;
+        }
+        .aui-user-view:after {
+            border: 0;
+        }
+        .aui-user-view-cell {
+            height: 104px;
+            overflow: hidden;
+            padding: 14px 15px;
+            position: relative;
+        }
+        .aui-user-view-cell:after {
+            border-color: #e6e6e6
+        }
+        .aui-user-view-cell:last-child:after {
+            /* border-color: #fff; */
+            border: 0;
+        }
+        .aui-user-view-cell p {
+            color: #999;
+        }
+        .content{
+            padding: 8px;
+            
+
+        }
+       
+        
+
+        #count img{
+            width: 19px;
+            height: 17px;
+            vertical-align: middle;
+            margin-right: 10px;
+            margin-left: 5px;
+        }
+        #count > span {
+            vertical-align: middle;
+            font-size: 13px;
+            color: #666;
+        }
+       
+        #not-empty .top{
+            padding-top: 14px;
+        }
+        .msg-name{
+            font-size: 15px;
+            
+            margin-bottom: 8px;
+            display: block;
+
+        }
+        .handle{
+            position: absolute;
+            right: 25px;
+            bottom: 10px;
+        }
+        .edit{
+            display: inline-block;
+            margin-right: 5px;
+            padding: 5px;
+        }
+        .delete{
+             padding: 5px;
+        }
+    </style>
+</head>
+<body>  
+    <div class="flex-header">
+        <p class="aui-padded-10 top" id='count'><img src="../../image/productname.png"><span>共<span id="total">0</span>件商品</span>
+               
+        </p>
+    </div>
+    <div class="flex-wrap">
+        <div id='not-empty' style='display: none'>
+            <div class="aui-content">
+                <ul class="aui-user-view aui-in" id='order-list'>
+                    <script type="text/html" id='tpl-order'>
+                        {{each list val index}}
+                            <li class="aui-user-view-cell aui-img" data-name='{{val.basic.name}}' data-peopleId='{{val.peopleId}}'>
+                                <div class=" aui-pull-left" style='overflow: hidden;'>
+                                    <img src="{{val.basic.images[0].url|formatAvatar}}"  style='width: 80px;height: 80px;margin-right: 8px'>
+                                </div>
+                                <div class="content">
+                                    <span class="msg-name">
+                                        {{val.basic.title+" "+val.basic.specs}}
+                                    </span>
+                                    <p class='aui-ellipsis-1'>
+                                        ￥{{val.basic.price}}
+                                        <em>
+                                            库存{{val.basic.stock}}
+                                        </em>
+                                    </p>
+                                    <p class="handle">
+                                        <span class="edit" onclick="goDetail({{val}})">查看详情</span>
+                                        <span class="edit" onclick="editProduct({{val}})">编辑</span>
+                                        <span class="delete" onclick="deleteBox({{val}})">删除</span>
+                                    </p>
+                                </div>
+                            </li>
+                        {{/each}}
+                    </script>
+                </ul>
+            </div>
+        </div>
+        <div id="empty" style='display: none; overflow: hidden; text-align: center'>
+             <div style='width: 165px; height:165px; margin: 178px auto 20px'>
+                 <img src="../../image/data-empty.png" style='display: block; width: 186px;'>
+             </div>
+             <span style='font-size: 14px; color: #999'>暂时没有会员</span>
+        </div>
+    </div>
+    <script src="../../script/api.js"></script>
+    <script src="../../script/axios.min.js"></script>
+    <script src="../../script/moment.min.js"></script>
+    <script src="../../script/timeago.min.js"></script>
+    <script src="../../script/template-web.js"></script>
+    <script src="../../script/zepto.min.js"></script>
+    <script src="../../script/store.min.js"></script>
+    <script src="../../fetch/api.js?v=2"></script>
+    <script type="text/javascript">
+        var timeago = timeago();
+        var orderList = [];
+        var page = 1;
+        var total = 0;
+        var productId='';
+        
+    /**
+    *   过滤器
+    */  template.defaults.imports.formatDate = function(data){
+            return moment(data).format('YYYY-MM-DD hh:mm')
+        };
+        template.defaults.imports.formatAvatar = function(data) {
+            return data||'../../image/mine-avatar.png'
+        }
+
+        var editProduct = function(val) {
+            // console.log(val);
+            // return;
+            var id = val.productId;
+            api.openWin({
+                name: 'editProduct',
+                url: './editProduct/editProduct.html',
+                pageParam:{
+                    id:id
+                },
+            })
+        }
+        var goDetail = function(val) {
+             var id = val.productId;
+            api.openWin({
+                name: 'imgDetail',
+                url: './imgDetail/imgDetail.html',
+                pageParam: {
+                    id:id
+                }
+            })
+        }
+        var getShopList=function(){
+            console.log(33)
+            var listparam={
+                page:1,
+                size:20
+            }
+            ajax.getShopList(listparam, function(res){
+                console.log(res)
+                total = res.data.total;
+                if(page == 1) {
+                    orderList = res.data.list;
+                } else {
+                    orderList = orderList.concat(res.data.list);
+                }
+                if(total > 0) {
+                    $('#not-empty').show();
+                    $('#empty').hide();
+                    $('#total').html(total);
+                    $('#order-list').html(template('tpl-order', {list: orderList}))
+                } else {
+                    $('#not-empty').hide();
+                    $('#empty').show();
+                } 
+            })
+        }
+       //getShopList()
+        var deleteBox = function(val){
+             api.confirm({
+            title: '警告',
+            msg: '您即将删除该商品，是否继续？',
+            buttons: ['删除', '取消']
+            }, function(ret, err) {
+                var index = ret.buttonIndex;
+                if(index == 1) {
+                    deleteProduct(val);
+                }
+            })
+        }
+        var deleteProduct = function(val){
+            ajax.deleteProduct({
+                productId:"5a17da4edbb81767f1e7d2da"
+            },function(){
+                api.toast({
+                msg: '删除成功'
+            })
+            loaded();
+            })
+        }
+        //deleteProduct()
+        var createProduct=function(){
+            var product = {
+                title:'欧莱雅 LOREAL 光学嫩肤抚痕滋润日霜',
+                stock:47,
+                price:239,
+                specs:"50ml",
+                album:[
+                    {url:'https://qbox.huaqie.com/Fn_b4IwyWf_Dgo3O4CZXiCoLPyO2'},
+                    {url:"https://qbox.huaqie.com/Fn_b4IwyWf_Dgo3O4CZXiCoLPyO2"}
+                ],
+                images:[
+                    {url:'https://qbox.huaqie.com/Fn_b4IwyWf_Dgo3O4CZXiCoLPyO2'},
+                    {url:'https://qbox.huaqie.com/Fn_b4IwyWf_Dgo3O4CZXiCoLPyO2'}
+                ]
+
+
+            }
+            ajax.createProduct(product,function(res){
+                console.log(res)
+            })
+        }
+        //createProduct()
+        
+        
+        var loaded = function() {            
+            page = 1;
+            getShopList();
+        }
+        
+        var loadMore = function() {
+            ajax.getShopList({
+                page: page,
+                size: 10
+            }, function(res) {
+                orderList = orderList.concat(res.data.list);
+                $('#order-list').html(template('tpl-order', {list: orderList}))
+            })
+        }
+        loaded();
+        // total = orderList.length;
+        apiready = function(){
+            // 滑动事件
+            api.addEventListener({
+                name: 'scrolltobottom',
+                extra: {
+                    threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+                }
+            }, function(ret, err) {
+                if(page * 10 < total){
+                    page += 1
+                    getShopList();
+                } else {
+                    api.toast({
+                        msg: '没有更多啦'
+                    })
+                }
+            });
+        };
+
+    </script>
+   
+</script>
+    
+</body>
+</html>

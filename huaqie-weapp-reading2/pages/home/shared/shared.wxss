@@ -1,0 +1,43 @@
+/* pages/home/bannerAdives/bannerAdvise.wxss */
+@import "/components/wxParse/wxParse.wxss";
+
+.banner-advise {
+  padding: 36rpx 30rpx 20rpx;
+}
+.book-audio {
+  display: flex;
+  justify-content: center;
+}
+
+.book-title {
+  line-height: 1.4;
+  display: block;
+  margin-bottom: 76rpx;
+  font-size: 42rpx;
+  font-weight: 700;
+  word-break: break-all;
+  padding: 0 22rpx;
+  margin: 0 auto 54rpx;
+}
+.book-content {
+  width: 100%;
+  font-size: 32rpx;
+  line-height: 1.9;
+}
+.book-content > text {
+  font-size: 0;
+  line-height: 0;
+}
+.book-content > view {
+  display: block;
+  margin-bottom: 30rpx;
+}
+.book-content view {
+  font-size: 32rpx;
+}
+.book-content .wxParse-inline {
+  display: inline-block;
+}
+.book-content > image {
+  width: 100%;
+}

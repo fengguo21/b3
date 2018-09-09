@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>team</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-win.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/header.css?v=1"/>
+     <link rel="stylesheet" type="text/css" href="../../css/report-header.css"/>
+     <link rel="stylesheet" type="text/css" href="../../css/position.css"/>
+     <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style>
+        body{
+            
+        }
+        .aui-bar .aui-pull-right {
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-primary" id="aui-header">
+        <a class="aui-pull-left" onclick="api.closeWin();"> <span class="aui-iconfont aui-icon-left"></span> </a>
+        <div class="aui-title">
+            团队
+        </div>
+        <a class="aui-pull-right" onclick="addUser()">新增</a>
+    </header>
+    <div id="sort" class='sort-box border-b'>
+        <div id='normal-search'>
+            <ul>
+                <li data-index='3' id='year' class='border-r'></li>
+                <li data-index='2' id='month' class='border-r'></li>
+                <li data-index='1' class='border-r active'>今日</li>
+                
+            </ul>
+            <div id='sort-date' class="sort-date position-y-center"  onclick="chooseDate()">
+                <img src="../../image/report-sort-date.png" alt="">
+            </div>
+        </div>  
+        <div id="special-search" style='display: none'></div> 
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../script/moment.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript">
+    var addUser = function() {
+        if(store.get('me').role.level != 1&&store.get('me').role.level != 1.5) {
+            api.alert({
+                title: '警告',
+                msg: '您没有操作权限！'
+            })
+            return;
+        }
+        api.openWin({
+            name: 'addmember',
+            url: '../addMember/addmember.html'
+        });
+    }
+    apiready = function(){
+        $api.fixStatusBar($api.dom('header'));
+        api.openFrame({
+            name: 'team_frame',
+            url: './team_frame.html',
+            rect: {
+                x: 0,
+                y: $api.dom('header').offsetHeight+ $api.dom('#sort').offsetHeight,
+                width: 'auto',
+                height: 'auto'
+            }
+        });    
+    };
+    var total = '', year = '', month = '', dates = '';
+    var headerTabs = $api.domAll('#header .report-header');
+    $('#month').html(moment(new Date()).format('MM月'));
+    $('#year').html(moment(new Date()).format('YYYY'))
+    // apiready = function(){
+    //     $api.fixStatusBar($api.dom('header'));
+    //     funIniGroup();
+    // };
+    // var initQuery = function(index) {
+    //     var date = new Date();
+    //     month = '';
+    //     year = '';
+    //     dates = '';
+    //     //week = moment(date.getTime()).format('YYYY-MM-DD');
+    //     store.set('report_frame' + index, {
+    //         month: moment(date.getTime()).format('YYYY-MM'),
+    //         year: year,
+    //         dates: dates
+    //     })
+    // }
+    var refreshFrame = function(index) {
+        switch(index) {
+            case 0:
+                initQuery(index);
+                api.execScript({
+                    frameName: 'report_frame0',
+                    script: 'init()'
+                }); 
+                break;
+            case 1: 
+                initQuery(index);
+                api.execScript({
+                    frameName: 'report_frame1',
+                    script: 'init()'
+                }); 
+            break;
+            default:;
+        }
+    }
+
+    var chooseDate = function() {
+        api.openWin({
+            name: 'dateQuery',
+            url: '../dateQuery/dateQuery.html',
+            pageParam: {
+                from: 'billReport'
+            }
+        })
+    }
+
+    var initQuery = function(index) {
+        var date = new Date();
+        store.set('queryTime', {
+            startDate: moment(date.getTime()).format('YYYY-MM-DD'),
+            endDate:moment(date.getTime()).format('YYYY-MM-DD')
+        })
+    }
+    // function funIniGroup() {
+    //     var eTabLis = $api.domAll('#header .report-header'),
+    //         frames = [];
+    //     for (var i = 0, len = eTabLis.length; i < len; i++) {
+    //         frames.push({
+    //             name: 'report_frame' + i,
+    //             url: './' + frameArr[i] + '.html',
+    //             bgColor:'#f4f4f4'
+    //         })    
+    //     }
+    //     api.openFrameGroup({
+    //         name: 'reports',
+    //         scrollEnabled: true,
+    //         rect: {
+    //             x: 0,
+    //             y: $api.dom('header').offsetHeight + $api.dom('#sort').offsetHeight,
+    //             w: 'auto',
+    //             h: 'auto',
+    //         },
+    //         index: 0,
+    //         frames: frames
+    //     }, function(ret, err) {
+    //         for (var i = 0, len = eTabLis.length; i < len; i++) {
+    //             $api.removeCls(eTabLis[i], 'active');
+    //         }
+    //         $api.addCls(eTabLis[ret.index], 'active');
+    //         store.set('dateQueryType', ret.index);
+    //         initActive();
+    //         refreshFrame(ret.index)
+    //     });
+    // }
+   
+    //初始化
+    function initActive() {
+        $('#normal-search').show();
+        $('#special-search').empty();
+        $('#special-search').hide();
+        store.remove('dateQuery')
+        /*var lis = $('#sort li');
+        if($(lis[0]).is('.active')) return;
+        for(var i = 0; i < lis.length; i++) {
+            $(lis[i]).removeClass('active')
+        }
+        $(lis[0]).addClass('active')
+        */
+    }
+    // 初始化最低级tab
+    function initType(index) {
+        api.execScript({
+            frameName: 'report_frame' ,
+            script: 'changeQuery(null)'
+        })
+    }
+    function changeDbSearch() {
+        var index = store.get('dateQueryType')||0;
+        var formData = store.get('report_frame' + index);
+        var dates = formData.dates;
+        $('#normal-search').hide();
+        $('#special-search').append("<span>"+ dates[0] +" ~ "+ dates[1] +"</span>"+
+                                    "<img src='../../image/close.png'>")
+        $('#special-search').show();
+    }
+    // 年、月、总计
+    $('#sort').on('click', 'li', function(e) {
+        var date = new Date();
+        var index = this.dataset.index;
+        var param = {};
+        if ($(this).is('.active')) return;
+        $(this).siblings().removeClass('active')
+        $(this).addClass('active');
+                if(index == 1) {
+                    console.log(1)
+                    param = {
+                        startDate:moment(date.getTime()).format('YYYY-MM-DD'),
+                        endDate:moment(date.getTime()).format('YYYY-MM-DD')
+                    }
+                } else if( index == 2) {
+                    param = {
+                         startDate : moment(new Date()).format('YYYY-MM')+'-01',
+                         endDate : moment(new Date()).format('YYYY-MM-DD')
+                    }
+                } else {
+                    param = {
+                        startDate : moment(new Date()).format('YYYY')+'-01-01',
+                        endDate : moment(new Date()).format('YYYY-MM-DD')
+                    }
+                }
+                store.set('queryTime', param);
+                api.execScript({
+                    name: 'team',
+                    frameName: 'team_frame',
+                    script: 'changeDateQuery()'
+                })
+       
+    })
+    // 选择日期
+    $('#sort-date').on('click', function() {
+        api.openWin({
+            name: 'dateQuery',
+            url: '../dateQuery/dateQuery.html'
+        })
+    })
+    $('#special-search').on('click', function() {
+        var index = store.get('dateQueryType');
+        $('#normal-search').show();
+        $('#special-search').empty();
+        $('#special-search').hide();
+        $('#sort li').eq(0).siblings().removeClass('active')
+        $('#sort li').eq(0).addClass('active');
+        store.remove('dateQuery');
+        initQuery(index);
+        api.execScript({
+            frameName: 'report_frame' + index,
+            script: 'init()'
+        }); 
+    })
+</script>
+</html>

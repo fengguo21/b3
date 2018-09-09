@@ -1,0 +1,17 @@
+<view class="address" wx:for="{{addressList}}" bindtap="chooseAddress" data-index="{{index}}" wx:key="{{index}}">
+  <view class="location">
+    <view class="lotit">{{item.name}}　　{{item.phone}}</view>
+    <view class="lotxt">{{item.summary}} {{item.detail}}</view>
+  </view>
+  <!--
+  <view class="locationL">
+  </view>
+  -->
+</view>
+
+<view style="padding: 40rpx">
+ <navigator url="../address/address"> 
+  <button type="primary"  bindtap="goCreateAddress" style="background:#ff8ec6" bindtap="goaddress"> 新增收货地址 </button>
+ </navigator> 
+
+</view>

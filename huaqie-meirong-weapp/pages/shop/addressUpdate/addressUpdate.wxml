@@ -1,0 +1,81 @@
+<view class="main">
+  <view class="form-box">
+    <form bindsubmit="formSubmit">
+      <!--<input value="{{address.name}}" placeholder="收货人" bindinput="bindName" />
+      <input type="number" value="{{address.phone}}" placeholder="手机号码" bindinput="bindPhone" />
+      <input value="{{address.name}}" placeholder="所在地区" bindinput="bindName" />
+      
+      <input value="{{address.detail}}" placeholder="详细地址" bindinput="bindDetail" />
+      <input value="{{address.name}}" placeholder="" bindinput="bindName" />-->
+
+      <view class="form-item">
+        <text class="desc">收货人</text>
+        <input bindinput="bindName" class="form-input" value="{{address.name}}" />
+      </view>
+      <view class="form-item">
+        <text class="desc">手机号码</text>
+        <input bindinput="bindPhone" class="form-input" type="number" value="{{address.phone}}" />
+      </view>
+      <view class="form-item">
+        <text class="desc">所在地区</text>
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+         <image src="/image/arrow_down.png"></image>
+    <view class="picker form-show">
+      上海市 {{array[index]}}
+    </view>
+  </picker>
+      </view>
+      <!--
+      <view class="form-item">
+        <text class="desc">所在地区</text>
+        <view bindtap="showAddress" style="float:right;margin-right:25rpx;font-size:28rpx;height:94rpx;line-height:94rpx;">{{areaInfo || '请选择'}}<image src="/image/arrow_down.png" style="padding:0;margin:0;margin-left:10rpx;margin-top:31rpx;"></image></view>
+      </view>
+      -->
+      <view class="form-item">
+        <text class="desc">详细地址</text>
+        <input bindinput="bindDetail" class="form-input" value="{{address.detail}}" />
+      </view>
+      <view class="form-item switch-wrap">
+        <text class="desc">设为默认地址</text>
+        <switch bindchange="switchChange" class='switch' color='#ffaf0e'/>
+      </view>
+
+
+  
+
+      <!-- -->
+
+
+<view class="picker-view" animation="{{animationAddressMenu}}" style="visibility:{{addressMenuIsShow ? 'visible':'hidden'}}">
+ <view style="height:10% ;width:90%;margin-top:10rpx">
+  <text catchtap="cityCancel">取消</text>
+  <text style="float: right" catchtap="citySure">确定</text>
+ </view>
+ <picker-view style="width: 100%; height: 300px;" bindchange="cityChange" value="{{value}}" wx:key="">
+  <picker-view-column>
+   <view wx:for="{{provinces}}" class="picker-item" wx:key="item">
+    {{item.name}}</view>
+  </picker-view-column>
+  <picker-view-column>
+   <view wx:for="{{citys}}" class="picker-item" wx:key="">
+    {{item.name}}</view>
+  </picker-view-column>
+  <picker-view-column>
+   <view wx:for="{{areas}}" class="picker-item" wx:key="">
+    {{item.name}}</view>
+  </picker-view-column>
+ </picker-view>
+</view>
+
+<!-- -->
+
+
+      <view class="btn">
+        <button form-type="submit">确定</button>
+      </view>
+    </form>
+  </view>
+  <view class="addr-picker">
+    
+  </view>
+</view>

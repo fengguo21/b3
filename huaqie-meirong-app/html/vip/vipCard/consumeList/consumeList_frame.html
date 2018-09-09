@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../../../css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../../../css/border.css">
+    <link rel="stylesheet" type="text/css" href="../../../../css/position.css">
+    <link rel="stylesheet" type="text/css" href="../../../../css/vip-detail.css">
+    <script type='application/javascript' src='../../../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        } 
+    </script>
+</head>
+<body id="body">
+    
+    
+
+    <div class="card-wrap" style="padding-top:0">
+        <div class="card" id="card">
+            <div class="title">消费记录(<span id="listnum"></span>)</div>
+            <div id="cardlist">
+                <script id="test" type="text/html">
+                    {{each list value index}}
+                    <div class="list-item border-t imgbox">
+                        <img src={{value.avatar}}>
+                        <div class="list-content">
+                            <div class="content-top">
+                                <span class="project">{{value.proj}}</span>
+                                <span class="pay">{{value.amount}}</span>
+                            </div>
+                            <div class="content-bottom">
+                                <span class="beautician">
+                                    美容师:{{value.salesname}}
+                                </span>
+                                <span class="time">{{value.timer}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../../../fetch/api.js?v=5"></script>
+<script src="../../../../script/api.js"></script>
+<script src="../../../../script/axios.min.js"></script>
+<script src="../../../../script/moment.min.js"></script>
+<script src="../../../../script/timeago.min.js"></script>
+<script src="../../../../script/template-web.js"></script>
+<script src="../../../../script/zepto.min.js"></script>
+<script src="../../../../script/store.min.js"></script>
+
+<script type="text/javascript">
+    var peopleId=''
+    // alert(1);
+    var timeago = timeago();
+    // alert(2);
+    var params = {
+        peopleId: '',
+    }
+    // alert(3);
+    var params2 = {
+        page: 1,
+        size: 10,
+        feedId:''
+    }
+    // alert(4);
+    var page = 1
+    var total = 0
+    var mylist = []
+    // alert(5);
+    var getlist = function (param) {
+        ajax.getCardConsumeList(param, function(res){
+            console.log('list',res)
+            if(res.data.total){
+               total = res.data.total 
+            }
+            else{
+                total = 0
+            }
+            
+            var list = res.data.list
+            for (var i = 0; i < list.length; i++) {
+                   var avatar = list[i].basic.avatar
+                    var proj = list[i].basic.title
+                    var salesname = list[i].basic.sales.name
+                    var time = list[i].created
+                    var timer = moment(time).format('YYYY-MM-DD hh:mm')
+
+                    var amount = list[i].basic.extra.amount
+                    if(amount == 1){
+                        amount = "1次"
+                    }
+                    else{
+                        amount = amount.toFixed(2);
+                        amount = '￥' + amount
+                    }
+                    var obj = {
+                        avatar:avatar,
+                        proj:proj,
+                        salesname:salesname,
+                        timer:timer,
+                        amount:amount
+                    }
+                    mylist.push(obj)
+            }
+            var mydata = mylist
+            var data = {
+                list: mylist
+            };
+            console.log(mylist)
+            var html = template('test', data);
+            document.getElementById('cardlist').innerHTML = html;
+            var listnumhtml = total;
+            $("#listnum").html(listnumhtml); 
+        })
+        
+    }
+//getlist(params2)
+    // alert(6);
+    
+    
+    // alert(7);
+      //getVipInfo(params)  
+      
+    apiready = function(){
+        var feed=api.pageParam.feed;
+        params2.feedId = feed;
+        // alert(11);
+       
+        // alert(12);
+        getlist(params2);
+        // alert(13);
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if(page * 10 < total){
+                page += 1
+                params2.page = page;
+                getlist(params2)
+            } else {
+                api.toast({
+                    msg: '没有更多啦'
+                })
+            }
+        });
+        
+    };
+</script>
+</html>

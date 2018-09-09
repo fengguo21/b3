@@ -1,0 +1,133 @@
+/* pages/mine/myOrder/myOrder.wxss */
+.my-order {
+  padding-bottom: 98rpx;
+}
+
+
+.book-price {
+  height: 250rpx;
+  text-align: center;
+  line-height: 250rpx;
+  font-size: 74rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+  background: #fff;
+  margin-bottom: 10rpx;
+}
+.book-price .litnum{
+  font-size: 50rpx;
+}
+.book-msg {
+  background: #fff;
+  padding-left: 30rpx;
+  margin-bottom: 10rpx;
+}
+.book-msg-title {
+  height: 80rpx;
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 80rpx;
+}
+.book-msg-detail {
+  padding: 20rpx 30rpx 20rpx 0;
+  display: flex;
+}
+.book-msg-detail image {
+  width: 140rpx;
+  height: 192rpx;
+  display: block;
+  margin-right: 30rpx;
+}
+.book-msg-detail .book-msg-text {
+  flex: 1;
+  overflow: hidden;
+}
+.book-msg-detail .book-msg-title {
+  width: 100%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  line-height: 1;
+  margin-top: 38rpx;
+  font-size: 34rpx;
+  color: #1a1a1a;
+}
+.book-msg-detail .book-msg-doc {
+  width: 100%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: -28rpx;
+}
+
+.useCoupon {
+  padding: 0 30rpx;
+  background: #fff;
+  height: 100rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.useCoupon-title {
+  font-size: 34rpx;
+  color: #1a1a1a;
+  font-weight: 700;
+}
+.border-b::after {
+  margin-left: 30rpx;
+}
+.useCoupon-usage {
+  font-size: 28rpx;
+  color: #999;
+  display: flex;
+  align-items: center;
+}
+.useCoupon-usage image {
+  width: 14rpx;
+  height: 26rpx;
+  margin-left: 18rpx;
+}
+.vip-period{
+  font-size: 34rpx;
+  color: #ffa42f;
+  /* font-weight: bold; */
+}
+
+.buy-btn {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border-top: 1rpx solid #e5e5e5;
+  width: 100%;
+  height: 98rpx;
+  box-sizing: border-box;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+}
+.buy-btn > view {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.buy-the-book {
+  font-size: 30rpx;
+  color: #1a1a1a;
+}
+.buy-the-book text {
+  color: #ffa42f;
+}
+.add-vip {
+  background: #ffa42f;
+  color: #fff;
+  font-size: 32rpx;
+}
+.add-vip text {
+  color: #fff;
+}

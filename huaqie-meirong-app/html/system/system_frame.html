@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>system_frame</title>
+    <link rel="stylesheet" type="text/css" href="../../css/mrUI.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/system.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }  
+    </script>
+    <style type="text/css">
+        #sys .form-item-cell-label {
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class='set-layout' id='sys'>
+        <ul class='form-content'>
+            <li class="form-item border-b">
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/sys-ert.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>提醒设置</span>
+                    <span class='form-item-cell-other position-y-center' onclick='changeMode()'>
+                        <input id='mode' class="switch" type="checkbox">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item border-b" onclick='go("resetPwd")'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/sys-psd.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>修改密码</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <img class='more' src="../../image/sys-more.png">
+                    </span>
+                </div>
+            </li>
+            <li class="form-item" onclick='signOut()'>
+                <div class="form-item-cell">
+                    <span class='form-item-cell-icon position-y-center'>
+                        <img src="../../image/sys-signout.png">
+                    </span>
+                    <span class='form-item-cell-label position-y-center'>退出系统</span>
+                    <span class='form-item-cell-other position-y-center'>
+                        <img class='more' src="../../image/sys-more.png">
+                    </span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript">
+    var mode = store.get('mode')!=undefined?store.get('mode'):true;
+    var init = function() { 
+        console.log('mode', mode);
+        $('#mode')[0].checked =  mode;
+    }
+    var changeMode = function() {
+        mode = !mode;
+        store.set('mode', mode);
+        init();
+        api.execScript({
+            name: 'root',
+            script: 'changeMode()'
+        })
+    }
+    var signOut = function() {
+        store.clear();
+        api.openWin({
+            name: 'signIn',
+            url: '../signIn/signIn.html'
+        });
+        api.execScript({
+            name: 'root',
+            frameName: 'frame0',
+            script: 'clearData()'
+        })
+        api.execScript({
+            name: 'root',
+            script: 'logout()'
+        })
+    }
+    var go = function(html) {
+        api.openWin({
+            name: html,
+            url: '../'+ html +'/'+ html +'.html'
+        })
+    }
+    init();
+    apiready = function(){
+        
+    };
+</script>
+</html>

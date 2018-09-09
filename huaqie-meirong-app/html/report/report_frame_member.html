@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/report-body.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+</head>
+<body id='sortiy'>
+    <div class="count-tabs border-b" id='tabs'>
+        <div data-index='1' class="count-tabs-item border-r active">
+            <span class='position-y-center'>新开卡统计</span>
+        </div>
+        <div data-index='2' class="count-tabs-item border-r">
+            <span class='position-y-center'>服务统计</span>
+        </div>
+    </div>
+    <div class="charts-wrap">
+        <div id='chart' class="charts"></div>
+    </div>
+    <ul id='result' class='result-list border-t border-b'>
+        <script type="text/html" id='tpl-report-list'>
+            <span class='total-count' id='total-count'></span>
+            {{each list val index}}
+            <li class='border-b' data-name='{{val.name}}' data-id='{{val.peopleId}}'>
+                <div class="result-img position-y-center">
+                    <img src="{{val.avatar}}" alt="网络错误">
+                </div>
+                <div class="result-title position-y-center">{{val.name}}</div>
+                <div class='result-count position-y-center'>
+                    <span>{{val.count}}人</span>
+                </div>
+                <div class='result-count-more position-y-center'>
+                    <img src="../../image/more2.png">
+                </div>
+            </li>
+            {{/each}}
+        </script>
+    </ul>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/axios.min.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../script/moment.min.js"></script>
+<script type="text/javascript" src="../../script/template-web.js"></script>
+<script type="text/javascript" src="../../fetch/api.js?v=1"></script>
+<script type="text/javascript" src="../../script/echarts.common.min.js"></script>
+<script type="text/javascript">
+    /**
+    *   过滤器
+    */ 
+    var date = new Date();
+    var day = '', year = '', month = '', dates = '', channel = '';
+    var chartBox = document.getElementById('chart');
+    var myChart = echarts.init(chartBox);
+    var option = {
+        series: [
+            {
+                name:'访问来源',
+                type:'pie',
+                radius: '36%',
+                center: ['50%', '50%'],
+                label: {
+                    normal: {
+                        formatter: '{b|{b}}{per|{c}}人',
+                        rich: {
+                            per: {
+                                color: '#333',
+                                padding: [2, 4],
+                            }
+                        }
+                    }
+                },
+                data:[]
+            }
+        ]
+    };
+    var initTab = function() {
+        $('#tabs .count-tabs-item').eq(0).addClass('active');
+        $('#tabs .count-tabs-item').eq(0).siblings().removeClass('active');
+    }
+    var init = function() {
+        day = '';
+        year = '';
+        month = moment(date.getTime()).format('YYYY-MM');
+        dates = '';
+        channel = 'card';
+        initTab();
+        getReport();
+    }
+    var changeQuery = function(channeller) {
+        var query = store.get('report_frame1');
+        day = query.day;
+        year = query.year;
+        month = query.month;
+        dates = query.dates;
+        channel = channeller||'card'
+        if(!channeller) {
+            initTab();
+        }
+        getReport();
+    }
+    $('#tabs').on('click', '.count-tabs-item', function(){
+        var index = this.dataset.index;
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active')
+        if(index == 1) {
+            channel = 'card'
+        } else {
+            channel = 'consume'
+        }
+        changeQuery(channel);
+    })
+    $('#result').on('click', 'li', function(){
+        var formData = {
+            styl: 2,
+            day: day,
+            year: year,
+            month: month,
+            startDate: dates ? dates[0] : '',
+            endDate: dates ? dates[1] : '',
+            channel: channel,
+            keyword: this.dataset.id,
+            title: this.dataset.name
+        }
+        api.openWin({
+            name: 'reportList',
+            url: '../reportList/reportList.html',
+            pageParam: {
+                val: formData
+            }
+        })
+    })
+    var getReport = function() {
+        var formData = {
+            day: day,
+            year: year,
+            month: month,
+            startDate: dates ? dates[0] : '',
+            endDate: dates ? dates[1] : '',
+            channel: channel
+        }
+        ajax.getRoleReport(formData, function(res) {
+            var dataList = [];
+            var total = 0;
+            $('#result').html(template('tpl-report-list', {list: res.data}))
+            for(var key in res.data) {
+                var dataName = res.data[key].name.slice(0, 4);
+                total+=res.data[key].count;
+                dataList.push({
+                    value: res.data[key].count,
+                    name: dataName,
+                })
+            }
+            $('#total-count').html('总人数：' + total);
+            option.series[0].data = dataList;
+            myChart.setOption(option);
+            
+        })
+    }
+    apiready = function(){
+        
+    };
+</script>
+</html>

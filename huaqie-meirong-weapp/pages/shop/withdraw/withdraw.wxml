@@ -1,0 +1,40 @@
+<image class="topImg" src="{{imgbx.topImg}}"></image>
+<view class="content">
+
+    <view class="tips">
+        <text>提现金额：¥{{amount}}</text>
+    </view>
+
+    <image class="titImg" src="{{imgbx.titImg}}"></image>
+
+    <view>
+
+    <view class="session">
+            <view class="sessoin-tit">开户行</view>
+            <picker  id="houseType" class="session-picker"  bindchange="bindPickerChange" value="{{houseTypeIndex}}" range="{{houseType}}">
+                <view class="picker">
+                  {{houseType[houseTypeIndex]}}
+                </view>
+            </picker>
+        </view>
+
+        <view class="session">
+            <view class="sessoin-tit">账户号</view>
+            <input class="session-val" type="number" name="currentSalary" bindchange="bindchangeAccount" id="currentSalary" />
+        </view>
+      
+        <view class="session">
+            <view class="sessoin-tit"  >开户名</view>
+            <input class="session-val" name="workPalce"   bindchange="bindchangeName" />
+        </view>
+
+        <view class="session">
+            <view class="sessoin-tit"  >手机号</view>
+            <input class="session-val" type="number" name="workPalce"  bindchange="bindchangePhone" />
+        </view>
+        
+        <button class="myBtn" bindtap="withdraw">申请提现</button>
+
+    </view>
+
+</view>

@@ -1,0 +1,36 @@
+<view class="banner">
+  <image src="/images/banner.png" mode="widthFix"></image>
+</view>
+
+<view class="card">
+  <view class="menu">
+    <view class="menu-item">
+      <image class="menu-icon" src="/images/book.png"></image>
+      <view class="menu-text">
+        到店时间： 明天 09:00
+      </view>
+    </view>
+
+    <view class="menu-item">
+
+      <image class="menu-icon" src="/images/timespan.png"></image>
+      <view class="menu-text">
+        预约时长：3小时
+      </view>
+
+    </view>
+
+    <view class="menu-item">
+
+      <image class="menu-icon" src="/images/beauty.png"></image>
+      <view class="menu-text">
+        预约项目：美容
+      </view>
+
+    </view>
+
+
+
+
+  </view>
+</view>

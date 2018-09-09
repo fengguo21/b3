@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>team_frame</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style>
+        * {
+            line-height: 1;
+        }
+        
+        .aui-user-view:after {
+            border: 0;
+        }
+        .aui-user-view-cell {
+            height: 74px;
+            overflow: hidden;
+            padding: 14px 15px;
+            position: relative;
+        }
+        .aui-user-view-cell:after {
+            border-color: #e6e6e6
+        }
+        .aui-user-view-cell:last-child:after {
+            /* border-color: #fff; */
+            border: 0;
+        }
+        .aui-user-view-cell p {
+            color: #999;
+        }
+        .msg-body {
+            width: calc(100% - 93px);
+            height: 48px;
+            position: absolute;
+            top: 50%;
+            left: 78px;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%)
+        }
+        .msg-body > span {
+            display: block;
+            height: 20px;
+            color: #333;
+            margin: 6px 0 5px;
+            font-size: 13px;
+        }
+        .msg-body > span em {
+            float: right;
+            color: #999;
+            font-size: 12px;
+        }
+        .msg-body > span .new {
+            color: #ff55b5;
+        }
+        .msg-body > p {
+            padding: 0;
+            margin: 0;
+            height: 20px;
+            font-size: 12px;
+            color: #666;
+            overflow: hidden;
+        }
+        .msg-body > p em {
+            float: right;
+            color: #808080;
+            font-size: 10px;
+            margin-top: 3px;
+        }
+        #order-list .new {
+            color: #ff55b5;
+        }
+        #order-list .cancel {
+            color: #00a5e7;
+        }
+        #order-list .complate {
+            color: #fb5660;
+        }
+        #order-list .ordering {
+            color: #2ecc71;
+        }
+        #count {
+            vertical-align: middle;
+            padding: 10px 15px;
+        }
+        #count img{
+            width: 19px;
+            height: 17px;
+            vertical-align: middle;
+            margin-right: 10px;
+            margin-left: 5px;
+        }
+        #count > span {
+            vertical-align: middle;
+            font-size: 13px;
+            color: #666;
+        }
+        .editMember{
+            width: 24px;
+            height: 24px;
+            padding: 5px;
+            margin-left: 10px;
+            margin-top: -5px;
+            vertical-align: top;
+            
+        }
+        .msg-body .mark{
+            color: #ff3e39;
+            line-height: 0.45rem;
+            font-size: 0.3rem;
+            margin-top: 8px;
+        }
+        .mark .icon{
+            font-size: 12px;
+        }
+        .rightArrow{
+            width:44px;
+            height: 44px;
+            margin-left: 4px;
+            vertical-align: middle;
+            display: inline-block;
+            padding: 17px;
+            margin-left: -15px;
+        }
+         #filter-box {
+            display: flex;
+            font-size: 14px;
+            color: #333;
+            background: white;
+        }
+        #filter-box  li.active{
+            color:#ff55b5;
+            position: relative;
+        }
+        #filter-box li.active::after {
+            content: '';
+            display: block;
+            width: 100%;
+            border-bottom: 2px solid #ff55b5;
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            -webkit-transform: translateX(-50%);
+        }
+        
+        .filter-box.show {
+            display: block;
+        }
+        .filter-box li {
+            /* padding: 15px 0; */
+            flex: 1;
+            /*margin:0 35px;*/
+           /*width:55px;*/
+            
+            padding:0.45rem 0;
+            color: #333;
+            text-align: center;
+            font-size: 0.28rem;
+           
+        }
+        .filter-box li h3{
+            margin-top: 0.55rem;
+            font-size: 0.48rem;
+        }
+        #not-empty .top{
+            padding-top: 14px;
+        }
+        .filter-box li h3 em{
+            font-size: 14px;
+        }
+        .rank{
+            font-size: 13px;
+            color: #333;
+            display: inline-block;
+            height: 100%;
+            line-height: 0.9rem;
+            vertical-align: middle;
+            
+        }
+        #users li{
+            display: flex;
+        }
+        #users li .crown{
+            width:26px;
+            height: 25px;
+            margin-top: 10px;
+            margin-left: -10px;
+        }
+        #users .rank{
+            flex:0 0 40px;
+            padding-left: 10px;
+        }
+        .msg-body{
+            width:calc(100% - 130px);
+            left: 115px
+        }
+        
+    </style>
+</head>
+<body>
+<div id='not-empty' style='display: none'>
+    <ul class='filter-box' id='filter-box'>
+            <li data-name='total' class="active">
+                <span>总业绩</span>
+                <h3><em>￥</em><span id="totalFee">4500</span></h3>
+            </li>
+            <li data-name='create'>
+                <span>总提成</span>
+                <h3><em>￥</em><span id="ratio">500</span></h3>
+            </li>
+            <li data-name='consume'>
+                <span>手工费</span>
+                <h3><em>￥</em><span id="serviceFee">4000</span></h3>
+            </li>
+        </ul>
+    <p class="aui-padded-10" id='count'><img src="../../image/team-team.png"><span>共<span id="total">0</span>位同事</span></p>
+    <div class="aui-content">
+        <ul class="aui-user-view aui-in" id="users">
+        <script id="tpl-user" type="text/html">
+            {{each teamList val i}}
+            
+            <li class="aui-user-view-cell aui-img" data-val='{{val}}'  >
+                {{if i==0}}
+                   <div class="rank">
+                       <img src="../../image/crown1.png" class="crown">
+                    </div>
+                {{/if}}
+                {{if i==1}}
+                    <div class="rank">
+                       <img src="../../image/crown2.png" class="crown"> 
+                    </div>
+                {{/if}}
+                {{if i!==0 && i!==1}}
+                    <div class="rank">
+                       {{i+1}} 
+                    </div>
+                {{/if}}
+                <div>
+                   <div class="aui-img-object aui-pull-left" style='overflow: hidden; border-radius: 50%;' data-val='{{val}}'>
+                        <img src="{{val.basic.avatar}}" data-val='{{val}}'  style='width: 100%;'>
+                    </div>
+                    <div class="msg-body" data-val='{{val}}' >
+                        <span data-val='{{val}}'>{{val.basic.name}}<img src="../../image/editMember.png" class="editMember" onclick="editMember({{val}})">
+                             <em class="mark"><span class="icon">￥</span>
+                                {{if sortByName=='total'}}
+                                   <span class="memberTotal" > {{val.consumeCardAmount+val.createCardRatio}}</span>
+                                {{/if}}
+                                {{if sortByName=='create'}}
+                                   <span class ="memberRatio" > {{val.createCardRatio}}</span>
+                                {{/if}}
+                                {{if sortByName=='consume'}}
+                                   <span class ="feeRatio" > {{val.consumeCardAmount}}</span>
+                                {{/if}}
+                                <img src="../../image/strech.png" class="rightArrow" onclick="goWorkDetail({{val}})"></span>
+                            </em>
+                        </span>
+                        <p data-val='{{val}}' class='aui-ellipsis-1'>
+                            {{val.role.profession}}
+                        </p>
+                    </div> 
+                </div>
+            </li>
+            {{/each}}
+        </script>
+        </ul>
+    </div>
+</div>
+<div id="empty" style='display: none; overflow: hidden; text-align: center'>
+    <div style='width: 165px; height:165px; margin: 178px auto 20px'>
+        <img src="../../image/data-empty.png" style='display: block; width: 186px;'>
+    </div>
+    <span style='font-size: 14px; color: #999'>暂时没有成员</span>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script src="../../script/axios.min.js"></script>
+<script type="text/javascript" src="../../script/template-web.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript" src="../../script/phone.js"></script>
+<script type="text/javascript" src="../../fetch/api.js?v=7"></script>
+<script type="text/javascript" src="../../script/rem.js"></script>
+<script type="text/javascript" src="../../script/moment.min.js"></script>
+<script type="text/javascript">
+    var myMsg = store.get('me');
+    var myElement = document.getElementById('users');
+    var mc = new Hammer(myElement);
+    template.defaults.imports.formatClass = function(data){
+        switch(data) {
+            case 1: return 'new'; break;
+            case 1.5: return 'new'; break;
+            case 2: return ''; break;
+            default: return '';
+        }
+    };
+    var page = 1;
+    var total = 0;
+    var teamList = [];
+    var sortByName = 'total';
+
+    // 初始化数据
+    var getMember=function(){
+        var formData={
+            page: page,
+            size: 10,
+            startDate:startDate,
+            endDate:endDate,
+            sortByName:sortByName
+        }
+         ajax.getMemberList(formData, function(res) {
+             console.log(res)
+             teamList = res.data.list;
+             total = res.data.total;
+             if(total > 0) {
+                console.log(res.data.consumeCardAmount)
+                var sort = {
+                    sortByName:sortByName,
+                    teamList:teamList
+                }
+                 $('#not-empty').show();
+                 $('#empty').hide();
+                 $('#total').html(total);
+                 $('#users').html(template('tpl-user', sort));
+
+                 $('#totalFee').text(res.data.consumeCardAmount+res.data.createCardRatio);
+                 $('#ratio').text(res.data.createCardRatio);
+                 $('#serviceFee').text(res.data.consumeCardAmount)
+             } else {
+                 $('#not-empty').hide();
+                 $('#empty').show();
+             }
+            
+        })  
+    }
+    var changeMember= () =>{
+         var formData={
+            page: page,
+            size: 10,
+            startDate:startDate,
+            endDate:endDate,
+            sortByName:sortByName
+        }
+         ajax.getMemberList(formData, function(res) {
+             console.log(res)
+             teamList = res.data.list;
+             total = res.data.total;
+             if(total > 0) {
+                 var sort = {
+                    sortByName:sortByName,
+                    teamList:teamList
+                }
+                 $('#not-empty').show();
+                 $('#empty').hide();
+                 $('#total').html(total);
+                 $('#users').html(template('tpl-user', sort));
+             } else {
+                 $('#not-empty').hide();
+                 $('#empty').show();
+             }
+            
+        })  
+    }
+    
+    var init = function() {
+        var date = new Date()
+        startDate = moment(date.getTime()).format('YYYY-MM-DD')
+        endDate = moment(date.getTime()).format('YYYY-MM-DD')
+        param = {
+                startDate : startDate,
+                endDate : endDate
+                    }
+        store.set('queryTime', param);
+        getMember()
+    }
+    // 重新加载数据
+    var reload = function() {
+        page = 1;
+        teamList = [];
+        init()
+    }
+    //条件筛选
+    $('#filter-box').on('click', 'li', function(e) {
+            $('li').removeClass('active')
+            e.currentTarget.className='active'
+            $('#filter-box').removeClass('show')
+            var name = this.dataset.name;
+            sortByName = name;
+            changeQuery(sortByName)
+           })                                                               
+        
+    var changeQuery = function(sortByName) {
+        var query = store.get('queryTime');
+        startDate = query.startDate;
+        endDate = query.endDate;
+        sortByName = sortByName||'total'
+        page = 1
+        changeMember();
+    }
+    var changeDateQuery = () => {
+        var query = store.get('queryTime');
+        startDate = query.startDate;
+        endDate = query.endDate;
+        sortByName = sortByName||'total'
+        if(!sortByName) {
+        }
+        getMember()
+    }
+    // 删除员工操作
+    var removeBox = function(peopleId) {
+        api.confirm({
+            title: '警告',
+            msg: '您即将删除该员工，是否继续？',
+            buttons: ['删除', '取消']
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            if(index == 1) {
+                removeMember(peopleId);
+            }
+        })
+    }
+    var removeMember = function(peopleId) {
+        ajax.removeMember({
+            peopleId: peopleId
+        }, function(res) {
+            api.toast({
+                msg: '删除成功'
+            })
+            reload();
+        })
+    }
+
+    //进入编辑页
+    var editMember = function(val) {
+            store.set('editMember', val);
+            console.log(val)
+            api.openWin({
+                name: 'editMember',
+                url: '../editMember/editMember.html',
+                
+            })
+            
+        }
+    //进入业绩详情
+    var goWorkDetail=function(id){
+        api.openWin({
+                name: 'member',
+                url: './member/member.html',
+                pageParam: id,
+            })
+    }
+    // 分页
+    var loadMore = function() {
+        ajax.getMemberList({
+            startDate:startDate,
+            endDate:endDate,
+            sortByName:sortByName,
+            page: page,
+            size: 10
+        }, function(res) {
+            teamList = teamList.concat(res.data.list);
+            // console.log(teamList);
+        
+            $('#users').html(template('tpl-user', {sortByName:sortByName, teamList: teamList}))
+        })  
+    }
+    mc.get('press').set({time: 500});
+    mc.on("press", function(ev) {
+        // console.log(ev);
+        if(myMsg.role.level != 1&&myMsg.role.level != 1.5) {
+            api.alert({
+                title: '警告',
+                msg: '您没有操作权限！'
+            })
+            return;
+        }
+        var target = ev.target;
+        var val = JSON.parse(target.dataset.val);
+        var peopleId = val.peopleId;
+        if(peopleId == myMsg.peopleId) {
+            api.toast({
+                msg: '您无法对自己进行操作！'
+            })
+            return;
+        }
+        if(val.role.level == 1) {
+            api.toast({
+                msg: '您无法对管理员进行操作'
+            })
+            return;
+        }
+        removeBox(peopleId);
+        // target.addClass('move');
+        // target.next().addClass('active')
+    });
+    // mc.on('tap',function(ev) {
+    //     // console.log(ev);
+    //     if(store.get('me').role.level != 1&&store.get('me').role.level != 1.5) {
+    //         api.alert({
+    //             title: '警告',
+    //             msg: '您没有操作权限！'
+    //         })
+    //         return;
+    //     }
+    //     var target = ev.target;
+    //     var val = JSON.parse(target.dataset.val);
+    //     var peopleId = val.peopleId;
+    //     if(val.role.level == 1&&peopleId != myMsg.peopleId) {
+    //         api.toast({
+    //             msg: '您无法对管理员进行操作'
+    //         })
+    //         return;
+    //     }
+    //     store.set('editMember', val);
+    //     api.openWin({
+    //         name: 'editMember',
+    //         url: '../editMember/editMember.html'
+    //     })
+    //     api.actionSheet({
+    //         title: '操作',
+    //         cancelTitle: '取消',
+    //         buttons: [ '编辑', '设置店长']
+    //     }, function(ret, err) {
+    //         const index = ret.buttonIndex;
+    //         switch(index) {
+    //             case 1: 
+    //                 store.set('editMember', val);
+    //                 api.openWin({
+    //                     name: 'editMember',
+    //                     url: '../editMember/editMember.html'
+    //                 })
+    //             break;
+    //             case 2: console.log(index);break;
+    //             default: return;
+    //         }
+    //     });
+    //     target.addClass('move');
+    //     target.next().addClass('active')
+    // });
+    //操作主流程
+    // $('#users').on('click', 'li', function(e) {
+        
+    //     const val = this.dataset.val;
+    //     const peopleId = JSON.parse(val).peopleId;
+    //     api.actionSheet({
+    //         title: '操作',
+    //         cancelTitle: '取消',
+    //         destructiveTitle: '删除',
+    //         buttons: [ '编辑', '设置店长']
+    //     }, function(ret, err) {
+    //         const index = ret.buttonIndex;
+    //         switch(index) {
+    //             case 1:
+    //                 removeBox(peopleId);
+    //             break;
+    //             case 2: 
+    //                 store.set('editMember', JSON.parse(val));
+    //                 api.openWin({
+    //                     name: 'editMember',
+    //                     url: '../editMember/editMember.html'
+    //                 })
+    //             break;
+    //             case 3: console.log(index);break;
+    //             default: return;
+    //         }
+    //     });
+    // })
+    init();
+    //getMember()
+    //changeQuery()
+    apiready = function(){
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold : 0 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            if(page * 10 < total){
+                page += 1
+                loadMore();
+            } else {
+                api.toast({
+                    msg: '没有更多啦'
+                })
+            }
+        });
+    };
+</script>
+</html>

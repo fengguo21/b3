@@ -1,0 +1,13 @@
+<template name="mask">
+  <view class="mask {{showModal?'mask-show':''}}" catchtap="toggleMask" catchtouchmove="maskTouchMove">
+    <view class="mask-box position-center" catchtap="maskBoxTap">
+      <image class="mask-success-icon" src="/images/icon-success.png"></image>
+      <view class="mask-title">下单成功</view>
+      <view class="mask-tip light-gray">请您选择支付方式</view>
+      <view class="mask-btns">
+        <button class="mask-btns-other main-color" catchtap="otherPay" open-type="share">找人代付</button>
+        <view class="mask-btns-mine" catchtap="minePay">直接付款</view>
+      </view>
+    </view>
+  </view>
+</template>

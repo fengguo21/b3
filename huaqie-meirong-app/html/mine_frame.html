@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>mine</title>
+    <link rel="stylesheet" type="text/css" href="../css/mine.css?v=1"/>
+    <link rel="stylesheet" type="text/css" href="../css/position.css"/>
+    <script type='application/javascript' src='../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+</head>
+<body>
+<div class='mine-wrap'>
+   <div class="mine-top">
+       <div class="top-bg">
+           <img src="../image/mine-bg.png?v=1">
+       </div>
+       <div class="top-usermsg" onclick='go("editUser")'>
+           <div class="avatar-wrap">
+            <div class="avatar-wrap-db">
+              <img id='avatar' src="../image/mine-avatar.png">
+            </div>    
+           </div>
+           <div id='name' class='username'>Lina Bo</div>
+           <div id='role' class='job'>高级美容师</div>
+       </div>
+       <div class="data-count" id='yuyue'>
+           <div class="data-count__item" data-index='1'>
+              <div class="position-center">
+                <div class="count-item-title">今天预约</div>
+                <div id='today' class="count-item-num">0</div>
+              </div>
+           </div>
+           <div class="data-count__item" data-index='2'>
+              <div class="position-center">
+                <div class="count-item-title">明天预约</div>
+                <div id='tomm' class="count-item-num">0</div>
+              </div>
+           </div>
+           <div class="data-count__item" data-index='3'>
+              <div class="position-center">
+                <div class="count-item-title">后天预约</div>
+                <div id='last' class="count-item-num">0</div>
+              </div>
+           </div>
+       </div>
+   </div>
+   <div class="mine-bottom">
+       <div class="menu-list">
+            <div class="list-item menu-name">
+                <span>个人中心</span>
+            </div>
+
+            <div class="list-item" onclick='go("setholiday")'>
+                <span class='icon'><img src="../image/detail-retime.png"></span>
+                <span class='title'>上班时间设置</span>
+                <span class='more'><img src="../image/mine-more.png"></span>
+            </div>
+
+            <div class="list-item" onclick='go("help")'>
+                <span class='icon'><img src="../image/mine-help.png"></span>
+                <span class='title'>使用帮助</span>
+                <span class='more'><img src="../image/mine-more.png?v=1"></span>
+            </div>
+
+            <div class="list-item" onclick='go("system")'>
+                <span class='icon'><img src="../image/mine-system.png"></span>
+                <span class='title'>系统设置</span>
+                <span class='more'><img src="../image/mine-more.png"></span>
+            </div>
+       </div>
+   </div>
+</div>
+
+<script type="text/javascript" src='../script/axios.min.js'></script>
+<script type="text/javascript" src='../script/zepto.min.js'></script>
+<script type="text/javascript" src='../script/store.min.js'></script>
+<script type="text/javascript" src='../script/moment.min.js'></script>
+<script type="text/javascript" src='../fetch/api.js'></script>
+<script type="text/javascript">
+    var go = function (v) {
+        api.openWin({
+            name: v,
+            url: './'+v+'/'+v+'.html'
+        });
+    }
+    var getUser = function() {
+      var me = store.get('me');
+      var title = me.role.profession ? me.role.profession : me.role.title;
+      $('#avatar').attr({src: me.basic.avatar})
+      $('#name').html(me.basic.name)
+      $('#role').html(title)
+    }
+    var getPrebookCount = function() {
+      var today = moment().format('YYYY-MM-DD');
+      var tomm = moment().add(1, 'days').format('YYYY-MM-DD');
+      var last = moment().add(2, 'days').format('YYYY-MM-DD');
+      // console.log(today, tomm, last);
+      // var todayDate = moment(today.split('-'))
+      if(!store.get('me')) return;
+      ajax.getPrebookCount({
+        peopleId: store.get('me').peopleId
+      }, function(res) {
+        $('#today').html(res.data[today]);
+        $('#tomm').html(res.data[tomm]);
+        $('#last').html(res.data[last])
+      })
+    }
+    getUser();
+    var init = function() {
+      getPrebookCount();
+    }
+    $('#yuyue').on('click', '.data-count__item', function() {
+      var index = this.dataset.index;
+      store.set('yuyueList', index);
+      api.openWin({
+        name: 'yuyue',
+        url: './yuyue/yuyue.html',
+      })
+      
+    })
+    init();
+</script>
+</body>
+</html>

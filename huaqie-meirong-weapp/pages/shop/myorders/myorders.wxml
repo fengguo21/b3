@@ -1,0 +1,26 @@
+<view class="main">
+    
+    <view class="orders-box">
+     
+        <view class="orders-list" wx:if="{{orders.length > 0}}" wx:for="{{orders}}" wx:key="index">
+            <view class="orders-number">订单编号：{{item.orderId}}</view>
+             <navigator class="orders-detail" url="/page/component/order/order?orderId={{item.orderId}}">
+                <image src="{{item.basic.avatar}}"></image>
+                <view class="">{{item.basic.title}}</view>
+                <view class="">{{item.count}}</view>
+                <text class="orders-status {{item.stepClass}}">{{item.stepTitle}}</text>
+            </navigator>
+            <view class="orders-footer">
+                <text>实付：￥{{item.amount}}</text>
+                <button size="mini" class="orders-btn orders-btn-pay" data-oid="{{item.orderId}}" wx:if="{{item.step==1}}" bindtap="payOrders">继续付款</button><button size="mini" class="orders-btn orders-btn-receive" data-oid="{{item.orderId}}" wx:if="{{item.step==3}}" bindtap="confirm">确认收货</button>
+            </view>
+        </view>
+        <view class="no-orders" wx:if="{{orders.length == 0}}">
+          <image src="../../../image/no-orders.png" mode="widthFix"></image>
+          你还没有订单，快去选购吧~
+        </view>
+    </view>
+</view>
+
+
+ <view class="tips" wx:if="{{orders.length > 0}}">{{tips}}</view>

@@ -1,0 +1,51 @@
+/* studyDetail3.wxss */
+
+image{
+  width:90%;
+  margin: 26rpx 35rpx;
+}
+
+
+.tlt{
+  font-size: 28rpx;
+  font-weight: 600;
+
+
+}.red{
+  color: red
+}
+.weight{
+  font-weight: 600
+}
+.time{
+  text-align:center;
+  color:#a6a6a6;
+  font-size: 22rpx;
+  margin-top: 12rpx;
+}
+
+view text{
+    font-size: 28rpx;
+    line-height: 1.6em;
+    display: block;
+    margin-bottom:21rpx;
+    margin-left: 45rpx;
+    margin-right: 35rpx;
+    
+}
+.title text{
+  font-size: 42rpx;
+  margin-top:37rpx;
+  line-height: 55rpx;
+  margin-left:55rpx;
+  margin-right: 58rpx;
+  font-weight: 600;
+}
+text{
+    font-size: 28rpx;
+    line-height: 1.6em;
+    display: block;
+    margin-bottom:21rpx;
+    margin-left: 45rpx;
+    margin-right: 35rpx;
+}

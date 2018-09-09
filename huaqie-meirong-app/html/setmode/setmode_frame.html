@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>setmode_frame</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+    <script type='application/javascript' src='../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style>
+        body{
+           overflow: hidden; 
+        }
+        .aui-switch.aui-switch-success:checked {
+            border-color: #ff7c95;
+            box-shadow: #ff7c95 0 0 0 26px inset;
+            background-color: #ff7c95;
+        }
+    </style>
+</head>
+<body>
+    <div class="aui-content aui-card" style='margin-top: 15px;'>
+        <ul class="aui-list-view">
+            <li class="aui-list-view-cell aui-switch-body">
+                <div class="aui-switch-title">自动分配</div>
+                <input id='type' type="checkbox" class="aui-switch aui-switch-success aui-pull-right">
+            </li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/store.min.js"></script>
+<script type="text/javascript">
+    $('#type').on('change', function() {
+        // console.log($(this)[0].checked);
+        var isChecked = $(this)[0].checked;
+        // console.log(isChecked);
+        store.set('isAuto', isChecked );
+    })
+    console.log(store.get('isAuto'));
+    if(store.get('isAuto')!=undefined) {
+        // console.log(store.get('isLeave'))
+        $('#type')[0].checked = store.get('isAuto');
+    } else {
+        $('#type')[0].checked = false
+    } 
+</script>
+</html>

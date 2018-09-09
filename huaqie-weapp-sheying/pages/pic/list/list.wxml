@@ -1,0 +1,36 @@
+<!--选项卡-->
+<view class="tabTit box tc bg_f">
+
+	<view  class="flex1"  data-index="{{-1}}"  bindtap="filterTab" data-catalog="">
+		<text>全部</text>
+	</view>
+
+	<view class="flex1{{!tab[index]?' active':''}}" wx:for="{{classes}}" wx:key="" data-index="{{index}}" bindtap="filterTab" data-catalog="{{item.basic.title}}">
+		<text>{{item.basic.title}}</text>
+		<image src="/images/arrow.png"></image>
+	</view>
+</view>
+<!--筛选项-->
+<view class="tabLayer tc" wx:if="{{tab.length > 0 && !tab[index]}}">
+	<text class="{{house_type==0?'active':''}}" data-text="" bindtap="filter">不限</text>
+	<text class="{{index==item.id?'active':''}}" wx:for="{{classes[index].basic.children}}" wx:key="" data-text="{{item}}" bindtap="filter">{{item}}</text>
+</view>
+
+<view class="content">
+	<navigator wx:for="{{data}}" class="pic" url="../detaile/detaile?feedId={{item.feedId}}" wx:key="">
+		<image src="{{item.basic.images[0].url}}" mode="aspectFill"></image>
+    
+		<view class="des ellipsis">{{item.basic.title}}<text class="sum">（{{item.basic.images.length}}张）</text></view>
+	</navigator>
+</view>
+<view class="w">
+	<!--无数据提示-->
+	<view class="null tc" wx:if="{{loaded && data.length==0}}">
+		<icon type="clear" size="100" color="#ccc"/>
+		<view class="txt1">当前筛选无结果</view>
+		<view class="txt2">您可以尝试筛选其他分类看看</view>
+	</view>
+</view>
+
+<view class="tips" wx:if="{{data.length > 0}}">{{tips}}</view>
+<include src="/template/footer.wxml"/>

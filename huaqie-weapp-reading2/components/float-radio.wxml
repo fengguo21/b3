@@ -1,0 +1,22 @@
+<template name="floatRadio">
+  <view class="float-radio" hidden="{{!hasRadio}}">
+    <view class="float-radio-wrap">
+      <image class='float-radio-close' src="/images/book-float-close.png" bindtap="closeFloat"></image>
+      <view class="float-radio-face" bindtap="navToRadio">
+        <image mode="widthFix" src="{{avatar}}" ></image>
+      </view>
+      <view class="float-radio-msg" bindtap="navToRadio">
+        <view class="float-radio-title">{{title}}</view>
+        <view class="float-radio-others">
+          <text class="float-radio-duration">{{duration}}</text>
+          <text class="float-radio-aditor">{{author}}</text>
+        </view>
+      </view>
+    </view>
+    <image
+      class='float-radio-option'
+      src="{{!radioRun ? '/images/book-radio-float.png' : '/images/book-stop-float.png'}}"
+      bindtap="toggleFloatRadio"
+    ></image>
+  </view>
+</template>

@@ -1,0 +1,49 @@
+<!--pages/aboutUs/aboutUI.wxml-->
+<view class="logo">
+  <image src="https://dn-huaqie.qbox.me/agent-b10.png"></image>
+</view>
+<view class="title">
+  <text class="name">花茄</text>
+</view>
+<view class="sceondTitle">
+  <text class="secondName">（上海昀活网络科技有限公司）</text>
+</view>
+<view class="con">
+  <text >    花茄 （上海昀活网络科技有限公司）成立于2014年9月，17年6月成立深圳分公司。花茄专注于为商家提供交易相关业务解决方案，包括微信公众号商城，小程序，App，网站，微信收款和支付宝收款，共享充电等SaaS服务和定制开发。</text>
+</view>
+<view class="line"></view>
+
+<view class="contact">
+  <text class="contactt">联系我们:</text>
+</view>
+
+<view class="tel">
+  <text class="tel1">公司电话：</text> <text class="tel2"> 021-67866532</text>  <text class="ph1">手机号： </text>  <text class="ph2"> 18602118917</text>
+</view>
+
+
+
+<view class="tel">
+  <text class="">公司 QQ ： </text>  <text class="">  190287898</text>
+</view>
+
+<view class="tel">
+  <text class="">公司邮箱：</text>  <text class=""> huaqie@outlook.com</text>
+</view>
+
+<view class="tel">
+  <text class="">花茄官网：</text>  <text class=""> www.huaqie.com</text>
+</view>
+
+<view class="tel last">
+  <text class="">公司地址：</text>  <text class=""  >上海松江万达广场3号楼1406室</text>
+</view>
+
+<view class="map"   >
+  <map  style="height:298rpx;width:100%" id="map"   bindtap="ggggg" longitude="121.243810" latitude="31.058720" scale="14"   markers="{{markers}}"  polyline="{{polyline}}" bindregionchange="regionchange" show-location ></map>  
+
+
+</view>
+
+
+

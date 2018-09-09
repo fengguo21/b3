@@ -1,0 +1,103 @@
+<!--my.wxml-->
+<view class="mypage">
+
+<view class="header">
+ <image src="../../images/companybanner.png" mode="widthFix" class="bc"   ></image>
+ <view class="clicktext"><image src="../../images/comtext.png"  bindtap="toAboutUs"></image></view>
+ 
+ </view>
+
+<view class="servicebox">
+<text class="service">我们的服务团队</text>
+</view>
+
+<view class="sever">
+<image src="https://dn-huaqie.qbox.me/agent-t24.jpg"></image>
+<view class="information">
+<text class="name">许玛丽</text>
+<text class="tel">上海市松江区</text><image src="../../images/phone.png" class="personalTel" bindtap="phone1" mode="scaleToFill"></image>
+</view>
+</view>
+
+<view class="sever">
+<image src="https://dn-huaqie.qbox.me/agent-t45.jpg"></image>
+<view class="information">
+<text class="name">张明阳</text>
+<text class="tel">上海市宝山区</text><image src="../../images/phone.png" class="personalTel" bindtap="phone5"></image>
+</view>
+</view>
+
+<view class="sever">
+<image src="https://dn-huaqie.qbox.me/agent-t23.jpg"></image>
+<view class="information">
+<text class="name">刘彦</text>
+<text class="tel">广东省深圳市</text><image src="../../images/phone.png" class="personalTel" bindtap="phone2"></image>
+</view>
+</view>
+
+<view class="sever">
+<image src="https://dn-huaqie.qbox.me/agent-t44.jpg"></image>
+<view class="information">
+<text class="name">张亮</text>
+<text class="tel">广东省深圳市</text><image src="../../images/phone.png" class="personalTel" bindtap="phone3"></image>
+</view>
+</view>
+
+<view class="sever ">
+<image src="https://dn-huaqie.qbox.me/agent-t38.jpg"></image>
+<view class="information">
+<text class="name">王士鹤</text>
+<text class="tel">广东省深圳市</text><image src="../../images/phone.png" class="personalTel" bindtap="phone6"></image>
+</view>
+</view>
+
+<view class="sever ">
+<image src="/images/xiao.jpg"></image>
+<view class="information">
+<text class="name">肖丽晴</text>
+<text class="tel">广东省广州市</text><image src="../../images/phone.png" class="personalTel" bindtap="phone7"></image>
+</view>
+</view>
+
+
+<view class="sever sever5">
+<image src="https://dn-huaqie.qbox.me/agent-t46.jpg"></image>
+<view class="information">
+<text class="name">周晔</text>
+<text class="tel">安徽省合肥市</text><image src="../../images/phone.png" class="personalTel" bindtap="phone4"></image>
+</view>
+</view>
+
+
+
+
+
+<view class="footline">
+<view class="line1"></view>
+<text class="nocontent">没有更多内容了</text>
+<view class="line2"></view>
+
+</view>
+
+
+</view>
+
+<view class="line"></view>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+

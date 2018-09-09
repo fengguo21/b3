@@ -1,0 +1,79 @@
+/* pages/home/home.wxss */
+.mine-msg {
+  width: 100%;
+  height: 280rpx;
+  overflow: hidden;
+  position: relative;
+  background: url('https://qbox.huaqie.com/FtyojbHkHSKOTfaCmWxQI9e3azoC') no-repeat center;
+  background-size: 100%;
+  box-sizing: border-box;
+  padding: 66rpx 50rpx;
+}
+
+.mine-avatar {
+  float: left;
+  width: 148rpx;
+  height: 100%;
+  margin-right: 36rpx;
+  position: relative;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .5);
+}
+
+.mine-avatar .avatar {
+  width: 136rpx;
+  height: 136rpx;
+  border-radius: 50%;
+}
+.mine-avatar .vip {
+  width: 46rpx;
+  position: absolute;
+  right: 0;
+  bottom: 26rpx;
+  transform: translateX(50%);
+}
+
+.mine-detail > text {
+  line-height: 1;
+  display: block;
+  color: #1a1a1a;
+}
+
+.mine-name {
+  font-size: 32rpx;
+  margin-top: 36rpx;
+}
+.mine-card-time {
+  margin-top: 30rpx;
+  font-size: 24rpx;
+}
+
+.mine-menus {
+  overflow: hidden;
+  margin-top: 10rpx;
+  background: #fff;
+}
+.menu-item {
+  position: relative;
+  height: 106rpx;
+}
+
+.menu-item.border-b::after {
+  margin-left: 116rpx;
+}
+
+.menu-item .menu-icon {
+  width: 40rpx;
+  margin: 33rpx 38rpx;
+  vertical-align: middle;
+}
+.menu-item > text {
+  font-size: 30rpx;
+  color: #323232;
+  vertical-align: middle;
+}
+.menu-item .menu-more {
+  width: 14rpx;
+  right: 30rpx;
+}
+

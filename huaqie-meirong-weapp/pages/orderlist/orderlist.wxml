@@ -1,0 +1,32 @@
+<scroll-view    class="content"  scroll-y='true' scroll-x='false'  bindscrolltolower="f">
+  <view class='cell' wx:for="{{consumelist}}"  >
+  <view class='left'>
+    <image src='{{item.basic.avatar}}' mode="scaleToFill"></image>
+  </view>
+  <view class='middle'>
+  <view  class='proj'>{{item.basic.title}}</view>
+    <view class='beauinfo'>
+       <text class='beautician'>{{"技师"}}:</text> 
+      <text class='name'>{{item.basic.sales.name}}</text>
+    </view>
+    
+  </view>
+    
+
+    <view class='right'>
+    <view class="classes1">{{item.basic.channel}}</view>
+    <view class='datetime'>
+      
+      <text class='time'>{{item.created}}</text>
+    </view>
+    </view>
+  </view>
+<view class="empty" wx:if="{{consumelist.length==0}}">
+<image src="/images/empty.png"></image>
+<text>暂无记录</text>
+</view>
+<view class="tips" wx:if="{{consumelist.length > 0}}">{{tips}}</view>
+</scroll-view>
+
+
+

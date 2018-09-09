@@ -1,0 +1,15 @@
+#aui-header {
+    background-color: #ff8ec6;
+    height: 44px;
+    line-height: 44px;
+    overflow: hidden;
+}
+#aui-header.aui-bar {
+	min-height: 44px;
+}
+#aui-header > a {
+	height: 44px;
+}
+#aui-header > a span {
+	display: block;
+}

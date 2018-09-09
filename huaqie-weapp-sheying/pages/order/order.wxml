@@ -1,0 +1,64 @@
+<!--订单头-->
+<view class="detailtop">
+  <navigator class="detailtoppic" url="../product/product?productId={{order.basic.products[0].productId}}">
+    <image src="{{order.basic.products[0].basic.avatar}}"></image>
+  </navigator>
+  <view class="detailtoptit">{{order.basic.title}}
+  </view>
+</view>
+
+
+
+<!--联系信息-->
+<view class="detailinfo">
+  <view class="detailtit">
+    联系信息
+  </view>
+  
+  <view class="detailtxt   odd"> 联系人：{{order.basic.address.name}}</view> 
+
+  
+  <view class="detailtxt">
+  手机号：{{order.basic.address.phone}}
+  </view>
+</view>
+
+<!--订单信息-->
+<view class="detailinfo">
+  <view class="detailtit">
+    订单信息
+  </view>
+  <view class="detailtxt">
+    订单号：{{order.orderId}}
+  </view>
+  <view class="detailtxt">
+    订单金额：¥{{order.amount}}
+  </view>
+  <view class="detailtxt">
+    订单状态：{{order.stepText}}
+  </view>
+  <view class="detailtxt">
+    下单时间：{{order.created}}
+  </view>
+</view>
+
+<!--支付信息-->
+<view class="detailinfo">
+  <view class="detailtit">
+    支付信息
+  </view>
+  <view class="detailtxt">
+    支付方式：微信支付
+  </view>
+  <view class="detailtxt">
+    支付状态：{{(order.step == 2 || order.step == 3 || order.step == 4)?'已支付':'未支付'}}
+  </view>
+  <view class="detailtxt" wx:if="{{order.step == 2 || order.step == 3 || order.step == 4}}">
+    支付时间：{{order.payment.created}}
+  </view>
+</view>
+
+
+<view class="buy-box" bindtap="process" wx:if="{{showButton}}">
+{{tips}}
+</view>

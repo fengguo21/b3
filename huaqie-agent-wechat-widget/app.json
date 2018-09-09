@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/my/my",
+    "pages/study/study",
+    "pages/detail/smallShop/smallShop",
+    "pages/detail/distribution/distribution",
+    "pages/detail/customer/customer",
+    "pages/detail/takeOut/takeOut",
+    "pages/detail/sharedCharge/sharedCharge",
+    "pages/detail/mobilePay/mobilePay",
+    "pages/aboutUs/aboutUI",
+    "pages/studyDetail/studyDetail",
+    "pages/studyDetail2/studyDetail2",
+    "pages/studyDetail3/studyDetail3"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#9470dc",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "产品服务",
+        "iconPath": "images/productt.png",
+        "selectedIconPath": "images/productx.png"
+      },
+      {
+        "pagePath": "pages/study/study",
+        "text": "学习社区",
+        "iconPath": "images/learn.png",
+        "selectedIconPath": "images/learnx.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "合作洽谈",
+        "iconPath": "images/fellow.png",
+        "selectedIconPath": "images/fellowx.png"
+      }
+    ]
+  }
+}

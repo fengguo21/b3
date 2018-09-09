@@ -1,0 +1,49 @@
+<!--pages/home/bookVedio/bookVedio.wxml-->
+<import src="/components/navBack/nav-back" />
+
+<template is="nav-back" />
+<view class="book-vedio">
+  <image class='book-face' wx:if="{{radioOther.avatar}}" src="{{radioOther.avatar}}"></image>
+  <view class="book-name">
+    <text>{{radioOther.title}}</text>
+    <view class="book-author-wrap">
+      <text class="book-author">{{radioOther.author}}</text>
+    </view>
+  </view>
+
+  <view class="operation">
+    <view class="operation-item">
+      <button size="default" plain="true" open-type="share">
+        <image src="/images/vedio-share.png"></image>
+      </button>
+      <text>转发</text>
+    </view>
+    <view data-index="{{radioIndex}}" class="operation-item" bindtap="goBookDetail">
+      <image src="/images/vedio-detail.png"></image>
+      <text>文稿</text>
+    </view>
+    <view class="operation-item" bindtap="navToRecord">
+      <image src="/images/vedio-record.png"></image>
+      <text>评论</text>
+    </view>
+  </view>
+
+  <!-- <view class="option-wrap"> -->
+    <!-- bindtouchstart="moveStart" bindtouchmove="movey" bindtouchend="moveEnd" -->
+    <view class="controllar">
+      <text class="run-time">{{currentTime}}</text>
+      <view class="control-bar">
+        <view bindtouchstart="moveStart" bindtouchmove="movey" bindtouchend="moveEnd" class="control-bar-dot position-y-center" style="left: {{516 * progress}}rpx"></view>
+        <text class="control-bar-run" style="width: {{516 * progress}}rpx"></text>
+      </view>
+      <text class="remain-time">{{remaintime}}</text>
+    </view>
+
+    <view class="controllar-tabs">
+      <image bindtap="prev" class="controllar-tab-prev" src="{{isFirst? '/images/vedio-prev-none.png' : '/images/vedio-prev.png'}}"></image>
+      <image class="controllar-tab-play" src="{{radioStatus ? stopIcon : runIcon}}" bindtap="toggleRadioStatus"></image>
+      <image bindtap="next" class="controllar-tab-next" src="{{isLast?'/images/vedio-next-none.png':'/images/vedio-next.png'}}"></image>
+    </view>
+  <!-- </view> -->
+
+</view>

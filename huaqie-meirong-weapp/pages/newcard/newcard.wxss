@@ -1,0 +1,144 @@
+/* newcard.wxss */
+page{
+  background: #f7f7f7;
+}
+.header image{
+  width:694rpx;
+  height: 192rpx;
+  margin:28rpx;
+}
+.namecontainer1{
+  display: flex;
+  height: 98rpx;
+  text-align: center
+}
+.namecontainer{
+  display: flex;
+  height: 98rpx;
+  border-bottom:1rpx solid #e5e5e5;
+}
+.formcard{
+  height: 554rpx;
+  width:618rpx;
+  border-radius: 20rpx;
+  background: white;
+  margin:12rpx auto;
+  padding-left: 38rpx;
+  padding-right: 38rpx;
+}
+.personalinfo{
+  line-height: 98rpx;
+  font-size: 28rpx;
+  color: #999999;
+  text-align: center
+  
+}
+.name{
+  line-height: 98rpx;
+  color: #333333;
+  font-size: 30rpx;
+  
+  flex: 1
+
+ 
+}
+.phone{
+line-height: 98rpx;
+  color: #333333;
+  font-size: 30rpx;
+  flex: 1
+}
+ .inputname{
+  font-size: 30rpx;
+  color: #ccc;
+  
+  
+  
+}
+.inputphone{
+  font-size: 30rpx;
+  color: #ccc;
+  
+  
+} 
+input{
+  height: 98rpx;
+  flex: 3;
+  width: 100%;
+  text-align: right;
+  color: #666;
+  font-size:30rpx;
+
+  
+}
+
+.ar_book{
+  width:624rpx;
+  height: 90rpx;
+  border-radius: 45rpx;
+  background: #ff8ec6;
+  margin-top: 106rpx;
+  color: white;
+  line-height: 90rpx;
+  text-align: center;
+  vertical-align: middle;
+  border:none
+}
+.dialog{
+  width:462rpx;
+  height: 450rpx;
+  border-radius: 20rpx;
+  background: white;
+   position: absolute;
+  z-index: 100;
+  top:30%;
+  left: 150rpx; 
+  
+}
+.success image{
+  height: 136rpx;
+  width: 136rpx;
+  margin-top: -68rpx;
+  margin-left: 163rpx;
+  margin-bottom: 35rpx;
+}
+.textbox{
+  text-align: center;
+  width: 100%
+}
+.suctext{
+  font-size: 30rpx;
+  color: black;
+  line-height: 1;
+}
+.info{
+  font-size: 26rpx;
+  color: #666666;
+  padding: 0 30rpx;
+  line-height: 40rpx;
+  margin-top:40rpx;
+}
+.surebtn{
+  width:340rpx;
+  height: 82rpx;
+  background: #ff8ec6;
+  border-radius: 41rpx;
+ 
+  font-size: 30rpx;
+  line-height: 82rpx;
+  text-align: center;
+  color:white;
+  margin:0 auto;
+   margin-top: 48rpx;
+  
+}
+.bcgrey{
+  height: 100%;
+  width:100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 5;
+  position: absolute;
+  top:0;
+
+  
+}

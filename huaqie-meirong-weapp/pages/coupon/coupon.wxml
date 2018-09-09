@@ -1,0 +1,143 @@
+<!--coupon.wxml-->
+<view class="container">
+<view class="topfixed">
+
+  <view class="header">
+
+    <view class="num"><text>{{total}}</text></view>
+    <view class='total'>
+      <view class='leftline'>
+        <view class='leftl'></view>
+      </view>
+      <view class='totaltext'>总积分</view>
+      <view class='rightline'>
+        <view class='rightl'></view>
+      </view>
+    </view>
+
+  </view>
+  <view class="info_list">
+    <view class="nav">
+
+
+      <view class="{{line1?'selectline1':''}}"></view>
+      <view class="{{line2?'selectline2':''}}"></view>
+      <view class="{{line3?'selectline3':''}}"></view>
+      <view class="{{line1?'navitemx':'navitem'}}" bindtap="tabs1">
+        <view class='nav1'>
+
+          <view class='n'>{{pre}}</view>
+          <view class='cla'>预约积分</view>
+        </view>
+
+
+      </view>
+
+
+      <view class="{{line2?'navitemx':'navitem'}}" bindtap="tabs2">
+        <view class='nav2'>
+
+          <view class='n'>{{con}}</view>
+          <view class='cla'>服务积分</view>
+        </view>
+      </view>
+
+      <view class="{{line3?'navitemx':'navitem'}}" bindtap="tabs3">
+        <view class='nav3'>
+
+          <view class='n'>{{cre}}</view>
+          <view class='cla'>办卡积分</view>
+
+        </view>
+
+
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<view class="content">
+  <view class='{{prebook.length==0?"gap2":"gap"}}'></view>
+  <scroll-view class="" wx:if='{{line1}}'  scroll-y>
+
+    <block wx:for="{{prebook}}">
+      <view class="cellbox">
+        <view class="weui_cell">
+          <image src="{{item.extra.avatar}}" mode="scaleToFill" class="listimg"></image>
+          <view class="weui_cell_bd">
+            <view class="weui_cell_bd_pt"> {{item.text}} </view>
+            <view class="weui_cell_bd_pb"><text>{{item.created}} </text> </view>
+          </view>
+          <view class="weui_cell_bd2">
+            <view class="  number">+ {{item.score}} </view>
+          </view>
+        </view>
+      </view>
+
+
+    </block>
+    <view class="empty" wx:if="{{prebook.length==0}}">
+      <image src="/images/empty.png"></image>
+      <text>暂无记录</text>
+    </view>
+    <view class="tips" wx:if="{{prebook.length > 0}}">{{tips}}</view>
+
+  </scroll-view>
+
+  <scroll-view wx:if='{{line2}}'  scroll-y>
+    <block wx:for="{{consumeCard}}">
+      <view class="cellbox">
+        <view class="weui_cell">
+          <image src="{{item.extra.avatar}}" mode="scaleToFill" class="listimg"></image>
+          <view class="weui_cell_bd">
+            <view class="weui_cell_bd_pt"> {{item.text}} </view>
+            <view class="weui_cell_bd_pb"><text>{{item.created}} </text> </view>
+          </view>
+          <view class="weui_cell_bd2">
+            <view class="  number">+ {{item.score}} </view>
+          </view>
+        </view>
+      </view>
+
+
+    </block>
+    <view class="empty" wx:if="{{consumeCard.length==0}}">
+      <image src="/images/empty.png"></image>
+      <text>暂无记录</text>
+    </view>
+    <view class="tips" wx:if="{{consumeCard.length > 0}}">{{tips}}</view>
+
+
+  </scroll-view>
+
+
+  <scroll-view class="classname" wx:if='{{line3}}'  scroll-y>
+    <block wx:for="{{creatCard}}">
+      <view class="cellbox">
+        <view class="weui_cell">
+          <image src="{{item.extra.avatar}}" mode="scaleToFill" class="listimg"></image>
+          <view class="weui_cell_bd">
+            <view class="weui_cell_bd_pt"> {{item.text}} </view>
+            <view class="weui_cell_bd_pb"><text>{{item.created}} </text> </view>
+          </view>
+          <view class="weui_cell_bd2">
+            <view class="  number">+ {{item.score}} </view>
+          </view>
+        </view>
+      </view>
+
+
+    </block>
+    <view class="empty" wx:if="{{creatCard.length==0}}">
+      <image src="/images/empty.png"></image>
+      <text>暂无记录</text>
+    </view>
+    <view class="tips" wx:if="{{creatCard.length > 0}}">{{tips}}</view>
+
+  </scroll-view>
+</view>
+
+
+
+</view>

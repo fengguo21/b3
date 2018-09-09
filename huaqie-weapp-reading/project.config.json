@@ -1,0 +1,77 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "1.6.6",
+	"appid": "wxf61b6bf53ca770d5",
+	"projectname": "%E9%9D%92%E6%9D%BE%E7%BC%96%E5%AF%BC",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "开通会员",
+					"pathName": "pages/home/openVip/openVip",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "书本",
+					"pathName": "pages/home/bookMenus/bookMenus",
+					"query": ""
+				},
+				{
+					"id": 2,
+					"name": "文稿",
+					"pathName": "pages/home/bookDetail/bookDetail",
+					"query": "radioIndex=0"
+				},
+				{
+					"id": -1,
+					"name": "myBuy",
+					"pathName": "pages/mine/myBuy/myBuy",
+					"query": ""
+				},
+				{
+					"id": 4,
+					"name": "buyDetail",
+					"pathName": "pages/mine/buyDetail/buyDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "shared",
+					"pathName": "pages/home/shared/shared",
+					"query": "productId=5a2a417cdbb81767f1e7d332&audioIndex=0"
+				},
+				{
+					"id": 6,
+					"name": "内页播放",
+					"pathName": "pages/home/bookVedio/bookVedio",
+					"query": ""
+				},
+				{
+					"id": 7,
+					"name": "vip",
+					"pathName": "pages/home/openVip/openVip",
+					"query": ""
+				}
+			]
+		}
+	}
+}

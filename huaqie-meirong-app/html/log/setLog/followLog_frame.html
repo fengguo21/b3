@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>setlog_frame</title>
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/border.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/position.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/system.css?v=4"/>
+    <link rel="stylesheet" type="text/css" href="../../../css/mrUI.css?v=1"/> 
+    <link rel="stylesheet" type="text/css" href="../../../css/MultiPicker.css?rev=@@hash" /> 
+    <link rel="stylesheet" type="text/css" href="../../../css/setLog.css?rev=1"/>
+    <script type='application/javascript' src='../../../script/fastclick.js'></script> 
+    <script type="text/javascript">
+        if ('addEventListener' in document) {  
+            document.addEventListener('DOMContentLoaded', function() {  
+                FastClick.attach(document.body);  
+            }, false);  
+        }
+    </script>
+    <style type="text/css">
+    	
+    	.server-pic{
+    		padding: 8px 0 0 8px;
+    		width:100%;
+    		position: relative;
+    		height: 145px;
+    	}
+    	.server-pic img{
+    		
+    		height: 95px;
+    		width:95px;
+    		display: inline-block;
+    		
+    		position: absolute;
+    	}
+    	#promotion{
+    		margin:0 5%;
+    		border:1px solid #e5e5e5;
+    		padding: 11px 0 0 11px;
+    		width:90%;
+    		height: 125px;
+    		border-radius: 5px;
+    		font-size: 14px;
+    		color: #666;
+
+    	}
+    	#piclabel{
+    		margin-left:-29px;
+    		font-size: 13px;
+    		color: #808080;
+
+    	}
+    	.imgwrap{
+    		margin:18px 8px;
+    		position:relative;
+    		width:95px;
+    		height:95px;
+    	}
+    	#avatar{
+    		width: 95px;
+    		display:none
+    	}
+    	#delAvatar{
+    		width:17px;
+    		height:17px;
+    		top:-8px;
+    		right:-8px;
+    		display: none
+    	}
+    	#addAvatar{
+    		width: 95px;
+    		z-index:100;
+    		position:absolute
+    	}
+    	
+    </style>
+</head>
+<body>
+	<div class="set-layout" id='add-member'>
+        <ul class="form-content">
+			<div class="add-log">
+				<li class="form-item" style="margin-bottom:-15px;">
+	                <div class="form-item-cell">
+	                    <span class='form-item-cell-label position-y-center' id="piclabel">请上传护理后照片(选填)</span>
+	                </div>
+	            </li>
+				<li class='border-b' style="display:block">
+					<div class="server-pic" >
+						<div class="imgwrap">
+							<img  src="../../../image/beautity.jpg?v=2"  id='avatar'>
+							<img src="../../../image/delImg.png"  id="delAvatar" onclick="delimg()">
+							<img  src="../../../image/addPic.png?v=1"   onclick='chooseImg()' id="addAvatar">
+						</div>
+						
+					</div>
+				</li>
+				<li class="form-item border-b">
+				    <div class="form-item-cell">
+				        <span class='form-item-cell-icon position-y-center'>
+				            <img src="../../../image/nextTime.png?v=1">
+				        </span>
+				        <span class='form-item-cell-label position-y-center'>下次约定护理时间</span>
+				        <span style='right: 18px; width: 100px' class='form-item-cell-other position-y-center'>
+				            <span style="color:#ff3e39"><input style='width: 70%' data-id='next-time' class='other-input' id='next-time' type="text" readonly style="font-size: 15px;color:#ff3e39"></span>
+				            <span>天后</span>
+				        </span>
+				        <span class='form-item-cell-other position-y-center'>
+				            <img class='more' src="../../../image/sys-more.png">
+				        </span>  
+				    </div>
+				</li>
+				<li class="form-item" >
+                    <div class="form-item-cell" >
+                        <span class='form-item-cell-icon position-y-center' >
+                            <img src="../../../image/suggest.png">
+                        </span>
+                        <span class='form-item-cell-label position-y-center'>关怀与意向</span>
+                    </div>
+                </li>
+                <textarea data-id='promotion' type="text" rows='6'  placeholder="请输入关怀与意向" class='other-input' id='promotion'></textarea>
+			</div>
+            <li class="form-item" style='height: 128px'>
+                <div class="form-item-cell">
+                    <div class='form-item-cell-btn' onclick='addLog()'>
+                        <span>确认</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="targetContainer"></div>
+
+    <div id="radio-box">
+    	<div class="radio-bg">
+    		<div class="dialog position-center">
+    			<form id='dialog-form'>
+    				<div class="check-box" id='check-wrap'></div>
+    			</form>
+    			<div class='dialog-btns'>
+					<span id='dialog-cancel'>取消</span>
+					<span id='dialog-checked'>确认</span>
+				</div>
+    		</div>
+    	</div>
+    </div>
+</body>
+<script src="../../../script/axios.min.js"></script>
+<script src="../../../script/template-web.js"></script>
+<script src="../../../script/zepto.min.js"></script>
+<script src="../../../script/store.min.js"></script>
+<script src="../../../script/moment.min.js"></script>
+<script src="../../../script/store.min.js"></script>
+<script src="../../../script/phone.js"></script>
+<script src="../../../script/weight.js"></script>
+<script src="../../../script/MultiPicker.js"></script>
+<script src="../../../fetch/api.js?rev=@@hash"></script>
+<script src="../../../script/setLog.js?v=2"></script>
+<script type="text/javascript">
+	var delimg=function(){
+		$('#delAvatar').hide();
+        $('#avatar').hide();
+        $('#addAvatar').show()
+	}
+	var addLog = function() {
+    // console.log(isFirst);
+    
+    var postData = {
+    	channel:2,
+        peopleId: peopleId,
+        feedId: params.feedId,
+        servicePic: $('#avatar').attr('src'),
+        promotion: $('#promotion').val(),
+        nextTime: $('#next-time').val(),
+       
+    };
+    // if(isFirst) {
+    //     postData =Object.assign(postData, {
+    //     	channel:2,
+	   //      peopleId: peopleId,
+	   //      feedId: params.feedId,
+    //         servicePic: $('#avatar').attr('src'),
+	   //      promotion: $('#promotion').val(),
+	   //      nextTime: $('#next-time').val(),
+    //     }) 
+    // }
+
+    ajax.updateProfile(postData, function(res) {
+        api.toast({
+            msg: '填写成功！',
+        });
+        setTimeout(function() {
+            api.closeWin();
+            api.execScript({
+                name: 'log',
+                frameName: 'log_frame',
+                script: 'getPreBook()',
+            });
+        }, 1000)
+    })
+}
+</script>
+</html>
